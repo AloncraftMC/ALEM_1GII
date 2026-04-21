@@ -1,0 +1,5363 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Para insertar imágenes
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{hyperref} % Enlaces y referencias clicables
+\usepackage{lmodern} % Fuente moderna
+\usepackage{geometry} % Márgenes
+\usepackage{polynom}
+\usepackage[most]{tcolorbox} % Cajitas para ejemplos y procedimientos
+\usepackage{newunicodechar}
+\usepackage{xskak} % Ajedrez
+\newunicodechar{⋆}{\star}
+\geometry{margin=2.5cm}
+
+% ==== Definición de estilos de caja ====
+\tcbset{
+  colback=white,
+  colframe=black!60,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{procedimiento}[1][]{
+  colback=green!5!white,
+  colframe=green!60!black,
+  title=\textbf{Procedimiento},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejemplo}[1][]{
+  colback=blue!5!white,
+  colframe=blue!60!black,
+  title=\textbf{Ejemplo},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejercicio}[1][]{
+  colback=red!5!white,
+  colframe=red!60!black,
+  title=\textbf{Ejercicio},
+  fonttitle=\bfseries,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt,
+  #1
+}
+
+% ==== Documento principal ====
+\title{Álgebra Lineal y Estructuras Matemáticas (ALEM) Ejercicios Resueltos Tema 2}
+\author{Alonso Hernández Robles (Grupo E)}
+\date{29/11/2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Conjuntos}
+
+\begin{ejercicio}[title=Ejercicio 5 (⋆)]
+Sea $A = \{n \in \mathbb{N} : 1 \le n \le 10000 \text{ y } \operatorname{mcd}(8n^3 + 8n^2 - 24n + 1,\, 4n^2 + 6n - 11) \neq 1\}$. Calcule el cardinal de $A$.
+
+\tcblower
+\textbf{Resolución:}
+
+Sea
+\[
+f(n) = 8n^3 + 8n^2 - 24n + 1, \quad g(n) = 4n^2 + 6n - 11.
+\]
+
+Calculamos $\operatorname{mcd}(f(n),g(n))$ usando el algoritmo de Euclides:
+
+\[
+\begin{aligned}
+8n^3 + 8n^2 - 24n + 1\,/\,4n^2 + 6n - 11 &= 2n - 1 \text{ resto } 4n - 10\\
+4n^2 + 6n - 11\,/\,4n - 10 &= n+4 \text{ resto } 29
+\end{aligned}
+\]
+
+Por lo tanto, 29 es un mcd de $f(n)$ y $g(n))$. Como 29 es primo, el $\operatorname{mcd}$ puede ser $1$ o $29$.  
+Como el ejercicio pide que $\operatorname{mcd} \neq 1$, necesariamente:
+\[
+\operatorname{mcd}(f(n),g(n)) = 29.
+\]
+
+Esto se traduce a la condición:
+\[
+29 \mid (4n - 10) \quad \Longrightarrow \quad 4n - 10 \equiv 0 \pmod{29} \quad \Longrightarrow \quad 4n \equiv 10 \pmod{29}.
+\]
+
+Como $\operatorname{mcd}(4,29) = 1$ y $1\mid10$, la congruencia tiene solución. Usando el algoritmo de Euclides extendido:
+
+\[
+\begin{aligned}
+29/4 &= 7 \text{ resto } \boxed{1}
+\end{aligned}
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 4 & - & 0 & 1 \\
+1 & \boxed{1} & 7 & 1 & -7
+\end{array}
+\]
+
+$u = -7 \equiv 22 \pmod{29}$.  
+Por tanto, la solución general es:
+
+\[
+n = 10 \cdot 22 + 29k = 220 + 29k, \quad k \in \mathbb{Z} \quad \Longrightarrow \quad n = 17 + 29k, \, k \in \mathbb{Z}.
+\]
+
+Imponiendo la restricción $1 \le n \le 10000$:
+
+\[
+1 \le 17 + 29k \le 10000 \implies 0 \le k \le 344.
+\]
+
+Por lo tanto, el cardinal de $A$ es:
+
+\[
+|A| = 344 - 0 + 1 = \boxed{345}
+\]
+
+\end{ejercicio}
+
+\subsection{Principio de la suma}
+
+\begin{ejercicio}[title=Ejercicio 4]
+Determine cuántos números naturales $n$ verifican que $1 \le n \le 1000$ y el resto de dividir $n$ entre $19$ es $1$ o $18$.
+
+\tcblower
+\textbf{Resolución:}
+
+Analizamos cada condición módulo 19 por separado:
+
+\begin{itemize}
+\item Si $n \equiv 1 \pmod{19}$, entonces
+\[
+n = 1 + 19k, \quad k \in \mathbb{N}_0
+\]
+y debemos cumplir $1 \le 1 + 19k \le 1000$.  
+Restando 1 y dividiendo entre 19:
+\[
+0 \le k \le \frac{999}{19} \implies 0 \le k \le 52.
+\]  
+Esto da $52 - 0 + 1 = 53$ valores posibles.
+
+\item Si $n \equiv 18 \pmod{19}$, entonces
+\[
+n = 18 + 19k', \quad k' \in \mathbb{N}_0
+\]
+y debemos cumplir $1 \le 18 + 19k' \le 1000$.  
+Restando 18 y dividiendo entre 19:
+\[
+0 \le k' \le \frac{982}{19} \implies 0 \le k' \le 51.
+\]  
+Esto da $51 - 0 + 1 = 52$ valores posibles.
+\end{itemize}
+
+Observamos que los dos conjuntos de soluciones son disjuntos, porque
+\[
+1 + 19k \neq 18 + 19k' \quad \text{para todo } k,k' \in \mathbb{N}_0,
+\] 
+ya que $1 \neq 18 \pmod{19}$.  
+Por tanto, al calcular el número total de soluciones estamos usando el \textbf{principio de la suma}: el cardinal de la unión de dos conjuntos disjuntos es la suma de los cardinales de cada uno.
+
+\[
+53 + 52 = \boxed{105 \text{ valores.}}
+\]
+
+\end{ejercicio}
+
+\subsection{Principio del producto}
+
+\begin{ejercicio}[title=Ejercicio 1]
+Si $A = \{1,2,3,4,5,6\}$ y $B=\{3,4,5,6,7,8,9\}$, calcule el cardinal de cada uno de los conjuntos siguientes, sin construir explícitamente cada uno de ellos:
+
+\vspace{0.5em}
+\begin{tabular}{cccccc}
+$\mathcal{P}(A),$ &
+$\mathcal{P}(\mathcal{P}(B)),$ &
+$\mathcal{P}(A) \times \mathcal{P}(B),$ &
+$\mathcal{P}(A \times B),$ &
+$\mathcal{P}(A) \cap \mathcal{P}(B),$ &
+$\mathcal{P}(A) \cup \mathcal{P}(B)$
+\end{tabular}
+
+\tcblower
+\textbf{Resolución:}
+
+Sabemos que el número de elementos de un conjunto potencia viene dado por  
+\[
+|\mathcal{P}(X)| = 2^{|X|}.
+\]
+
+Dado que $|A| = 6$ y $|B| = 7$, tenemos:
+
+\[
+|\mathcal{P}(A)| = 2^{6} = 64, \quad
+|\mathcal{P}(B)| = 2^{7} = 128.
+\]
+
+\begin{itemize}
+\item $|\mathcal{P}(A)| = \boxed{64}$
+
+\item $|\mathcal{P}(\mathcal{P}(B))| = 2^{|\mathcal{P}(B)|} = \boxed{2^{128}}$
+
+\item $|\mathcal{P}(A) \times \mathcal{P}(B)| = |\mathcal{P}(A)| \cdot |\mathcal{P}(B)| = 2^6 \cdot 2^7 = \boxed{2^{13}}$
+
+\item $|\mathcal{P}(A \times B)| = 2^{|A \times B|} = 2^{6 \cdot 7} = \boxed{2^{42}}$
+
+\item Para $\mathcal{P}(A) \cap \mathcal{P}(B)$, un subconjunto pertenece a ambos si es subconjunto común de $A$ y $B$, es decir,  
+\[
+\mathcal{P}(A) \cap \mathcal{P}(B) = \mathcal{P}(A \cap B).
+\]
+Como $A \cap B = \{3,4,5,6\}$, entonces $|A \cap B| = 4$, por tanto  
+\[
+|\mathcal{P}(A) \cap \mathcal{P}(B)| = 2^{4} = \boxed{16}
+\]
+
+\item Para $\mathcal{P}(A) \cup \mathcal{P}(B)$, los subconjuntos pertenecen al conjunto potencia de $A$ o de $B$, por lo que  
+\[
+\mathcal{P}(A) \cup \mathcal{P}(B) = \mathcal{P}(A \cup B).
+\]
+Como $A \cup B = \{1,2,3,4,5,6,7,8,9\}$, entonces $|A \cup B| = 9$, y  
+\[
+|\mathcal{P}(A) \cup \mathcal{P}(B)| = 2^{9} = \boxed{512}
+\]
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 6]
+Sea $n$ un número natural mayor que $1$ y sea $n = p_1^{e_1} \cdot p_2^{e_2} \cdots p_r^{e_r}$ la factorización de $n$ como producto de potencias de primos distintos. ¿Cuántos números naturales dividen a $n$?
+
+\tcblower
+\textbf{Resolución:}
+
+Antes de combinar los resultados, vamos poco a poco. Como el ejercicio dice números naturales, sólo consideraremos los divisores positivos.
+
+\begin{itemize}
+\item Cuántos números dividen a un primo $p$?  
+Solo $1$ y $p$, es decir, $2$ divisores.
+
+\item Cuántos números dividen a $p^2$?  
+Son $1, p, p^2$, es decir, $3$ divisores.
+
+\item De manera general, cuántos números dividen a $p^{e_i}$?  
+Son $1,p,p^2,\dots,p^{e_i}$, por lo que hay $e_i + 1$ divisores.
+
+\item Ahora, para fusionar cada potencia de primo, veamos un ejemplo:
+
+¿Cuántos números dividen a $2^7 \cdot 3^{14}$?  
+\begin{itemize}
+\item Los divisores de $2^7$ son $1, 2, 2^2, \dots, 2^7$ → $7+1 = 8$ números. 
+\item Los divisores de $3^{14}$ son $1, 3, 3^2, \dots, 3^{14}$ → $14+1 = 15$ números.
+\end{itemize}
+
+Visto de otro modo, cada divisor de $2^7 \cdot 3^{14}$ se puede escribir como 
+\[
+d = 2^i \cdot 3^j, \quad i \in \{0,\dots,7\}, \, j \in \{0,\dots,14\}.
+\]  
+Sea como sea, el número total de divisores es $8 \cdot 15$ (\textbf{Principio del producto}).
+
+\item Generalizando, para $n = p_1^{e_1} \cdot \dots \cdot p_r^{e_r}$ con $r$ primos distintos, el número de divisores es entonces el producto del número de divisores de cada primo $(e_i+1)$:
+\[
+\boxed{(e_1 + 1) (e_2 + 1) \cdots (e_r + 1)}.
+\]
+
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 7]
+Sea el número $n = 109734912$. ¿Cuántos números naturales dividen a $n$? ¿Cuántos de dichos divisores son además múltiplos de $576$?
+
+\tcblower
+\textbf{Resolución:}
+
+Primero, factorizamos $n$ en primos:
+
+\[
+n = 109734912 = 2^{10} \cdot 3^7 \cdot 7^2.
+\]
+
+Por la fórmula del ejercicio 6, el número de divisores positivos de $n$ es:
+
+\[
+(10+1)(7+1)(2+1) = 11 \cdot 8 \cdot 3 = \boxed{264} \text{ divisores naturales}.
+\]
+
+Para determinar cuántos divisores son además múltiplos de $576$, factorizamos $576$:
+\[
+576 = 2^6 \cdot 3^2 \cdot 7^0.
+\]
+
+Razonando al igual que en el ejercicio 6, sabemos que los divisores de $n$ tienen la forma:
+\[
+2^i \cdot 3^j \cdot 7^k, \quad 0 \le i \le 10, \, 0 \le j \le 7, \, 0 \le k \le 2.
+\]
+
+\vspace{0.5em}
+
+De la misma forma, los múltiplos de $576 = 2^6 \cdot 3^2 \cdot 7^0$, son de la forma:
+\[
+2^i \cdot 3^j \cdot 7^k, \quad i \ge 6, \quad j \ge 2, \quad k \ge 0.
+\]
+
+Superponiendo estas restricciones con los exponentes máximos de $n$, los divisores que además son múltiplos de $576$ son de la forma:
+
+\[
+2^i \cdot 3^j \cdot 7^k, \quad 6 \le i \le 10, \quad 2 \le j \le 7, \quad 0 \le k \le 2.
+\]
+
+Contamos las posibilidades:
+
+\[
+i\text{: \,} 10 - 6 + 1 = 5, \quad j\text{: \,} 7 - 2 + 1 = 6, \quad k\text{: \,} 2 - 0 + 1 = 3.
+\]
+
+Por el \textbf{principio del producto}:
+
+\[
+5 \cdot 6 \cdot 3 = 90 \text{ posibilidades}
+\]
+
+Por lo tanto, hay \(\boxed{90}\) números naturales que dividen a $n$ y además son múltiplos de $576$.
+
+\end{ejercicio}
+
+\subsection{Parte entera de un número $x \in \mathbb{R}$ y principios de inclusión-exclusión y del complementario}
+
+\begin{ejercicio}[title=Ejercicio 9]
+Sea el conjunto 
+\[
+A = \{x \in \mathbb{N} : 1 \le x \le 2000\}.
+\] 
+Calcule:
+
+\begin{enumerate}
+\item[a)] Cuántos elementos de $A$ son múltiplos de 8.
+\item[b)] Cuántos elementos de $A$ son múltiplos de 8 y de 10.
+\item[c)] Cuántos elementos de $A$ son múltiplos de 8 o de 10.
+\item[d)] Cuántos elementos de $A$ no son múltiplos de 8 ni de 10.
+\item[e)] Cuántos elementos de $A$ son múltiplos de 8 pero no de 10.
+\item[f)] Cuántos elementos de $A$ son múltiplos de 10 pero no de 8.
+\item[g)] Cuántos elementos de $A$ son múltiplos de al menos uno de los números 4, 5 y 6.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\begin{enumerate}
+\item[a)] 
+Los múltiplos de 8 desde 1 hasta 2000 se calculan como la parte entera del cociente:
+\[
+A_8 = \left\lfloor \frac{2000}{8} \right\rfloor = \boxed{250}.
+\]
+
+\item[b)] Sea $x \in A$. Entonces:
+\begin{itemize}
+    \item $x$ es múltiplo de 8 $\rightarrow 8 \mid x$
+    \item $x$ es múltiplo de 10 $\rightarrow 10 \mid x$
+\end{itemize}
+Entonces, $\operatorname{mcm}(8,10) \mid x \rightarrow 40 \mid x$. Por lo tanto serán los elementos de A múltiplos de 40:
+
+\[
+\left\lfloor \frac{2000}{40} \right\rfloor = \boxed{50}.
+\]
+
+\item[c)]
+Sea 
+\[
+A_8 = \{x \in A : 8 \mid x\}, \quad A_{10} = \{x \in A : 10 \mid x\}.
+\]  
+Como $A_8$ y $A_{10}$ no son disjuntos, no podemos aplicar el principio de la suma. Entonces aplicamos el \textbf{principio de inclusión-exclusión}:
+
+\[
+|A_8 \cup A_{10}| = |A_8| + |A_{10}| - |A_8 \cap A_{10}| =
+\]
+
+\[
+\left\lfloor \frac{2000}{8} \right\rfloor + \left\lfloor \frac{2000}{10} \right\rfloor - \left\lfloor \frac{2000}{40} \right\rfloor = 250 + 200 - 50 = \boxed{400}.
+\]
+
+\end{enumerate}
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 9]
+
+\begin{enumerate}
+
+\item[d)]
+Queremos el número de elementos que no son múltiplos de 8 ni de 10.
+Esto es el conjunto $\{x \in A: 8 \nmid x,\, 10 \nmid x\}$.
+Por el \textbf{principio del complementario}:
+
+\[
+|\overline{A_8} \cap \overline{A_{10}}| = |\overline{A_8 \cup A_{10}}| = |A| - |A_8 \cup A_{10}| = 2000 - 400 = \boxed{1600}.
+\]
+
+\item[e)]
+Queremos los elementos que son múltiplos de 8 pero \emph{no} de 10, es decir:
+
+\[
+|A_8 \cap \overline{A_{10}}| = |A_8 \setminus A_{10}| = |A_8| - |A_8 \cap A_{10}| = 250 - 50 = \boxed{200}.
+\]
+
+\item[f)]
+De manera análoga, los elementos que son múltiplos de 10 pero \emph{no} de 8 son:
+
+\[
+|A_{10} \cap \overline{A_8}| = |A_{10} \setminus A_8| = |A_{10}| - |A_8 \cap A_{10}| = 200 - 50 = \boxed{150}.
+\]
+
+\item[g)]
+Sea 
+\[
+A_4 = \{x \in A : 4 \mid x\}, \quad 
+A_5 = \{x \in A : 5 \mid x\}, \quad 
+A_6 = \{x \in A : 6 \mid x\}.
+\]  
+Aplicamos el \textbf{principio de inclusión-exclusión} para tres conjuntos:
+\[
+|A_4 \cup A_5 \cup A_6| = |A_4| + |A_5| + |A_6| - |A_4 \cap A_5| - |A_4 \cap A_6| - |A_5 \cap A_6| + |A_4 \cap A_5 \cap A_6|.
+\]
+
+Calculamos cada término:
+
+\[
+|A_4| = \left\lfloor \frac{2000}{4} \right\rfloor = 500, \quad
+|A_5| = \left\lfloor \frac{2000}{5} \right\rfloor = 400, \quad
+|A_6| = \left\lfloor \frac{2000}{6} \right\rfloor = 333.
+\]
+
+\[
+|A_4 \cap A_5| = \left\lfloor \frac{2000}{\operatorname{mcm}(4,5)} \right\rfloor = \left\lfloor \frac{2000}{20} \right\rfloor = 100,
+\]
+
+\[
+|A_4 \cap A_6| = \left\lfloor \frac{2000}{\operatorname{mcm}(4,6)} \right\rfloor = \left\lfloor \frac{2000}{12} \right\rfloor = 166,
+\]
+
+\[
+|A_5 \cap A_6| = \left\lfloor \frac{2000}{\operatorname{mcm}(5,6)} \right\rfloor = \left\lfloor \frac{2000}{30} \right\rfloor = 66,
+\]
+
+\[
+|A_4 \cap A_5 \cap A_6| = \left\lfloor \frac{2000}{\operatorname{mcm}(4,5,6)} \right\rfloor = \left\lfloor \frac{2000}{60} \right\rfloor = 33.
+\]
+
+Sumando y restando según la fórmula:
+
+\[
+500 + 400 + 333 - 100 - 166 - 66 + 33 = \boxed{934}.
+\]
+
+\end{enumerate}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 10]
+En cada apartado calcule el número de elementos invertibles en el anillo $\mathbb{Z}_2[x]_{m(x)}$, donde:
+
+\begin{enumerate}
+\item[a)] $m(x) = x^{10}$.
+\item[b)] $m(x) = (x^2 + x + 1)^5$.
+\item[c)] $m(x) = (x + 1)^4 \cdot (x^2 + x + 1)^3$.
+\item[d)] $m(x) = (x + 1)^4 \cdot (x^3 + x + 1) \cdot (x^3 + x^2 + 1)$.
+\item[e)] $m(x) = x \cdot (x^2 + x + 1)^3 \cdot (x^3 + x + 1)$.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)} \quad $m(x)=x^{10}$. \\
+
+Queremos contar cuántos elementos de $A=\mathbb{Z}_2[x]_{x^{10}}$ son unidades.
+
+\vspace{0.5em}
+
+Recordatorio y estrategia:
+\begin{itemize}
+\item En el anillo \(A\) la clase \([f(x)]\) es unidad si y sólo si \(\operatorname{mcd}(f(x),m(x))=1\).
+\item Por tanto \([f(x)]\) \emph{no} es unidad \(\Longleftrightarrow\) \(\operatorname{mcd}(f(x),m(x))\neq 1\).
+\item Usaremos el \textbf{principio del complementario}: contaremos primero los que no son unidades y los restaremos del total.
+\item El total se obtiene por la fórmula del número de elementos del anillo cociente: como \(\operatorname{grado}(m(x))=10\) y estamos en \(\mathbb{Z}_2\), \(|A|=2^{10}\).
+\end{itemize}
+
+Observaciones sobre el factor:
+\begin{itemize}
+\item En \(\mathbb{Z}_2[x]\) el polinomio \(x\) es irreducible. Por tanto
+\[
+\operatorname{mcd}(f(x),m(x))\neq 1 \quad\Longleftrightarrow\quad x\mid f(x).
+\]
+\end{itemize}
+
+Condición sobre los grados:
+Trabajamos con elementos \(f(x)\) con \(\operatorname{grado}(f(x))\le 9\) (grado menor que \(\operatorname{grado}(m(x))=10\)).
+
+\vspace{0.5em}
+
+Cálculo de polinomios no unidades:
+
+\[
+\begin{aligned}
+&\left|\{\,f(x):\ \operatorname{grado}(f(x))\le 9,\ x\mid f(x)\,\}\right| \\
+=\quad&\left|\{\,f(x)=x\,g(x):\ \operatorname{grado}(g(x))\le 8\,\}\right| \\
+=\quad&2^{9}.
+\end{aligned}
+\]
+
+Por el \textbf{principio del complementario}, el número de unidades es
+
+\[
+|A| - 2^{9} = 2^{10} - 2^{9} = \boxed{512}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 10]
+
+\textbf{b)} \quad $m(x)=(x^2+x+1)^5$. \\
+
+Queremos contar cuántos elementos de 
+\[
+A=\mathbb{Z}_2[x]_{m(x)}\quad\text{con }m(x)=(x^2+x+1)^5
+\]
+son unidades.
+
+\vspace{0.5em}
+
+Recordatorio y estrategia:
+\begin{itemize}
+\item En el anillo \(A\) la clase \([f(x)]\) es unidad si y sólo si \(\operatorname{mcd}(f(x),m(x))=1\).
+\item Por tanto \([f(x)]\) \emph{no} es unidad \(\Longleftrightarrow\) \(\operatorname{mcd}(f(x),m(x))\neq 1\).
+\item Usaremos el \textbf{principio del complementario}: contaremos primero los que no son unidades y los restaremos del total.
+\item El total se obtiene por la fórmula del número de elementos del anillo cociente: como \(\operatorname{grado}(m(x))=2\cdot 5=10\) y estamos en \(\mathbb{Z}_2\), \(|A|=2^{10}\).
+\end{itemize}
+
+Observaciones sobre el factor:
+\begin{itemize}
+\item En \(\mathbb{Z}_2[x]\) el polinomio \(x^2+x+1\) es irreducible (no tiene raíces en \(\mathbb{Z}_2\)). Por tanto
+\[
+\operatorname{mcd}(f(x),m(x))\neq 1 \quad\Longleftrightarrow\quad x^2+x+1\mid f(x).
+\]
+\end{itemize}
+
+Condición sobre los grados:
+Trabajamos con elementos \(f(x)\) con \(\operatorname{grado}(f(x))\le 9\) (grado menor que \(\operatorname{grado}(m(x))=10\)).
+
+\vspace{0.5em}
+
+Cálculo de polinomios no unidades:
+
+\[
+\begin{aligned}
+&\left|\{\,f(x):\ \operatorname{grado}(f(x))\le 9,\ x^2+x+1\mid f(x)\,\}\right| \\
+=\quad&\left|\{\,f(x)=(x^2+x+1)\,g(x):\ \operatorname{grado}(g(x))\le 7\,\}\right| \\
+=\quad&2^{8}.
+\end{aligned}
+\]
+
+Por el \textbf{principio del complementario}, el número de unidades es
+
+\[
+|A| - 2^{8} = 2^{10} - 2^{8} = \boxed{768}.
+\]
+
+\vspace{0.5em}
+
+\textbf{c)} \quad $m(x) = (x+1)^4(x^2+x+1)^3$. \\
+
+Queremos contar cuántos elementos de  \(A=\mathbb{Z}_2[x]_{m(x)}\) son unidades cuando $m(x) = (x+1)^4(x^2+x+1)^3$.
+
+\vspace{0.5em}
+
+Recordatorio y estrategia:
+\begin{itemize}
+\item En el anillo \(A=\mathbb{Z}_2[x]_{m(x)}\) la clase \([f(x)]\) es unidad si y solo si \(\operatorname{mcd}(f(x),m(x))=1\).
+\item Por tanto \([f(x)]\) \emph{no} es unidad \(\Longleftrightarrow\) \(\operatorname{mcd}(f(x),m(x))\neq 1\).
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 10]
+\begin{itemize}
+\item Usaremos el \textbf{principio del complementario}: contaremos primero los que \emph{no} son unidades y los restaremos del total \(2^{10}\).
+\item El total se ha calculado con la fórmula del número de elementos de un anillo de polinomios $A = \mathbb{Z}_p[x]_{m(x)}$. Como $p = 2$ y $\operatorname{grado}(m(x)) = 10$, $|A| = 2^{10}$.
+\item Además usaremos el \textbf{principio de inclusión-exclusión} porque “ser múltiplo de \(x+1\)” y “ser múltiplo de \(x^2+x+1\)” no son eventos disjuntos en general.
+\end{itemize}
+
+Observaciones sobre los factores:
+\begin{itemize}
+\item En \(\mathbb{Z}_2[x]\) los polinomios \(x+1\) y \(x^2+x+1\) son irreducibles ( \(x+1\) es lineal; \(x^2+x+1\) no tiene raíces en \(\mathbb{Z}_2\) ).
+\item Por tanto \(\operatorname{mcd}(f(x),m(x))\neq 1\) si y sólo si $x+1 \mid f(x)$ o $x^2+x+1 \mid f(x)$.
+\end{itemize}
+
+Condición sobre los grados:
+En el anillo cociente consideramos elementos \(f(x)\) con \(\operatorname{grado}(f(x))\le 9\) (grado menor que \(\operatorname{grado}(m(x))=10\)).
+
+\vspace{0.5em}
+
+Cálculo de polinomios no unidades:
+
+\[
+\begin{aligned}
+\text{1) } &|\{f(x): \operatorname{grado}(f(x))\le9,\; x+1\mid f(x)\}|
+    \\[6pt]
+    &f(x)=(x+1)g(x),\ \operatorname{grado}(g(x))\le 8
+    \ \Rightarrow\ 2^{9}.\\[6pt]
+\text{2) } &|\{f(x): \operatorname{grado}(f(x))\le9,\; x^2+x+1\mid f(x)\}|
+    \\[6pt]
+    & f(x)=(x^2+x+1)g(x),\ \operatorname{grado}(g(x))\le 7
+    \ \Rightarrow\ 2^{8}.\\[6pt]
+\text{3) } &|\{f(x): \operatorname{grado}(f(x))\le9,\; (x+1)(x^2+x+1)\mid f(x)\}|
+    \\[6pt]
+    & f(x)=(x+1)(x^2+x+1)g(x),\ \operatorname{grado}(g(x))\le 6
+    \ \Rightarrow\ 2^{7}.
+\end{aligned}
+\]
+
+Aplicando \textbf{inclusión–exclusión}, el número de elementos que \emph{no} son unidades es
+\[
+2^{9} + 2^{8} - 2^{7}.
+\]
+
+Por el \textbf{principio del complementario}, el número de unidades es
+\[
+2^{10} - \big(2^{9} + 2^{8} - 2^{7}\big) = \boxed{384}.
+\]
+
+\textbf{d)} \quad $m(x)=(x+1)^4 (x^3+x+1)(x^3+x^2+1)$. \\
+
+\textbf{Resolución:}
+
+Queremos contar cuántos elementos de 
+\[
+A=\mathbb{Z}_2[x]_{m(x)}\quad\text{con }m(x)=(x+1)^4 (x^3+x+1)(x^3+x^2+1)
+\]
+son unidades.
+
+\vspace{0.5em}
+
+Recordatorio y estrategia:
+\begin{itemize}
+\item En el anillo \(A\) la clase \([f(x)]\) es unidad si y sólo si \(\operatorname{mcd}(f(x),m(x))=1\).
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 10]
+\begin{itemize}
+\item Por tanto \([f(x)]\) \emph{no} es unidad \(\Longleftrightarrow\) \(\operatorname{mcd}(f(x),m(x))\neq 1\).
+\item Usaremos el \textbf{principio del complementario}: contaremos primero los que no son unidades y los restaremos del total.
+\item El total se obtiene por la fórmula del número de elementos del anillo cociente: como \(\operatorname{grado}(m(x))=4\cdot1+3+3=10\) y estamos en \(\mathbb{Z}_2\), \(|A|=2^{10}=1024\).
+\end{itemize}
+
+Observaciones sobre los factores:
+\begin{itemize}
+\item En \(\mathbb{Z}_2[x]\) los polinomios \(x+1,\; x^3+x+1,\; x^3+x^2+1\) son irreducibles (el primero es lineal; los dos cúbicos son los irreducibles de grado \(3\) sobre \(\mathbb{Z}_2\)).  
+\item Por tanto \(\operatorname{mcd}(f(x),m(x))\neq 1\) si y sólo si \(x+1\mid f(x)\) o \(x^3+x+1\mid f(x)\) o \(x^3+x^2+1\mid f(x)\).
+\end{itemize}
+
+Condición sobre los grados:
+Trabajamos con elementos \(f(x)\) con \(\operatorname{grado}(f(x))\le 9\) (grado menor que \(\operatorname{grado}(m(x))=10\)).
+
+\vspace{0.5em}
+
+Cálculo de polinomios que NO son unidades (por cada condición):
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ \operatorname{grado}(f(x))\le 9,\ x+1\mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x+1)g(x):\ \operatorname{grado}(g(x))\le 8\}\right|
+= 2^{9}=512,
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ \operatorname{grado}(f(x))\le 9,\ x^3+x+1\mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x^3+x+1)g(x):\ \operatorname{grado}(g(x))\le 6\}\right|
+= 2^{7}=128,
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ \operatorname{grado}(f(x))\le 9,\ x^3+x^2+1\mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x^3+x^2+1)g(x):\ \operatorname{grado}(g(x))\le 6\}\right|
+= 2^{7}=128.
+\end{aligned}
+\]
+
+% ---------------------------------------------------------
+% Intersecciones
+% ---------------------------------------------------------
+
+\[
+\text{Intersecciones (productos de factores, los grados suman):}
+\]
+\[
+\begin{aligned}
+&\left|\{f(x):\ x+1 \text{ y } x^3+x+1 \mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x+1)(x^3+x+1)g(x):\ \operatorname{grado}(g(x))\le 5\}\right|
+= 2^{6}=64,
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ x+1 \text{ y } x^3+x^2+1 \mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x+1)(x^3+x^2+1)g(x):\ \operatorname{grado}(g(x))\le 5\}\right|
+= 2^{6}=64,
+\end{aligned}
+\]
+\[
+\begin{aligned}
+&\left|\{f(x):\ x^3+x+1 \text{ y } x^3+x^2+1 \mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x^3+x+1)(x^3+x^2+1)g(x):\ \operatorname{grado}(g(x))\le 3\}\right|
+= 2^{4}=16.
+\end{aligned}
+\]
+
+% ---------------------------------------------------------
+% Triple intersección
+% ---------------------------------------------------------
+
+\[
+\text{Intersección de los tres factores:}
+\]
+\[
+\begin{aligned}
+&\left|\{f(x):\ (x+1),\ x^3+x+1 \text{ y } x^3+x^2+1 \mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x+1)(x^3+x+1)(x^3+x^2+1)g(x):\ \operatorname{grado}(g(x))\le 2\}\right|
+= 2^{3}=8.
+\end{aligned}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 10]
+
+Aplicando el \textbf{principio de inclusión–exclusión}, el número de elementos que \emph{no} son unidades es
+\[
+512 + 128 + 128 \;-\; (64 + 64 + 16) \;+\; 8 \;=\; 632.
+\]
+
+Por el \textbf{principio del complementario}, el número de unidades es
+
+\[
+2^{10} - 632 = 1024 - 632 = \boxed{392}.
+\]
+
+\vspace{0.5em}
+
+\textbf{e)} \quad $m(x)=x\,(x^2+x+1)^3 (x^3+x+1)$. \\
+
+\textbf{Resolución:}
+
+Queremos contar cuántos elementos de 
+\[
+A=\mathbb{Z}_2[x]_{m(x)}\quad\text{con }m(x)=x\,(x^2+x+1)^3 (x^3+x+1)
+\]
+son unidades.
+
+\vspace{0.5em}
+
+Recordatorio y estrategia:
+\begin{itemize}
+\item En el anillo \(A\) la clase \([f(x)]\) es unidad si y sólo si \(\operatorname{mcd}(f(x),m(x))=1\).
+\item Por tanto \([f(x)]\) \emph{no} es unidad \(\Longleftrightarrow\) \(\operatorname{mcd}(f(x),m(x))\neq 1\).
+\item Usaremos el \textbf{principio del complementario}: contaremos primero los que no son unidades y los restaremos del total.
+\item El total se obtiene por la fórmula del número de elementos del anillo cociente: como 
+\(\operatorname{grado}(m(x))=1 + 2\cdot 3 + 3 = 10\) y estamos en \(\mathbb{Z}_2\), \(|A|=2^{10}=1024\).
+\end{itemize}
+
+Observaciones sobre los factores:
+\begin{itemize}
+\item En \(\mathbb{Z}_2[x]\) los polinomios \(x,\; x^2+x+1,\; x^3+x+1\) son irreducibles.  
+\item Por tanto \(\operatorname{mcd}(f(x),m(x))\neq 1\) si y sólo si \(x\mid f(x)\) o \(x^2+x+1\mid f(x)\) o \(x^3+x+1\mid f(x)\).
+\end{itemize}
+
+Condición sobre los grados:
+Trabajamos con elementos \(f(x)\) con \(\operatorname{grado}(f(x))\le 9\) (grado menor que \(\operatorname{grado}(m(x))=10\)).
+
+\vspace{0.5em}
+
+Cálculo de polinomios que NO son unidades (por cada condición):
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ \operatorname{grado}(f(x))\le 9,\ x\mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=x\,g(x):\ \operatorname{grado}(g(x))\le 8\}\right|
+= 2^{9}=512,
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ \operatorname{grado}(f(x))\le 9,\ x^2+x+1\mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x^2+x+1)g(x):\ \operatorname{grado}(g(x))\le 7\}\right|
+= 2^{8}=256,
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ \operatorname{grado}(f(x))\le 9,\ x^3+x+1\mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x^3+x+1)g(x):\ \operatorname{grado}(g(x))\le 6\}\right|
+= 2^{7}=128.
+\end{aligned}
+\]
+
+% ---------------------------------------------------------
+% Intersecciones
+% ---------------------------------------------------------
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 10]
+
+\[
+\text{Intersecciones (productos de factores, los grados suman):}
+\]
+\[
+\begin{aligned}
+&\left|\{f(x):\ x \text{ y } x^2+x+1 \mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=x(x^2+x+1)g(x):\ \operatorname{grado}(g(x))\le 6\}\right|
+= 2^{7}=128,
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ x \text{ y } x^3+x+1 \mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=x(x^3+x+1)g(x):\ \operatorname{grado}(g(x))\le 5\}\right|
+= 2^{6}=64,
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+&\left|\{f(x):\ x^2+x+1 \text{ y } x^3+x+1 \mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=(x^2+x+1)(x^3+x+1)g(x):\ \operatorname{grado}(g(x))\le 4\}\right|
+= 2^{5}=32.
+\end{aligned}
+\]
+
+% ---------------------------------------------------------
+% Triple intersección
+% ---------------------------------------------------------
+
+\[
+\text{Intersección de los tres factores:}
+\]
+\[
+\begin{aligned}
+&\left|\{f(x):\ x,\ x^2+x+1 \text{ y } x^3+x+1 \mid f(x)\}\right|
+\\[4pt]
+&\qquad=\left|\{f(x)=x(x^2+x+1)(x^3+x+1)g(x):\ \operatorname{grado}(g(x))\le 3\}\right|
+= 2^{4}=16.
+\end{aligned}
+\]
+
+% ---------------------------------------------------------
+% Inclusión-exclusión y resultado
+% ---------------------------------------------------------
+
+Aplicando el \textbf{principio de inclusión–exclusión}, el número de elementos que \emph{no} son unidades es
+\[
+512 + 256 + 128 \;-\; (128 + 64 + 32) \;+\; 16 \;=\; 688.
+\]
+
+Por el \textbf{principio del complementario}, el número de unidades es
+
+\[
+2^{10} - 688 = 1024 - 688 = \boxed{336}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 13]
+En un curso de programación de ordenadores hay matriculados 73 alumnos, de los cuales 52 saben programar en el lenguaje C, 25 saben programar en Pascal, 20 en Fortran, 17 en C y en Pascal, 12 en C y en Fortran, 7 en Pascal y en Fortran, y sólo hay un alumno que sabe programar en C, Pascal y Fortran. ¿Hay algún alumno que no sepa programar en ninguno de los tres lenguajes?
+
+\tcblower
+\textbf{Resolución:}
+
+Sea $A$ el conjunto de todos los alumnos del curso, con $|A|=73$. Denotamos:
+\[
+|A_C|=52,\qquad |A_P|=25,\qquad |A_F|=20,
+\]
+\[
+|A_C \cap A_P| = 17,\qquad |A_C \cap A_F|=12,\qquad |A_P \cap A_F|=7,
+\]
+\[
+|A_C \cap A_P \cap A_F| = 1.
+\]
+
+Queremos saber cuántos alumnos \emph{no} saben ninguno de los tres lenguajes.  
+Usamos el \textbf{principio del complementario}: primero calculamos cuántos saben \emph{al menos uno} de los lenguajes, es decir: o bien C, o bien Pascal, o bien Fortran:
+\[
+A_C \cup A_P \cup A_F.
+\]
+
+Para ello aplicamos el \textbf{principio de inclusión–exclusión} para tres conjuntos:
+\[
+\begin{aligned}
+|A_C \cup A_P \cup A_F|
+&= |A_C| + |A_P| + |A_F|
+\\[2pt]
+&\quad - |A_C \cap A_P| - |A_C \cap A_F| - |A_P \cap A_F|
+\\[2pt]
+&\quad + |A_C \cap A_P \cap A_F|.
+\end{aligned}
+\]
+
+Sustituyendo:
+\[
+|A_C \cup A_P \cup A_F|
+= 52 + 25 + 20 - 17 - 12 - 7 + 1 = 62.
+\]
+
+Ahora obtenemos los alumnos que \textbf{no saben ninguno} restando los alumnos que sí saben alguno al total:
+\[
+|A| - |A_C \cup A_P \cup A_F| = 73 - 62 = \boxed{11}.
+\]
+
+Por tanto,
+\[
+\boxed{\text{Sí, hay 11 alumnos que no saben ningún lenguaje de programación.}}
+\]
+
+\end{ejercicio}
+
+\subsection{Principio del palomar}
+
+\begin{ejercicio}[title=Ejercicio 38]
+Justifique que en todo conjunto de 22 números enteros hay al menos dos números cuya diferencia es múltiplo de 19.
+
+\tcblower
+\textbf{Resolución:}
+
+Sea \(A\subseteq\mathbb{Z}\) un conjunto de números enteros tal que \(|A|=22\).
+
+Si la diferencia entre dos números cualesquiera \(a_1,a_2\in A\) es múltiplo de \(19\), entonces
+\[
+a_1-a_2 = 19k, \quad k\in\mathbb{Z} 
+\]
+es decir,
+\[
+a_1 = a_2 + 19k \qquad \Longleftrightarrow \qquad a_1 \equiv a_2 \pmod{19}.
+\]
+Decir que \(a_1\) y \(a_2\) son congruentes módulo \(19\) equivale a que sus restos al dividir entre \(19\) sean iguales:
+\[
+r_{19}(a_1)=r_{19}(a_2).
+\]
+
+Entonces construimos una función $f$ que, dado un entero del conjunto \(A\), nos devuelva el resto de dividirlo entre \(19\), que pertenecerá al conjunto
+\[
+B = \mathbb{Z}_{19} = \{0,1,2,\dots,18\}.
+\]
+Entonces esta función es:
+\[
+f : A \to B,\qquad f(a) = r_{19}(a).
+\]
+
+Sabemos que \(|A| = 22\) y que \(|B| = |\mathbb{Z}_{19}| = 19\).
+
+\vspace{0.5em}
+
+Observamos que se cumple:
+\[
+|A| > |B| \;\Longleftrightarrow\; 22 > 19.
+\]
+
+Entonces por el \textbf{principio del palomar}, podemos concluir que existen al menos dos elementos
+\[
+a_1,a_2 \in A
+\]
+tales que
+\[
+f(a_1) = f(a_2)
+\]
+\[
+=\, r_{19}(a_1) = r_{19}(a_2).
+\]
+
+Es decir, en \(A\) hay al menos dos elementos cuyo resto de dividir entre 19 es el mismo (son congruentes módulo \(19\)).
+
+\vspace{0.5em}
+
+Por tanto:
+
+$$\text{\fbox{\begin{tabular}{c} Para cualquier conjunto de 22 números enteros, hay al \\ menos dos números cuya diferencia es múltiplo de 19. \end{tabular}}}$$
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 41 (⋆)]
+¿Cuál es el cardinal más pequeño que puede tener un conjunto $X$ de números enteros para poder garantizar que existan al menos dos elementos de $X$, digamos $a$ y $b$, tales que $(a + b)\,(a - b)$ sea múltiplo de 14?
+
+\tcblower
+\textbf{Resolución:}
+
+Queremos asegurar que existan $a,b\in X$ tales que
+\[
+(a+b)(a-b)\text{ es múltiplo de }14.
+\]
+Esto es
+\[
+(a+b)(a-b) = 14k,\quad k \in \mathbb{Z} \quad \Longleftrightarrow \quad (a+b)(a-b) \equiv 0 \pmod{14}
+\]
+Observamos que
+\[
+(a+b)(a-b) = a^2 - b^2.
+\]
+de modo que la condición es equivalente a
+\[
+a^2 - b^2 \equiv 0 \pmod{14}. \quad \Longleftrightarrow \quad a^2 \equiv b^2 \pmod{14}.
+\]
+
+Para aplicar el \textbf{principio del palomar}, definiríamos la aplicación
+\[
+f:X\to \mathbb{Z}_{14}, \qquad f(a)= r_{14}(a^2),
+\]
+
+pero para asegurar que encontremos el $|X|$ más pequeño, debemos encontrar el subconjunto de valores $B \subseteq \mathbb{Z}_{14}$ que realmente toma $r_{14}(a^2)$. Es decir, los restos de los cuadrados NO recorren todo $\mathbb{Z}_{14}$.
+
+\vspace{0.5em}
+
+Calculemos qué valores puede tomar $r_{14}(a^2)$ cuando $a$ recorre todos los restos módulo $14$. Sabemos que $a\equiv r_{14}(a)\pmod{14}$.
+
+Si sustituimos $a$ por $a^2$ tenemos
+\[
+a^2\equiv r_{14}(a^2)\pmod{14}.
+\]
+
+También, elevando al cuadrado la congruencia original tenemos
+\[
+a^2\equiv (r_{14}(a))^2 \pmod{14}.
+\]
+
+Concluimos que el resto de los elementos al cuadrado es congruente que el cuadrado del resto de los elementos módulo 14:
+
+\[
+r_{14}(a^2)\equiv (r_{14}(a))^2 \pmod{14}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 41 (⋆)]
+
+Por tanto, basta elevar al cuadrado los elementos de $\mathbb{Z}_{14}$ para encontrar qué elementos conforman $B \subseteq \mathbb{Z}_{14}$:
+\[
+\begin{array}{c|c}
+a & a^2 \bmod 14 \\ \hline
+0 & 0\\
+1 & 1\\
+2 & 4\\
+3 & 9\\
+4 & 2\\
+5 & 11\\
+6 & 8\\
+7 & 49\equiv 7\\
+8 & 64\equiv 8\\
+9 & 81\equiv 9\\
+10 & 100\equiv 2\\
+11 & 121\equiv 9\\
+12 & 144\equiv 4\\
+13 & 169\equiv 1
+\end{array}
+\]
+
+Los valores distintos que aparecen son:
+\[
+B=\{0,1,2,4,7,8,9,11\},
+\qquad |B|=8.
+\]
+
+Por tanto, la aplicación $f$ sólo puede tomar $8$ valores distintos. Para garantizar que existan $a\ne b$ con
+\[
+f:X\to B, \quad f(a)=f(b) \quad\Longleftrightarrow\quad a^2\equiv b^2\pmod{14},
+\]
+el \textbf{principio del palomar} exige que
+\[
+|X|>|B| =8.
+\]
+
+El menor cardinal que cumple esto es
+\[
+8+1=\boxed{9}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 42 (⋆)]
+Sea $A$ un conjunto de 17 números enteros ninguno de los cuales es divisible por un número primo mayor que 10.  
+Demuestre que hay (al menos) dos elementos en $A$ cuyo producto es un cuadrado perfecto, es decir, el cuadrado de un número entero.
+
+\tcblower
+\textbf{Resolución:}
+
+Dado $a\in A \subseteq \mathbb{Z}$, su valor absoluto se descompone (única y necesariamente) como
+\[
+|a|=2^{i}3^{j}5^{k}7^{l},\qquad i,j,k,l\in\mathbb{N},
+\]
+ya que por hipótesis no aparecen primos mayores que $10$ en la factorización.
+
+\vspace{0.5em}
+
+El signo de $a$ es irrelevante para determinar si un producto es un cuadrado perfecto, pues un cuadrado perfecto es siempre positivo. Entonces trataremos $a > 0$.
+
+\vspace{0.5em}
+
+Para decidir si el producto de dos elementos $a1, a2 \in A$ es un cuadrado perfecto tenemos que estudiar cuándo son pares o impares cada uno de los exponentes $i,j,k,l$:
+\begin{itemize}
+\item Si son todos pares, entonces $a$ será un cuadrado perfecto pues al hacer la raíz los primos quedan elevados a exponentes enteros.
+\item Si hay algún impar, entonces al hacer la raíz habrá algún factor primo cuyo exponente no sea entero, por lo que el número $a$ no será un cuadrado de un entero (cuadrado perfecto).
+\end{itemize}
+
+Definimos la aplicación
+\[
+f:A\longrightarrow\{0,1\}^{4},\qquad
+f(a)=(\,i\bmod 2,\; j\bmod 2,\; k\bmod 2,\; l\bmod 2\,),
+\]
+es decir, asignamos a cada $a$ el vector de paridades de los exponentes de los primos que lo conforman (para cada uno de los cuatro exponentes de la factorización, 0 exponente par, 1 exponente impar).
+
+\begin{itemize}
+  \item Si $f(a_1)=f(a_2)$ entonces, al multiplicar $a_1$ y $a_2$, los exponentes se suman y siempre dan lugar a un número par. Por tanto todos los exponentes del producto son pares, luego $a_1a_2$ es un cuadrado perfecto.
+  \item El conjunto $\{0,1\}^{4}$ tiene exactamente $2^{4}=16$ elementos.
+\end{itemize}
+
+Entonces, como 
+\[
+|A| = 17 \quad > \quad |\{0,1\}^4| = 16,
+\]
+por el \textbf{principio del palomar} existen dos elementos distintos $a_1,a_2\in A$ tales que
+\[
+f(a_1)=f(a_2).
+\]
+Por lo expuesto arriba se concluye que $a_1a_2$ tiene todos los exponentes pares y, por tanto, es un cuadrado perfecto.
+\[
+\boxed{\text{Existen al menos dos elementos }a_1,a_2\in A\text{ cuyo producto}\text{ es un cuadrado perfecto.}}
+\]
+
+\end{ejercicio}
+
+\subsubsection{Principio del palomar generalizado}
+
+\begin{ejercicio}[title=Ejercicio 39]
+Demuestre que en todo conjunto de 45 números enteros hay al menos ocho números tales que la diferencia de dos cualesquiera de ellos es múltiplo de 6.
+
+\tcblower
+\textbf{Resolución:}
+
+Sea \(A\subseteq\mathbb{Z}\) un conjunto de números enteros tal que \(|A|=45\).
+
+Si la diferencia entre dos números cualesquiera \(a_1,a_2\in A\) es múltiplo de \(6\), entonces
+\[
+a_1-a_2 = 6k, \quad k\in\mathbb{Z} 
+\]
+es decir,
+\[
+a_1 = a_2 + 6k \qquad \Longleftrightarrow \qquad a_1 \equiv a_2 \pmod{6}.
+\]
+Decir que \(a_1\) y \(a_2\) son congruentes módulo \(6\) equivale a que sus restos al dividir entre \(6\) sean iguales:
+\[
+r_6(a_1)=r_6(a_2).
+\]
+
+Entonces construimos una función $f$ que, dado un entero del conjunto \(A\), nos devuelva el resto de dividirlo entre \(6\), que pertenecerá al conjunto
+\[
+B = \mathbb{Z}_6 = \{0,1,2,3,4,5\}.
+\]
+Entonces esta función es:
+\[
+f : A \to B,\qquad f(a) = r_6(a).
+\]
+
+Sabemos que \(|A| = 45\) y que \(|B| = |\mathbb{Z}_6| = 6\).
+
+\vspace{0.5em}
+
+Observamos que, si en la desigualdad del \textbf{principio del palomar generalizado}
+\[
+|A| > n|B| \;\Longleftrightarrow\; 45 > n\cdot 6,
+\]
+establecemos \(n = 7\), entonces se cumple
+\[
+45 > 7\cdot 6 = 42.
+\]
+
+Por el \textbf{principio del palomar generalizado}, podemos concluir que existen al menos \(7+1 = 8\) elementos
+\[
+a_1,a_2,\dots,a_8 \in A
+\]
+tales que
+\[
+f(a_1) = f(a_2) = \cdots = f(a_8)
+\]
+\[
+=\, r_6(a_1) = r_6(a_2) = \cdots = r_6(a_8).
+\]
+
+Es decir, en \(A\) hay al menos 8 elementos cuyo resto de dividir entre 6 es el mismo (son congruentes módulo \(6\)).
+Por tanto:
+
+$$\text{\fbox{\begin{tabular}{c} Para cualquier conjunto de 45 números enteros, hay \\ al menos 8 números cuya diferencia es múltiplo de 6. \end{tabular}}}$$
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 40]
+¿Cuál es el mínimo número de estudiantes que debe tener un grupo de ALEM para estar seguros de que al menos seis estudiantes recibirán la misma nota?  
+Se supone que las puntuaciones son números enteros de 0 a 10.
+
+\tcblower
+\textbf{Resolución:}
+
+Sea $A$ el conjunto de estudiantes. Entonces $|A|$ es lo que queremos calcular.
+
+Sea $B = \{0,1,2,3,4,5,6,7,8,9,10\}$ el conjunto de puntuaciones. Entonces $|B| = 11$.
+
+\vspace{0.5em}
+
+Definimos la aplicación 
+\[
+f : A \to B
+\] 
+donde $f(a) \in B$ es la nota del estudiante $a$.
+
+Si se cumpliera la desigualdad
+\[
+|A| > n |B|,
+\] 
+entonces, por el \textbf{principio del palomar generalizado}, al menos habría $n+1$ estudiantes $a_1, a_2, \dots, a_{n+1} \in A$ tales que
+\[
+f(a_1) = f(a_2) = \dots = f(a_{n+1}),
+\] 
+es decir, que tendrían la misma nota.
+
+\vspace{0.5em}
+
+Como queremos que al menos haya 6 estudiantes con la misma nota, se cumple
+\[
+n+1 = 6 \implies n = 5.
+\]
+
+Por lo tanto,
+\[
+|A| > 5 \cdot 11 = 55.
+\]
+
+Se busca el mínimo número de estudiantes que cumpla esta condición, luego el menor número es
+\[
+55 + 1 = \boxed{56}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 43]
+Un gimnasio abre todos los días de la semana y cada socio acude tres días por semana.
+¿Cuál es el mínimo número de socios que puede tener el gimnasio de modo que se garantice que cada semana haya al menos tres socios que van al gimnasio exactamente los mismos días de esa semana?
+
+\tcblower
+\textbf{Resolución:}
+
+\begin{itemize}
+
+\item Sea $A$ el conjunto de socios. Entonces $|A|$ es lo que queremos calcular (el número mínimo de socios).
+
+\item $\{\text{L, M, X, J, V, S, D}\}$ es el conjunto de los 7 días de la semana.
+
+\item Sea $B$ el conjunto de todas las posibles maneras de elegir 3 días de la semana para ir al gimnasio.
+
+$|B|$ es el número de maneras de elegir 3 días de entre un conjunto de 7 días, es decir, es el número de combinaciones de 7 días tomados de 3 en 3:
+\[
+|B| = \binom{7}{3} = \frac{7 \cdot 6 \cdot 5}{3!} = 35.
+\]
+
+\end{itemize}
+
+\vspace{0.5em}
+
+Definimos la aplicación
+\[
+f : A \to B
+\]
+donde $f(a) \in B$ es el conjunto de 3 días de la semana (horario semanal) que asiste el socio $a$ al gimnasio.
+
+\vspace{0.5em}
+
+Queremos que al menos haya 3 socios con el mismo horario. Aplicamos el \textbf{principio del palomar generalizado}. Si se cumple la desigualdad
+\[
+|A| > n |B|,
+\]
+entonces, al menos habrá $n+1$ socios $a_1, a_2, \dots, a_{n+1} \in A$ tales que
+\[
+f(a_1) = f(a_2) = \dots = f(a_{n+1}),
+\]
+es decir, que tendrán el mismo horario.
+
+\vspace{0.5em}
+
+Como queremos que al menos haya 3 socios con el mismo horario, se cumple
+\[
+n+1 = 3 \implies n = 2.
+\]
+
+Por lo tanto,
+\[
+|A| > 2 |B| = 2 \cdot 35 = 70.
+\]
+
+Se busca el mínimo número de socios que cumpla esta condición, luego el menor número entero es
+\[
+70 + 1 = \boxed{71}.
+\]
+
+\end{ejercicio}
+
+\section{Selecciones de elementos}
+
+\subsection{Variaciones Ordinarias: Orden importa, sin repetición}
+
+\begin{ejercicio}[title=Ejercicio 46 (⋆)]
+¿Cuántos números naturales verifican que al ser escritos en base 10, todas sus cifras significativas son distintas?
+
+\tcblower
+\textbf{Resolución:}
+
+Contamos los números en base 10 tales que sus cifras significativas (sin ceros a la izquierda) son todas distintas. Los números pueden tener \(k\) cifras con \(k=1,2,\dots,10\). No pueden tener más de 10 cifras porque en base 10 no hay más de 10 cifras distintas.
+
+\begin{itemize}
+\item Para \(k=1\): hay 10 números de una cifra (incluyendo el 0), todos válidos:
+\[
+a_1 = 10.
+\]
+
+\item Para \(k\ge 2\): la primera cifra (la más significativa) puede ser \(1,2,\dots,9\) (9 opciones). Las \(k-1\) cifras restantes se eligen sin repetición (deben ser distintas) entre las 9 cifras restantes (incluyendo el 0 si no se ha usado). Como importa el orden y no se permite repetición, usamos \textbf{Variaciones ordinarias}:
+\[
+V(n,k)=\frac{n!}{(n-k)!}.
+\]
+Por tanto,
+\[
+a_k \;=\; 9\cdot V(9,k-1).
+\]
+
+Calculamos los valores para \(k=2,\dots,10\):
+\[
+\begin{aligned}
+a_2 = 9\cdot V(9,1) &= 9\cdot 9 = 81 \\
+a_3 = 9\cdot V(9,2) &= 9\cdot (9\cdot 8) = 648 \\
+a_4 = 9\cdot V(9,3) &= 9\cdot (9\cdot 8\cdot 7) = 4536 \\
+a_5 = 9\cdot V(9,4) &= 9\cdot (9\cdot 8\cdot 7\cdot 6) = 27216 \\
+a_6 = 9\cdot V(9,5) &= 9\cdot (9\cdot 8\cdot 7\cdot 6\cdot 5) = 136080 \\
+a_7 = 9\cdot V(9,6) &= 9\cdot (9\cdot 8\cdot 7\cdot 6\cdot 5\cdot 4) = 544320 \\
+a_8 = 9\cdot V(9,7) &= 9\cdot (9\cdot 8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3) = 1632960 \\
+a_9 = 9\cdot V(9,8) &= 9\cdot (9\cdot 8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2) = 3265920 \\
+a_{10} = 9\cdot V(9,9) &= 9\cdot (9\cdot 8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1) = 3265920
+\end{aligned}
+\]
+
+\item Sumando todos los casos \(k=1,\dots,10\) obtenemos el total:
+\[
+\text{Total} = \sum_{k=1}^{10} a_k = \boxed{8\,877\,691}
+\]
+
+\end{itemize}
+
+\end{ejercicio}
+
+\subsubsection{Permutaciones Ordinarias ($k=n$)}
+
+\begin{ejercicio}[title=Ejercicio 14 (⋆)]
+¿De cuántas formas podemos ordenar los números $1,2,3,4$ de manera que ninguno de ellos aparezca en su posición inicial? Por ejemplo, $4,1,2,3$ sería una ordenación válida, pero $3,1,2,4$ no lo es, pues el 4 aparece en la cuarta posición. ¿Cuál es la respuesta al ejercicio si consideramos los números $1,2,3,\dots,n$?
+
+\tcblower
+\textbf{Resolución:}
+
+Primero, ¿de cuántas formas podemos ordenar el conjunto de números $1,2,3,4$?  
+Aquí el orden importa y no se permite repetición. Además, estamos ordenando los elementos del conjunto $\{1,2,3,4\}$, por lo que se trata de Permutaciones Ordinarias. Denotamos este conjunto por $A$.
+
+Las formas de ordenarlos son:
+\[
+|A| = 4! = 24.
+\]
+
+Apliquemos ahora el \textbf{principio del complementario}. Nos preguntamos:  
+¿de cuántas formas podemos ordenar $1,2,3,4$ de manera que \emph{al menos uno} de ellos aparezca en su posición homónima ($a_i = i$)?
+
+Probamos casos:
+
+\begin{itemize}
+    \item \textbf{De 1 en 1.}  
+    Si fijamos el 1 (o cualquier elemento) en su posición inicial, entonces debemos ordenar de todas las formas posibles los otros tres números $(2,3,4)$. Esto es:
+    \[
+    3! = 6.
+    \]
+    Por tanto:
+    \[
+    |A_1| = |A_2| = |A_3| = |A_4| = 3! = 6.
+    \]
+
+    \item \textbf{De 2 en 2.}  
+    Si fijamos el 1 y el 2 (o cualquier otro par) en sus posiciones iniciales, entonces debemos ordenar los otros dos números $(3,4)$. Esto es:
+    \[
+    2! = 2.
+    \]
+    Por tanto:
+    \[
+    |A_1 \cap A_2| = |A_1 \cap A_3| = |A_1 \cap A_4| = |A_2 \cap A_3| = |A_2 \cap A_4| = |A_3 \cap A_4| = 2! = 2.
+    \]
+
+    \item \textbf{De 3 en 3.}  
+    Si fijamos $1,2,3$ (o cualquier otro trío) en sus posiciones iniciales, entonces debemos ordenar el otro número. Esto es:
+    \[
+    1! = 1.
+    \]
+    Por tanto:
+    \[
+    |A_1 \cap A_2 \cap A_3| = |A_1 \cap A_2 \cap A_4| = |A_1 \cap A_3 \cap A_4|
+    = |A_2 \cap A_3 \cap A_4| = 1! = 1.
+    \]
+
+    \end{itemize}
+    \end{ejercicio}
+    \begin{ejercicio}[title=Ejercicio 14]
+    \begin{itemize}
+
+    \item \textbf{De 4 en 4.}  
+    Si fijamos $1,2,3,4$ en sus posiciones iniciales, entonces debemos ordenar $0$ elementos. Esto es:
+    \[
+    0! = 1.
+    \]
+    Así,
+    \[
+    |A_1 \cap A_2 \cap A_3 \cap A_4| = 0! = 1.
+    \]
+\end{itemize}
+
+Aplicamos ahora el \textbf{principio de inclusión–exclusión para cuatro conjuntos}:
+\[
+\begin{aligned}
+|A_1 \cup A_2 \cup A_3 \cup A_4|
+&= |A_1| + |A_2| + |A_3| + |A_4|
+\\\\
+&\quad - |A_1\cap A_2| - |A_1\cap A_3| - |A_1\cap A_4|\\
+&\quad - |A_2\cap A_3| - |A_2\cap A_4| - |A_3\cap A_4|
+\\\\
+&\quad + |A_1\cap A_2\cap A_3| + |A_1\cap A_2\cap A_4| \\
+&\quad + |A_1\cap A_3\cap A_4| + |A_2\cap A_3\cap A_4|
+\\\\
+&\quad - |A_1\cap A_2\cap A_3\cap A_4|
+\\\\
+&= 6\cdot 4 - 2\cdot 6 + 1\cdot 4 - 1
+\\[4pt]
+&= 24 - 12 + 4 - 1 = 15.
+\end{aligned}
+\]
+
+Aplicamos el \textbf{principio del complementario}:
+\[
+|A| - 15 = 24 - 15 = \boxed{9}.
+\]
+
+Generalizando, si para $n=4$ el resultado ha sido:
+\[
+24 - (24 - 12 + 4 - 1)
+= 4! - \left(\frac{4!}{1!} - \frac{4!}{2!} + \frac{4!}{3!} - \frac{4!}{4!}\right)
+= 4!\,\Biggl(1 - \left(\frac{1}{1!} - \frac{1}{2!} + \frac{1}{3!} - \frac{1}{4!}\right)\Biggr)
+\]
+\[
+= 4!\,\left( \frac{1}{0!} - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \frac{1}{4!} \right)
+= 4!\,\left( \frac{(-1)^0}{0!} + \frac{(-1)^1}{1!} + \frac{(-1)^2}{2!} + \frac{(-1)^3}{3!} + \frac{(-1)^4}{4!} \right),
+\]
+
+entonces, para $n\ge 1$, la respuesta es:
+\[
+\boxed{n!\sum_{k=0}^{n}\frac{(-1)^k}{k!}}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 47]
+En un tablero de ajedrez, ¿de cuántas formas distintas se pueden colocar ocho torres
+iguales de manera que ninguna pueda capturar a otra?
+
+\tcblower
+\textbf{Resolución:}
+
+\begin{itemize}
+\item El problema de colocar ocho torres iguales en un tablero de ajedrez de $8 \times 8$ de manera que ninguna pueda capturar a otra se reduce a la condición de que \textbf{no puede haber dos torres en la misma fila ni en la misma columna}.
+
+\item Dado que tenemos 8 torres, 8 filas y 8 columnas, la condición de no captura implica que debe haber exactamente una torre en cada fila y exactamente una torre en cada columna.
+
+\item El número de formas distintas de realizar esta colocación es equivalente al número de formas de asignar una columna diferente a cada una de las 8 filas, es decir, el número de permutaciones ordinarias de 8 elementos.
+
+\end{itemize}
+
+\vspace{0.5em}
+
+\textbf{1. Colocación de la primera torre (Fila 1):}
+
+La primera torre se coloca en la Fila 1. Puede ocupar cualquiera de las $\mathbf{8}$ columnas disponibles.
+Supongamos que la colocamos en la casilla \verb|a1| (Columna \textbf{a}).
+
+\[
+\text{Opciones (Fila 1)} = 8
+\]
+\begin{center}
+    \chessboard[setfen=8/8/8/8/8/8/8/8 w - - 0 0,
+            showmover=false,
+            pgfstyle=color,
+            opacity=0.25,
+            color=green,
+            markfield={a1,b1,c1,d1,e1,f1,g1,h1},
+            setpieces={ra1}]
+\end{center}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 47]
+
+\textbf{2. Colocación de la segunda torre (Fila 2):}
+
+La segunda torre se coloca en la Fila 2. Para evitar la captura, no puede ocupar la Columna \textbf{a}. Por lo tanto, quedan $\mathbf{7}$ columnas disponibles.
+Supongamos que la colocamos en la casilla \verb|b2| (Columna \textbf{b}).
+
+\[
+\text{Opciones (Fila 2)} = 7
+\]
+\setchessboard{clearboard, showmover=false, setpieces={ra1, rb2}}
+\begin{center}
+    \chessboard[setfen=8/8/8/8/8/8/8/8 w - - 0 0,
+            showmover=false,
+            pgfstyle=color,
+            opacity=0.25,
+            color=green,
+            markfield={b2,c2,d2,e2,f2,g2,h2},
+            pgfstyle=color,
+            opacity=0.25,
+            color=red,
+            markfield={a2},
+            setpieces={ra1,rb2}]
+\end{center}
+\vspace{0.5em}
+
+\textbf{3. Colocación de la tercera torre (Fila 3):}
+
+La tercera torre se coloca en la Fila 3. Para evitar la captura, no puede ocupar la Columna \textbf{a} ni la Columna \textbf{b}. Por lo tanto, quedan $\mathbf{6}$ columnas disponibles.
+Supongamos que la colocamos en la casilla \verb|c3| (Columna \textbf{c}).
+
+\[
+\text{Opciones (Fila 3)} = 6
+\]
+\setchessboard{clearboard, showmover=false, setpieces={ra1, rb2, rc3}}
+\begin{center}
+    \chessboard[setfen=8/8/8/8/8/8/8/8 w - - 0 0,
+            showmover=false,
+            pgfstyle=color,
+            opacity=0.25,
+            color=green,
+            markfields={c3,d3,e3,f3,g3,h3},
+            pgfstyle=color,
+            opacity=0.25,
+            color=red,
+            markfields={a3,b3},
+            setpieces={ra1,rb2,rc3}]
+\end{center}
+\vspace{0.5em}
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 47]
+
+\textbf{4. Colocación de las torres intermedias (Filas 4 a 7):}
+
+Para cada fila sucesiva, el número de columnas disponibles se reduce en uno:
+\begin{itemize}
+    \item Para la Fila 4, quedan $\mathbf{5}$ columnas disponibles.
+    \item Para la Fila 5, quedan $\mathbf{4}$ columnas disponibles.
+    \item Para la Fila 6, quedan $\mathbf{3}$ columnas disponibles.
+    \item Para la Fila 7, quedan $\mathbf{2}$ columnas disponibles.
+\end{itemize}
+
+\textbf{4. Colocación de la última torre (Fila 8):}
+
+La octava torre se coloca en la Fila 8. Como se han usado 7 columnas diferentes en las 7 filas anteriores, solo queda $\mathbf{1}$ columna (la última) disponible para esta torre.
+Supongamos la siguiente colocación final: \verb|a1|, \verb|b2|, \verb|c3|, \verb|d4|, \verb|e5|, \verb|f6|, \verb|g7|, \verb|h8|.
+
+\[
+\text{Opciones (Fila 8)} = 1
+\]
+\begin{center}
+    \chessboard[
+        showmover=false,
+        pgfstyle=color,
+        opacity=0.25,
+        color=green,
+        markfields={h8}, % Única columna disponible en la Fila 8 (h8)
+        pgfstyle=color,
+        opacity=0.25,
+        color=red,
+        markfields={a8,b8,c8,d8,e8,f8,g8}, % Columnas restringidas en la Fila 8 (a8 a g8)
+        setpieces={ra1, rb2, rc3, rd4, re5, rf6, rg7, rh8} % Colocación final de las ocho torres
+    ]
+\end{center}
+\vspace{0.5em}
+
+\textbf{Cálculo final:}
+
+Por el \textbf{principio del producto}, el número total de formas distintas es el producto del número de opciones en cada paso:
+\[
+\text{Número de formas} = 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 8! = \boxed{40320}
+\]
+
+\end{ejercicio}
+
+\subsection{Variaciones con repetición: Orden importa, con repetición}
+
+\begin{ejercicio}[title=Ejercicio 2]
+Sea \( A \) el conjunto formado por los números naturales que se escriben en base 10 con cuatro cifras significativas.
+
+\begin{enumerate}
+\item[a)] ¿Cuántos elementos hay en \( A \)?
+\item[b)] ¿Cuántos elementos de \( A \) son pares?
+\item[c)] ¿Cuántos elementos de \( A \) son múltiplos de 5?
+\item[d)] ¿Cuántos elementos de \( A \) satisfacen que todas sus cifras son pares?
+\item[e)] ¿Cuántos elementos de \( A \) verifican que todas sus cifras son impares?
+\item[f)] ¿Cuántos elementos de \( A \) satisfacen que todas sus cifras son pares o todas son impares?
+\item[g)] ¿Cuántos elementos de \( A \) son múltiplos de 17?
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Sea 
+\[
+A = \{ (a_3a_2a_1a_0)_{10} : a_3 \in \{1,\ldots,9\}, \, a_2,a_1,a_0 \in \{0,\ldots,9\} \}.
+\]
+
+\begin{itemize}
+\item[\textbf{a)}] 
+Los dígitos corresponden a posiciones distintas, por lo tanto el orden importa (variaciones).  
+Además, se pueden repetir, por lo que se trata de \textit{variaciones con repetición}.  
+
+Aplicando el \textbf{principio del producto}:
+\[
+|A| = \operatorname{VR}(9,1) \cdot \operatorname{VR}(10,3) = 9 \cdot 10^3 = 9 \cdot 1000 = \boxed{9000}
+\]
+
+\item[\textbf{b)}]
+Usamos el \textbf{principio del complementario}.  
+El primer número en \( A \) es \( 1000 \) y el último \( 9999 \).  
+Los múltiplos de 2 en \( A \) son los múltiplos de 2 entre 1 y 9999 menos los múltiplos de 2 entre 1 y 999:
+
+\[
+|A_b| = \bigg\lfloor \frac{9999}{2} \bigg\rfloor - \bigg\lfloor \frac{999}{2} \bigg\rfloor = 4999 - 499 = \boxed{4500}
+\]
+
+\item[\textbf{c)}]
+De forma análoga (principio del complementario):
+
+\[
+|A_c| = \bigg\lfloor \frac{9999}{5} \bigg\rfloor - \bigg\lfloor \frac{999}{5} \bigg\rfloor = 1999 - 199 = \boxed{1800}
+\]
+
+\item[\textbf{d)}]
+Si todas las cifras son pares, entonces:
+\[
+A_d = \{ (a_3a_2a_1a_0)_{10} : a_3 \in \{2,4,6,8\}, \, a_2,a_1,a_0 \in \{0,2,4,6,8\} \}.
+\]
+
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 2]
+\begin{itemize}
+
+Se trata de variaciones con repetición.  
+Aplicamos el \textbf{principio del producto}:
+
+\[
+|A_d| = \operatorname{VR}(4,1) \cdot \operatorname{VR}(5,3) = 4^1 \cdot 5^3 = 4 \cdot 125 = \boxed{500}
+\]
+
+\item[\textbf{e)}]
+Si todas las cifras son impares:
+
+\[
+A_e = \{ (a_3a_2a_1a_0)_{10} : a_3,a_2,a_1,a_0 \in \{1,3,5,7,9\} \}.
+\]
+\[
+|A_e| = \operatorname{VR}(5,4) = 5^4 = \boxed{625}
+\]
+
+\item[\textbf{f)}]
+Los conjuntos \( A_d \) y \( A_e \) son disjuntos, por lo que se aplica el \textbf{principio de la suma}:
+
+\[
+|A_f| = |A_d \cup A_e| = |A_d| + |A_e| = 500 + 625 = \boxed{1125}
+\]
+
+\item[\textbf{g)}]
+Aplicando nuevamente el \textbf{principio del complementario}:
+
+\[
+|A_g| = \bigg\lfloor \frac{9999}{17} \bigg\rfloor - \bigg\lfloor \frac{999}{17} \bigg\rfloor = 588 - 58 = \boxed{530}
+\]
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 3]
+Sean $p$ un número primo y $n \in \mathbb{N}$.
+
+\begin{enumerate}
+\item[a)] ¿Cuántos elementos $f(x) \in \mathbb{Z}_p[x]$ verifican que $\operatorname{grado}(f(x)) \leq n$?
+\item[b)] ¿Cuántos elementos $f(x) \in \mathbb{Z}_p[x]$ verifican que $\operatorname{grado}(f(x)) = n$?
+\item[c)] Si $n \ge 1$, ¿cuántos elementos $f(x) \in \mathbb{Z}_p[x]$ verifican que $\operatorname{grado}(f(x)) \le n$ y $\alpha = 1$ es una raíz de $f(x)$?
+\item[d)] Si $n \ge 1$, ¿cuántos elementos $f(x) \in \mathbb{Z}_p[x]$ verifican que $\operatorname{grado}(f(x)) \le n$ y $\alpha = 1$ es una raíz simple de $f(x)$?
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Antes de abordar cada apartado, nos fijamos en la forma general de un polinomio en $\mathbb{Z}_p[x]$:
+
+\[
+f(x) = a_0 + a_1 x + \dots + a_n x^n, \quad a_i \in \{0,1,\dots,p-1\}.
+\]
+
+\begin{itemize}
+\item[a)] Cuando $\operatorname{grado}(f(x)) \le n$, todos los coeficientes $a_0,\dots,a_n$ pueden tomar cualquier valor de $\mathbb{Z}_p$, es decir, $p$ posibilidades cada uno. Como el orden importa y los coeficientes se pueden repetir, usamos variaciones con repetición:
+
+\[
+\text{Número de polinomios} = \operatorname{VR}(p,n+1) = \boxed{p^{\,n+1}}
+\]
+
+\item[b)] Cuando $\operatorname{grado}(f(x)) = n$, el coeficiente principal $a_n \neq 0$, mientras que $a_0,\dots,a_{n-1}$ pueden ser cualquiera de los $p$ elementos de $\mathbb{Z}_p$. Aplicando el \textbf{principio del producto}:
+
+\[
+\text{Número de polinomios} = \operatorname{VR}(p,n) \cdot \operatorname{VR}(p-1,1) = \boxed{p^n(p-1)}
+\]
+
+\item[c)] Si $\alpha = 1$ es una raíz, por el teorema de la raíz sabemos que $f(x) = (x-1)g(x)$, con $\operatorname{grado}(g(x)) \le n-1$. Entonces
+\[
+g(x) = b_0 + b_1 x + \dots + b_{n-1} x^{n-1}, \quad b_i \in \mathbb{Z}_p,
+\]
+
+y cada $b_i$ puede tomar $p$ valores:
+
+\[
+\text{Número de polinomios} = \operatorname{VR}(p,n)= \boxed{p^n}
+\]
+
+\item[d)] Si $\alpha = 1$ es una raíz \emph{simple}, entonces $1$ es raíz pero no raíz doble.  
+Esto significa exactamente:
+\[
+f(x) = (x-1)g(x)
+\quad\text{con}\quad g(1)\neq 0,
+\]
+y además $\operatorname{grado}(g(x))\le n-1$.
+
+Es decir, debemos contar los polinomios $g(x)$ de grado $\le n-1$ tales que \(\,g(1)\neq 0.\)
+
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 3]
+\begin{itemize}
+\textbf{Paso 1.}  
+El número total de polinomios
+\[
+g(x) = b_0 + b_1 x + \dots + b_{n-1} x^{n-1}, \quad b_i \in \mathbb{Z}_p,
+\]
+con $\operatorname{grado}(g)\le n-1$ es
+\[
+p^n,
+\]
+pues tiene $n$ coeficientes libres y cada uno admite $p$ valores (variaciones con repetición). Es el mismo valor que el apartado c).
+\[
+\]
+\textbf{Paso 2.}  
+Queremos excluir los polinomios que \emph{sí} cumplen \(g(1)=0\).  
+Por el teorema de la raíz, \(g(1)=0\) equivale a decir que \(x-1\) divide a \(g(x)\), es decir:
+\[
+g(x) = (x-1)h(x),
+\quad \operatorname{grado}(h(x))\le n-2.
+\]
+
+El número de posibles polinomios 
+\[
+h(x) = c_0 + c_1 x + \dots + c_{n-2} x^{n-2}, \quad c_i \in \mathbb{Z}_p,
+\]
+es
+\[
+p^{\,n-1},
+\]
+ya que ahora hay \(n-1\) coeficientes libres.
+\[
+\]
+\textbf{Paso 3. Principio del complementario.}  
+Para contar los \(g(x)\) que satisfacen \(g(1)\neq 0\), restamos del total los que sí verifican \(g(1)=0\):
+
+\[
+|\{g(x): g(1)\neq 0\}|
+=
+p^n - p^{\,n-1}.
+\]
+
+\medskip
+\textbf{Conclusión.}  
+Cada una de estas elecciones de \(g(x)\) determina exactamente un polinomio  
+\(f(x)=(x-1)g(x)\) de grado \(\le n\) con raíz simple en \(x=1\). Por tanto, el número de polinomios pedidos es
+
+\[
+\boxed{p^n - p^{\,n-1}}.
+\]
+
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 11]
+¿Cuántos números naturales con cinco cifras significativas tienen al menos una cifra impar?
+
+\tcblower
+\textbf{Resolución:}
+
+Usamos el \textbf{principio del complementario}: contamos primero todos los números de cinco cifras y le restamos los que NO tienen ninguna cifra impar (es decir, los que tienen todas las cifras pares).
+
+\medskip
+
+Números de cinco cifras significativas:
+\[
+a = (a_4a_3a_2a_1a_0),\qquad a_4\in\{1,\dots,9\},\quad a_3,a_2,a_1,a_0\in\{0,\dots,9\}.
+\]
+El rango es
+\[
+10000\le a \le 99999,
+\]
+por tanto hay
+\[
+99999-10000+1 = 90000
+\]
+números con cinco cifras significativas.
+
+\medskip
+
+Números con todas las cifras pares (complementario):
+\[
+a = (a_4a_3a_2a_1a_0),\qquad a_4\in\{2,4,6,8\},\quad a_3,a_2,a_1,a_0\in\{0,2,4,6,8\}.
+\]
+Aquí el orden importa y se permiten repeticiones, así que tenemos:
+\[
+\begin{aligned}
+    \text{Elecciones para } a_4 &= \operatorname{VR}(4,1) = 4^1 = 4, \\
+    \text{Elecciones para } (a_3, a_2, a_1, a_0) &= \operatorname{VR}(5,4) = 5^4 = 625.
+\end{aligned}
+\]
+Por el \textbf{principio del producto}, el total de números con todas las cifras pares es
+\[
+4\cdot 5^4 = 4\cdot 625 = 2500.
+\]
+
+\medskip
+
+Aplicando el \textbf{principio del complementario}, el número de números de cinco cifras que tienen \emph{al menos una} cifra impar es
+\[
+90000 - 2500 = \boxed{87500}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 12]
+¿Cuántos números naturales se escriben con a lo sumo cinco cifras siendo al menos una de ellas igual a 1? Es decir, son números válidos $1, 121, 10000, 11189$, pero no son válidos $0, 82, 123456$.
+
+\tcblower
+\textbf{Resolución:}
+
+Primero contamos cuántos números tienen \emph{a lo sumo} cinco cifras significativas y son naturales (excluimos el 0):
+
+\[
+1 \le a \le 99999 \quad\Longrightarrow\quad 99999 - 1 + 1 = 99999 \text{ números.}
+\]
+
+Usamos el \textbf{principio del complementario}: contamos cuántos números de a lo sumo cinco cifras NO tienen ninguna cifra igual a 1 (es decir, todos sus dígitos son distintos de 1) y restamos del total.
+
+Los dígitos permitidos si no queremos el 1 son
+\[
+\{0,2,3,4,5,6,7,8,9\}\quad(\text{9 opciones por posición}).
+\]
+
+Contamos las cadenas de 5 dígitos (permitiendo ceros a la izquierda) con esas 9 opciones por posición: \(\operatorname{VR}(9,5)=9^5\).  
+De ese conjunto hay que quitar el número 0 (que corresponde a la tupla \(00000\)), porque no es un número válido según el enunciado. Por tanto el número de naturales con a lo sumo cinco cifras y sin ningún 1 es
+
+\[
+\operatorname{VR}(9,5) - 1 = 9^5 - 1 = 59049 - 1 = 59048.
+\]
+
+Finalmente, por el \textbf{principio del complementario}, la cantidad de números con a lo sumo 5 cifras y con al menos un 1 son:
+
+\[
+99999 - 59048 = \boxed{40951}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 19]
+¿Cuántas aplicaciones se pueden definir del conjunto $\{1,2,3\}$ en el conjunto $\{a,b,c,d,e\}$? ¿Cuántas de ellas son inyectivas?
+
+\tcblower
+\textbf{Resolución:}
+
+Queremos contar las aplicaciones
+\[
+f:\{1,2,3\}\longrightarrow\{a,b,c,d,e\}.
+\]
+
+\medskip
+\textbf{Número total de aplicaciones.}  
+Para definir una aplicación \(f\) hay que escoger, para cada elemento de \(\{1,2,3\}\), su imagen en \(\{a,b,c,d,e\}\).  
+
+\begin{itemize}
+\item Para el valor \(1\) hay 5 opciones.
+\item Para el valor \(2\) hay 5 opciones (independientes de la elección anterior).
+\item Para el valor \(3\) hay 5 opciones (independientes de las anteriores).
+\end{itemize}
+
+Por el \textbf{principio del producto}, el número total de aplicaciones es
+\[
+\operatorname{VR}(5,3) = 5\cdot 5\cdot 5 = 5^3 = \boxed{125}.
+\]
+
+\medskip
+\textbf{Número de aplicaciones inyectivas.}  
+Recordemos que una aplicación es \emph{inyectiva} si nunca asigna la misma imagen a dos elementos distintos del dominio.  
+En nuestro caso, esto significa que los valores
+\[
+f(1),\ f(2),\ f(3)
+\]
+deben ser \emph{todos distintos} y pertenecer al conjunto \(\{a,b,c,d,e\}\).
+
+Para construir una aplicación inyectiva elegimos las imágenes de forma ordenada, sin repetición:
+
+\begin{itemize}
+    \item Para \(f(1)\) tenemos 5 opciones (cualquier elemento del codominio).
+    \item Para \(f(2)\), como debe ser distinto de \(f(1)\), solo quedan 4 opciones.
+    \item Para \(f(3)\), que debe ser distinto de los dos anteriores, quedan 3 opciones.
+\end{itemize}
+
+Por el \textbf{principio del producto}, el número total de aplicaciones inyectivas es
+\[
+5 \cdot 4 \cdot 3.
+\]
+
+Observamos que este producto es el número de \textbf{variaciones sin repetición} de 5 elementos tomados de 3 en 3:
+\[
+V(5,3) = 5\cdot 4\cdot 3 = \frac{5!}{(5-3)!} = \boxed{60}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 20]
+Sean $A = \{1,2,3,4,5\}$ y $B = \{1,2,3,4,5,6,7\}$, subconjuntos de $\mathbb{N}$. Calcule el número de aplicaciones $f : A \to B$ tales que:
+
+\begin{enumerate}
+\item[a)] El conjunto imagen de $f$ sólo contiene elementos pares.
+\item[b)] El conjunto imagen de $f$ sólo contiene elementos impares.
+\item[c)] El conjunto imagen de $f$ sólo contiene elementos pares o sólo contiene elementos impares.
+\item[d)] El conjunto imagen de $f$ contiene elementos pares y elementos impares.
+\item[e)] El cardinal del conjunto imagen de $f$ es $3$.
+\item[f)] El cardinal del conjunto imagen de $f$ es menor o igual que $3$.
+\end{enumerate}
+
+\tcblower
+
+En $B$ los pares son $\{2,4,6\}$ (3 elementos) y los impares $\{1,3,5,7\}$ (4 elementos).
+
+\medskip
+\textbf{a)} Imagen sólo con elementos \textbf{pares}.
+
+\vspace{0.5em}
+
+Sabemos que $\operatorname{VR}(n,k)$ representa el número de aplicaciones que se pueden definir de un conjunto de $k$ elementos en un conjunto de $n$ elementos, donde cada elemento del dominio puede elegirse múltiples veces (variaciones con repetición).  
+
+\vspace{0.5em}
+
+Aquí $|A|=5$ y el subconjunto de pares de $B$ tiene $3$ elementos. Por tanto, para cada uno de los 5 elementos de $A$ hay 3 opciones de imagen (independientes entre sí). Aplicando el \textbf{principio del producto} (variaciones con repetición):
+
+\[
+\text{Número de aplicaciones} = \operatorname{VR}(3,5) = 3^{5} = \boxed{243}.
+\]
+
+\vspace{0.5em}
+
+\textbf{b)} Imagen sólo con elementos \textbf{impares}.
+
+\vspace{0.5em}
+
+Igual que en el apartado a), ahora el conjunto de valores permitidos tiene $4$ elementos. Con $|A|=5$ posiciones y $4$ opciones por posición (elecciones independientes), por variaciones con repetición:
+
+\[
+\text{Número de aplicaciones} = \operatorname{VR}(4,5) = 4^{5} = \boxed{1024}.
+\]
+
+\vspace{0.5em}
+
+\textbf{c)} Imagen sólo pares \textbf{o} sólo impares.
+
+\vspace{0.5em}
+
+Los dos casos “sólo pares” y “sólo impares” son mutuamente excluyentes (no puede una aplicación tener simultáneamente imagen sólo de pares y sólo de impares), por lo que aplicamos el \textbf{principio de la suma} sobre los conjuntos disjuntos de aplicaciones:
+\[
+\text{Número de aplicaciones} = \operatorname{VR}(3,5) + \operatorname{VR}(4,5) = 3^{5} + 4^{5} = 243 + 1024 = \boxed{1267}.
+\]
+
+\vspace{0.5em}
+
+\textbf{d)} Imagen que contiene pares \textbf{y} impares.
+
+\vspace{0.5em}
+
+Queremos las aplicaciones cuya imagen tiene al menos un elemento par y al menos un elemento impar. Es más sencillo contar el total y restarle el  complementario.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 20]
+
+El complementario está formado por las aplicaciones que \emph{no} tienen pares \emph{o} no tienen impares, es decir, las aplicaciones de la forma “sólo pares” o “sólo impares” (los casos de a) y b)).
+
+\vspace{0.5em}
+
+Primero contamos el total de aplicaciones sin restricción: por variaciones con repetición (7 opciones por cada uno de los 5 elementos de $A$),
+
+\[
+\text{Total de aplicaciones } f: A\to B = |B|^{|A|} = \operatorname{VR}(7,5) = 7^{5} = 16807.
+\]
+
+Por el \textbf{principio del complementario}, restamos las aplicaciones del caso “sólo pares” y las del caso “sólo impares” (que ya hemos contado en a) y b)):
+
+\[
+\text{Número de aplicaciones con pares y impares}
+= 7^{5} - \bigl(3^{5} + 4^{5}\bigr)
+\]
+\[
+= 16807 - (243 + 1024)
+= 16807 - 1267
+= \boxed{15540}.
+\]
+
+\vspace{0.5em}
+
+\textbf{e)} Imagen con cardinal exactamente $3$.
+
+\vspace{0.5em}
+
+Queremos contar cuántas aplicaciones $f : A \to B$ tienen exactamente $3$ valores distintos en su imagen.
+
+El razonamiento es el siguiente:
+
+\begin{itemize}
+    \item Primero elegimos \emph{qué} $3$ elementos de $B$ van a formar la imagen.
+    Como $|B|=7$, el número de formas de elegir $3$ elementos es:
+    \[
+    \binom{7}{3}.
+    \]
+
+    \item Una vez elegida una imagen $\operatorname{Im}(f)\subseteq B$ de tamaño $3$, debemos contar cuántas aplicaciones $f : A \to \operatorname{Im}(f)$ hay.
+
+    Esto es precisamente la definición de sobreyectividad, ya que vemos que la imagen de la aplicación es el propio codominio.
+    
+    Dichas aplicaciones son exactamente las \textbf{sobreyectivas} de $A$ a $\operatorname{Im}(f)$.  
+    Como $|A|=5$ y $|\operatorname{Im}(f)|=3$, queremos aplicaciones sobreyectivas de un conjunto de 5 elementos en uno de 3.
+
+    Por lo tanto necesitamos contar el total de aplicaciones (variaciones con repetición) y restarle el número de aplicaciones que \textbf{no} son sobreyectivas.
+
+    Total de aplicaciones: $\operatorname{VR(3,5) = |\operatorname{Im}(f)|^{|A|}} = 3^5 = 125$
+
+    Ahora quitamos las que \emph{no} son sobreyectivas (\textbf{principio del complementario}). Las que no son sobreyectivas son aquellas aplicaciones que \textbf{no} usan todos los valores del dominio, es decir, podemos distinguir dos casos:
+
+\begin{itemize}
+
+    \item Aplicaciones que \textbf{no usan un valor} (es decir, solo usan 2 valores de los 3):  
+
+\vspace{0.5em}
+
+    Fijemos un valor de los 3 que vamos a “eliminar” de la imagen. Por ejemplo, si nuestra imagen elegida es $\operatorname{Im}(f)=\{a,b,c\}$, podemos decidir no usar $a$. Entonces la aplicación $f: A \to \operatorname{Im}(f)$ solo puede tomar los valores $\{b,c\}$.  
+
+    \end{itemize}
+    \end{itemize}
+    \end{ejercicio}
+    \begin{ejercicio}[title=Ejercicio 20]
+    \begin{itemize}
+    \begin{itemize}
+    Ahora, para cada posición del dominio $A$ (que tiene 5 elementos), hay 2 opciones posibles ($b$ o $c$). Esto es lo que llamamos el “nuevo dominio” de la aplicación restringida: ahora solo estamos eligiendo entre 2 valores.  
+    Por tanto, el número de aplicaciones que no usan $a$ es
+    \[
+    2^5 = 32.
+    \]
+
+\vspace{0.5em}
+
+    Lo mismo ocurre si decidimos no usar $b$ o no usar $c$. Como hay 3 valores posibles que podríamos eliminar, el total es
+    \[
+    3 \cdot 32 = 96.
+    \]
+
+\vspace{0.5em}
+
+    Pero entre estas 32 aplicaciones de cada caso, algunas solo usan un valor. \\
+    
+    Por ejemplo, todas las posiciones asignadas a $b$ o todas asignadas a $c$. Estas aplicaciones constantes no deberían contarse aquí, porque no queremos contar aplicaciones que usan solo un valor dentro de las que deberían usar 2. Es por eso que restamos al conjunto actual ($96$) la siguiente cantidad:
+
+    \item Aplicaciones que \textbf{solo usan 1 valor} (constantes):
+
+\vspace{0.5em}
+
+    Cada valor constante genera exactamente $1^5 = 1$ aplicación. Hay 3 posibles aplicaciones constantes (una por cada valor de $\operatorname{Im}(f)$):
+    \[
+    3 \cdot 1^5 = 3.
+    \]
+
+\vspace{0.5em}
+
+    Estas aplicaciones fueron “restadas” cuando contamos los 2 valores antes, por eso debemos restar de nuevo según el \textbf{principio del complementario} ($96-3$).
+\end{itemize}
+
+Por tanto, el número de aplicaciones sobreyectivas (las que usan los 3 valores) es (usando el principio del complementario de forma anidada):
+\[
+243 - (96 - 3) = 150.
+\]
+
+\end{itemize}
+
+Ahora combinamos el resultado con cada posibilidad para formar el conjunto imagen de sólo 3 elementos, usando el \textbf{principio del producto}:  
+\[
+\binom{7}{3}\cdot 150
+=
+35 \cdot 150
+= \boxed{5250}.
+\]
+
+\textbf{f)} Imagen con cardinal menor o igual a $3$.
+
+\vspace{0.5em}
+
+Queremos contar cuántas aplicaciones $f : A \to B$ tienen \textbf{como máximo 3 valores distintos} en su imagen.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 20]
+
+El razonamiento es el siguiente:
+
+\begin{itemize}
+    \item El cardinal de la imagen puede ser $1$, $2$ o $3$. Por lo tanto, podemos dividir el problema en tres casos y luego sumar los resultados, que son claramente disjuntos. Esto se debe a que, por ejemplo, el cardinal no puede ser $1$ y $2$ a la vez. Por eso usamos el \textbf{principio de la suma}:
+    \[
+    |\operatorname{Im}(f)| = 1 \quad\text{o}\quad 2 \quad\text{o}\quad 3.
+    \]
+
+    \item \textbf{Cardinal = 1 (aplicaciones constantes):}  
+
+    Primero elegimos \emph{qué} valor de $B$ se usará en toda la aplicación. Como $|B|=7$, hay
+    \[
+    \binom{7}{1} = 7
+    \]
+    posibilidades.  
+
+    Una vez elegido el valor, todas las posiciones del dominio $A$ se asignan a ese valor. Esto da exactamente una aplicación para cada elección, por lo que
+    \[
+    7 \cdot 1 = 7 \text{ aplicaciones.}
+    \]
+
+    \item \textbf{Cardinal = 2:}  
+
+    Primero elegimos \emph{qué 2 elementos de $B$} van a formar la imagen. Hay
+    \[
+    \binom{7}{2} = 21
+    \]
+    formas de elegir estos 2 elementos.  
+
+    Luego, debemos contar cuántas aplicaciones $f : A \to \operatorname{Im}(f)$ usan \textbf{ambos valores} al menos una vez (sobreyectivas).  
+
+    \begin{itemize}
+    \item Cada posición del dominio tiene 2 opciones (el “nuevo codominio” tiene 2 valores): $2^5 = 32$.  
+    \item Pero algunas de estas aplicaciones usan solo un valor (constantes). Hay 2 aplicaciones constantes posibles: una para cada valor de $\operatorname{Im}(f)$, es decir $2 \cdot 1^5 = 2$.  
+    \end{itemize}
+
+    Por el \textbf{principio del complementario}, las aplicaciones sobreyectivas son:
+    \[
+    32 - 2 = 30
+    \]
+    aplicaciones por cada elección de 2 elementos.
+
+    Combinando con las posibles elecciones de 2 elementos de $B$:
+    \[
+    21 \cdot 30 = 630
+    \]
+    aplicaciones con cardinal exactamente 2.
+
+    \end{itemize}
+    \end{ejercicio}
+    \begin{ejercicio}[title=Ejercicio 20]
+    \begin{itemize}
+
+    \item \textbf{Cardinal = 3:}
+
+    Ya lo calculamos en el apartado e): 5250 aplicaciones.
+
+\end{itemize}
+
+Por el \textbf{principio de la suma}, el total de aplicaciones con imagen de cardinal $\le 3$ es:
+\[
+7 + 630 + 5250 = \boxed{5887}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 24 (⋆)]
+Sea $X$ un conjunto de cardinal $n$. Encuentre una expresión para:
+
+\begin{enumerate}
+\item[a)] El número de pares ordenados $(A,B)$ tales que $A \subseteq B \subseteq X$.
+\item[b)] El número de pares ordenados $(A,B)$ tales que $A,B \subseteq X$ y $A \cap B = \varnothing$.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a) Pares $(A,B)$ con $A \subseteq B \subseteq X$.}
+
+\begin{itemize}
+\item Observación: cada elemento de $X$ puede estar en $B \setminus A$, en $A$, o fuera de $B$.
+\item En otras palabras, para cada elemento de $X$ tenemos \textbf{3 posibilidades}:
+\begin{enumerate}
+\item el elemento está en $A$ (y por tanto también en $B$),
+\item el elemento está en $B$ pero no en $A$,
+\item el elemento no está en $B$ (y por tanto tampoco en $A$).
+\end{enumerate}
+\begin{center}
+% ========================
+% Diagrama 1 (concéntrico corregido)
+% ========================
+\begin{tikzpicture}[scale=1.2, font=\large]
+  % Universo X
+  \draw[thick] (-2.1,-1.7) rectangle (2.1,1.7);
+  \node at (1.7,1.4) {X};
+
+  % Conjunto B (círculo grande)
+  \draw[fill=gray!30, thick] (0,0) circle (1.4);
+  \node at (0,1.1) {B};
+
+  % Conjunto A (círculo pequeño dentro de B)
+  \draw[fill=gray!60, thick] (0,0) circle (0.8);
+  \node at (0,0.35) {A};
+
+  % Etiquetas de regiones
+  \node[darkgray] at (0,-0.3) {1.};              % dentro de A
+  \node[darkgray]  at (0.8,-0.8) {2.};                  % entre A y B
+  \node[darkgray]  at (1.5,-1.1) {3.};                  % fuera de B pero dentro de X
+\end{tikzpicture}
+\end{center}
+\item Como hay $n$ elementos independientes y cada uno tiene 3 opciones, el número total de pares $(A,B)$ es:
+\[
+\operatorname{VR}(3,n)=\boxed{3^n}.
+\]
+\end{itemize}
+
+\medskip
+
+\textbf{b) Pares $(A,B)$ con $A\cap B = \varnothing$.}
+
+\begin{itemize}
+\item Observación: ahora cada elemento de $X$ no puede estar simultáneamente en $A$ y en $B$, porque $A\cap B = \varnothing$.  
+\item Por tanto, para cada elemento de $X$ hay \textbf{3 opciones posibles}:
+\begin{enumerate}
+\item el elemento está en $A$ (pero no en $B$),
+\item el elemento está en $B$ (pero no en $A$),
+\item el elemento no está en $A$ ni en $B$.
+\end{enumerate}
+\begin{center}
+% ========================
+% Diagrama 1 (concéntrico corregido)
+% ========================
+\begin{tikzpicture}[scale=1.2, font=\large]
+  % Universo X
+  \draw[thick] (-2.1,-0.6) rectangle (2.1,1.7);
+  \node at (0,1.4) {X};
+
+  % Conjunto A
+  \draw[fill=gray!30, thick] (-1,0.5) circle (0.8);
+  \node at (-1,1) {A};
+
+  % Conjunto B
+  \draw[fill=gray!30, thick] (1,0.5) circle (0.8);
+  \node at (1,1) {B};
+
+  % Etiquetas de regiones
+  \node[darkgray] at (-1,0.2) {1.};              % dentro de A
+  \node[darkgray]  at (1,0.2) {2.};                  
+  \node[darkgray]  at (0,-0.3) {3.};                  % fuera de B pero dentro de X
+\end{tikzpicture}
+\end{center}
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 24 (⋆)]
+\begin{itemize}
+\item Como cada uno de los $n$ elementos de $X$ puede elegir independientemente entre estas 3 opciones, el número total de pares $(A,B)$ con $A\cap B = \varnothing$ también es:
+\[
+\operatorname{VR}(3,n)=\boxed{3^n}.
+\]
+\end{itemize}
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 29]
+Sea $p$ un número primo. Calcule cuántas 5-tuplas $(x_1, x_2, x_3, x_4, x_5)$ de $(\mathbb{Z}_p)^5$ verifican que:
+\[
+\begin{cases}
+x_1 + x_3 + x_4 + x_5 \ne 0 \\
+x_2 + x_3 + x_4 + x_5 \ne 0
+\end{cases}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Usamos el \textbf{principio del complementario}: contamos el número total de 5-tuplas en $(\mathbb{Z}_p)^5$ y restamos las que violan al menos una de las desigualdades. Es decir, vamos a restar las que cumplen una igualdad \textbf{ó} la otra. Para eso usaremos el \textbf{principio de inclusión-exclusión}.
+
+\begin{itemize}
+ \item[] \textbf{Paso 1.} Número total de 5-tuplas ($p$ posibilidades para 5 variables):
+ \[
+ \text{Totales}=\operatorname{VR}(p,5) = p^5.
+ \]
+
+ \item[] \textbf{Paso 2.} Consideremos el conjunto
+ \[
+ A=\{(x_1,x_2,x_3,x_4,x_5) : x_1 + x_3 + x_4 + x_5 = 0\}.
+ \]
+ Para formar una 5-tupla en $A$, podemos elegir libremente los valores de $x_3$, $x_4$ y $x_5$, ya que $x_1$ se determina automáticamente de la ecuación:
+ \[
+ x_1 = -(x_3+x_4+x_5).
+ \]
+ Como $x_3, x_4, x_5$ pueden tomar cualquiera de los $p$ valores de $\mathbb{Z}_p$, tenemos
+ \[
+ p \cdot p \cdot p = p^3,
+ \]
+ pero como $x_2$ también existe y puede tomar cualquier valor de $\mathbb{Z}_p$ aunque no influya en la ecuación porque no aparece, hay que multiplicar de nuevo por $p$, para contar esas posibilidades de $x_2$:
+ \[
+ |A| = p^3 \cdot p = p^4.
+ \]
+
+ De forma análoga, para
+ \[
+ B=\{(x_1,\dots,x_5)\in (\mathbb{Z}_p)^5 : x_2 + x_3 + x_4 + x_5 = 0\},
+ \]
+ podemos elegir libremente $x_3, x_4, x_5$ (y $x_1$ aunque no influya) y $x_2$ queda determinado:
+ \[
+ x_2 = -(x_3+x_4+x_5),
+ \]
+así que también
+ \[
+ |B|=p^4.
+ \]
+
+ \item[] \textbf{Paso 3.} Intersección $A\cap B$: ambas ecuaciones se cumplen simultáneamente (se cumple una igualdad \textbf{y} la otra), de donde
+ \[
+ x_1=-(x_3+x_4+x_5),\qquad x_2=-(x_3+x_4+x_5).
+ \]
+ \end{itemize}
+ \end{ejercicio}
+ \begin{ejercicio}[title=Ejercicio 29]
+ Entonces $x_1$ y $x_2$ quedan determinados por $x_3,x_4,x_5$ libres. Por tanto
+ \[
+ |A\cap B|=p \cdot p \cdot p = p^3.
+ \]
+ \begin{itemize}
+ \item[] \textbf{Paso 4.} Aplicando el \textbf{principio de inclusión-exclusión}, el número de 5-tuplas que cumplen alguna igualdad es:
+ \[
+ |A\cup B| = |A|+|B|-|A\cap B| = p^4+p^4-p^3 = 2p^4 - p^3
+ \]
+ \item[] \textbf{Paso 5.} \textbf{Principio del complementario}. El número de 5-tuplas que no cumplen ninguna igualdad es el número de 5-tuplas que cumplen \emph{ambas} desigualdades. Esto es lo que se nos pide:
+ \[
+ p^5 - (2p^4 - p^3) = \boxed{p^5 - 2p^4 + p^3}
+ \]
+\end{itemize}
+
+\end{ejercicio}
+
+\subsubsection{Permutaciones con repetición ($k=n$ en secuencias)}
+
+\begin{ejercicio}[title=Ejercicio 16]
+¿Cuántas $n$-tuplas de longitud $n \ge 3$ formadas por ceros y unos contienen exactamente tres ceros? ¿Cuántas contienen al menos tres ceros?
+
+\tcblower
+\textbf{Resolución:}
+
+Una $n$-tupla con $n \ge 3$ es en realidad una secuencia de ceros y unos. Estos se colocan de forma ordenada respetando posiciones, por lo que el orden importa, se permiten repeticiones y hablamos de \textbf{permutaciones con repetición}.
+
+\begin{itemize}
+\item Todas las formas posibles de ordenar los $n$ elementos de la tupla con frecuencias dadas se calculan con la fórmula que conocemos:
+
+\[
+\binom{n}{k_1,k_2,\dots,k_t} = \frac{n!}{k_1!\, k_2! \cdots k_t!},
+\]
+
+donde $n$ es el número total de elementos y $k_1,k_2,\dots,k_t$ son las frecuencias de los elementos repetidos.  
+
+\item En nuestro caso, $n$ es la longitud de la tupla, y $k_1,k_2$ son las frecuencias de los ceros y los unos.
+
+\item Veamos algunos casos particulares:
+\[
+\begin{aligned}
+n = 3: &\quad \binom{3}{3,0} = \frac{3!}{3!0!} = 1,\\
+n = 4: &\quad \binom{4}{3,1} = \frac{4!}{3!1!} = 4,\\
+n = 5: &\quad \binom{5}{3,2} = \frac{5!}{3!2!} = 10,\\
+n = 6: &\quad \binom{6}{3,3} = \frac{6!}{3!3!} = 20.
+\end{aligned}
+\]
+
+\item Generalizando, el número de $n$-tuplas con exactamente tres ceros es:
+
+\[
+\binom{n}{3,n-3} = \frac{n!}{3!\, (n-3)!} = \boxed{\binom{n}{3}}
+\]
+
+\item Para calcular cuántas $n$-tuplas contienen al menos tres ceros, primero observemos que cualquier $n$-tupla de ceros y unos puede contener desde 0 hasta $n$ ceros.  
+
+El total de todas las posibles $n$-tuplas se obtiene considerando que cada posición puede ser un 0 o un 1, independientemente de las demás posiciones.
+
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 16]
+Como hay $n$ posiciones y cada una tiene 2 opciones, el número total de $n$-tuplas es, por el \textbf{principio del producto}:
+\[
+\underbrace{2 \cdot 2 \cdot \cdots \cdot 2}_{n\ \text{veces}} = 2^n.
+\]
+\begin{itemize}  
+\item Ahora, usamos el \textbf{principio del complementario}: “Al menos tres ceros” significa que descartamos las tuplas con menos de 3 ceros.  
+Estas son exactamente las tuplas con 0, 1 o 2 ceros.
+
+\begin{itemize}
+
+\item Las tuplas con 0 ceros (todas unas) hay $\binom{n}{0} = 1$.  
+
+\item Las tuplas con exactamente 1 cero hay $\binom{n}{1} = n$, ya que elegimos en cuál de las $n$ posiciones colocamos el cero.  
+
+\item Las tuplas con exactamente 2 ceros hay $\binom{n}{2} = \frac{n(n-1)}{2}$, porque elegimos las 2 posiciones de los $n$ posibles donde colocar los ceros.
+
+\end{itemize}
+
+\vspace{0.5em}
+
+Por el \textbf{principio del complementario}, el número de $n$-tuplas con al menos 3 ceros es el total menos todas las tuplas con menos de 3 ceros:
+
+\[
+\sum_{k=3}^{n} \binom{n}{k} = 2^n - \left[ \binom{n}{0} + \binom{n}{1} + \binom{n}{2} \right] 
+= \boxed{2^n - 1 - n - \frac{n(n-1)}{2}}.
+\]
+
+De esta manera, entendemos de dónde sale cada término:
+
+$2^n$ representa todas las posibles $n$-tuplas formadas íntegramente por ceros y unos, y restamos las que tienen 0, 1 o 2 ceros porque no cumplen la condición de “al menos tres ceros”.
+
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 48]
+Para la palabra \texttt{TARAMBANA}:
+
+\begin{enumerate}
+\item[a)] ¿De cuántas formas se pueden ordenar todas sus letras?
+\item[b)] ¿De cuántas formas se pueden ordenar todas sus letras de modo que todas las A aparezcan en posiciones consecutivas?
+\item[c)] ¿De cuántas formas se pueden ordenar todas sus letras de modo que no haya dos vocales consecutivas?
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\begin{itemize}
+\item[a)] La palabra \texttt{TARAMBANA} tiene 9 letras con las siguientes frecuencias:
+\[
+1\ \texttt{T},\quad 4\ \texttt{A},\quad 1\ \texttt{R},\quad 1\ \texttt{M},\quad 1\ \texttt{B},\quad 1\ \texttt{N}.
+\]
+El número de ordenaciones con repetición de la secuencia (la palabra) es
+\[
+\binom{9}{1,4,1,1,1,1} =\frac{9!}{1!\,4!\,1!\,1!\,1!\,1!}=\frac{9!}{4!}=9\cdot8\cdot7\cdot6\cdot5=\boxed{15120}.
+\]
+
+\item[b)] Si exigimos que las cuatro \texttt{A} estén juntas las consideramos como una ``superletra'' \(\texttt{AAAA}\). Entonces tenemos 6 nuevas letras distintas, y todas aparecen con frecuencia 1:
+\[
+\texttt{T},\ \texttt{AAAA},\ \texttt{R},\ \texttt{M},\ \texttt{B},\ \texttt{N},
+\]
+
+Así, el número de ordenaciones de la palabra de modo que todas las \texttt{A} aparecen en posiciones consecutivas es:
+\[
+\binom{6}{1,1,1,1,1,1} = \frac{6!}{1!1!1!1!1!1!} = 6! = \boxed{720}.
+\]
+
+\item[c)] Queremos ordenaciones en las que no haya dos vocales consecutivas. En esta palabra las únicas vocales son las cuatro \texttt{A} (idénticas) y hay 5 consonantes distintas \(T,R,M,B,N\).
+
+Primero ordenamos las 5 consonantes (todas distintas): hay \(5!\) formas.
+
+Al colocar esas 5 consonantes quedan \(5+1=6\) huecos (antes, entre y después de las consonantes).
+
+Para evitar vocales consecutivas debemos insertar como máximo una \texttt{A} por hueco, así que debemos elegir 4 de esos 6 huecos donde colocar exactamente una \texttt{A} en cada uno. El número de maneras de elegir los huecos es \(\binom{6}{4}\).
+
+Por tanto el número total de ordenaciones válidas es, por el \textbf{principio del producto}:
+\[
+5! \cdot \binom{6}{4} = 120 \cdot 15 = \boxed{1800}.
+\]
+\end{itemize}
+
+\end{ejercicio}
+
+\subsection{Combinaciones Ordinarias: Orden no importa, sin repetición}
+
+\begin{ejercicio}[title=Ejercicio 8]
+En una bocadillería cada bocadillo debe incluir al menos dos de los siguientes ingredientes: queso, salmón, tomate, lechuga, mayonesa, bacon y espárragos. ¿Cuántos tipos de bocadillos distintos podemos elegir?
+
+\tcblower
+\textbf{Resolución:}
+
+Se distinguen $7$ ingredientes, y se quiere formar un bocadillo con al menos $2$ ingredientes.  
+
+Damos por hecho que en los bocadillos:
+
+\begin{itemize}
+\item No importa el orden de los ingredientes.
+\item No se repiten ingredientes.
+\end{itemize}
+
+Por lo tanto, estamos en un caso de \textbf{Combinaciones Ordinarias}.
+
+Dependiendo de si escogemos $2, 3, \dots, 7$ ingredientes, tenemos las siguientes cantidades de combinaciones:
+
+\[
+\binom{7}{2}, \binom{7}{3}, \binom{7}{4}, \binom{7}{5}, \binom{7}{6}, \binom{7}{7}.
+\]
+
+¿Cómo sabemos si debemos sumarlas o multiplicarlas?  
+Usamos el \textbf{principio de la suma} porque un bocadillo solo puede tener $2$ \emph{o} $3$ \emph{o} $4$ ... $7$ ingredientes distintos. Dicho de otra manera, un bocadillo no puede tener dos cantidades de ingredientes a la vez. Por eso sumamos:
+
+\[
+\binom{7}{2} + \binom{7}{3} + \binom{7}{4} + \binom{7}{5} + \binom{7}{6} + \binom{7}{7}.
+\]
+
+Aplicando la propiedad de simetría de los binomiales:
+
+\[
+\binom{7}{2} = \binom{7}{5}, \quad \binom{7}{3} = \binom{7}{4},
+\]
+
+y calculando:
+
+\[
+\binom{7}{2} = \frac{7 \cdot 6}{2} = 21, \quad
+\binom{7}{3} = \frac{7 \cdot 6 \cdot 5}{6} = 35, \quad
+\binom{7}{6} = \binom{7}{1} = 7, \quad
+\binom{7}{7} = 1.
+\]
+
+Sumando todo:
+
+\[
+2 \cdot 21 + 2 \cdot 35 + 7 + 1 = 42 + 70 + 8 = \boxed{120 \text{ tipos de bocadillos}}.
+\]
+
+\medskip
+\textbf{Método alternativo con el binomio de Newton:}
+
+Recordemos que para cualquier $n \in \mathbb{N}$:
+
+\[
+(x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^k y^{n-k}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 8]
+
+Si tomamos $x = y = 1$, obtenemos:
+
+\[
+2^n = \sum_{k=0}^{n} \binom{n}{k}.
+\]
+
+Para $n = 7$, esto nos da:
+
+\[
+2^7 = \binom{7}{0} + \binom{7}{1} + \binom{7}{2} + \dots + \binom{7}{7} = 128.
+\]
+
+\vspace{0.5em}
+
+La estrategia es usar el \textbf{principio del complementario}. Como solo queremos bocadillos con al menos $2$ ingredientes, debemos eliminar los casos $k = 0$ (ningún ingrediente) y $k = 1$ (solo un ingrediente):
+
+\[
+128 - \Bigg(\binom{7}{0} + \binom{7}{1}\Bigg) = 128 - (1 + 7) = 120 \text{ posibilidades}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 15]
+Sea el conjunto $X = \{0,1,2,3,4,5,6,7,8,9\} \subseteq \mathbb{N}$.
+
+\begin{enumerate}
+\item[a)] ¿Cuántos subconjuntos de $X$ tienen cardinal igual a 4?
+\item[b)] ¿Cuántos subconjuntos de $X$ tienen cardinal impar?
+\item[c)] ¿Cuántos subconjuntos de $X$ tienen cardinal par?
+\item[d)] ¿Cuántos subconjuntos de $X$ contienen al conjunto $\{0,1,2,3\}$?
+\item[e)] ¿Cuántos subconjuntos de $X$ tienen al menos un elemento en común con el conjunto $\{0,1,2,3\}$?
+\item[f)] ¿Cuántos subconjuntos de $X$ tienen elementos pares y elementos impares?
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)}  
+Si un subconjunto de $X$ tiene cardinal $4$, significa que tiene $4$ elementos de $X$.  
+Tenemos que ver todas las formas de seleccionar $4$ elementos dentro del conjunto $X$ que tiene $10$ elementos ($|X| = 10$).
+
+Vemos que:
+\begin{itemize}
+\item El orden no importa (son conjuntos, carecen de orden).
+\item No se permite repetición (los elementos de un conjunto no pueden estar repetidos, aparecen de forma única).
+\end{itemize}
+
+Hablamos entonces de \textbf{combinaciones ordinarias}.  
+Entonces tenemos que la respuesta es:
+\[
+\binom{10}{4}
+= \frac{10!}{4!(10-4)!}
+= \frac{10!}{4!6!}
+= \frac{10\cdot 9\cdot 8\cdot 7}{24}
+= \boxed{210}.
+\]
+
+\vspace{1em}
+
+\textbf{b)}  
+Queremos obtener los $A \subseteq X$ tales que  
+\[
+|A| \in \{1,3,5,7,9\}.
+\]
+Es decir, $|A|$ puede ser $1$ o $3$ o $5$ o $7$ o $9$ → usamos \textbf{unión}.
+
+\vspace{0.5em}
+
+Tenemos entonces que calcular los conjuntos \textbf{que contienen} a los subconjuntos de $X$ con cardinal $1,3,5,7$ y $9$. Estos los llamaremos $A_1, A_3, A_5, A_7, A_9$, respectivamente.
+
+Procediendo similarmente a como hemos hecho el apartado anterior, tenemos:
+\[
+|A_1| = \binom{10}{1} = 10,
+\]
+\[
+|A_3| = \binom{10}{3}
+= \frac{10!}{3!(10-3)!}
+= \frac{10\cdot 9\cdot 8}{6}
+= 120,
+\]
+\[
+|A_5| = \binom{10}{5}
+= \frac{10!}{5!(10-5)!}
+= \frac{10\cdot 9\cdot 8\cdot 7\cdot 6}{120}
+= 252,
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 15]
+\[
+|A_7| = \binom{10}{7}
+= \binom{10}{10-7}
+= \binom{10}{3}
+= 120,
+\]
+\[
+|A_9| = \binom{10}{9}
+= \binom{10}{10-9}
+= \binom{10}{1}
+= 10.
+\]
+
+Observamos que todos ellos son disjuntos porque los subconjuntos que los conforman no pueden tener a la vez dos cardinales distintos; por ejemplo, un subconjunto de $X$ no puede tener cardinal $1$ y $3$ simultáneamente.
+
+Por ello, aplicamos el \textbf{principio de la suma}:
+\[
+|A_1 \cup A_3 \cup A_5 \cup A_7 \cup A_9|
+= |A_1| + |A_3| + |A_5| + |A_7| + |A_9|
+= 2\cdot 10 + 2\cdot 120 + 252
+= \boxed{512}.
+\]
+
+\vspace{1em}
+
+\textbf{c)}  
+Sabemos que el cardinal de los subconjuntos puede ser par o impar; no hay más casos posibles respecto a la paridad.
+
+Aplicamos entonces el \textbf{principio del complementario}: restamos al total de subconjuntos de $X$ los que tienen cardinal impar (apartado anterior).
+
+El total es:
+\[
+|P(X)| = 2^{|X|} = 2^{10} = 1024.
+\]
+
+Entonces los subconjuntos con cardinal par son:
+\[
+|P(X)| - 512
+= 1024 - 512
+= \boxed{512}.
+\]
+
+\textbf{d)} Queremos obtener cuántos subconjuntos de $X$ contienen al conjunto $\{0,1,2,3\}$.  
+Este conjunto tiene cardinal 4.  
+
+Por tanto, estos serán los subconjuntos $A \subseteq X$ tales que 
+\[
+\{0,1,2,3\} \subseteq A. \qquad \text{Entonces }|A| \in \{4,5,6,7,8,9\}. 
+\]
+Es decir, $|A|$ puede ser 4, 5, 6, 7, 8 o 9 → usamos \textbf{unión}.
+
+\vspace{0.5em}
+
+Calculamos los conjuntos que contienen los subconjuntos de $X$ que incluyen a $\{0,1,2,3\}$.
+
+Las opciones corresponden a los subconjuntos con cardinal 4, 5, 6, 7, 8 y 9.  
+
+Denotaremos estos conjuntos como $A_4, A_5, A_6, A_7, A_8$ y $A_9$, respectivamente.  
+
+\vspace{0.5em}
+
+Como el orden no importa (son conjuntos) y no se permiten repeticiones (cada elemento aparece una sola vez), hablamos de \textbf{combinaciones ordinarias}, igual que en los apartados anteriores.
+
+\vspace{0.5em}
+
+Entonces, en cada caso queremos obtener el conjunto de subconjuntos con cardinal $4,5,6,7,8,9$.  
+Para ello, seleccionamos de entre los 6 elementos restantes (después de $\{0,1,2,3\}$), primero ninguno, luego 1, luego 2, etc.:
+
+\[
+\begin{aligned}
+|A_4| &= \binom{6}{4-4} = \binom{6}{0} = 1, &&\text{(este es el propio $\{0,1,2,3\}$)}\\[6pt]
+|A_5| &= \binom{6}{5-4} = \binom{6}{1} = 6,\\[6pt]
+\end{aligned}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 15]
+\[
+\begin{aligned}
+|A_6| &= \binom{6}{6-4} = \binom{6}{2} = \frac{6\cdot5}{2} = 15,\\[6pt]
+|A_7| &= \binom{6}{7-4} = \binom{6}{3} = \frac{6\cdot5\cdot4}{6} = 20,\\[6pt]
+|A_8| &= \binom{6}{8-4} = \binom{6}{4} = \binom{6}{6-4} = \binom{6}{2} = 15,\\[6pt]
+|A_9| &= \binom{6}{9-4} = \binom{6}{5} = \binom{6}{6-5} = \binom{6}{1} =6,\\[6pt]
+|A_{10}| &= \binom{6}{10-4} = \binom{6}{6} = 1. &&\text{(este es $\{0,1,2,3,4,5,6,7,8,9\}$)}.
+\end{aligned}
+\]
+
+Como dos subconjuntos pertenecientes a distintos $A_i$ no pueden tener el mismo cardinal a la vez, son disjuntos y podemos aplicar el \textbf{principio de la suma}:
+\[
+|A_4| + |A_5| + |A_6| + |A_7| + |A_8| + |A_9| + |A_{10}|
+= 1\cdot2 + 6\cdot2 + 15\cdot2 + 20
+= \boxed{64}.
+\]
+
+Otra manera de verlo es considerar el conjunto de partes $P(\{4,5,6,7,8,9\})$, que son todas las combinaciones de estos elementos que luego se unen a $\{0,1,2,3\}$ para formar los subconjuntos descritos.  
+\[
+|P(\{4,5,6,7,8,9\})| = 2^{|\{4,5,6,7,8,9\}|} = 2^6 = \boxed{64}.
+\]
+
+\vspace{0.5em}
+
+\textbf{e)}  
+Queremos obtener cuántos subconjuntos de $X$ tienen al menos un elemento en común con el conjunto $\{0,1,2,3\}$.
+
+\vspace{0.5em}
+
+Usamos el \textbf{principio del complementario}:  
+Primero calculamos cuántos subconjuntos de $X$ \emph{no} tienen ningún elemento en común con $\{0,1,2,3\}$.  
+
+\vspace{0.5em}
+
+Estos son los subconjuntos de $X$ que solo pueden contener los elementos $\{4,5,6,7,8,9\}$.  
+Es decir, todos los conjuntos que se pueden formar a partir de estos números, más el conjunto vacío $\varnothing$.  
+Esto corresponde al \emph{conjunto de partes} $P(\{4,5,6,7,8,9\})$:
+
+\[
+|P(\{4,5,6,7,8,9\})| = 2^{|\{4,5,6,7,8,9\}|} = 2^6 = 64.
+\]
+
+Por el \textbf{principio del complementario}, el número de subconjuntos de $X$ que tienen al menos un elemento en común con $\{0,1,2,3\}$ es:
+
+\[
+2^{|X|} - 64 = 2^{10} - 64 = 1024 - 64 = \boxed{960}.
+\]
+
+\textbf{f)}  
+Queremos calcular cuántos subconjuntos de $X$ tienen tanto elementos pares como elementos impares.
+
+\vspace{0.5em}
+
+Primero, recordemos que los números pares de $X$ son $\{0,2,4,6,8\}$ y los impares son $\{1,3,5,7,9\}$.  
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 15]
+
+Usaremos el \textbf{principio del complementario}:  
+Contamos primero cuántos subconjuntos de $X$ \emph{no} tienen tanto pares como impares, es decir, aquellos que contienen solo pares o solo impares.
+
+\begin{itemize}
+\item Subconjuntos que contienen solo elementos pares:  
+Estos son todos los subconjuntos de $\{0,2,4,6,8\}$:
+\[
+|P(\{0,2,4,6,8\})| = 2^5 = 32.
+\]
+
+\item Subconjuntos que contienen solo elementos impares:  
+Estos son todos los subconjuntos de $\{1,3,5,7,9\}$:
+\[
+|P(\{1,3,5,7,9\})| = 2^5 = 32.
+\]
+\end{itemize}
+
+Observamos que el subconjunto vacío $\varnothing$ está contado en ambos conjuntos, así que debemos restarlo una vez para no contar doble:
+\[
+32 + 32 - 1 = 63 \quad \text{(subconjuntos que no contienen pares e impares a la vez)}.
+\]
+
+Por el \textbf{principio del complementario}, hallamos los subconjuntos que SÍ contienen pares e impares a la vez. Entonces, los subconjuntos que contienen al menos un número par y al menos un número impar son:
+
+\[
+2^{|X|} - 63 = 2^{10} - 63 = 1024 - 63 = \boxed{961}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 17]
+Tenemos diez libros diferentes de los cuales queremos darle tres a Alicia, dos a Bernardo y dos a Carlos. ¿Cuántos resultados posibles pueden ocurrir si no se tiene en cuenta el orden en el que cada persona recibe los libros? ¿Y si se tiene en cuenta el orden?
+
+\tcblower
+\textbf{Resolución:}
+
+Queremos repartir 10 libros distintos entre tres personas con las cantidades dadas: Alicia 3, Bernardo 2, Carlos 2.  
+Para ello distinguimos dos casos: cuando \textbf{no se considera el orden dentro del grupo de cada persona} y cuando \textbf{sí se considera}.
+
+\begin{itemize}
+\item \textbf{Caso 1: No se considera el orden dentro de cada grupo.}  
+
+Aquí simplemente seleccionamos subconjuntos de libros para cada persona.
+
+\begin{enumerate}
+\item Primero elegimos los 3 libros de Alicia de entre los 10: 
+\[
+\binom{10}{3} = \frac{10\cdot 9\cdot 8}{3!} = 120.
+\]
+
+\item Después elegimos los 2 libros de Bernardo de los 7 restantes: 
+\[
+\binom{7}{2} = \frac{7\cdot 6}{2!} = 21.
+\]
+
+\item Luego elegimos los 2 libros de Carlos de los 5 restantes: 
+\[
+\binom{5}{2} = \frac{5\cdot 4}{2!} = 10.
+\]
+
+\item Los 3 libros restantes no se asignan a nadie, así que no los contamos.  
+
+Por el \textbf{principio del producto}, el número total de resultados es:
+\[
+\binom{10}{3} \cdot \binom{7}{2} \cdot \binom{5}{2} = 120 \cdot 21 \cdot 10 = \boxed{25200}.
+\]
+\end{enumerate}
+
+\item \textbf{Caso 2: Se considera el orden dentro de cada grupo.}  
+
+Distribuimos los libros uno a uno, es decir, teniendo en cuenta un orden:
+
+\begin{enumerate}
+\item Primer libro de Alicia: 10 opciones  
+\item Segundo libro de Alicia: 9 opciones  
+\item Tercer libro de Alicia: 8 opciones  
+\item Primer libro de Bernardo: 7 opciones  
+\item Segundo libro de Bernardo: 6 opciones  
+\item Primer libro de Carlos: 5 opciones  
+\item Segundo libro de Carlos: 4 opciones
+\end{enumerate}
+\[
+10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 = \boxed{604800}.
+\]
+\end{itemize}
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 20]
+Sean $A = \{1,2,3,4,5\}$ y $B = \{1,2,3,4,5,6,7\}$, subconjuntos de $\mathbb{N}$. Calcule el número de aplicaciones $f : A \to B$ tales que:
+
+\begin{enumerate}
+\item[a)] El conjunto imagen de $f$ sólo contiene elementos pares.
+\item[b)] El conjunto imagen de $f$ sólo contiene elementos impares.
+\item[c)] El conjunto imagen de $f$ sólo contiene elementos pares o sólo contiene elementos impares.
+\item[d)] El conjunto imagen de $f$ contiene elementos pares y elementos impares.
+\item[e)] El cardinal del conjunto imagen de $f$ es $3$.
+\item[f)] El cardinal del conjunto imagen de $f$ es menor o igual que $3$.
+\end{enumerate}
+
+\tcblower
+
+En $B$ los pares son $\{2,4,6\}$ (3 elementos) y los impares $\{1,3,5,7\}$ (4 elementos).
+
+\medskip
+\textbf{a)} Imagen sólo con elementos \textbf{pares}.
+
+\vspace{0.5em}
+
+Sabemos que $\operatorname{VR}(n,k)$ representa el número de aplicaciones que se pueden definir de un conjunto de $k$ elementos en un conjunto de $n$ elementos, donde cada elemento del dominio puede elegirse múltiples veces (variaciones con repetición).  
+
+\vspace{0.5em}
+
+Aquí $|A|=5$ y el subconjunto de pares de $B$ tiene $3$ elementos. Por tanto, para cada uno de los 5 elementos de $A$ hay 3 opciones de imagen (independientes entre sí). Aplicando el \textbf{principio del producto} (variaciones con repetición):
+
+\[
+\text{Número de aplicaciones} = \operatorname{VR}(3,5) = 3^{5} = \boxed{243}.
+\]
+
+\vspace{0.5em}
+
+\textbf{b)} Imagen sólo con elementos \textbf{impares}.
+
+\vspace{0.5em}
+
+Igual que en el apartado a), ahora el conjunto de valores permitidos tiene $4$ elementos. Con $|A|=5$ posiciones y $4$ opciones por posición (elecciones independientes), por variaciones con repetición:
+
+\[
+\text{Número de aplicaciones} = \operatorname{VR}(4,5) = 4^{5} = \boxed{1024}.
+\]
+
+\vspace{0.5em}
+
+\textbf{c)} Imagen sólo pares \textbf{o} sólo impares.
+
+\vspace{0.5em}
+
+Los dos casos “sólo pares” y “sólo impares” son mutuamente excluyentes (no puede una aplicación tener simultáneamente imagen sólo de pares y sólo de impares), por lo que aplicamos el \textbf{principio de la suma} sobre los conjuntos disjuntos de aplicaciones:
+\[
+\text{Número de aplicaciones} = \operatorname{VR}(3,5) + \operatorname{VR}(4,5) = 3^{5} + 4^{5} = 243 + 1024 = \boxed{1267}.
+\]
+
+\vspace{0.5em}
+
+\textbf{d)} Imagen que contiene pares \textbf{y} impares.
+
+\vspace{0.5em}
+
+Queremos las aplicaciones cuya imagen tiene al menos un elemento par y al menos un elemento impar. Es más sencillo contar el total y restarle el  complementario.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 20]
+
+El complementario está formado por las aplicaciones que \emph{no} tienen pares \emph{o} no tienen impares, es decir, las aplicaciones de la forma “sólo pares” o “sólo impares” (los casos de a) y b)).
+
+\vspace{0.5em}
+
+Primero contamos el total de aplicaciones sin restricción: por variaciones con repetición (7 opciones por cada uno de los 5 elementos de $A$),
+
+\[
+\text{Total de aplicaciones } f: A\to B = |B|^{|A|} = \operatorname{VR}(7,5) = 7^{5} = 16807.
+\]
+
+Por el \textbf{principio del complementario}, restamos las aplicaciones del caso “sólo pares” y las del caso “sólo impares” (que ya hemos contado en a) y b)):
+
+\[
+\text{Número de aplicaciones con pares y impares}
+= 7^{5} - \bigl(3^{5} + 4^{5}\bigr)
+\]
+\[
+= 16807 - (243 + 1024)
+= 16807 - 1267
+= \boxed{15540}.
+\]
+
+\vspace{0.5em}
+
+\textbf{e)} Imagen con cardinal exactamente $3$.
+
+\vspace{0.5em}
+
+Queremos contar cuántas aplicaciones $f : A \to B$ tienen exactamente $3$ valores distintos en su imagen.
+
+El razonamiento es el siguiente:
+
+\begin{itemize}
+    \item Primero elegimos \emph{qué} $3$ elementos de $B$ van a formar la imagen.
+    Como $|B|=7$, el número de formas de elegir $3$ elementos es:
+    \[
+    \binom{7}{3}.
+    \]
+
+    \item Una vez elegida una imagen $\operatorname{Im}(f)\subseteq B$ de tamaño $3$, debemos contar cuántas aplicaciones $f : A \to \operatorname{Im}(f)$ hay.
+
+    Esto es precisamente la definición de sobreyectividad, ya que vemos que la imagen de la aplicación es el propio codominio.
+    
+    Dichas aplicaciones son exactamente las \textbf{sobreyectivas} de $A$ a $\operatorname{Im}(f)$.  
+    Como $|A|=5$ y $|\operatorname{Im}(f)|=3$, queremos aplicaciones sobreyectivas de un conjunto de 5 elementos en uno de 3.
+
+    Por lo tanto necesitamos contar el total de aplicaciones (variaciones con repetición) y restarle el número de aplicaciones que \textbf{no} son sobreyectivas.
+
+    Total de aplicaciones: $\operatorname{VR(3,5) = |\operatorname{Im}(f)|^{|A|}} = 3^5 = 125$
+
+    Ahora quitamos las que \emph{no} son sobreyectivas (\textbf{principio del complementario}). Las que no son sobreyectivas son aquellas aplicaciones que \textbf{no} usan todos los valores del dominio, es decir, podemos distinguir dos casos:
+
+\begin{itemize}
+
+    \item Aplicaciones que \textbf{no usan un valor} (es decir, solo usan 2 valores de los 3):  
+
+\vspace{0.5em}
+
+    Fijemos un valor de los 3 que vamos a “eliminar” de la imagen. Por ejemplo, si nuestra imagen elegida es $\operatorname{Im}(f)=\{a,b,c\}$, podemos decidir no usar $a$. Entonces la aplicación $f: A \to \operatorname{Im}(f)$ solo puede tomar los valores $\{b,c\}$.  
+
+    \end{itemize}
+    \end{itemize}
+    \end{ejercicio}
+    \begin{ejercicio}[title=Ejercicio 20]
+    \begin{itemize}
+    \begin{itemize}
+    Ahora, para cada posición del dominio $A$ (que tiene 5 elementos), hay 2 opciones posibles ($b$ o $c$). Esto es lo que llamamos el “nuevo dominio” de la aplicación restringida: ahora solo estamos eligiendo entre 2 valores.  
+    Por tanto, el número de aplicaciones que no usan $a$ es
+    \[
+    2^5 = 32.
+    \]
+
+\vspace{0.5em}
+
+    Lo mismo ocurre si decidimos no usar $b$ o no usar $c$. Como hay 3 valores posibles que podríamos eliminar, el total es
+    \[
+    3 \cdot 32 = 96.
+    \]
+
+\vspace{0.5em}
+
+    Pero entre estas 32 aplicaciones de cada caso, algunas solo usan un valor. \\
+    
+    Por ejemplo, todas las posiciones asignadas a $b$ o todas asignadas a $c$. Estas aplicaciones constantes no deberían contarse aquí, porque no queremos contar aplicaciones que usan solo un valor dentro de las que deberían usar 2. Es por eso que restamos al conjunto actual ($96$) la siguiente cantidad:
+
+    \item Aplicaciones que \textbf{solo usan 1 valor} (constantes):
+
+\vspace{0.5em}
+
+    Cada valor constante genera exactamente $1^5 = 1$ aplicación. Hay 3 posibles aplicaciones constantes (una por cada valor de $\operatorname{Im}(f)$):
+    \[
+    3 \cdot 1^5 = 3.
+    \]
+
+\vspace{0.5em}
+
+    Estas aplicaciones fueron “restadas” cuando contamos los 2 valores antes, por eso debemos restar de nuevo según el \textbf{principio del complementario} ($96-3$).
+\end{itemize}
+
+Por tanto, el número de aplicaciones sobreyectivas (las que usan los 3 valores) es (usando el principio del complementario de forma anidada):
+\[
+243 - (96 - 3) = 150.
+\]
+
+\end{itemize}
+
+Ahora combinamos el resultado con cada posibilidad para formar el conjunto imagen de sólo 3 elementos, usando el \textbf{principio del producto}:  
+\[
+\binom{7}{3}\cdot 150
+=
+35 \cdot 150
+= \boxed{5250}.
+\]
+
+\textbf{f)} Imagen con cardinal menor o igual a $3$.
+
+\vspace{0.5em}
+
+Queremos contar cuántas aplicaciones $f : A \to B$ tienen \textbf{como máximo 3 valores distintos} en su imagen.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 20]
+
+El razonamiento es el siguiente:
+
+\begin{itemize}
+    \item El cardinal de la imagen puede ser $1$, $2$ o $3$. Por lo tanto, podemos dividir el problema en tres casos y luego sumar los resultados, que son claramente disjuntos. Esto se debe a que, por ejemplo, el cardinal no puede ser $1$ y $2$ a la vez. Por eso usamos el \textbf{principio de la suma}:
+    \[
+    |\operatorname{Im}(f)| = 1 \quad\text{o}\quad 2 \quad\text{o}\quad 3.
+    \]
+
+    \item \textbf{Cardinal = 1 (aplicaciones constantes):}  
+
+    Primero elegimos \emph{qué} valor de $B$ se usará en toda la aplicación. Como $|B|=7$, hay
+    \[
+    \binom{7}{1} = 7
+    \]
+    posibilidades.  
+
+    Una vez elegido el valor, todas las posiciones del dominio $A$ se asignan a ese valor. Esto da exactamente una aplicación para cada elección, por lo que
+    \[
+    7 \cdot 1 = 7 \text{ aplicaciones.}
+    \]
+
+    \item \textbf{Cardinal = 2:}  
+
+    Primero elegimos \emph{qué 2 elementos de $B$} van a formar la imagen. Hay
+    \[
+    \binom{7}{2} = 21
+    \]
+    formas de elegir estos 2 elementos.  
+
+    Luego, debemos contar cuántas aplicaciones $f : A \to \operatorname{Im}(f)$ usan \textbf{ambos valores} al menos una vez (sobreyectivas).  
+
+    \begin{itemize}
+    \item Cada posición del dominio tiene 2 opciones (el “nuevo codominio” tiene 2 valores): $2^5 = 32$.  
+    \item Pero algunas de estas aplicaciones usan solo un valor (constantes). Hay 2 aplicaciones constantes posibles: una para cada valor de $\operatorname{Im}(f)$, es decir $2 \cdot 1^5 = 2$.  
+    \end{itemize}
+
+    Por el \textbf{principio del complementario}, las aplicaciones sobreyectivas son:
+    \[
+    32 - 2 = 30
+    \]
+    aplicaciones por cada elección de 2 elementos.
+
+    Combinando con las posibles elecciones de 2 elementos de $B$:
+    \[
+    21 \cdot 30 = 630
+    \]
+    aplicaciones con cardinal exactamente 2.
+
+    \end{itemize}
+    \end{ejercicio}
+    \begin{ejercicio}[title=Ejercicio 20]
+    \begin{itemize}
+
+    \item \textbf{Cardinal = 3:}
+
+    Ya lo calculamos en el apartado e): 5250 aplicaciones.
+
+\end{itemize}
+
+Por el \textbf{principio de la suma}, el total de aplicaciones con imagen de cardinal $\le 3$ es:
+\[
+7 + 630 + 5250 = \boxed{5887}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 21 (⋆)]
+Si $A$ y $B$ son conjuntos tales que $|A| = m$, $|B| = n$ y $m \ge n \ge 1$, ¿cuántas aplicaciones sobreyectivas se pueden definir de $A$ en $B$?
+
+\tcblower
+\textbf{Resolución:}
+
+Queremos contar cuántas funciones $f : A \to B$ son \textbf{sobreyectivas}, es decir, que usen todos los $n$ elementos de $B$ al menos una vez.
+
+\begin{itemize}
+
+\item \textbf{Paso 1: Total de aplicaciones $A \to B$.}  
+
+Cada elemento de $A$ puede asignarse a cualquiera de los $n$ elementos de $B$. Como hay $m$ elementos en $A$, por el \textbf{principio del producto} (variaciones con repetición):
+\[
+\text{Total de aplicaciones} = \operatorname{VR}(n,m) = |B|^{|A|} = n^m
+\]
+
+\item \textbf{Paso 2: Aplicaciones que no son sobreyectivas.}  
+
+Para usar el \textbf{principio del complementario}, restamos las funciones que \emph{no usan todos los valores de $B$}.
+
+\begin{itemize}
+
+\item Si falta 1 valor de $B$, hay $n$ formas de elegir qué valor no se usa, y para cada elección, los $m$ elementos de $A$ solo se pueden asignar a los $n-1$ valores restantes. Eso da $\operatorname{VR}(n-1,m)=(n-1)^m$ aplicaciones por elección.
+
+Total: $n(n-1)^m$.
+
+\item Si faltan 2 valores de $B$, hay $\binom{n}{2}$ formas de elegir los 2 valores que no se usan, y los $m$ elementos de $A$ solo se pueden asignar a los $n-2$ valores restantes.
+
+Total: $\binom{n}{2}(n-2)^m$.
+
+\item Entonces en general, si faltan $k$ valores de $B$, hay
+
+$\binom{n}{k}(n-k)^m$ aplicaciones.
+
+\end{itemize}
+
+\item \textbf{Paso 3: Principio de inclusión–exclusión.}  
+
+Al restar las funciones que no usan ciertos valores, debemos alternar signos para corregir las repeticiones (\textbf{principio de inclusión–exclusión}):
+
+Número de aplicaciones sobreyectivas = 
+\[
+n^m - n(n-1)^m + \binom{n}{2}(n-2)^m - \binom{n}{3}(n-3)^m + \dots + (-1)^n \binom{n}{n}(n-n)^m
+\]
+\vspace{0.5em}
+\[
+= \boxed{\sum_{k=0}^{n} (-1)^k \binom{n}{k} (n-k)^m}
+\]
+
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 22 (⋆)]
+Sea $X$ un conjunto de cardinal $n \ge 1$. Encuentre una expresión para el número de aplicaciones $f : X \to X$ que verifican $f \circ f = f$.
+
+\tcblower
+\textbf{Resolución:}
+
+Queremos contar las funciones \(f:X\to X\) que satisfacen
+\[
+f\circ f=f \quad\Longleftrightarrow\quad f(f(x))=f(x)\ \text{ para todo }x\in X.
+\]
+
+Observaciones iniciales:
+\begin{itemize}
+  \item Si \(y\in\operatorname{Im}(f)\) (es decir, \(y=f(x)\) para algún \(x\)), entonces
+  \[
+  f(y)=f(f(x))=f(x)=y,
+  \]
+  por lo que todo elemento de la imagen es un \emph{punto fijo} de \(f\) ($f(a) = a$).
+  \item Por tanto la imagen \(\operatorname{Im}(f)\) es un subconjunto no vacío de \(X\) formado por puntos fijos, y cada elemento de \(X\) se envía a algún elemento de \(\operatorname{Im}(f)\).
+\end{itemize}
+
+La estrategia ahora es contar las funciones según el tamaño \(k\) de la imagen. Sabemos que $|X| = n$. Fijamos \(k=|\operatorname{Im}(f)|\) con \(1\le k\le n\), contamos las posibilidades para ese \(k\) y luego sumamos sobre \(k\).
+
+\bigskip
+
+\textbf{Contando para un \(k\) fijo:}
+\begin{enumerate}
+  \item Elegimos qué \(k\) elementos de \(X\) van a ser la imagen (y serán puntos fijos). Hay
+  \[
+  \binom{n}{k}
+  \]
+  formas de elegir ese subconjunto de \(k\) puntos fijos.
+  \item Los \(n-k\) elementos restantes de \(X\) (los que no están en la imagen) deben enviarse a uno cualquiera de esos \(k\) puntos fijos. Para cada uno de esos \(n-k\) elementos hay \(k\) opciones, por lo que hay
+  \[
+  k^{\,n-k}
+  \]
+  formas de asignar las imágenes de los \(n-k\) elementos no fijos.
+  \item Los \(k\) elementos de la imagen se envían a sí mismos (ya fijado), no hay más elecciones.
+\end{enumerate}
+
+Por tanto, para ese \(k\) fijo hay
+\[
+\binom{n}{k}\,k^{\,n-k}
+\]
+funciones \(f\) con \(|\operatorname{Im}(f)|=k\).
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 22 (⋆)]
+
+\textbf{Ejemplos sencillos:}
+\begin{itemize}
+  \item \(k=1\). Elegimos 1 punto que será la única imagen: \(\binom{n}{1}\) formas. Los otros \(n-1\) puntos deben enviarse a ese único punto, hay \(1^{\,n-1}=1\) manera (todas las asignaciones son esa constante). Total:
+  \[
+  \binom{n}{1}\,1^{\,n-1}.
+  \]
+  \item \(k=2\). Elegimos 2 puntos que serán la imagen: \(\binom{n}{2}\) formas. Cada uno de los otros \(n-2\) puntos tiene 2 opciones (ir al primer punto o al segundo), por tanto \(2^{\,n-2}\) asignaciones. Total:
+  \[
+  \binom{n}{2}\,2^{\,n-2}.
+  \]
+  \item \(k=3\). Elegimos 3 puntos para la imagen: \(\binom{n}{3}\) formas. Los demás \(n-3\) puntos se envían libremente a cualquiera de esos 3: \(3^{\,n-3}\) formas. Total:
+  \[
+  \binom{n}{3}\,3^{\,n-3}.
+  \]
+\end{itemize}
+
+\bigskip
+
+\textbf{Fórmula final.} Sumando sobre todos los posibles \(k\) obtenemos:
+
+\[
+\binom{n}{1}1^{n-1} + \binom{n}{2}2^{n-2}+ \cdots + \binom{n}{n}n^{n-n} = \boxed{\sum_{k=1}^{n} \binom{n}{k}\,k^{\,n-k}\ }.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 28 (⋆)]
+Sea $p$ un número primo. Demuestre que el número de polinomios mónicos irreducibles de grado 2 con coeficientes en el cuerpo $\mathbb{Z}_p$ es igual a $\dfrac{p^2 - p}{2}$.  
+A continuación, utilice lo que acaba de probar para deducir que el número de polinomios mónicos irreducibles de grado 3 con coeficientes en $\mathbb{Z}_p$ es igual a $\dfrac{p^3 - p}{3}$.
+
+\tcblower
+\textbf{Resolución:}
+
+\medskip
+\textbf{1. Polinomios mónicos de grado 2.}
+
+\begin{itemize}
+\item Un polinomio mónico de grado 2 en $\mathbb{Z}_p[x]$ tiene la forma:
+\[
+x^2 + ax + b, \quad a,b \in \mathbb{Z}_p.
+\]
+\item Total de polinomios mónicos de grado 2: como $a$ y $b$ pueden tomar $p$ valores cada uno,
+\[
+\text{total} = \operatorname{VR}(p,2) = p \cdot p = p^2.
+\]
+\item Un polinomio cuadrático es \textbf{irreducible} si no tiene raíces en $\mathbb{Z}_p$, es decir, no se puede factorizar como
+\[
+(x-\alpha)(x-\beta) \quad \text{con } \alpha,\beta \in \mathbb{Z}_p.
+\]
+\item Usamos el \textbf{principio del complementario}:  
+Primero contamos los polinomios \textbf{factorizables} en $\mathbb{Z}_p[x]$:
+\begin{itemize}
+  \item Todo polinomio reducible de grado 2 se puede escribir como $(x-\alpha)(x-\beta)$ con $\alpha,\beta \in \mathbb{Z}_p$.
+  \item Como el orden no importa en la factorización (el polinomio $(x-\alpha)(x-\beta)$ es el mismo que $(x-\beta)(x-\alpha)$), para contar las parejas de raíces distintas debemos usar \textbf{combinaciones ordinarias}.  
+
+Además, cuando contamos las raíces distintas $\alpha \ne \beta$, no podemos permitir repeticiones, porque elegir dos veces la misma raíz daría una raíz doble, que es otro caso distinto.
+
+\item Por tanto, el número de polinomios reducibles de grado 2 se obtiene distinguiendo dos situaciones:
+
+\begin{itemize}
+    \item \textbf{Raíces distintas}. Elegimos un conjunto de dos raíces distintas de $\mathbb{Z}_p$. Como el orden no importa y no se permiten repeticiones, usamos combinaciones:
+    \[
+    \binom{p}{2} = \frac{p(p-1)}{2}.
+    \]
+
+    \item \textbf{Raíz doble}. Elegimos un único elemento $\alpha\in\mathbb{Z}_p$ y formamos $(x-\alpha)^2$. Hay exactamente
+    \[
+    p
+    \]
+    polinomios de este tipo.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 28 (⋆)]
+\begin{itemize}
+\begin{itemize}
+\item Sumando ambos tipos de polinomios reducibles obtenemos:
+\[
+\binom{p}{2} + p \;=\; \frac{p(p-1)}{2} + p \;=\; \frac{p^2 + p}{2}.
+\]
+\end{itemize}
+\item Entonces, el número de polinomios mónicos irreducibles de grado 2 es:
+\[
+p^2 - \frac{p^2 + p}{2} = \boxed{\frac{p^2 - p}{2}}.
+\]
+\end{itemize}
+
+\medskip
+\textbf{2. Polinomios mónicos de grado 3.}
+
+\begin{itemize}
+\item Un polinomio mónico de grado 3 en $\mathbb{Z}_p[x]$ se escribe
+\[
+x^3 + a x^2 + b x + c,\qquad a,b,c\in\mathbb{Z}_p,
+\]
+y como hay $p$ posibilidades para $a$, para $b$ y para $c$, el número total de polinomios mónicos de grado 3 es
+\[
+\operatorname{VR}(p,3)=p\cdot p\cdot p = p^3.
+\]
+
+\item Vamos a contar cuántos de esos polinomios son \emph{reducibles} y restarlos del total (\textbf{principio del complementario}).  
+Un polinomio mónico cúbico reducible sobre $\mathbb{Z}_p$ puede ser de las dos formas siguientes:
+
+\begin{enumerate}
+\item[(I)] {Un factor lineal por un factor irreducible de grado 2}, es decir
+\[
+(x-\alpha)\cdot (x^2+cx+d),
+\]
+con $\alpha\in\mathbb{Z}_p$ y $x^2+cx+d$ un polinomio mónico irreducible de grado $2$.
+
+\item[(II)] {Producto de tres factores lineales} (todas las raíces en $\mathbb{Z}_p$), es decir
+\[
+(x-\alpha)(x-\beta)(x-\gamma),
+\]
+con $\alpha,\beta,\gamma\in\mathbb{Z}_p$ (con multiplicidades posibles).
+\end{enumerate}
+
+\bigskip
+
+\textbf{Cuenta de los tipo (I).}  
+Por la parte anterior sabemos que el número de polinomios mónicos irreducibles de grado $2$ es
+\[
+\frac{p^2-p}{2}.
+\]
+Para formar un cúbico de tipo (I) elegimos una raíz $\alpha\in\mathbb{Z}_p$ ($p$ opciones) y un polinomio mónico irreducible de grado $2$ (las $\frac{p^2-p}{2}$ opciones). Por tanto, por el \textbf{principio del producto} el número de polinomios de tipo (I) es
+\[
+p\cdot\frac{p^2-p}{2}=\frac{p^3-p^2}{2}.
+\]
+
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 28 (⋆)]
+\begin{itemize}
+
+\textbf{Cuenta de los tipo (II).}  
+Aquí contamos los monicós cúbicos que se factorizan completamente en lineales. Es conveniente descomponer en subcasos según las multiplicidades:
+
+\begin{itemize}
+\item \emph{Tres raíces iguales} $(\alpha=\beta=\gamma)$: polinomios de la forma $(x-\alpha)^3$. Hay $p$ posibilidades (una por cada $\alpha\in\mathbb{Z}_p$).
+
+\item \emph{Raíz doble y una simple} $(\alpha=\beta\neq\gamma)$: polinomios de la forma $(x-\alpha)^2(x-\gamma)$ con $\alpha\neq\gamma$.  
+  Para elegir uno de estos polinomios primero elegimos la raíz doble $\alpha$ ($p$ opciones) y luego la raíz simple $\gamma$ entre los $p-1$ restantes, con lo que hay
+  \[
+  p\cdot (p-1)
+  \]
+  polinomios de este tipo.
+
+\item \emph{Tres raíces distintas} $(\alpha\neq\beta\neq\gamma)$ todas distintas: el polinomio viene determinado por el conjunto no ordenado de las tres raíces, es decir, usamos combinaciones ordinarias. Hay
+  \[
+  \binom{p}{3}
+  \]
+  polinomios de este tipo.
+\end{itemize}
+
+Sumando los subcasos que son disjuntos, por el \textbf{principio de la suma} obtenemos el número total de polinomios que se factoricen completamente en lineales:
+\[
+p \;+\; p(p-1) \;+\; \binom{p}{3}.
+\]
+
+\bigskip
+
+\textbf{Suma de los polinomios reducibles (I) y (II).}  
+Sumamos las cantidades obtenidas obteniendo así el número de polinomios reducibles de grado 3 en $\mathbb{Z}_p$:
+
+\[
+\begin{aligned}
+&= \underbrace{\frac{p^3-p^2}{2}}_{\text{(I)}} \;+\; \underbrace{\Bigl(p + p(p-1) + \binom{p}{3}\Bigr)}_{\text{(II)}}
+= \frac{p^3-p^2}{2} \;+\; \Bigl(p + p^2-p + \binom{p}{3}\Bigr)\\[4pt]
+&= \frac{p^3-p^2}{2} \;+\; \Bigl(p^2 + \binom{p}{3}\Bigr)
+= \frac{p^3-p^2}{2} \;+\; \Bigl(p^2 + \frac{p(p-1)(p-2)}{6}\Bigr)\\[4pt]
+&= \frac{3(p^3-p^2)}{6} + \frac{6p^2}{6} + \frac{p(p-1)(p-2)}{6}
+= \frac{3p^3-3p^2 +6p^2 + p^3 -3p^2 +2p}{6}\\[4pt]
+&= \frac{4p^3 + 2p}{6}
+= \frac{2p^3 + p}{3}.
+\end{aligned}
+\]
+
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 28 (⋆)]
+
+Finalmente aplicamos el \textbf{principio del complementario}:
+
+\vspace{0.5em}
+
+\textbf{Polinomios mónicos irreducibles de grado 3.}  
+Quitamos los reducibles del total $p^3$:
+
+\[
+p^3 - \frac{2p^3 + p}{3}
+= \frac{3p^3 - 2p^3 - p}{3}
+= \boxed{\frac{p^3 - p}{3}}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 30]
+Queremos formar un conjunto de ocho personas las cuales han de ser escogidas de entre seis hombres y seis mujeres.  
+¿Cuántos resultados diferentes pueden obtenerse? ¿Y si queremos que el número de mujeres sea mayor o igual que el número de hombres?
+
+\tcblower
+\textbf{Resolución:}
+
+Sea 
+\[
+H = \{h_1,h_2,h_3,h_4,h_5,h_6\} \quad \text{y} \quad 
+M = \{m_1,m_2,m_3,m_4,m_5,m_6\}
+\]
+los conjuntos de hombres y mujeres.
+
+\begin{itemize}
+\item[] \textbf{Paso 1.} Número total de formas de escoger 8 personas sin ninguna restricción:
+
+Como queremos escoger 8 personas de entre el conjunto $H \cup M$ que son disjuntos y no se repiten, esto equivale a escoger 8 elementos de un conjunto de $6+6=12$ elementos.  
+Como el orden no importa y no hay repeticiones, usamos combinaciones ordinarias:
+\[
+\binom{12}{8} = \binom{12}{4} = \frac{12 \cdot 11 \cdot 10 \cdot 9}{4!} = \boxed{495}.
+\]
+
+\item[] \textbf{Paso 2.} Número de formas si queremos que el número de mujeres sea mayor o igual que el número de hombres:
+
+Sea $m$ el número de mujeres y $h$ el número de hombres en el grupo.  
+Como el total de personas debe ser 8, tenemos:
+\[
+m+h=8 \implies m = 8 - h.
+\]
+
+La condición $m \ge h$ se convierte en:
+\[
+8 - h \ge h \implies h \le 4 \implies m \ge 4.
+\]
+
+Por lo tanto, los casos posibles son:
+\[
+\begin{aligned}
+&\text{4 mujeres y 4 hombres} \\
+&\text{5 mujeres y 3 hombres} \\
+&\text{6 mujeres y 2 hombres}.
+\end{aligned}
+\]
+
+\item[] \textbf{Paso 3.} Contar el número de formas en cada caso usando combinaciones y el \textbf{principio del producto}:
+
+\begin{itemize}
+ \item 4 mujeres de 6 y 4 hombres de 6:
+ \[
+ \binom{6}{4}\binom{6}{4} = 15 \cdot 15 = 225
+ \]
+ \end{itemize}
+ \end{itemize}
+ \end{ejercicio}
+ \begin{ejercicio}[title=Ejercicio 30]
+ \begin{itemize}
+ \begin{itemize}
+ \item 5 mujeres de 6 y 3 hombres de 6:
+ \[
+ \binom{6}{5}\binom{6}{3} = 6 \cdot 20 = 120
+ \]
+ \item 6 mujeres de 6 y 2 hombres de 6:
+ \[
+ \binom{6}{6}\binom{6}{2} = 1 \cdot 15 = 15
+ \]
+\end{itemize}
+
+\item[] \textbf{Paso 4.} Aplicar el \textbf{principio de la suma} para combinar los casos disjuntos:
+\[
+225 + 120 + 15 = \boxed{360}
+\]
+
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 44]
+Sobre una circunferencia se marcan $n$ puntos y a continuación se unen cada dos puntos mediante un segmento.  
+¿Cuántos segmentos resultan?  
+Suponiendo ahora que no hay tres o más segmentos que se corten en un mismo punto, ¿cuál es el número de puntos de intersección entre segmentos que hay en el interior de la circunferencia?
+
+\tcblower
+\textbf{Resolución:}
+
+\vspace{0.5em}
+
+\textbf{Número de segmentos.}
+
+Cada segmento (cuerda) está determinado por un par de puntos distintos. Por tanto, contamos las formas de elegir 2 puntos en el conjunto de $n$ puntos. Esto es:
+
+\[
+\boxed{\binom{n}{2}}.
+\]
+
+\textbf{Número de intersecciones interiores.}
+
+Para que aparezca una intersección interior entre dos segmentos, es necesario disponer de \emph{cuatro puntos distintos} (dos por cada uno de los dos segmentos) sobre la circunferencia.
+
+\begin{center}
+\begin{tikzpicture}[scale=2]
+  % circunferencia
+  \draw[thick] (0,0) circle (1cm);
+
+  % puntos (aprox. en sentido horario)
+  \coordinate (A) at (0.1,0.99);
+  \coordinate (B) at (0.95,0.25);
+  \coordinate (C) at (0.2,-0.98);
+  \coordinate (D) at (-1,-0.05);
+
+  % puntos y etiquetas
+  \foreach \p/\name in {B/B}
+  {
+    \fill (\p) circle (0.8pt);
+    \node[font=\small, above right] at (\p) {\name};
+  }
+
+  \foreach \p/\name in {C/C}
+  {
+    \fill (\p) circle (0.8pt);
+    \node[font=\small, below right] at (\p) {\name};
+  }
+
+  \foreach \p/\name in {A/A,D/D}
+  {
+    \fill (\p) circle (0.8pt);
+    \node[font=\small, above left] at (\p) {\name};
+  }
+
+  % segmentos alternos (diagonales)
+  \draw[black, thick] (A) -- (C);
+  \draw[black, thick]  (B) -- (D);
+
+  % segmentos no diagonales (opcionales, tenues)
+  \draw[gray!50] (A) -- (B);
+  \draw[gray!50] (B) -- (C);
+  \draw[gray!50] (C) -- (D);
+  \draw[gray!50] (D) -- (A);
+
+  % punto de intersección de diagonales
+  \fill (0.144,0.125) circle (1.2pt)
+        node[below right,font=\small] {$I$};
+\end{tikzpicture}
+\end{center}
+
+Como muestra el dibujo, cada conjunto de cuatro puntos produce una única intersección interior (las diagonales se cruzan exactamente en un punto).
+
+Por tanto, si en la circunferencia hay $n$ puntos en total, la pregunta se reduce a:
+\[
+\text{¿De cuántas formas puedo elegir 4 puntos en el conjunto de $n$ puntos?}
+\]
+\[
+\boxed{\binom{n}{4}}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 45]
+Si desde un punto cualquiera \((x,y)\) del plano podemos realizar solo dos tipos de movimientos que son ir al punto \((x+1,y)\) o bien ir al punto \((x,y+1)\), ¿cuántos caminos distintos podemos seguir para trasladarnos desde el punto \((0,0)\) hasta el punto \((6,8)\)? ¿Y desde el punto \((a,b)\) hasta el punto \((c,d)\) si \(a\le c\) y \(b\le d\)?
+ 
+\tcblower
+\textbf{Resolución:}
+
+\begin{itemize}
+
+\item Para ir de \((0,0)\) a \((6,8)\) debemos realizar exactamente 6 desplazamientos horizontales y 8 desplazamientos verticales, en total \(6+8=14\) movimientos. Si etiquetáramos cada movimiento como distinto obtendríamos \(14!\) ordenaciones, pero los 6 desplazamientos horizontales son idénticos entre sí y los 8 verticales también lo son.
+
+\item Como todos los desplazamientos horizontales son iguales entre sí, cualquier reordenación de esos seis movimientos no produce un camino diferente. Por eso, debemos corregir el recuento dividiendo entre el número de formas de reorganizar esos seis movimientos iguales.
+
+\item Del mismo modo, los desplazamientos verticales también son idénticos entre sí, así que las distintas formas de reordenar esos ocho movimientos tampoco generan caminos nuevos. Por ello, también debemos dividir entre el número de reordenaciones posibles de esos ocho movimientos.
+\end{itemize}
+
+\[
+\text{Número de caminos} \;=\; \frac{14!}{6!\,8!}
+= \binom{14}{6}=\binom{14}{8} = \boxed{3003}.
+\]
+
+\bigskip
+
+\noindent De forma análoga, para ir de \((a,b)\) a \((c,d)\) con \(a\le c\) y \(b\le d\) debemos efectuar exactamente \(c-a\) desplazamientos horizontales y \(d-b\) desplazamientos verticales. El total de movimientos es
+\[
+(c-a)+(d-b).
+\]
+Elegimos en qué posiciones, dentro de los \(c-a+d-b\) movimientos totales, situaremos los desplazamientos horizontales. Una vez fijadas esas posiciones, las restantes quedan asignadas automáticamente a los desplazamientos verticales. Por tanto, el número de caminos posibles es
+\[
+\boxed{\binom{c-a+d-b}{\,c-a\,}
+\quad=\quad
+\binom{c-a+d-b}{\,d-b\,}}.
+\]
+
+\end{ejercicio}
+
+\subsection{Combinaciones con repetición: Orden no importa, con repetición}
+
+\begin{ejercicio}[title=Ejercicio 18]
+¿Cuántos resultados pueden obtenerse al colocar ocho bolas distintas en cinco recipientes diferentes? ¿Y si todas las bolas son idénticas?
+
+\tcblower
+\textbf{Resolución:}
+
+\begin{itemize}
+\item \textbf{Caso 1: Bolas distintas.}  
+
+Cada bola es diferente y cada recipiente es diferente. Queremos colocar las 8 bolas en los 5 recipientes.  
+
+\begin{itemize}
+\item El orden importa porque cada bola es distinta.  
+\item Se permite que un recipiente reciba varias bolas (repetición de \textit{posiciones} dentro de los recipientes).  
+\end{itemize}
+
+Esto corresponde a \textbf{variaciones con repetición}: para cada bola tenemos 5 opciones de recipiente, y hay 8 bolas. Por tanto, el número total de resultados es:
+\[
+\operatorname{VR}(5,8) = 5^8 = \boxed{390625}.
+\]
+
+\item \textbf{Caso 2: Bolas idénticas.}  
+
+Ahora las bolas son iguales, así que solo nos importa cuántas bolas hay en cada recipiente, no cuál es cuál.  
+
+Sea \(x_i \in \mathbb{N}\) el número de bolas en el recipiente \(r_i\), \(i=1,\dots,5\). Queremos:
+\[
+x_1 + x_2 + x_3 + x_4 + x_5 = 8.
+\]
+
+\begin{itemize}
+\item El orden no importa porque las bolas son idénticas.  
+\item Se permite que un recipiente tenga varias bolas (repetición).  
+\end{itemize}
+
+Esto corresponde a \textbf{combinaciones con repetición}. La fórmula general es:
+\[
+\operatorname{CR}(n,k) = \binom{n-1+k}{n-1}.
+\]
+
+Aquí \(n=5\) recipientes y \(k=8\) bolas, por lo que:
+\[
+\operatorname{CR}(5,8) = \binom{5-1+8}{5-1} = \binom{12}{4} = \frac{12 \cdot 11 \cdot 10 \cdot 9}{24} = \boxed{495}.
+\]
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 26]
+Disponemos de un dado cuyas caras están numeradas del 1 al 6. Si se lanza el dado cuatro veces, ¿cuántos resultados diferentes pueden obtenerse si se tiene en cuenta el orden de los lanzamientos? ¿Y si no se tiene en cuenta el orden de los lanzamientos?
+
+\tcblower
+\textbf{Resolución:}
+
+\medskip
+\textbf{1. El orden sí importa.}
+
+\begin{itemize}
+\item Cada lanzamiento del dado puede dar uno de los 6 valores: $\{1,2,3,4,5,6\}$.  
+\item Como lanzamos el dado 4 veces y el orden de los lanzamientos importa, estamos ante un caso de \textbf{variaciones con repetición}.  
+\item Por el \textbf{principio del producto}, el número de resultados posibles es:
+\[
+6 \cdot 6 \cdot 6 \cdot 6 = \operatorname{VR}(6,4) = 6^4 = \boxed{1296}.
+\]
+\end{itemize}
+
+\medskip
+\textbf{2. El orden no importa.}
+
+\begin{itemize}
+\item Ahora solo nos interesa \emph{qué números salen}, sin importar en qué orden.  
+\item Como los números pueden repetirse, estamos ante un caso de \textbf{combinaciones con repetición}.  
+\item La fórmula para combinaciones con repetición de $n$ elementos tomados de $k$ en $k$ es:
+\[
+\operatorname{CR}(n,k) = \binom{n-1+k}{n-1}.
+\]
+\item Aquí $n=6$ (caras del dado) y $k=4$ (número de lanzamientos), por lo que:
+\[
+\operatorname{CR}(6,4) = \binom{6-1+4}{6-1} = \binom{9}{5} = \frac{9\cdot8\cdot7\cdot6}{4!} = \boxed{126}.
+\]
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 27]
+¿Cuántos resultados posibles pueden obtenerse al lanzar simultáneamente dos dados idénticos de color rojo y otros tres dados idénticos de color verde?
+
+\tcblower
+\textbf{Resolución:}
+
+\medskip
+\textbf{Observación:}  
+Los dados del mismo color son idénticos, por lo que \emph{el orden de los dados de un mismo color no importa}.  
+Por tanto, estamos ante combinaciones con repetición: nos importa qué números aparecen, pero no en qué orden dentro de cada color.
+
+\medskip
+\textbf{1. Dados rojos (2 idénticos).}  
+
+\begin{itemize}
+\item Cada dado puede tomar un valor de $\{1,2,3,4,5,6\}$.  
+\item Como los dados son idénticos y el orden no importa, debemos contar \textbf{combinaciones con repetición} de 6 elementos tomados de 2 en 2:  
+\[
+\operatorname{CR}(6,2) = \binom{6-1+2}{6-1} = \binom{7}{5} = \binom{7}{2} = \frac{7\cdot6}{2} = 21.
+\]
+\end{itemize}
+
+\medskip
+\textbf{2. Dados verdes (3 idénticos).}  
+
+\begin{itemize}
+\item Cada dado puede tomar un valor de $\{1,2,3,4,5,6\}$.  
+\item De nuevo, los dados son idénticos y el orden no importa, por lo que contamos \textbf{combinaciones con repetición} de 6 elementos tomados de 3 en 3:  
+\[
+\operatorname{CR}(6,3) = \binom{6-1+3}{6-1} = \binom{8}{5} = \binom{8}{3} = \frac{8\cdot7\cdot6}{3\cdot2\cdot1} = 56.
+\]
+\end{itemize}
+
+\medskip
+\textbf{3. Combinamos ambos colores.}  
+
+\begin{itemize}
+\item Cada resultado final se forma combinando un resultado de los dados rojos con un resultado de los dados verdes.  
+\item Por el \textbf{principio del producto}:
+\[
+21 \cdot 56 = \boxed{1176}.
+\]
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 31]
+En cada apartado encuentre el número de soluciones en $\mathbb{Z}$ de la ecuación $x_1 + x_2 + x_3 = 25$ que verifican la condición dada:
+
+\begin{enumerate}
+\item[a)] $0 \le x_1,\, 0 \le x_2,\, 0 \le x_3.$
+\item[b)] $5 \le x_1,\, 0 \le x_2,\, 0 \le x_3.$
+\item[c)] $5 \le x_1,\, 6 \le x_2,\, 0 \le x_3.$
+\item[d)] $0 \le x_1 \le 4,\, 0 \le x_2,\, 0 \le x_3.$
+\item[e)] $0 \le x_1 \le 4,\, 6 \le x_2,\, 0 \le x_3.$
+\item[f)] $5 \le x_1 \le 14,\, 0 \le x_2,\, 0 \le x_3.$
+\item[g)] $0 \le x_1 \le 4,\, 0 \le x_2 \le 5,\, 0 \le x_3.$
+\item[h)] $5 \le x_1 \le 9,\, 7 \le x_2 \le 10,\, 0 \le x_3.$
+\item[i)] $0 \le x_1 \le 4,\, 0 \le x_2 \le 5,\, 0 \le x_3 \le 6.$
+\item[j)] $0 \le x_1 \le 4,\, 0 \le x_2 \le 8,\, 0 \le x_3 \le 12.$
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)}  
+Por la \textbf{propiedad de las combinaciones con repetición} existe una aplicación biyectiva entre el conjunto formado por las combinaciones con repetición de $n$ elementos tomados de $k$ en $k$ y el conjunto de soluciones en $\mathbb{N}$ de la ecuación
+\[
+x_1+x_2+\dots+x_n = k.
+\]
+Por el \textbf{principio de la aplicación biyectiva}, ambos conjuntos tienen el mismo cardinal.
+
+\vspace{0.5em}
+
+En nuestro caso $x_1,x_2,x_3\in\mathbb{N}$ porque $x1,\,x2,\,x3 \ge 0$ y queremos $x_1+x_2+x_3=25$.  
+Por tanto el número de soluciones es
+\[
+\mathrm{CR}(3,25)=\binom{3-1+25}{3-1}=\binom{27}{2}=\frac{27\cdot 26}{2}=\boxed{351}.
+\]
+
+\textbf{b)}  
+Tenemos la condición extra:
+\[
+5 \le x_1.
+\]
+
+Entonces hacemos el cambio de variable habitual para eliminar la cota inferior:
+\[
+x_1' = x_1 - 5 \qquad (\Rightarrow\ x_1' \ge 0).
+\]
+
+Sustituimos en la ecuación original:
+\[
+(x_1 - 5) + x_2 + x_3 = x_1' + x_2 + x_3 = 25 - 5 = 20.
+\]
+
+Por tanto, buscamos el número de soluciones en $\mathbb{N}$ de:
+\[
+x_1' + x_2 + x_3 = 20.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+
+Aplicando la propiedad de las combinaciones con repetición junto con el \textbf{principio de la aplicación biyectiva}, tenemos:
+\[
+\mathrm{CR}(3,20)
+= \binom{3-1+20}{3-1}
+= \binom{22}{2}
+= \frac{22\cdot 21}{2}
+= \boxed{231}.
+\]
+
+\textbf{c)}  
+Tenemos las condiciones extra:
+\[
+5 \le x_1,\qquad 6 \le x_2.
+\]
+
+Hacemos el cambio de variable habitual para quitar las cotas inferiores:
+\[
+x_1' = x_1 - 5 \quad(\Rightarrow\ x_1'\ge 0),\qquad
+x_2' = x_2 - 6 \quad(\Rightarrow\ x_2'\ge 0).
+\]
+
+Sustituyendo en la ecuación original:
+\[
+(x_1-5) + (x_2-6) + x_3 = x_1' + x_2' + x_3 = 25 - 5 - 6 = 14.
+\]
+
+Por tanto, buscamos soluciones en $\mathbb{N}$ de
+\[
+x_1' + x_2' + x_3' = 14.
+\]
+
+Aplicando la correspondencia con combinaciones con repetición, el número de soluciones es
+\[
+\mathrm{CR}(3,14)=\binom{3-1+14}{3-1}=\binom{16}{2}=\frac{16\cdot 15}{2}=\boxed{120}.
+\]
+
+\textbf{d)}  
+En este caso tenemos la condición:
+\[
+0 \le x_1 \le 4.
+\]
+
+\vspace{0.5em}
+
+Para obtener el número total de soluciones, usamos el \textbf{principio del complementario}:
+
+Todas las soluciones sin restricciones salvo ser no negativas son:
+\[
+\mathrm{CR}(3,25) = 351
+\]
+
+Las soluciones que \textbf{no} queremos (las que tienen \(x_1 \ge 5\)) se corresponden con el cambio de variable \(x_1' = x_1 - 5\), que lleva a:
+\[
+x_1' + x_2 + x_3 = 25 - 5 = 20,
+\]
+cuyo número de soluciones es:
+\[
+\mathrm{CR}(3,20) = 231
+\]
+
+Por lo tanto, las soluciones que sí cumplen \(0 \le x_1 \le 4\) son:
+\[
+\mathrm{CR}(3,25) - \mathrm{CR}(3,20) = 351 - 231 = \boxed{120}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+
+\textbf{e)}  
+Tenemos las condiciones: 
+\[
+0 \le x_1 \le 4, \quad 6 \le x_2.
+\]
+
+\textbf{Paso 1.} Eliminamos la cota inferior de $x_2$ mediante el cambio de variable habitual:
+\[
+x_2' = x_2 - 6 \quad (\Rightarrow x_2' \ge 0).
+\]
+
+Sustituyendo en la ecuación original:
+\[
+x_1 + x_2 + x_3 = x_1 + (x_2'+6) + x_3 = 25 \quad \Longrightarrow \quad x_1 + x_2' + x_3 = 19.
+\]
+
+\textbf{Paso 2.} Aplicamos el \textbf{principio del complementario} para la cota superior de $x_1$:
+
+- Sin la restricción $0 \le x_1 \le 4$, el número de soluciones en $\mathbb{N}$ de
+\[
+x_1 + x_2' + x_3 = 19
+\]
+es
+\[
+\mathrm{CR}(3,19) = \binom{3-1+19}{3-1} = \binom{21}{2} = \frac{21 \cdot 20}{2} = 210.
+\]
+
+- Las soluciones no cumplen $0 \le x_1 \le 4$ corresponden a $x_1 \ge 5$. Hacemos el cambio de variable
+\[
+x_1' = x_1 - 5 \quad (\Rightarrow x_1' \ge 0)
+\]
+y la ecuación se convierte en:
+\[
+x_1' + x_2' + x_3 = 19 - 5 = 14.
+\]
+
+El número de soluciones del conjunto complementario es
+\[
+\mathrm{CR}(3,14) = \binom{3-1+14}{3-1}= \binom{16}{2} = \frac{16 \cdot 15}{2} = 120.
+\]
+
+\textbf{Paso 3.} Restando por el \textbf{principio del complementario}:
+\[
+\mathrm{CR}(3,19) - \mathrm{CR}(3,14) = 210 - 120 = \boxed{90}.
+\]
+
+\textbf{f)} \(5 \le x_1 \le 14,\; 0 \le x_2,\; 0 \le x_3.\)
+
+\medskip
+
+\textbf{Paso 1.} Quitamos la cota inferior de \(x_1\) con el cambio de variable habitual:
+\[
+x_1' = x_1 - 5 \quad (\Rightarrow x_1' \ge 0).
+\]
+Sustituyendo en la ecuación original:
+\[
+(x_1'-5)+x_2+x_3=25 \quad\Longrightarrow\quad x_1' + x_2 + x_3 = 20.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+
+Ahora la condición \(5 \le x_1 \le 14\) se traduce en
+\[
+0 \le x_1' \le 9.
+\]
+
+\medskip
+
+\textbf{Paso 2.} Contamos primero todas las soluciones no negativas de
+\[
+x_1' + x_2 + x_3 = 20,
+\]
+sin imponer la cota superior \(x_1' \le 9\). Por combinaciones con repetición:
+\[
+\mathrm{CR}(3,20)=\binom{3-1+20}{3-1}=\binom{22}{2}=\frac{22\cdot 21}{2}=231.
+\]
+
+\medskip
+
+\textbf{Paso 3.} Usamos el \textbf{principio del complementario} para quitar las soluciones con \(x_1' \ge 10\) (es decir, las que violan \(x_1' \le 9\)). Si \(x_1' \ge 10\) hacemos el cambio
+\[
+x_1'' = x_1' - 10 \quad (\Rightarrow x_1''\ge 0),
+\]
+entonces la ecuación queda
+\[
+x_1'' + x_2 + x_3 = 20 - 10 = 10.
+\]
+El número de soluciones de este conjunto complementario es
+\[
+\mathrm{CR}(3,10)=\binom{3-1+10}{3-1}=\binom{12}{2}=\frac{12\cdot 11}{2}=66.
+\]
+
+\medskip
+
+\textbf{Paso 4.} Restamos:
+\[
+\mathrm{CR}(3,20) - \mathrm{CR}(3,10) = 231 - 66 = \boxed{165}.
+\]
+
+\bigskip
+
+\textbf{g)} Tenemos las condiciones:
+\[
+0 \le x_1 \le 4,\qquad 0 \le x_2 \le 5,\qquad 0 \le x_3.
+\]
+
+Sea \(X\) el conjunto de soluciones de \(x_1+x_2+x_3=25\).  
+Entonces
+\[
+|X| = \mathrm{CR}(3,25).
+\]
+
+Sea \(A\) el conjunto de soluciones que cumplen \(0\le x_1\le 4\).  
+
+Sea \(B\) el conjunto de soluciones que cumplen \(0\le x_2\le 5\).  
+
+\vspace{0.5em}
+
+Queremos hallar \(|A\cap B|\). Usamos el \textbf{principio del complementario}:
+\[
+|A\cap B| = |X| - |\overline{A\cap B}|.
+\]
+Por De Morgan,
+\[
+\overline{A\cap B}=\overline{A}\cup\overline{B},
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+así que
+\[
+|A\cap B| = |X| - |\overline{A}\cup\overline{B}|.
+\]
+Aplicando \textbf{principio de inclusión-exclusión}:
+\[
+|A\cap B| = |X| - \big(|\overline{A}| + |\overline{B}| - |\overline{A}\cap\overline{B}|\big).
+\]
+
+Calculamos \(|\overline{A}|\), \(|\overline{B}|\) y \(|\overline{A} \cap \overline{B}|\) por separado:
+
+\begin{itemize}
+
+\item \(\overline{A}\): la condición inversa de \(0\le x_1\le 4\) es \(x_1\ge 5\).  
+Haciendo \(x_1' = x_1-5\) (con \(x_1'\ge 0\)) obtenemos
+\[
+x_1' + x_2 + x_3 = 25-5 = 20,
+\]
+por lo que
+\[
+|\overline{A}| = \mathrm{CR}(3,20).
+\]
+
+\item \(\overline{B}\): la condición inversa de \(0\le x_2\le 5\) es \(x_2\ge 6\).  
+Haciendo \(x_2' = x_2-6\) (con \(x_2'\ge 0\)) obtenemos
+\[
+x_1 + x_2' + x_3 = 25-6 = 19,
+\]
+por lo que
+\[
+|\overline{B}| = \mathrm{CR}(3,19).
+\]
+
+\item Ahora \(\overline{A}\cap\overline{B}\): imponiendo ambas condiciones inversas a la vez,
+\[
+x_1\ge 5,\quad x_2\ge 6,
+\]
+hacemos \(x_1' = x_1-5,\; x_2' = x_2-6\) y obtenemos
+\[
+x_1' + x_2' + x_3 = 25-5-6 = 14,
+\]
+por lo que
+\[
+|\overline{A}\cap\overline{B}| = \mathrm{CR}(3,14).
+\]
+
+\end{itemize}
+
+Sustituimos en la fórmula:
+\[
+\begin{aligned}
+|A\cap B|
+&= \mathrm{CR}(3,25) - \big(\mathrm{CR}(3,20) + \mathrm{CR}(3,19) - \mathrm{CR}(3,14)\big).
+\end{aligned}
+\]
+
+Ahora evaluamos los valores numéricos (como ya hemos usado antes):
+\[
+\mathrm{CR}(3,25)=\binom{27}{2}=351,\qquad
+\mathrm{CR}(3,20)=\binom{21}{2}=231,
+\]
+\[
+\mathrm{CR}(3,19)=\binom{21}{2}=210,\qquad
+\mathrm{CR}(3,14)=\binom{16}{2}=120.
+\]
+
+Sustituimos numéricamente:
+\[
+|A\cap B| = 351 - (231 + 210 - 120) = \boxed{30}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\textbf{h)}  
+Condiciones:
+\[
+5 \le x_1 \le 9,\qquad 7 \le x_2 \le 10.
+\]
+
+Sea \(X\) el conjunto de soluciones de \(x_1+x_2+x_3=25\).  
+Entonces
+\[
+|X| = \mathrm{CR}(3,25).
+\]
+
+Realizamos las sustituciones:
+
+\[
+x_1' = x_1 - 5 \quad(\Rightarrow\ 0 \le x_1' \le 9-5= 4), \qquad
+x_2' = x_2 - 7 \quad(\Rightarrow\ 0 \le x_2' \le 10-7=3).
+\]
+
+Sea \(A\) el conjunto de soluciones que cumplen \(0 \le x_1' \le 4\).  
+
+Sea \(B\) el conjunto de soluciones que cumplen \(0 \le x_2' \le 3\).  
+
+\vspace{0.5em}
+
+Queremos hallar \(|A\cap B|\). Usamos el \textbf{principio del complementario}:
+\[
+|A\cap B| = |X| - |\overline{A\cap B}|.
+\]
+Por De Morgan,
+\[
+\overline{A\cap B}=\overline{A}\cup\overline{B},
+\]
+así que
+\[
+|A\cap B| = |X| - |\overline{A}\cup\overline{B}|.
+\]
+Aplicando \textbf{principio de inclusión-exclusión}:
+\[
+|A\cap B| = |X| - \big(|\overline{A}| + |\overline{B}| - |\overline{A}\cap\overline{B}|\big).
+\]
+
+Calculamos \(|\overline{A}|\) y \(|\overline{B}|\) por separado:
+
+\begin{itemize}
+\item \(\overline{A}\): la condición contraria de \(0\le x_1'\le 4\) es \(x_1'\ge 5\).  
+Haciendo \(x_1'' = x_1' - 5\) (con \(x_1''\ge 0\)) obtenemos
+\[
+x_1'' + x_2 + x_3 = 25 - 5 = 20,
+\]
+por lo que
+\[
+|\overline{A}| = \mathrm{CR}(3,20).
+\]
+
+\item \(\overline{B}\): la condición contraria de \(0\le x_2'\le 3\) es \(x_2'\ge 4\).  
+Haciendo \(x_2'' = x_2' - 4\) (con \(x_2''\ge 0\)) obtenemos
+\[
+x_1 + x_2'' + x_3 = 25 - 4 = 21,
+\]
+por lo que
+\[
+|\overline{B}| = \mathrm{CR}(3,21).
+\]
+
+\item Ahora \(\overline{A}\cap\overline{B}\): imponiendo ambas condiciones inversas a la vez,
+\[
+x_1'\ge 5,\quad x_2'\ge 4,
+\]
+hacemos \(x_1'' = x_1' - 5,\; x_2'' = x_2' - 4\) y obtenemos
+\[
+x_1'' + x_2'' + x_3 = 25 - 5 - 4 = 16,
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+por lo que
+\[
+|\overline{A}\cap\overline{B}| = \mathrm{CR}(3,16).
+\]
+
+Sustituimos en la fórmula:
+\[
+\begin{aligned}
+|A\cap B|
+&= \mathrm{CR}(3,25) - \big(\mathrm{CR}(3,20) + \mathrm{CR}(3,21) - \mathrm{CR}(3,16)\big).
+\end{aligned}
+\]
+
+Evaluamos los valores numéricos:
+\[
+\mathrm{CR}(3,25)=\binom{27}{2}=351,\quad
+\mathrm{CR}(3,20)=\binom{22}{2}=231,
+\]
+\[
+\mathrm{CR}(3,21)=\binom{23}{2}=253,\quad
+\mathrm{CR}(3,16)=\binom{18}{2}=153.
+\]
+
+Sustituimos y calculamos:
+\[
+|A\cap B| = 351 - (231 + 253 - 153) = \boxed{20}.
+\]
+
+\textbf{i)} Tenemos las condiciones:
+\[
+0 \le x_1 \le 4,\qquad 0 \le x_2 \le 5,\qquad 0 \le x_3 \le 6.
+\]
+
+Sea \(X\) el conjunto de soluciones de \(x_1+x_2+x_3=25\).
+Entonces
+\[
+|X| = \mathrm{CR}(3,25).
+\]
+
+Sea \(A\) el conjunto de soluciones que cumplen \(0\le x_1\le 4\).
+
+Sea \(B\) el conjunto de soluciones que cumplen \(0\le x_2\le 5\).
+
+Sea \(C\) el conjunto de soluciones que cumplen \(0\le x_3\le 6\).
+
+\vspace{0.5em}
+
+Queremos hallar \(|A\cap B \cap C|\). Usamos el \textbf{principio del complementario}:
+\[
+|A\cap B \cap C| = |X| - |\overline{A\cap B \cap C}|.
+\]
+Por De Morgan,
+\[
+\overline{A\cap B \cap C}=\overline{A}\cup\overline{B}\cup\overline{C},
+\]
+así que
+\[
+|A\cap B \cap C| = |X| - |\overline{A}\cup\overline{B}\cup\overline{C}|.
+\]
+Aplicando \textbf{principio de inclusión-exclusión}:
+\[
+\begin{aligned}
+|A\cap B \cap C| = |X| - \Big(&|\overline{A}| + |\overline{B}| + |\overline{C}| \\
+&- (|\overline{A}\cap\overline{B}| + |\overline{A}\cap\overline{C}| + |\overline{B}\cap\overline{C}|) \\
+&+ |\overline{A}\cap\overline{B}\cap\overline{C}|\Big).
+\end{aligned}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+
+Calculamos los cardinales por separado:
+
+\begin{itemize}
+
+\item \(\overline{A}\): la condición inversa de \(0\le x_1\le 4\) es \(x_1\ge 5\).
+Haciendo \(x_1' = x_1-5\) (con \(x_1'\ge 0\)) obtenemos
+\[
+x_1' + x_2 + x_3 = 25-5 = 20,
+\]
+por lo que
+\[
+|\overline{A}| = \mathrm{CR}(3,20).
+\]
+
+\item \(\overline{B}\): la condición inversa de \(0\le x_2\le 5\) es \(x_2\ge 6\).
+Haciendo \(x_2' = x_2-6\) (con \(x_2'\ge 0\)) obtenemos
+\[
+x_1 + x_2' + x_3 = 25-6 = 19,
+\]
+por lo que
+\[
+|\overline{B}| = \mathrm{CR}(3,19).
+\]
+
+\item \(\overline{C}\): la condición inversa de \(0\le x_3\le 6\) es \(x_3\ge 7\).
+Haciendo \(x_3' = x_3-7\) (con \(x_3'\ge 0\)) obtenemos
+\[
+x_1 + x_2 + x_3' = 25-7 = 18,
+\]
+por lo que
+\[
+|\overline{C}| = \mathrm{CR}(3,18).
+\]
+
+\item Ahora \(\overline{A}\cap\overline{B}\): imponiendo ambas condiciones inversas a la vez,
+\[
+x_1\ge 5,\quad x_2\ge 6,
+\]
+hacemos \(x_1' = x_1-5,\; x_2' = x_2-6\) y obtenemos
+\[
+x_1' + x_2' + x_3 = 25-5-6 = 14,
+\]
+por lo que
+\[
+|\overline{A}\cap\overline{B}| = \mathrm{CR}(3,14).
+\]
+
+\item Ahora \(\overline{A}\cap\overline{C}\): imponiendo ambas condiciones inversas a la vez,
+\[
+x_1\ge 5,\quad x_3\ge 7,
+\]
+hacemos \(x_1' = x_1-5,\; x_3' = x_3-7\) y obtenemos
+\[
+x_1' + x_2 + x_3' = 25-5-7 = 13,
+\]
+por lo que
+\[
+|\overline{A}\cap\overline{C}| = \mathrm{CR}(3,13).
+\]
+
+\item Ahora \(\overline{B}\cap\overline{C}\): imponiendo ambas condiciones inversas a la vez,
+\[
+x_2\ge 6,\quad x_3\ge 7,
+\]
+hacemos \(x_2' = x_2-6,\; x_3' = x_3-7\) y obtenemos
+\[
+x_1 + x_2' + x_3' = 25-6-7 = 12,
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+por lo que
+\[
+|\overline{B}\cap\overline{C}| = \mathrm{CR}(3,12).
+\]
+\begin{itemize}
+
+\item Finalmente \(\overline{A}\cap\overline{B}\cap\overline{C}\): imponiendo las tres condiciones inversas,
+\[
+x_1\ge 5,\quad x_2\ge 6,\quad x_3\ge 7,
+\]
+hacemos \(x_1' = x_1-5,\; x_2' = x_2-6,\; x_3' = x_3-7\) y obtenemos
+\[
+x_1' + x_2' + x_3' = 25-5-6-7 = 7,
+\]
+por lo que
+\[
+|\overline{A}\cap\overline{B}\cap\overline{C}| = \mathrm{CR}(3,7).
+\]
+
+\end{itemize}
+
+Sustituimos en la fórmula:
+\[
+\begin{aligned}
+|A\cap B \cap C|
+&= \mathrm{CR}(3,25) - \Big(\mathrm{CR}(3,20) + \mathrm{CR}(3,19) + \mathrm{CR}(3,18) \\
+&- (\mathrm{CR}(3,14) + \mathrm{CR}(3,13) + \mathrm{CR}(3,12)) \\
+&+ \mathrm{CR}(3,7)\Big).
+\end{aligned}
+\]
+
+Ahora evaluamos los valores numéricos ($\mathrm{CR}(n,k)=\binom{n+k-1}{n-1}=\binom{n+k-1}{k}$):
+\[
+\mathrm{CR}(3,25)=\binom{27}{2}=351,\qquad
+\mathrm{CR}(3,20)=\binom{22}{2}=231,
+\]
+\[
+\mathrm{CR}(3,19)=\binom{21}{2}=210,\qquad
+\mathrm{CR}(3,18)=\binom{20}{2}=190,
+\]
+\[
+\mathrm{CR}(3,14)=\binom{16}{2}=120,\qquad
+\mathrm{CR}(3,13)=\binom{15}{2}=105,
+\]
+\[
+\mathrm{CR}(3,12)=\binom{14}{2}=91,\qquad
+\mathrm{CR}(3,7)=\binom{9}{2}=36.
+\]
+
+Sustituimos numéricamente:
+\[
+\begin{aligned}
+|A\cap B \cap C|
+&= 351 - \Big(231 + 210 + 190 - (120 + 105 + 91) + 36\Big) \\
+&= 351 - \Big(631 - 316 + 36\Big) \\
+&= 351 - (315 + 36) \\
+&= 351 - 351 = \boxed{0}.
+\end{aligned}
+\]
+
+De todas formas, la suma máxima por las condiciones impuestas es $4+5+6 = 15 \ne 25$, por lo que no hay ninguna solución.
+
+\bigskip
+
+\textbf{j)} Tenemos las condiciones:
+\[
+0 \le x_1 \le 4,\qquad 0 \le x_2 \le 8,\qquad 0 \le x_3 \le 12.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+
+Sea \(X\) el conjunto de soluciones de \(x_1+x_2+x_3=25\).
+Entonces
+\[
+|X| = \mathrm{CR}(3,25).
+\]
+
+Sea \(A\) el conjunto de soluciones que cumplen \(0\le x_1\le 4\).
+
+Sea \(B\) el conjunto de soluciones que cumplen \(0\le x_2\le 8\).
+
+Sea \(C\) el conjunto de soluciones que cumplen \(0\le x_3\le 12\).
+
+\vspace{0.5em}
+
+Queremos hallar \(|A\cap B \cap C|\). Usamos el \textbf{principio del complementario}:
+\[
+|A\cap B \cap C| = |X| - |\overline{A\cap B \cap C}|.
+\]
+Por De Morgan,
+\[
+\overline{A\cap B \cap C}=\overline{A}\cup\overline{B}\cup\overline{C},
+\]
+así que
+\[
+|A\cap B \cap C| = |X| - |\overline{A}\cup\overline{B}\cup\overline{C}|.
+\]
+Aplicando \textbf{principio de inclusión-exclusión}:
+\[
+\begin{aligned}
+|A\cap B \cap C| = |X| - \Big(&|\overline{A}| + |\overline{B}| + |\overline{C}| \\
+&- (|\overline{A}\cap\overline{B}| + |\overline{A}\cap\overline{C}| + |\overline{B}\cap\overline{C}|) \\
+&+ |\overline{A}\cap\overline{B}\cap\overline{C}|\Big).
+\end{aligned}
+\]
+
+Calculamos los cardinales por separado:
+
+\begin{itemize}
+
+\item \(\overline{A}\): la condición inversa de \(0\le x_1\le 4\) es \(x_1\ge 5\).
+Haciendo \(x_1' = x_1-5\) (con \(x_1'\ge 0\)) obtenemos
+\[
+x_1' + x_2 + x_3 = 25-5 = 20,
+\]
+por lo que
+\[
+|\overline{A}| = \mathrm{CR}(3,20).
+\]
+
+\item \(\overline{B}\): la condición inversa de \(0\le x_2\le 8\) es \(x_2\ge 9\).
+Haciendo \(x_2' = x_2-9\) (con \(x_2'\ge 0\)) obtenemos
+\[
+x_1 + x_2' + x_3 = 25-9 = 16,
+\]
+por lo que
+\[
+|\overline{B}| = \mathrm{CR}(3,16).
+\]
+
+\item \(\overline{C}\): la condición inversa de \(0\le x_3\le 12\) es \(x_3\ge 13\).
+Haciendo \(x_3' = x_3-13\) (con \(x_3'\ge 0\)) obtenemos
+\[
+x_1 + x_2 + x_3' = 25-13 = 12,
+\]
+por lo que
+\[
+|\overline{C}| = \mathrm{CR}(3,12).
+\]
+
+\item Ahora \(\overline{A}\cap\overline{B}\): imponiendo ambas condiciones inversas a la vez,
+\[
+x_1\ge 5,\quad x_2\ge 9,
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+hacemos \(x_1' = x_1-5,\; x_2' = x_2-9\) y obtenemos
+\[
+x_1' + x_2' + x_3 = 25-5-9 = 11,
+\]
+por lo que
+\[
+|\overline{A}\cap\overline{B}| = \mathrm{CR}(3,11).
+\]
+\begin{itemize}
+
+\item Ahora \(\overline{A}\cap\overline{C}\): imponiendo ambas condiciones inversas a la vez,
+\[
+x_1\ge 5,\quad x_3\ge 13,
+\]
+hacemos \(x_1' = x_1-5,\; x_3' = x_3-13\) y obtenemos
+\[
+x_1' + x_2 + x_3' = 25-5-13 = 7,
+\]
+por lo que
+\[
+|\overline{A}\cap\overline{C}| = \mathrm{CR}(3,7).
+\]
+
+\item Ahora \(\overline{B}\cap\overline{C}\): imponiendo ambas condiciones inversas a la vez,
+\[
+x_2\ge 9,\quad x_3\ge 13,
+\]
+hacemos \(x_2' = x_2-9,\; x_3' = x_3-13\) y obtenemos
+\[
+x_1 + x_2' + x_3' = 25-9-13 = 3,
+\]
+por lo que
+\[
+|\overline{B}\cap\overline{C}| = \mathrm{CR}(3,3).
+\]
+
+\item Finalmente \(\overline{A}\cap\overline{B}\cap\overline{C}\): imponiendo las tres condiciones inversas,
+\[
+x_1\ge 5,\quad x_2\ge 9,\quad x_3\ge 13,
+\]
+hacemos \(x_1' = x_1-5,\; x_2' = x_2-9,\; x_3' = x_3-13\) y obtenemos
+\[
+x_1' + x_2' + x_3' = 25-5-9-13 = -2.
+\]
+Como la suma es negativa, no hay soluciones con \(x_i'\ge 0\), por lo que
+\[
+|\overline{A}\cap\overline{B}\cap\overline{C}| = 0.
+\]
+
+\end{itemize}
+
+Sustituimos en la fórmula:
+\[
+\begin{aligned}
+|A\cap B \cap C|
+&= \mathrm{CR}(3,25) - \Big(\mathrm{CR}(3,20) + \mathrm{CR}(3,16) + \mathrm{CR}(3,12) \\
+&- (\mathrm{CR}(3,11) + \mathrm{CR}(3,7) + \mathrm{CR}(3,3)) \\
+&+ 0\Big).
+\end{aligned}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+
+Ahora evaluamos los valores numéricos ($\mathrm{CR}(n,k)=\binom{n+k-1}{n-1}$):
+\[
+\mathrm{CR}(3,25)=\binom{27}{2}=351,\qquad
+\mathrm{CR}(3,20)=\binom{22}{2}=231,
+\]
+\[
+\mathrm{CR}(3,16)=\binom{18}{2}=153,\qquad
+\mathrm{CR}(3,12)=\binom{14}{2}=91,
+\]
+\[
+\mathrm{CR}(3,11)=\binom{13}{2}=78,\qquad
+\mathrm{CR}(3,7)=\binom{9}{2}=36,
+\]
+\[
+\mathrm{CR}(3,3)=\binom{5}{2}=10.
+\]
+
+Sustituimos numéricamente:
+\[
+\begin{aligned}
+|A\cap B \cap C|
+&= 351 - \Big(231 + 153 + 91 - (78 + 36 + 10)\Big) \\
+&= 351 - \Big(475 - 124\Big) \\
+&= 351 - 351 = \boxed{0}.
+\end{aligned}
+\]
+
+De todas formas, la suma máxima por las condiciones impuestas es $4+8+12 = 24 \ne 25$, por lo que no hay ninguna solución.
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 32]
+Calcule el número de soluciones en $\mathbb{N}$ de la inecuación $x_1 + x_2 + x_3 \le 8$.
+
+\tcblower
+\textbf{Resolución:}
+
+Vemos que la inecuación $x_1+x_2+x_3 \le 8$ tiene una estructura parecida a la ecuación
+\[
+x_1+x_2+x_3 = 8,
+\]
+pero no es exactamente lo mismo. Si fuese igualdad, entonces por la definición de combinaciones con repetición y por el \textbf{principio de la aplicación biyectiva} sabríamos que el número de soluciones sería
+\[
+\mathrm{CR}(3,8).
+\]
+
+Sin embargo, también puede ser menor que $8$. Por tanto, debemos considerar todas las soluciones de las ecuaciones:
+\[
+x_1+x_2+x_3 = 7,\qquad
+x_1+x_2+x_3 = 6,\qquad \dots,\qquad
+x_1+x_2+x_3 = 0.
+\]
+
+Como cada conjunto de soluciones es disjunto (los tres valores no pueden sumar $8$ y $7$ a la vez, por ejemplo), podemos aplicar el \textbf{principio de la suma}. Por tanto, el número total de soluciones es:
+\[
+\sum_{k=0}^{8} \mathrm{CR}(3,k).
+\]
+
+Calcular esta suma directamente sería muy costoso, así que lo enfocamos de otra manera.
+
+\medskip
+
+Observemos que decir que $x_1+x_2+x_3 \le 8$ significa que $x_1+x_2+x_3$ debe ser \textbf{igual} a una cantidad entre $0$ y $8$. Eso implica que existe una cantidad que “falta” hasta llegar a $8$, y dicha cantidad la podemos llamar $x_4$. Entonces:
+\[
+x_1+x_2+x_3 \le 8 
+\quad\Longleftrightarrow\quad
+x_1+x_2+x_3 = 8 - x_4
+\quad\Longleftrightarrow\quad
+x_1+x_2+x_3+x_4 = 8.
+\]
+
+Por el \textbf{principio de la aplicación biyectiva}, el conjunto de soluciones de  
+\[
+x_1+x_2+x_3\le 8
+\]
+y el conjunto de soluciones de  
+\[
+x_1+x_2+x_3+x_4 = 8
+\]
+tienen el mismo cardinal.
+
+Y por la propiedad de las combinaciones con repetición, el número de soluciones de  
+\[
+x_1+x_2+x_3+x_4 = 8
+\]
+en $\mathbb{N}$ es:
+\[
+\sum_{k=0}^{8} \mathrm{CR}(3,k) =
+\mathrm{CR}(4,8)
+= \binom{4-1+8}{4-1}
+= \binom{11}{3}
+= \frac{11\cdot 10\cdot 9}{3!}
+= \boxed{165}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 33]
+¿Cuántas 3-tuplas $(a,b,c)$ de números naturales verifican que $5 \le a+b+c \le 15$?
+
+\tcblower
+\textbf{Resolución:}
+
+En primer lugar, calculamos el número total de tuplas cuya suma de componentes satisface
+\[
+a+b+c \le 15.
+\]
+Ese número es
+\[
+\sum_{k=0}^{15} \mathrm{CR}(3,k).
+\]
+
+Como ya sabemos por el ejercicio 32 que calcular esta suma directamente es costoso, utilizamos el siguiente razonamiento:  
+la condición \(a+b+c \le 15\) es equivalente a decir que a \(a+b+c\) le falta una cantidad \(d\) para llegar a 15. Es decir,
+\[
+a+b+c+d = 15,
+\]
+donde \(d\) es un número natural.
+
+Por la \textbf{propiedad} de las combinaciones con repetición, sabemos que existe una aplicación biyectiva entre el conjunto de soluciones de
+\[
+a+b+c+d = 15
+\]
+y las combinaciones con repetición de \(3\) elementos tomadas de \(15\) en \(15\).
+
+Por el \textbf{principio de la aplicación biyectiva}, sabemos que ambos conjuntos tienen el mismo cardinal. Por tanto:
+\[
+\sum_{k=0}^{15} \mathrm{CR}(3,k) = \mathrm{CR}(4,15)
+= \binom{4-1+15}{4-1}
+= \binom{18}{3}
+= \frac{18\cdot17\cdot16}{3!}
+= 816.
+\]
+
+Ahora, por el \textbf{principio del complementario}, le restamos al total los que \emph{no} están en el intervalo \(5\le a+b+c\).  
+La condición contraria es:
+\[
+a+b+c \le 4,
+\]
+cuyo número de soluciones es
+\[
+\sum_{k=0}^{4} \mathrm{CR}(3,k).
+\]
+
+Usamos el mismo razonamiento que antes: \(a+b+c \le 4\) es equivalente a introducir una variable \(d\) tal que:
+\[
+a+b+c+d = 4.
+\]
+Entonces:
+\[
+\sum_{k=0}^{4} \mathrm{CR}(3,k)
+= \mathrm{CR}(4,4)
+= \binom{4-1+4}{4-1}
+= \binom{7}{3}
+= \frac{7\cdot6\cdot5}{3!}
+= 35.
+\]
+
+Por el \textbf{principio del complementario}, el número de tuplas que sí satisfacen \(5 \le a+b+c \le 15\) es:
+\[
+816 - 35 = \boxed{781}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 34]
+Encuentre el número de soluciones en $\mathbb{N}$ de la ecuación $x_1 + x_2 + x_3 + x_4 = 14$, si:
+
+\begin{enumerate}
+\item[a)] El valor que toma cada variable es par.
+\item[b)] El valor que toma cada variable es impar.
+\item[c)] Hay variables que toman valores pares.
+\item[d)] Hay variables que toman valores impares.
+\item[e)] Hay variables que toman valores pares y otras que toman valores impares.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Recordamos que por \textbf{propiedad} de las combinaciones con repetición existe una aplicación biyectiva entre el conjunto de las soluciones de la ecuación $x_1+x_2+\cdots+x_n = k$ en $\mathbb{N}$ y el conjunto de las combinaciones con repetición de $n$ elementos tomados de $k$ en $k$, y que por el \textbf{principio de la aplicación biyectiva}, ambos tienen el mismo cardinal.
+
+\bigskip
+
+\textbf{a)}  
+Vamos buscando una ecuación del tipo \(x_1+x_2+x_3+x_4 = k\) en \(\mathbb{N}\).  
+Si cada variable es par, entonces cada término es divisible entre \(2\) y da un número natural.  
+Definimos
+\[
+\frac{x_1}{2} = x_1', \qquad
+\frac{x_2}{2} = x_2', \qquad
+\frac{x_3}{2} = x_3', \qquad
+\frac{x_4}{2} = x_4'
+\]
+Entonces:
+\[
+\frac{x_1}{2} + \frac{x_2}{2} + \frac{x_3}{2} + \frac{x_4}{2} = \frac{14}{2}.
+\]
+Sustituyendo:
+\[
+x_1' + x_2' + x_3' + x_4' = 7.
+\]
+Por combinaciones con repetición:
+\[
+\mathrm{CR}(4,7)=\binom{4-1+7}{4-1}=\binom{10}{3}=\frac{10\cdot9\cdot8}{3!}=\boxed{120}.
+\]
+
+\bigskip
+
+\textbf{b)}  
+De nuevo, buscamos la ecuación \(x_1+x_2+x_3+x_4 = k\) en \(\mathbb{N}\).  
+Si cada variable es impar, le restamos \(1\) a cada una para obtener números pares:
+\[
+x_1' = x_1-1,\quad x_2' = x_2-1,\quad x_3' = x_3-1,\quad x_4' = x_4-1.
+\]
+En la ecuación:
+\[
+x_1' + x_2' + x_3' + x_4' = 14 - 1 - 1 - 1 - 1 = 10.
+\]
+Si ahora cada \(x_i'\) es par, dividimos entre \(2\) para conseguir variables en los naturales:
+\[
+x_1'' = x_1'/2,\quad x_2'' = x_2'/2,\quad x_3'' = x_3'/2,\quad x_4'' = x_4'/2,
+\]
+y
+\[
+x_1'' + x_2'' + x_3'' + x_4'' = \frac{10}{2} = 5.
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 34]
+Entonces:
+\[
+\mathrm{CR}(4,5)=\binom{4-1+5}{4-1}=\binom{8}{3}=\frac{8\cdot7\cdot6}{3!}=\boxed{56}.
+\]
+
+\bigskip
+
+\textbf{c)}  
+Usamos el \textbf{principio del complementario}: hallamos el número total de soluciones para restarle el número de soluciones donde \emph{no} hay valores pares (es decir, donde todas las variables son impares). Ese valor es el del apartado b).
+
+Número total de soluciones (sin restricciones):
+\[
+\mathrm{CR}(4,14)=\binom{4-1+14}{4-1}=\binom{17}{3}=\frac{17\cdot16\cdot15}{3!}=680.
+\]
+
+Las soluciones formadas enteramente por impares (caso b)) son \(56\).  
+Por tanto, el número de soluciones en las que \emph{hay} variables que toman valores pares (es decir, al menos una par) es:
+\[
+680 - 56 = \boxed{624}.
+\]
+
+\bigskip
+
+\textbf{d)}  
+Aplicamos el mismo enfoque que en c). Usamos el \textbf{principio del complementario} y restamos las soluciones donde \emph{no} hay impares, es decir, donde todas las variables son pares (caso a)).
+
+\begin{itemize}
+\item Número total: \(680\).  
+\item Número con todas pares (caso (a)): \(120\).
+\end{itemize}
+
+Por tanto:
+\[
+680 - 120 = \boxed{560}.
+\]
+
+\bigskip
+
+\textbf{e)}  
+Queremos las soluciones en las que hay variables que toman valores pares y otras que toman valores impares (es decir, al menos una par y al menos una impar).  
+Aplicamos el \textbf{principio del complementario}: quitamos del total los casos en que NO ocurre eso, es decir, quitamos los casos \textbf{todas pares} (apartado a)) y \textbf{todas impares} (apartado b)). Esos dos conjuntos son disjuntos porque todas las variables no pueden ser pares e impares a la vez, así que aplicamos el \textbf{principio de la suma}.
+
+\begin{itemize}
+\item Número total: \(680\).
+\item Todas pares (a)): \(120\).  
+\item Todas impares (b)): \(56\).
+\end{itemize}
+
+Por tanto:
+\[
+680 - (120 + 56) = \boxed{504}.
+\]
+
+\end{ejercicio}
+
+
+\begin{ejercicio}[title=Ejercicio 35]
+El consejo de administración de una empresa está compuesto por nueve personas.  
+Se somete a votación secreta la aprobación de un proyecto y nadie puede abstenerse, pero sí puede votar en blanco.
+
+\begin{enumerate}
+\item[a)] ¿Cuántos resultados distintos se pueden extraer de la urna una vez efectuada la votación?
+\item[b)] Considerando que se aprueba el proyecto con al menos cinco votos favorables, ¿cuántos resultados de los anteriores aprueban el proyecto?
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+El consejo de administración está compuesto por $n=9$ personas. Hay tres opciones de voto para cada persona: \textbf{Sí} (a favor), \textbf{No} (en contra), y \textbf{Blanco}.
+
+\bigskip
+
+\textbf{a)}
+
+Sea $x_1$ el número de votos \textbf{Sí}, $x_2$ el número de votos \textbf{No}, y $x_3$ el número de votos en \textbf{Blanco}.
+Puesto que nadie puede abstenerse de votar, la suma total de votos es igual al número de personas:
+\[
+x_1 + x_2 + x_3 = 9
+\]
+
+Recordamos que por \textbf{propiedad} de las combinaciones con repetición existe una aplicación biyectiva entre el conjunto de las soluciones de la ecuación $x_1+x_2+x_3 = 9$ en $\mathbb{N}$ y el conjunto de las combinaciones con repetición de $3$ elementos tomados de $9$ en $9$, y que por el \textbf{principio de la aplicación biyectiva}, ambos tienen el mismo cardinal.
+
+\[
+\text{Resultados distintos} = \mathrm{CR}(3, 9) = \binom{3 + 9 - 1}{3 - 1} = \binom{11}{2} = \frac{11 \cdot 10}{2!} = \boxed{55}
+\]
+
+\bigskip
+
+\textbf{b)}
+
+El proyecto se aprueba si el número de votos a favor ($x_1$) es \textbf{mayor o igual que cinco} ($x_1 \ge 5$).
+Queremos encontrar el número de soluciones enteras no negativas de:
+\[
+x_1 + x_2 + x_3 = 9, \quad \text{con } x_1 \ge 5.
+\]
+
+Definimos una nueva variable $x_1'$ que asegura la condición $x_1 \ge 5$:
+\[
+x_1' = x_1 - 5, \quad \text{donde } x_1' \ge 0.
+\]
+
+Sustituimos en la ecuación original:
+\[
+x_1' + x_2 + x_3 = 9 - 5 = 4
+\]
+\[
+\text{Resultados que aprueban} = \mathrm{CR}(3, 4) = \binom{3 + 4 - 1}{3 - 1} = \binom{6}{2} = \frac{6 \cdot 5}{2 \cdot 1} = \boxed{15}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 36]
+En un centro de enseñanza se reciben solicitudes de ingreso, que se atienden según las calificaciones de las siguientes asignaturas:  
+Informática, Matemáticas, Física e Inglés. Cada asignatura tiene una puntuación entera entre 5 y 10.
+
+\begin{enumerate}
+\item[a)] ¿Cuántas puntuaciones distintas puede tener un expediente académico?
+\item[b)] ¿En cuántos casos distintos se obtiene de nota media 7?
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Sea $x_i$ la puntuación obtenida en cada una de las cuatro asignaturas, donde:
+\begin{itemize}
+    \item $x_1$: Informática
+    \item $x_2$: Matemáticas
+    \item $x_3$: Física
+    \item $x_4$: Inglés
+\end{itemize}
+La condición para cada puntuación es que debe ser un entero entre 5 y 10: $5 \le x_i \le 10$.
+
+\bigskip
+
+\textbf{a)}
+
+Una \textit{puntuación distinta} es una 4-tupla ordenada $(x_1, x_2, x_3, x_4)$ de calificaciones. Dado que la elección de la nota de una asignatura es independiente de las otras, y cada asignatura tiene las mismas opciones, se trata de un problema de \textbf{Variaciones con Repetición}.
+
+El número de posibles valores para cada $x_i$ es:
+$$ \text{Opciones} = 10 - 5 + 1 = 6 \quad (\text{los valores son } \{5, 6, 7, 8, 9, 10\}) $$
+
+Tenemos $n=6$ opciones para cada una de las $k=4$ asignaturas.
+\[
+\text{Resultados distintos} = \mathrm{VR}(6, 4) = 6^4 = \boxed{1296}.
+\]
+
+\bigskip
+
+\textbf{b)}
+
+La nota media de las cuatro asignaturas ($x_1, x_2, x_3, x_4$) es 7 si:
+\[
+\frac{x_1 + x_2 + x_3 + x_4}{4} = 7
+\]
+Esto implica que la suma de las puntuaciones debe ser:
+\[
+x_1 + x_2 + x_3 + x_4 = 28
+\]
+sujeto a la restricción inicial: $5 \le x_i \le 10$ para $i=1, 2, 3, 4$.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 36]
+
+Recordamos que por la \textbf{propiedad de las combinaciones con repetición} existe una aplicación biyectiva entre el conjunto formado por las combinaciones con repetición de $n$ elementos tomados de $k$ en $k$ y el conjunto de soluciones en $\mathbb{N}$ de la ecuación
+\[
+x_1+x_2+\dots+x_n = k.
+\]
+Por el \textbf{principio de la aplicación biyectiva}, ambos conjuntos tienen el mismo cardinal.
+
+Entonces buscamos resolver una ecuación de ese tipo en $\mathbb{N}$.
+
+\subsubsection*{Paso 1: Eliminar la restricción inferior ($x_i \ge 5$)}
+
+Introducimos las nuevas variables $x_i'$ para asegurar que la restricción inferior sea $x_i' \ge 0$:
+\[
+x_i' = x_i - 5, \quad \text{donde } x_i' \ge 0.
+\]
+Sustituimos en la ecuación de la suma:
+\[
+x_1' + x_2' + x_3' + x_4' = 28 -5-5-5-5
+\]
+\[
+x_1' + x_2' + x_3' + x_4' = 8
+\]
+Ahora, transformamos la restricción superior $x_i \le 10$ a la nueva notación:
+\[
+x_i' \le 10 - 5 \implies x_i' \le 5.
+\]
+El problema se reduce a encontrar el número de soluciones de $x_1' + x_2' + x_3' + x_4' = 8$ con $0 \le x_i' \le 5$.
+
+\subsubsection*{Paso 2: Contar soluciones con cota superior usando inclusión-exclusión}
+
+Sea \(X\) el conjunto de soluciones en \(\mathbb{N}\) de
+\[
+x_1'+x_2'+x_3'+x_4'=8
+\]
+sin restricción superior. Por la fórmula de combinaciones con repetición:
+\[
+|X| = \mathrm{CR}(4,8) = \binom{4-1+8}{4-1} = \binom{11}{3} = \frac{11\cdot 10 \cdot 9}{3!} = 165.
+\]
+
+Ahora debemos restar las soluciones que violan la restricción superior \(x_i' \le 5\).  
+Definimos los conjuntos:
+\[
+A_i = \{ \text{soluciones con } x_i' \ge 6 \}, \quad i=1,2,3,4.
+\]
+
+Es decir, debemos restar $|A_1 \cup A_2 \cup A_3 \cup A_4|$ de forma que el número de soluciones que cumplen todas las condiciones es:
+
+\[
+|X| - |A_1 \cup A_2 \cup A_3 \cup A_4|
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 36]
+
+Por el \textbf{principio de inclusión-exclusión}:
+
+\[
+|A_1 \cup A_2 \cup A_3 \cup A_4|
+= |A_1| + |A_2| + |A_3| + |A_4|
+\]
+\[
+- |A_1 \cap A_2| - |A_1 \cap A_3| - |A_1 \cap A_4|
+- |A_2 \cap A_3| - |A_2 \cap A_4| - |A_3 \cap A_4|
+\]
+\[
++ |A_1 \cap A_2 \cap A_3|
++ |A_1 \cap A_2 \cap A_4|
++ |A_1 \cap A_3 \cap A_4|
++ |A_2 \cap A_3 \cap A_4|
+\]
+\[
+- |A_1 \cap A_2 \cap A_3 \cap A_4|.
+\]
+
+\vspace{2em}
+
+\textbf{Calcular \(|A_i|\)}
+
+Si \(x_1'\ge 6\), hacemos \(x_1'' = x_1'-6\) (\(\Rightarrow x_1''\ge 0\)). Sustituyendo:
+\[
+x_1'' + x_2' + x_3' + x_4' = 8-6 = 2,
+\]
+\[
+|A_1| = \mathrm{CR}(4,2) = \binom{5}{3} = 10.
+\]
+
+Por simetría, \(|A_i| = 10\) para cada \(i\).
+
+\vspace{2em}
+
+\textbf{Calcular \(|A_i \cap A_j|\)}
+
+Si \(x_1', x_2' \ge 6\), hacemos \(x_1'' = x_1'-6, x_2'' = x_2'-6\) (\(\Rightarrow x_1'', x_2'' \ge 0\)). Sustituyendo:
+
+\[
+x_1'' + x_2'' + x_3' + x_4' = 8 - 6 - 6 = -4.
+\]
+
+\vspace{0.5em}
+
+Como la suma es negativa, no hay soluciones porque $x_1'' + x_2'' + x_3' + x_4' \ge 0$ siempre. Por simetría, todas las intersecciones de dos conjuntos \(|A_i \cap A_j| = 0\).
+
+\vspace{2em}
+
+\textbf{Calcular \(|A_i \cap A_j \cap A_k|\)}
+
+Si \(x_1', x_2', x'_3 \ge 6\), hacemos \(x_1'' = x_1'-6, x_2'' = x_2'-6,  x_3'' = x_3'-6\) (\(\Rightarrow x_1'', x_2'', x_3'' \ge 0\)). Sustituyendo:
+
+\[
+x_1'' + x_2'' + x_3'' + x_4' = 8 - 6 - 6 - 6 = -10.
+\]
+
+\vspace{0.5em}
+
+Como la suma también es negativa, no hay soluciones porque $x_1'' + x_2'' + x_3'' + x_4' \ge 0$ siempre. Por simetría, todas las intersecciones de dos conjuntos \(|A_i \cap A_j \cap A_k| = 0\).
+
+\vspace{2em}
+
+\textbf{Calcular \(|A_1 \cap A_2 \cap A_3 \cap A_4|\)}
+
+Si \(x_1', x_2', x'_3, x'_4 \ge 6\), hacemos \(x_1'' = x_1'-6, x_2'' = x_2'-6,  x_3'' = x_3'-6, x_4'' = x_4'-6\) (\(\Rightarrow x_1'', x_2'', x_3'', x_4'' \ge 0\)). Sustituyendo:
+
+\[
+x_1'' + x_2'' + x_3'' + x_4'' = 8 - 6 - 6 - 6 - 6 = -16.
+\]
+
+\vspace{0.5em}
+
+Como la suma también es negativa, no hay soluciones porque $x_1'' + x_2'' + x_3'' + x_4'' \ge 0$ siempre. Entonces \(|A_1 \cap A_2 \cap A_3 \cap A_4| = 0\).
+
+\vspace{1em}
+
+\textbf{Sustituyendo:} \(|X| - |A_1 \cup A_2 \cup A_3 \cup A_4| = 165 - (4\cdot 10 - 6\cdot 0 + 4\cdot 0 - 0) = 165 - 40 = \boxed{125}\)
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 37]
+Queremos repartir diez caramelos idénticos y nueve juguetes distintos entre cinco niños.  
+¿Cuántos resultados diferentes pueden darse si cada niño ha de recibir al menos un caramelo y un juguete?
+
+\tcblower
+\textbf{Resolución:}
+
+Trabajamos por separado con los caramelos y con los juguetes y luego combinamos (las dos elecciones son independientes).
+
+\vspace{0.5em}
+\textbf{1) Caramelos (idénticos), cada niño recibe al menos uno.}
+
+\begin{itemize}
+\item Repartir 10 caramelos idénticos entre 5 niños con cada niño recibiendo $\ge 1$ es un problema de \textbf{combinaciones con repetición} con restricciones, ya que el orden no importa y al ser los caramelos idénticos hablamos de repetición.
+\item Sea $c_i$ la cantidad de caramelos que recibe el niño $i$. Si cada niño debe recibir al menos 1, ponemos $c_i\ge1$ con $c_1+\dots+c_5=10$. Haciendo el cambio $c'_i=c_i-1$ (\(\Rightarrow c'_i \ge 0\)) obtenemos
+  $c'_1+\dots+c'_5=10-1-1-1-1-1 = 5$.
+\item Recordamos que por la \textbf{propiedad de las combinaciones con repetición} existe una aplicación biyectiva entre el conjunto formado por las combinaciones con repetición de $5$ elementos tomados de $5$ en $5$ y el conjunto de soluciones en $\mathbb{N}$ de la ecuación
+\[
+c'_1+\dots+c'_5= 5
+\]
+Por el \textbf{principio de la aplicación biyectiva}, ambos conjuntos tienen el mismo cardinal.
+\item Entonces el número de soluciones en $\mathbb{N}$ a esta ecuación es
+\[
+\operatorname{CR}(5,5) = \binom{5-1+5}{5-1}=\binom{9}{4}=126.
+\]
+\end{itemize}
+
+Por tanto hay 126 formas de repartir los caramelos.
+
+\vspace{0.8em}
+
+\textbf{2) Juguetes (distintos), cada niño recibe al menos uno.}
+
+\medskip
+
+\begin{itemize}
+  \item Definimos el conjunto total de resultados $X$ como todas las posibles asignaciones de los 9 juguetes a los 5 niños.
+  Cada juguete puede ir a cualquiera de los 5 niños, las asignaciones son independientes, por tanto
+  \[
+  |X| = \operatorname{VR}(5,9) = 5^{9}.
+  \]
+
+  \item Ahora definimos las asignaciones contrarias a lo que se nos pide (los repartos en los que \textbf{algún niño} $i$ se queda \textbf{sin} juguetes):
+  \[
+  A_i,\qquad i=1,\dots,5.
+  \]
+  Nuestro objetivo es averiguar
+  \[
+  |X| - |A_1\cup A_2\cup A_3\cup A_4\cup A_5|
+  \]
+
+  \end{itemize}
+  \end{ejercicio}
+  \begin{ejercicio}[title=Ejercicio 37]
+  
+  Por el \textbf{principio del complementario}, esto es el número de repartos en los que ningún niño queda vacío.
+  
+  \begin{itemize}
+
+  \item \(|A_1\cup A_2\cup A_3\cup A_4\cup A_5|\) representa la unión de los casos donde 1 niño cualquiera se queda sin juguetes, 2 niños cualquiera se quedan sin juguetes, ... hasta 5 niños.
+
+  \item Aplicamos el \textbf{principio de inclusión-exclusión} calculando los elementos del desarrollo de $|A_1\cup A_2\cup A_3\cup A_4\cup A_5|$:
+  \begin{itemize}
+    \item Si elegimos un niño $i$, las asignaciones en \(A_i\) son aquellas en las que solo los otros 4 niños pueden recibir juguetes. Por tanto
+    \[
+    |A_i| = \operatorname{VR}(4,9)=4^{9}.
+    \]
+    Hay \(\binom{5}{1}\) formas de elegir qué niño es el que se queda sin juguetes, por lo que hay \(\binom{5}{1} = 5\) términos $|A_i|$.
+    \[
+    \binom{5}{1}\operatorname{VR}(4,9)=\binom{5}{1}4^{9}.
+    \]
+
+    \item Si elegimos un par de niños distintos \(i,j\), las asignaciones en \(A_i\cap A_j\) son aquellas en las que solo los otros 3 niños reciben juguetes. Por tanto
+    \[
+    |A_i\cap A_j| = \operatorname{VR}(3,9)=3^{9}.
+    \]
+    Hay \(\binom{5}{2}\) posibilidades para escoger a estos 2 niños que se quedan sin juguetes, así que hay \(\binom{5}{2}\) términos $|A_i \cap A_j|$.
+    \[
+    \binom{5}{2}\operatorname{VR}(3,9)=\binom{5}{2}3^{9}.
+    \]
+
+    \item Si elegimos tres niños $i,j,k$ sin juguetes, \(|A_{i}\cap A_{j}\cap A_{k}|=\operatorname{VR}(2,9)=2^{9}\), y hay \(\binom{5}{3}\) posibilidades para escoger a 3 niños, entonces hay \(\binom{5}{3}\) términos $|A_i \cap A_j \cap A_k|$.
+    \[
+    \binom{5}{3}\operatorname{VR}(2,9)=\binom{5}{3}2^{9}.
+    \]
+
+    \item Si elegimos cuatro niños $i,j,k,l$ sin juguetes, \(|A_{i}\cap A_j \cap A_k\cap A_{l}|=\operatorname{VR}(1,9)=1^{9}=1\), y hay \(\binom{5}{4}\) elecciones para escoger 4 niños, entonces hay \(\binom{5}{4}\) términos $|A_i \cap A_j \cap A_k \cap A_l|$.
+    \[
+    \binom{5}{4}\operatorname{VR}(1,9)=\binom{5}{4}\,1.
+    \]
+
+    \item Si dejamos a todos los niños sin juguetes, \(|A_{1}\cap \cdots \cap A_{5}|=\operatorname{VR}(0,9)=0\). Sólo hay \(\binom{5}{5} = 1\) término, el propio $|A_{1}\cap \cdots \cap A_{5}|$.
+    \[
+    \operatorname{VR}(0,9)=0.
+    \]
+  \end{itemize}
+  \end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 37]
+\begin{itemize}
+
+  \item Aplicamos ahora la fórmula del \textbf{principio de inclusión–exclusión} para 5 conjuntos:
+
+Como ya hemos calculado cuántos términos hay por tipo, solo tenemos que sumar y restar con cada cantidad según el signo que le corresponda:
+  \[
+  |X| - |A_1\cup A_2\cup A_3\cup A_4\cup A_5| = 5^9
+     - \Bigg(\binom{5}{1}4^9
+     - \binom{5}{2}3^9
+     + \binom{5}{3}2^9
+     - \binom{5}{4}1^9
+     + \binom{5}{5}0^9\Bigg)
+  \]
+  \[
+  = 1\,953\,125 - (1\,310\,720 - 196\,830 + 5\,120 - 5 + 0) = 834\,120
+  \]
+
+  \item Concluimos que hay
+  \[
+  834\,120
+  \]
+  maneras de repartir los 9 juguetes entre 5 niños de forma que cada niño reciba al menos uno.
+\end{itemize}
+
+\vspace{0.8em}
+\textbf{3) Combinación final.}
+
+Las elecciones para caramelos y para juguetes son independientes, así que por el \textbf{principio del producto} el número total de resultados diferentes es
+\[
+126 \cdot 834\,120 = \boxed{105\,099\,120}.
+\]
+
+\end{ejercicio}
+
+\section{Coeficientes Multinomiales}
+
+\subsection{Teorema del Binomio de Newton}
+
+\begin{ejercicio}[title=Ejercicio 23]
+Sea $X$ un conjunto de cardinal $n$. Utilice el Teorema del binomio de Newton para justificar que:
+
+\begin{enumerate}
+\item[a)] El número de subconjuntos de $X$ es $2^n$.
+\item[b)] Si $n \ge 1$, entonces el número de subconjuntos de $X$ de cardinal par es igual que el número de subconjuntos de $X$ de cardinal impar.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Partimos del \textbf{Teorema del binomio de Newton} en su forma habitual:
+\[
+(x+y)^n=\sum_{k=0}^{n}\binom{n}{k}x^{n-k}y^{k}.
+\]
+
+A partir de esta identidad hacemos dos sustituciones sencillas que nos darán las dos afirmaciones.
+
+\medskip
+
+\textbf{a) Número total de subconjuntos de $X$.}
+
+\begin{itemize}
+\item Observación combinatoria: un subconjunto de $X$ se determina eligiendo, para cada uno de los $n$ elementos de $X$, si lo incluimos o no. Para cada elemento hay 2 opciones (incluirlo o no incluirlo) y las elecciones son independientes, así que el número total de subconjuntos es \(2^n\). 
+
+\item Justificación con el binomio: si tomamos \(x=1\) e \(y=1\) en la identidad del binomio obtenemos
+\[
+(1+1)^n=\sum_{k=0}^{n}\binom{n}{k}1^{\,n-k}1^{\,k}
+=\sum_{k=0}^{n}\binom{n}{k}.
+\]
+El miembro izquierdo es \(2^n\), y el miembro derecho es la suma de los números combinatorios \(\binom{n}{k}\). Pero \(\binom{n}{k}\) es precisamente el número de subconjuntos de tamaño \(k\) dentro del conjunto $X$, que tiene cardinal $n$. Al sumar \(\binom{n}{0}+\binom{n}{1}+\dots+\binom{n}{n}\) contamos todos los subconjuntos posibles (vamos contando cúantos subconjuntos hay con cardinal 0, luego cuántos con cardinal 1, 2, ...), por lo que por el \textbf{principio de la suma}:
+\[
+\text{nº de subconjuntos de }X=\boxed{\sum_{k=0}^{n}\binom{n}{k}=2^n
+}.
+\]
+Esto coincide con la observación combinatoria.
+
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 23]
+
+\textbf{b) Igualdad entre subconjuntos de cardinal par y cardinal impar (para \(n\ge1\)).}
+
+\begin{itemize}
+\item Consideremos ahora la sustitución \(x=1,\ y=-1\) en la identidad del binomio. Tenemos:
+\[
+(1+(-1))^{n}=\sum_{k=0}^{n}\binom{n}{k}1^{\,n-k}(-1)^{k}
+=\sum_{k=0}^{n}\binom{n}{k}(-1)^{k}.
+\]
+
+\item El lado izquierdo es \((1-1)^{n}=0^{n}\). Para \(n\ge 1\) esto vale \(0\). Por tanto
+\[
+0=\sum_{k=0}^{n}\binom{n}{k}(-1)^{k}.
+\]
+
+\item Separemos la suma en los términos con \(k\) par y los términos con \(k\) impar. Si escribimos
+\[
+\sum_{k=0}^{n}\binom{n}{k}(-1)^{k}
+=\sum_{\substack{k=0\\k\ \text{par}}}^{n}\binom{n}{k}
+\;-\;
+\sum_{\substack{k=0\\k\ \text{impar}}}^{n}\binom{n}{k},
+\]
+la igualdad anterior \(0=\sum_{k=0}^{n}\binom{n}{k}(-1)^{k}\) se traduce en
+\[
+\sum_{\substack{k\ \text{par}}}\binom{n}{k}
+\;-\;
+\sum_{\substack{k\ \text{impar}}}\binom{n}{k}
+=0.
+\]
+
+\item Por tanto:
+\[
+\boxed{\sum_{\substack{k\ \text{par}}}\binom{n}{k}
+=
+\sum_{\substack{k\ \text{impar}}}\binom{n}{k}}
+\]
+
+La clave está en que cada suma cuenta exactamente el número de subconjuntos de \(X\) de cardinal par y, respectivamente, de cardinal impar. Concluimos que, para \(n\ge 1\), el número de subconjuntos de cardinal par es igual al número de subconjuntos de cardinal impar.
+\end{itemize}
+\end{ejercicio}
+
+\subsection{Teorema Multinomial}
+
+\begin{ejercicio}[title=Ejercicio 25]
+¿Cuántos términos resultan en la expresión desarrollada del polinomio $(x - y + 2z)^8$? En dicha expresión, ¿cuál es el coeficiente del término $xy^2z^5$? ¿Y el coeficiente del término $xy^2z^6$?
+
+\tcblower
+\textbf{Resolución:}
+
+El teorema multinomial nos dice que
+\[
+(x_1+\dots+x_t)^n = \sum_{k_1+\dots+k_t=n} \binom{n}{k_1,k_2,\dots,k_t} x_1^{k_1}\cdots x_t^{k_t}.
+\]
+
+Llamemos $x_1=x$, $x_2=-y$, $x_3=2z$. Entonces obtenemos la fórmula de la expansión:
+
+\[
+(x-y+2z)^8 = \sum_{k_1+k_2+k_3=8} \binom{8}{k_1,k_2,k_3}\, x^{k_1}(-y)^{k_2}(2z)^{k_3}.
+\]
+
+\vspace{0.5em}
+
+Observamos que, por la definición de la sumatoria que aparece en la expresión analítica, habrá tantos términos en la expansión como valores que satisfagan la ecuación $k_1+k_2+k_3=8$.
+
+\vspace{0.5em}
+
+\begin{itemize}
+    \item Sabemos que por la propiedad de combinaciones con repetición \textbf{existe} una aplicación biyectiva entre el conjunto formado por las combinaciones con repetición de $n$ elementos tomados de $k$ en $k$ y el conjunto de soluciones en $\mathbb{N}$ de la ecuación $x_1+\dots+x_n=k$. 
+    \item Por el \textbf{principio de la aplicación biyectiva}, sabemos que ambos conjuntos tienen el mismo cardinal.
+\end{itemize}
+
+\vspace{0.5em}
+
+Sustituyendo en nuestro caso: \textbf{existe} una aplicación biyectiva entre las combinaciones con repetición de $3$ elementos tomados de $8$ en $8$ y el conjunto de soluciones de $k_1+k_2+k_3=8$. Por tanto, el número de términos en la sumatoria será $\mathrm{CR}(3,8)$.
+
+\vspace{0.5em}
+
+Por tanto, el número de términos en la expresión desarrollada de $(x-y+2z)^8$ es:
+\[
+\mathrm{CR}(3,8)=\binom{3-1+8}{3-1}=\binom{10}{2}=\frac{10\cdot 9}{2}=\boxed{45}.
+\]
+
+\medskip
+
+\textbf{Coeficiente de } $xy^2z^5$.
+
+Fijémonos en la fórmula: para cualquier término concreto $x^a y^b z^c$, los exponentes de $x,y,z$ son precisamente $k_1,k_2,k_3$:
+\[
+\begin{aligned}
+    (x-y+2z)^8&=\sum_{k_1+k_2+k_3=8}\binom{8}{k_1,k_2,k_3}\, \cdot x^{k_1}\cdot (-y)^{k_2}\cdot (2z)^{k_3}\\
+    &=\sum_{k_1+k_2+k_3=8}\binom{8}{k_1,k_2,k_3}\, \cdot x^{\boxed{k_1}}\cdot (-1)^{k_2}y^{\boxed{k_2}}\cdot 2^{k_3}z^{\boxed{k_3}}
+\end{aligned}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 25]
+
+Por lo que para el término $xy^2z^5$ tenemos los valores:
+\[
+k_1=1,\quad k_2=2,\quad k_3=5,
+\]
+que cumple $1+2+5=8$, por tanto sí aparece en la expansión. Su coeficiente se consigue sustituyendo en la fórmula todo lo que multiplica a $x^{k_1}$, $y^{k_2}$ y $z^{k_3}$. Es decir, el propio \textbf{coeficiente multinomial}, teniendo en cuenta que tenemos que multiplicar por los coeficientes originales de las variables elevadas al exponente correspondiente:
+
+\[
+\binom{8}{k_1,k_2,k_3}\cdot(-1)^{k_2}\cdot2^{k_3}
+= \binom{8}{1,2,5}\,(-1)^{2}\,2^{5}
+= \frac{8!}{1!\,2!\,5!}\cdot 1 \cdot 32
+= \boxed{5376}
+\]
+
+\medskip
+
+\textbf{Coeficiente de } $xy^2z^6$.
+
+Si intentamos asignar exponentes:
+\[
+k_1=1,\quad k_2=2,\quad k_3=6,
+\]
+vemos que \(1+2+6=9\neq 8\). Por tanto ese triplete no satisface la condición $k_1+k_2+k_3=8$ y el término $xy^2z^6$ no aparece en la expansión. Su coeficiente es
+\[
+\boxed{0}.
+\]
+
+\end{ejercicio}
+
+\end{document}

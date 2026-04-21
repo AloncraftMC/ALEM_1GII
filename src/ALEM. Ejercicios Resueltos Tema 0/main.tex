@@ -1,0 +1,1203 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Para insertar imágenes
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{hyperref} % Enlaces y referencias clicables
+\usepackage{lmodern} % Fuente moderna
+\usepackage{geometry} % Márgenes
+\usepackage{cancel}
+\usepackage[most]{tcolorbox} % Cajitas para ejemplos y procedimientos
+\geometry{margin=2.5cm}
+
+% ==== Definición de estilos de caja ====
+\tcbset{
+  colback=white,
+  colframe=black!60,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{procedimiento}[1][]{
+  colback=green!5!white,
+  colframe=green!60!black,
+  title=\textbf{Procedimiento},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejemplo}[1][]{
+  colback=blue!5!white,
+  colframe=blue!60!black,
+  title=\textbf{Ejemplo},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejercicio}[1][]{
+  colback=red!5!white,
+  colframe=red!60!black,
+  title=\textbf{Ejercicio},
+  fonttitle=\bfseries,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt,
+  #1
+}
+
+% ==== Documento principal ====
+\title{Álgebra Lineal y Estructuras Matemáticas (ALEM) Ejercicios Resueltos Tema 0}
+\author{Alonso Hernández Robles (Grupo E)}
+\date{20/10/2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Conjuntos}
+
+\begin{ejercicio}[title=Ejercicio 4]
+Si $X = \{\{\varnothing\}\}$, entonces $\mathcal{P}(X)$ es igual a:
+
+a) $\{\{\varnothing\},\{\{\{\varnothing\}\}\}\}$ \quad
+b) $\{\varnothing,\{\varnothing\}\}$ \quad
+c) $\{\varnothing,\{\{\varnothing\}\}\}$ \quad
+d) $\{\{\varnothing\},\{\{\varnothing\}\}\}$
+\tcblower
+\textbf{Resolución:}
+
+Recordemos que el conjunto potencia $\mathcal{P}(X)$ es el conjunto de todos los subconjuntos de $X$.  
+Aquí, $X = \{\{\varnothing\}\}$ tiene un solo elemento $\{\varnothing\}$.  
+
+Por lo tanto, los subconjuntos de $X$ son:
+
+\[
+\varnothing \quad \text{y} \quad \{\{\varnothing\}\}.
+\]
+
+Así que:
+
+\[
+\mathcal{P}(X) = \{\varnothing, \{\{\varnothing\}\}\}.
+\]
+
+Esto corresponde a la opción c).
+
+\[
+\boxed{\text{c) } \{\varnothing, \{\{\varnothing\}\}\}}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 8]
+Si $A = \{a,b,\{a,b,c,\{a\}\},\{b\}\}$, determine cuáles de las afirmaciones siguientes son ciertas:
+
+a) $\{\{a\}\}\in A$.\\
+b) $\{\{a\}\}\subseteq A$.\\
+c) $\{\{b\}\}\subseteq A$.\\
+d) $\{a,\{a\}\}\subseteq A$.\\
+e) $\{a,b\}\subseteq A$.\\
+f) $\{a,\{b\}\}\subseteq A$.\\
+g) $\{b\}\in A$ y $\{b\}\subseteq A$.
+\tcblower
+\textbf{Resolución:}
+
+Analizamos cada afirmación teniendo en cuenta la distinción entre \(\in\) y \(\subseteq\).
+
+\begin{itemize}
+\item a) $\{\{a\}\} \in A$?  
+
+No, ya que $\{\{a\}\} \in A$ no existe como elemento directo de $A$.
+\(\Rightarrow\) Falso.
+
+\item b) $\{\{a\}\} \subseteq A$?  
+
+$\{\{a\}\} \subseteq A$ significa que $\{a\} \in A$, lo cual no es cierto.  
+\(\Rightarrow\) Falso.
+
+\item c) $\{\{b\}\} \subseteq A$?  
+
+$\{b\} \in A$, sí.  
+\(\Rightarrow\) Verdadero.
+
+\item d) $\{a,\{a\}\} \subseteq A$?  
+
+$a \in A$, pero $\{a\} \notin A$.  
+\(\Rightarrow\) Falso.
+
+\item e) $\{a,b\} \subseteq A$?  
+
+$a \in A$, $b \in A$ \(\Rightarrow\) Verdadero.
+
+\item f) $\{a,\{b\}\} \subseteq A$?  
+
+$a \in A$, $\{b\} \in A$ \(\Rightarrow\) Verdadero.
+
+\item g) $\{b\} \in A$ y $\{b\} \subseteq A$?  
+
+$\{b\} \in A$ es verdadero, pero $\{b\} \subseteq A$ significa $b \in A$, lo cual es verdadero. Por lo tanto, ambas condiciones se cumplen.  
+\(\Rightarrow\) Verdadero.
+\end{itemize}
+
+\[
+\boxed{\text{Ciertas: c), e), f), g)}}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 9]
+Si $A$ y $B$ son conjuntos tales que $A$ no es un subconjunto de $B$, denotamos este hecho por $A\not\subseteq B$.
+¿Qué significa que $A\not\subseteq B$?
+\tcblower
+\textbf{Resolución:}
+
+Decir que $A\not\subseteq B$ significa que \textbf{no todos los elementos de $A$ están en $B$}.  
+Es decir, existe al menos un elemento $x \in A$ que no pertenece a $B$:
+
+\[
+\exists x \in A \text{ tal que } x \notin B.
+\]
+
+\[
+\boxed{A\not\subseteq B \iff \text{existe } x\in A \text{ con } x\notin B}
+\]
+
+\end{ejercicio}
+
+\subsection{Operaciones con conjuntos}
+
+\begin{ejercicio}[title=Ejercicio 1]
+Sea el conjunto $X = \{x \in \mathbb{N} : x \le 10\}$ y los subconjuntos 
+$A = \{0,2,4,5,7,8,10\}$, 
+$B = \{0,3,4,7,8,9\}$ y 
+$C = \{1,2,4,5,6,7,9\}$.
+Calcule cada uno de los conjuntos siguientes: 
+$A \cup B$, 
+$A \cap C$, 
+$A \setminus B$, 
+$\overline{B}$, 
+$(B \cup C)\setminus A$ y 
+$\overline{A} \cup \overline{B} \cup \overline{C}$.
+\tcblower
+\textbf{Resolución:}
+
+\[
+\begin{aligned}
+X &= \{0,1,2,3,4,5,6,7,8,9,10\},\\
+A &= \{0,2,4,5,7,8,10\},\\
+B &= \{0,3,4,7,8,9\},\\
+C &= \{1,2,4,5,6,7,9\}.
+\end{aligned}
+\]
+
+\begin{enumerate}
+\item \textbf{Unión:}
+\[
+A \cup B = \boxed{\{0,2,3,4,5,7,8,9,10\}}.
+\]
+
+\item \textbf{Intersección:}
+\[
+A \cap C = \boxed{\{2,4,5,7\}}.
+\]
+
+\item \textbf{Diferencia:}
+\[
+A \setminus B = \boxed{\{2,5,10\}}.
+\]
+
+\item \textbf{Complemento de \(B\):}
+\[
+\overline{B} = X \setminus B = \boxed{\{1,2,5,6,10\}}.
+\]
+
+\item \textbf{Diferencia de unión:}
+\[
+(B \cup C)\setminus A = \boxed{\{1,3,6,9\}}.
+\]
+
+\item \textbf{Unión de complementos:}
+\[
+\begin{aligned}
+\overline{A} &= X \setminus A = \{1,3,6,9\},\\
+\overline{B} &= \{1,2,5,6,10\},\\
+\overline{C} &= \{0,3,8,10\},\\[4pt]
+\overline{A} \cup \overline{B} \cup \overline{C} &= \boxed{\{0,1,2,3,5,6,8,9,10\}}.
+\end{aligned}
+\]
+\end{enumerate}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 5]
+Sean $A,B,X$ conjuntos tales que $A,B\subseteq X$.
+
+a) Justifique la igualdad $\mathcal{P}(A\cap B) = \mathcal{P}(A)\cap \mathcal{P}(B)$.\\
+b) Razone que $\mathcal{P}(A)\cup \mathcal{P}(B)\subseteq \mathcal{P}(A\cup B)$.\\
+c) Encuentre dos subconjuntos $A,B$ de $\mathbb{N}$ para los cuales el conjunto
+$\mathcal{P}(A)\cup \mathcal{P}(B)$ no es igual que el conjunto $\mathcal{P}(A\cup B)$.
+\tcblower
+\textbf{Resolución:}
+
+\begin{enumerate}
+\item[\textbf{a)}] 
+Sea $S \in \mathcal{P}(A\cap B)$. Por definición, $S \subseteq A\cap B$.  
+Entonces $S \subseteq A$ y $S \subseteq B$, lo que implica $S \in \mathcal{P}(A)$ y $S \in \mathcal{P}(B)$.  
+Por lo tanto, $S \in \mathcal{P}(A)\cap \mathcal{P}(B)$.  
+
+Recíprocamente, si $S \in \mathcal{P}(A)\cap \mathcal{P}(B)$, entonces $S \subseteq A$ y $S \subseteq B$, por lo que $S \subseteq A\cap B$ y $S \in \mathcal{P}(A\cap B)$.  
+
+Conclusión:
+
+\[
+\boxed{\mathcal{P}(A\cap B) = \mathcal{P}(A)\cap \mathcal{P}(B)}
+\]
+
+\item[\textbf{b)}] 
+Sea $S \in \mathcal{P}(A)$ o $S \in \mathcal{P}(B)$. Entonces $S \subseteq A$ o $S \subseteq B$.  
+En cualquier caso, $S \subseteq A \cup B$, por lo que $S \in \mathcal{P}(A\cup B)$.  
+
+Por lo tanto:
+
+\[
+\boxed{\mathcal{P}(A)\cup \mathcal{P}(B) \subseteq \mathcal{P}(A\cup B)}
+\]
+
+\item[\textbf{c)}] 
+Tomemos, por ejemplo:
+
+\[
+A = \{1\}, \quad B = \{2\}.
+\]
+
+Entonces:
+
+\[
+\mathcal{P}(A) = \{\varnothing, \{1\}\}, \quad \mathcal{P}(B) = \{\varnothing, \{2\}\},
+\]
+
+\[
+\mathcal{P}(A)\cup \mathcal{P}(B) = \{\varnothing, \{1\}, \{2\}\}, \quad \mathcal{P}(A\cup B) = \mathcal{P}(\{1,2\}) = \{\varnothing, \{1\}, \{2\}, \{1,2\}\}.
+\]
+
+Se observa que $\mathcal{P}(A)\cup \mathcal{P}(B) \neq \mathcal{P}(A\cup B)$, ya que falta el subconjunto $\{1,2\}$.
+
+Entonces dos ejemplos son:
+
+\[
+\boxed{A = \{1\}, \quad B = \{2\}.}
+\]
+
+\end{enumerate}
+
+\end{ejercicio}
+
+\subsubsection{Leyes del Álgebra de Conjuntos}
+
+\begin{ejercicio}[title=Ejercicio 6]
+Sean los conjuntos $A,B\subseteq X$. Entonces el subconjunto 
+\[
+(A\cup B)\cap (\overline{A}\cup \overline{B})
+\] 
+es igual a: 
+
+a) $\varnothing$ \quad b) $(A\cap B)\cup (\overline{A}\cap \overline{B})$ \quad 
+c) $(A\cap \overline{B})\cup (\overline{A}\cap B)$ \quad 
+d) $(A\cup \overline{B})\cap (\overline{A}\cup B)$
+\tcblower
+\textbf{Resolución:}
+
+Aplicamos la ley de distributividad y De Morgan:
+
+\[
+(A\cup B)\cap (\overline{A}\cup \overline{B}) = (A\cap \overline{A}) \cup (A\cap \overline{B}) \cup (B\cap \overline{A}) \cup (B\cap \overline{B})
+\]
+
+Notamos que $A\cap \overline{A} = \varnothing$ y $B\cap \overline{B} = \varnothing$, por lo que queda:
+
+\[
+(A\cap \overline{B}) \cup (\overline{A}\cap B)
+\]
+
+Esto corresponde a la opción c).
+
+\[
+\boxed{\text{c) } (A\cap \overline{B}) \cup (\overline{A}\cap B)}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 7]
+Para cualesquiera conjuntos $A,B,C\subseteq X$, demuestre las siguientes identidades:
+
+a) $X = (A\cap B)\cup (A\cap \overline{B})\cup (\overline{A}\cap B)\cup (\overline{A}\cap \overline{B})$.\\
+b) $(A\setminus C)\setminus (B\setminus C) = (A\setminus B)\setminus C$.
+\tcblower
+\textbf{Resolución:}
+
+\begin{enumerate}
+\item[\textbf{a)}] 
+Aplicamos distributividad y leyes de conjuntos paso a paso:
+
+\[
+(A\cap B)\cup (A\cap \overline{B}) = A \cap (B \cup \overline{B}) = A \cap X = A
+\]
+
+\[
+(\overline{A}\cap B)\cup (\overline{A}\cap \overline{B}) = \overline{A} \cap (B \cup \overline{B}) = \overline{A} \cap X = \overline{A}
+\]
+
+Ahora unimos las dos partes:
+
+\[
+(A\cap B)\cup (A\cap \overline{B}) \cup (\overline{A}\cap B)\cup (\overline{A}\cap \overline{B}) = A \cup \overline{A} = X
+\]
+
+\[
+\boxed{X = (A\cap B)\cup (A\cap \overline{B})\cup (\overline{A}\cap B)\cup (\overline{A}\cap \overline{B})}
+\]
+
+\item[\textbf{b)}] 
+Recordemos que $A\setminus B = A\cap \overline{B}$. Entonces:
+
+\[
+(A\setminus C)\setminus (B\setminus C) = (A\cap \overline{C}) \setminus (B\cap \overline{C}) = (A\cap \overline{C}) \cap \overline{(B\cap \overline{C})}.
+\]
+
+Aplicando De Morgan:
+
+\[
+\overline{B\cap \overline{C}} = \overline{B} \cup C
+\]
+
+Por lo tanto:
+
+\[
+(A\cap \overline{C}) \cap (\overline{B} \cup C) = (A\cap \overline{C} \cap \overline{B}) \cup (A\cap \overline{C} \cap C) = A \cap \overline{B} \cap \overline{C} \cup \varnothing = (A\setminus B)\setminus C
+\]
+
+\[
+\boxed{(A\setminus C)\setminus (B\setminus C) = (A\setminus B)\setminus C}
+\]
+
+\end{enumerate}
+
+\end{ejercicio}
+
+\subsection{Producto Cartesiano de Conjuntos}
+
+\begin{ejercicio}[title=Ejercicio 2]
+Si $X$ es un conjunto finito de cardinal $n$, calcule el cardinal de cada uno de los conjuntos
+siguientes: $\mathcal{P}(\mathcal{P}(X))$, $\mathcal{P}(X\times X)$ y $\mathcal{P}(X)\times \mathcal{P}(X)$.
+\tcblower
+\textbf{Resolución:}
+
+\[
+|\mathcal{P}(\mathcal{P}(X))| = 2^{|\mathcal{P}(X)|} = \boxed{2^{2^n}}
+\]
+
+\[
+|\mathcal{P}(X\times X)| = 2^{|X\times X|} = 2^{|X|\cdot|X|} = 2^{n\cdot n} = \boxed{2^{n^2}}
+\]
+
+\[
+|\mathcal{P}(X)\times \mathcal{P}(X)| = |\mathcal{P}(X)|\cdot|\mathcal{P}(X)| = (2^n)(2^n) = \boxed{2^{2n}}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 3]
+Si $A$ y $B$ son dos conjuntos tales que $|A\times B|=112$ y $|\mathcal{P}(A)|=256$, entonces $|B|$ vale:
+
+a) $12$ \quad b) $17$ \quad c) $9$ \quad d) $14$
+\tcblower
+\textbf{Resolución:}
+
+Primero, del conjunto potencia:
+
+\[
+|\mathcal{P}(A)| = 2^{|A|} = 256 \implies 2^{|A|} = 2^8 \implies |A| = 8.
+\]
+
+Luego, del producto cartesiano:
+
+\[
+|A \times B| = |A|\cdot|B| = 8 \cdot |B| = 112 \implies |B| = \frac{112}{8} = 14.
+\]
+
+\[
+\boxed{\text{d) } 14}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 10]
+Determine cuáles de las siguientes afirmaciones sobre conjuntos son verdaderas:
+
+a) Si $a\in A$, entonces $\{a\}\subseteq \{A\}$.\\
+b) Si $A\subseteq B$ y $B\not\subseteq C$, entonces $A\not\subseteq C$.\\
+c) Si $a\in A$ y $A\in B$, entonces $\{a\}\in B$.\\
+d) Si $a\in A$ y $A\subseteq B$, entonces $\{\{a\}\}\subseteq \mathcal{P}(B)$.\\
+e) Si $A\times B = C\times D$, entonces $A=C$ y $B=D$.\\
+f) Si $A\setminus B = \varnothing$, entonces $A\subseteq B$.
+\tcblower
+\textbf{Resolución:}
+
+\begin{itemize}
+\item a) $\{a\}\subseteq \{A\}$?  
+
+\(\{A\}\) contiene a \(A\) como elemento, no a \(a\). Por lo tanto, \(\{a\} \not\subseteq \{A\}\).  
+\(\Rightarrow \text{Falso}\)
+
+\item b) Si $A\subseteq B$ y $B\not\subseteq C$, ¿significa que $A\not\subseteq C$?  
+
+No necesariamente. Es posible que $A\subseteq C$ aunque $B\not\subseteq C$.  
+\(\Rightarrow \text{Falso}\)
+
+\item c) Si $a\in A$ y $A\in B$, entonces $\{a\}\in B$?  
+
+No, $B$ contiene a $A$, pero no necesariamente a $\{a\}$.  
+\(\Rightarrow \text{Falso}\)
+
+\item d) Si $a\in A$ y $A\subseteq B$, entonces $\{\{a\}\}\subseteq \mathcal{P}(B)$?  
+
+Sí, porque $a \in B$ implica $\{a\} \subseteq B$, y por definición $\{a\} \in \mathcal{P}(B)$, luego $\{\{a\}\} \subseteq \mathcal{P}(B)$.  
+\(\Rightarrow \text{Verdadero}\)
+
+\item e) Si $A\times B = C\times D$, entonces $A=C$ y $B=D$?  
+
+Esto no siempre es cierto si alguno de los conjuntos es vacío. Por ejemplo, si $A=\varnothing$ y $B=\varnothing$, entonces $A\times B = \varnothing = C\times D$ aunque $C$ y $D$ puedan ser diferentes de $A$ y $B$.  
+\(\Rightarrow \text{Falso}\)
+
+\item f) Si $A\setminus B = \varnothing$, entonces $A\subseteq B$?  
+
+Recordemos que $A\setminus B = A \cap \overline{B}$. Si $A\setminus B = \varnothing$, tenemos:
+
+\[
+A \cap \overline{B} = \varnothing
+\]
+
+Esto implica que ningún elemento de $A$ está en $\overline{B}$, es decir, todos los elementos de $A$ están en $B$:
+
+\[
+A \subseteq B
+\]
+
+\(\Rightarrow \text{Verdadero}\)
+\end{itemize}
+
+\[
+\boxed{\text{Verdaderas: d), f)}}
+\]
+
+\end{ejercicio}
+
+\section{Relaciones Binarias}
+
+\subsection{Relaciones de Equivalencia}
+
+\begin{ejercicio}[title=Ejercicio 11]
+Sea el subconjunto $X = \{n\in\mathbb{N} : n \le 4\}$. Sobre el conjunto $A\times A$ definimos la relación binaria
+$R$ tal que ``$(a,b)\,R\,(c,d) \iff a\cdot b = c\cdot d$''. Estudie si $R$ es una relación de equivalencia, y en
+caso afirmativo, determine el conjunto cociente.
+\tcblower
+\textbf{Resolución:}
+
+Primero, definimos el conjunto $A = X = \{0,1,2,3,4\}$. Entonces:
+
+\[
+A\times A = \{ (a,b) : a,b \in \{0,1,2,3,4\} \}.
+\]
+
+La relación $R$ está dada por:
+
+\[
+(a,b) \, R \, (c,d) \iff a\cdot b = c \cdot d.
+\]
+
+\textbf{1. Verificación de propiedades de equivalencia:}
+
+\begin{itemize}
+\item Reflexiva: Para todo $(a,b) \in A\times A$, $a\cdot b = a\cdot b$, luego $(a,b) R (a,b)$.  
+\item Simétrica: Si $(a,b)R(c,d)$, entonces $a\cdot b = c \cdot d$, luego $(c,d) R (a,b)$.  
+\item Transitiva: Si $(a,b)R(c,d)$ y $(c,d)R(e,f)$, entonces $a\cdot b = e\cdot f$, luego $(a,b)R(e,f)$.  
+\end{itemize}
+
+Por lo tanto, \(\boxed{\text{$R$ es una relación de equivalencia.}}\)
+
+\vspace{0.5em}
+
+\textbf{2. Conjunto cociente $A\times A / R$:}  
+
+Cada clase de equivalencia está formada por los pares que tienen el mismo producto:
+
+\[
+\begin{aligned}
+0 \Rightarrow [(0,0)] &= \{(0,0),(0,1),(0,2),(0,3),(0,4),(1,0),(2,0),(3,0),(4,0)\} \\
+1\Rightarrow [(1,1)] &= \{(1,1)\} \\
+2\Rightarrow [(1,2)] &= \{(1,2),(2,1)\} \\
+3\Rightarrow [(1,3)] &= \{(1,3),(3,1)\} \\
+4\Rightarrow [(1,4)] &= \{(1,4),(4,1),(2,2)\} \\
+6\Rightarrow [(2,3)] &= \{(2,3),(3,2)\} \\
+8\Rightarrow [(2,4)] &= \{(2,4),(4,2)\} \\
+9\Rightarrow [(3,3)] &= \{(3,3)\} \\
+12\Rightarrow [(3,4)] &= \{(3,4),(4,3)\} \\
+16\Rightarrow [(4,4)] &= \{(4,4)\} \\
+\end{aligned}
+\]
+
+Por lo tanto, el conjunto cociente completo es:
+
+\[
+\boxed{
+\begin{aligned}
+A\times A / R = \{ &[(0,0)], [(1,1)], [(1,2)], [(1,3)], [(2,2)], \\
+&[(2,3)], [(2,4)], [(3,3)], [(3,4)], [(4,4)] \}
+\end{aligned}
+}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 12]
+Sea el subconjunto $X = \{n\in\mathbb{N} : n \le 4\}$. Sobre el conjunto $A\times A$ definimos la relación binaria
+$R$ tal que ``$(a,b)\,R\,(c,d) \iff a\cdot d = b\cdot c$''. Estudie si $R$ es una relación de equivalencia, y en
+caso afirmativo, determine el conjunto cociente.
+\tcblower
+\textbf{Resolución:}
+
+Primero, definimos $A = X = \{0,1,2,3,4\}$. Entonces:
+
+\[
+A\times A = \{ (a,b) : a,b \in \{0,1,2,3,4\} \}.
+\]
+
+La relación $R$ está dada por:
+
+\[
+(a,b) \, R \, (c,d) \iff a\cdot d = b \cdot c.
+\]
+
+\textbf{1. Verificación de propiedades de equivalencia:}
+
+\begin{itemize}
+\item Reflexiva: Para todo $(a,b)$, $a\cdot b = b\cdot a$, luego $(a,b) R (a,b)$.  
+\item Simétrica: Supongamos que $(a,b)R(c,d)$, es decir, $a\cdot d = b \cdot c$. Si intercambiamos los pares, $(c,d)$ y $(a,b)$, obtenemos $c\cdot b = d \cdot a$, que es la misma igualdad que $a\cdot d = b \cdot c$, solo reescrita. Por lo tanto, $(c,d) R (a,b)$, y la relación es simétrica.
+\item Transitiva: Falla, por ejemplo $(1,0) \cancel{R} (0,1)$ ya que $1\cdot 1 \neq 0 \cdot 0$.  
+\end{itemize}
+
+Por lo tanto, \(\boxed{\text{$R$ no es una relación de equivalencia.}}\)
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 13]
+Sea $R$ la relación binaria definida sobre $\mathbb{R}$ de la forma siguiente:
+\[
+a\,R\,b \iff a^2 + 5b = b^2 + 5a.
+\]
+Estudie si $R$ es una relación de equivalencia, y en caso afirmativo, determine el conjunto cociente.
+\tcblower
+\textbf{Resolución:}
+
+La relación es:
+
+\[
+a\,R\,b \iff a^2 + 5b = b^2 + 5a.
+\]
+
+\textbf{1. Verificación de propiedades de equivalencia:}
+
+\begin{itemize}
+\item \textbf{Reflexiva:}  
+Comprobamos si $a\,R\,a$ para todo $a \in \mathbb{R}$:  
+\[
+a^2 + 5a = a^2 + 5a \quad \Rightarrow \text{Siempre cierto.}  
+\]  
+Luego la relación es reflexiva.
+
+\item \textbf{Simétrica:}  
+Supongamos $a\,R\,b$, es decir, $a^2 + 5b = b^2 + 5a$.  
+Intercambiando $a$ y $b$ obtenemos $b^2 + 5a = a^2 + 5b$, que es la misma igualdad.  
+Por lo tanto, la relación es simétrica.
+
+\item \textbf{Transitiva:}  
+Supongamos $a\,R\,b$ y $b\,R\,c$:  
+\[
+a^2 + 5b = b^2 + 5a, \quad b^2 + 5c = c^2 + 5b.
+\]  
+Restando $b^2$ en la primera y $b^2$ en la segunda obtenemos:  
+\[
+a^2 - 5a = b^2 - 5b, \quad c^2 - 5c = b^2 - 5b \quad \Rightarrow \quad a^2 - 5a = c^2 - 5c.
+\]
+\[
+a^2 + 5c = c^2 + 5a.
+\]  
+Esto implica que $a\,R\,c$, luego la relación es transitiva.
+\end{itemize}
+
+Por lo tanto, \(\boxed{\text{$R$ es una relación de equivalencia.}}\)
+
+\vspace{0.5em}
+
+\textbf{2. Conjunto cociente $\mathbb{R}/R$:}  
+
+Reescribimos la relación como
+\[
+a^2 - b^2 - 5a + 5b = 0 \quad \iff \quad (a-b)(a+b-5)=0.
+\]
+
+Esto significa que para cualquier $a,b \in \mathbb{R}$, se cumple $a\,R\,b$ si y solo si
+\[
+a = b \quad \text{o} \quad a = 5 - b.
+\]
+
+Por lo tanto, la clase de equivalencia de un elemento $x \in \mathbb{R}$ está formada por todos los números $y \in \mathbb{R}$ tales que $y = x$ o $y = 5-x$. Es decir:
+
+\[
+[x] = \{x, 5-x\}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 13]
+
+Finalmente, el conjunto cociente se puede escribir como el conjunto de todas estas clases:
+
+\[
+\boxed{\mathbb{R}/R = \{ [x]_R : x \in \mathbb{R} \}}.
+\]
+
+Cada clase está bien definida porque cualquier par de elementos que cumpla $a\,R\,b$ pertenece exactamente a una de estas clases.
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 14]
+Dado el conjunto $X = \{1,2,3,4,5\}$ y su subconjunto $Y = \{1,2,3\}$, consideramos las relaciones binarias siguientes sobre $\mathcal{P}(X)$:
+
+a) $A\,R_1\,B \iff A\cap Y = B\cap Y$.\\
+b) $A\,R_2\,B \iff A\cup Y = B\cup Y$.
+
+Pruebe que $R_1$ y $R_2$ son relaciones de equivalencia, y obtenga el conjunto cociente para cada una de ellas.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{1. Relación $R_1$:}
+
+\begin{itemize}
+\item Reflexiva: $A\cap Y = A\cap Y$ siempre, luego $A\,R_1\,A$.  
+\item Simétrica: Si $A\,R_1\,B$, entonces $A\cap Y = B\cap Y$, luego $B\cap Y = A\cap Y$, es decir $B\,R_1\,A$.  
+\item Transitiva: Si $A\,R_1\,B$ y $B\,R_1\,C$, entonces $A\cap Y = B\cap Y$ y $B\cap Y = C\cap Y$, luego $A\cap Y = C\cap Y$, es decir $A\,R_1\,C$.  
+\end{itemize}
+
+Por lo tanto, \(\boxed{R_1 \text{ es una relación de equivalencia.}}\)
+
+\vspace{0.5em}
+
+\textbf{Conjunto cociente $\mathcal{P}(X)/R_1$:}  
+
+Cada clase de equivalencia está determinada por la intersección con $Y$. Como $Y = \{1,2,3\}$, las posibles intersecciones son todos los subconjuntos de $Y$:
+
+\[
+\varnothing, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\}.
+\]
+
+Por tanto:
+
+\[
+\boxed{\mathcal{P}(X)/R_1 = \{ [\varnothing], [\{1\}], [\{2\}], [\{3\}], [\{1,2\}], [\{1,3\}], [\{2,3\}], [\{1,2,3\}] \}}.
+\]
+
+\vspace{0.5em}
+
+\textbf{2. Relación $R_2$:}
+
+\begin{itemize}
+\item Reflexiva: $A\cup Y = A\cup Y$ siempre, luego $A\,R_2\,A$.  
+\item Simétrica: Si $A\,R_2\,B$, entonces $A\cup Y = B\cup Y$, luego $B\cup Y = A\cup Y$, es decir $B\,R_2\,A$.  
+\item Transitiva: Si $A\,R_2\,B$ y $B\,R_2\,C$, entonces $A\cup Y = B\cup Y$ y $B\cup Y = C\cup Y$, luego $A\cup Y = C\cup Y$, es decir $A\,R_2\,C$.  
+\end{itemize}
+
+Por lo tanto, \(\boxed{R_2 \text{ es una relación de equivalencia.}}\)
+
+\vspace{0.5em}
+
+\textbf{Conjunto cociente $\mathcal{P}(X)/R_2$:}  
+
+Cada clase de equivalencia está determinada por la unión con $Y$. Dado que $Y = \{1,2,3\}$ y $X = \{1,2,3,4,5\}$, las posibles uniones son:
+\[
+Y, Y\cup \{4\}, Y\cup \{5\}, Y\cup \{4,5\} = \{1,2,3\}, \{1,2,3,4\}, \{1,2,3,5\}, \{1,2,3,4,5\}.
+\]
+\[
+\text{Entonces, }\boxed{\mathcal{P}(X)/R_2 = \{ [\{1,2,3\}], [\{1,2,3,4\}], [\{1,2,3,5\}], [\{1,2,3,4,5\}] \}}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 15]
+¿Cuántas relaciones de equivalencia distintas se pueden definir sobre un conjunto de tres elementos?
+¿Y sobre un conjunto de cuatro elementos?
+\tcblower
+\textbf{Resolución:}
+
+Dos relaciones de equivalencia podemos decir que son \textbf{equivalentes} si comparten el mismo conjunto cociente, es decir, si contienen exactamente las mismas clases de equivalencia.
+
+% 3 elementos
+Sea un conjunto de tres elementos distintos \(X = \{a,b,c\}\).  
+
+Los conjuntos cociente posibles sobre 3 elementos son:
+
+\begin{enumerate}
+\item Todos los elementos en una sola clase: \(\{ \{a,b,c\} \}\)
+\item Dos elementos juntos y uno separado: 
+\(\{ \{a,b\}, \{c\} \}, \{ \{a,c\}, \{b\} \}, \{ \{b,c\}, \{a\} \}\)
+\item Cada elemento en su propia clase: \(\{ \{a\}, \{b\}, \{c\} \}\)
+\end{enumerate}
+
+Por lo tanto, hay
+
+\[
+\boxed{5 \text{ relaciones de equivalencia sobre 3 elementos}}
+\]
+
+% 4 elementos
+De manera análoga, para un conjunto de cuatro elementos \(X = \{a,b,c,d\}\), los conjuntos cociente posibles son todos los que agrupan los 4 elementos de manera distinta:
+
+\begin{enumerate}
+\item Todos los elementos en una sola clase: \(\{ \{a,b,c,d\} \}\)
+\item Tres elementos juntos y uno separado: 
+\(\{ \{a,b,c\}, \{d\} \}, \{ \{a,b,d\}, \{c\} \}, \\
+\{ \{a,c,d\}, \{b\} \}, \{ \{b,c,d\}, \{a\} \}\)
+\item Dos pares de elementos: 
+\(\{ \{a,b\}, \{c,d\} \}, \{ \{a,c\}, \{b,d\} \}, \{ \{a,d\}, \{b,c\} \}\)
+\item Un par y dos elementos separados: 
+\(\{ \{a,b\}, \{c\}, \{d\} \}, \{ \{a,c\}, \{b\}, \{d\} \}, \\
+\{ \{a,d\}, \{b\}, \{c\} \}, \{ \{b,c\}, \{a\}, \{d\} \}, \{ \{b,d\}, \{a\}, \{c\} \}, \{ \{c,d\}, \{a\}, \{b\} \}\)
+\item Cada elemento en su propia clase: \(\{ \{a\}, \{b\}, \{c\}, \{d\} \}\)
+\end{enumerate}
+
+Por lo tanto, hay
+
+\[
+\boxed{15 \text{ relaciones de equivalencia sobre 4 elementos}}
+\]
+
+\textbf{Nota:} El número de relaciones de equivalencia coincide con el número de conjuntos cociente posibles, ya que cada conjunto cociente determina una única \textit{forma} de relación de equivalencia y viceversa.
+
+\end{ejercicio}
+
+\subsection{Relaciones de Orden}
+
+\begin{ejercicio}[title=Ejercicio 16]
+En cada apartado tenemos una relación binaria definida sobre $\mathbb{N}\times\mathbb{N}$. Estudie si es una relación
+de orden, y si la respuesta es afirmativa, determine si es un orden total:
+
+a) $(a,b)\,R\,(c,d) \iff a+b \le c+d$.\\
+b) $(a,b)\,R\,(c,d) \iff a \le c \ \text{y}\ b \le d$.\\
+c) $(a,b)\,R\,(c,d) \iff 2^a\cdot b \le 2^c\cdot d$.\\
+d) $(a,b)\,R\,(c,d) \iff 2^a\cdot 3^b \le 2^c\cdot 3^d$.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a) $(a,b)R(c,d) \iff a+b \le c+d$}
+
+\begin{itemize}
+\item \textbf{Reflexiva:} Para todo $(a,b)$, $a+b \le a+b$, cumple.
+\item \textbf{Antisimétrica:} No se cumple en general, ya que $a+b \le c+d$ y $c+d \le a+b$ no implica necesariamente que $(a,b) = (c,d)$. Por ejemplo, $(1,2)$ y $(2,1)$ verifican $1+2 \le 2+1$ y $2+1 \le 1+2$, pero $(1,2) \neq (2,1)$.
+\item \textbf{Transitiva:} Si $a+b \le c+d$ y $c+d \le e+f$, entonces $a+b \le e+f$, cumple.
+\end{itemize}
+
+\(\boxed{\text{R no es una relación de orden.}}\)
+
+\vspace{0.5em}
+
+\textbf{b) $(a,b)R(c,d) \iff a \le c \ \text{y}\ b \le d$}
+
+\begin{itemize}
+\item \textbf{Reflexiva:} Para todo $(a,b)$, $a \le a$ y $b \le b$, cumple.
+\item \textbf{Antisimétrica:} Si $(a,b)R(c,d)$ y $(c,d)R(a,b)$, entonces $a \le c$, $c \le a$, $b \le d$ y $d \le b$, lo que implica $(a,b) = (c,d)$, cumple.
+\item \textbf{Transitiva:} Si $(a,b)R(c,d)$ y $(c,d)R(e,f)$, entonces $a \le c \le e$ y $b \le d \le f$, por lo que $(a,b)R(e,f)$, cumple.
+\end{itemize}
+
+\(\boxed{\text{R es una relación de orden.}}\)
+
+\begin{itemize}
+\item \textbf{Totalidad:} La relación no es total, ya que no todos los pares de elementos son comparables. Por ejemplo, $(1,3)$ y $(2,2)$ no se cumplen ni $(1,3)R(2,2)$ ni $(2,2)R(1,3)$, lo que muestra que en la relación \boxed{\text{el orden no es total.}}
+\end{itemize}
+
+\textbf{c) $(a,b)R(c,d) \iff 2^a \cdot b \le 2^c \cdot d$}
+
+\begin{itemize}
+\item \textbf{Reflexiva:} Para todo $(a,b)$, $2^a \cdot b \le 2^a \cdot b$, cumple.
+\item \textbf{Antisimétrica:} No se cumple en general, por ejemplo, $(a,b)=(1,2)$ y $(c,d)=(2,1)$ verifican $2^1\cdot 2 \le 2^2\cdot 1$ y $2^2\cdot 1 \le 2^1\cdot 2$, pero $(1,2) \neq (2,1)$.
+\item \textbf{Transitiva:} Si $(a,b)R(c,d)$ y $(c,d)R(e,f)$, entonces $2^a b \le 2^c d \le 2^e f$, por lo que $(a,b)R(e,f)$. Cumple.
+\end{itemize}
+
+\(\boxed{\text{R no es una relación de orden.}}\)
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 16]
+
+\textbf{d) $(a,b)R(c,d) \iff 2^a \cdot 3^b \le 2^c \cdot 3^d$}
+
+\begin{itemize}
+\item \textbf{Reflexiva:} Para todo $(a,b)$, $2^a \cdot 3^b \le 2^a \cdot 3^b$, cumple.
+\item \textbf{Antisimétrica:} Si $2^a \cdot 3^b \le 2^c \cdot 3^d$ y $2^c \cdot 3^d \le 2^a \cdot 3^b$, entonces $2^a \cdot 3^b = 2^c \cdot 3^d$. Dado que la factorización en primos es única, esto implica necesariamente $(a,b) = (c,d)$, cumple.
+\item \textbf{Transitiva:} Si $2^a \cdot 3^b \le 2^c \cdot 3^d$ y $2^c \cdot 3^d \le 2^e \cdot 3^f$, entonces $2^a \cdot 3^b \le 2^e \cdot 3^f$, cumple.
+\end{itemize}
+
+\(\boxed{\text{R es una relación de orden.}}\)
+
+\begin{itemize}
+    \item \textbf{Totalidad:} Para cualesquiera $(a,b)$ y $(c,d)$, los números $2^a \cdot 3^b$ y $2^c \cdot 3^d$ son comparables, ya que se trata de números enteros positivos con un orden natural. Por lo tanto, siempre se cumple que $2^a \cdot 3^b \le 2^c \cdot 3^d$ o $2^c \cdot 3^d \le 2^a \cdot 3^b$, lo que quiere decir que en la relación \boxed{\text{el orden es total.}}
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 17]
+Sea $B = \{4,12,16,20,60,32,36\}\subseteq \mathbb{N}$. Calcule los elementos distinguidos de $B$:
+
+a) Si consideramos $\mathbb{N}$ ordenado con el orden usual.\\
+b) Si consideramos $\mathbb{N}$ ordenado mediante divisibilidad.
+\tcblower
+\textbf{Conjunto:} $B = \{4, 12, 16, 20, 32, 36, 60\}$.
+
+\vspace{0.5em}
+
+\textbf{a) Orden usual en $\mathbb{N}$}
+
+En este caso, el orden es el habitual: $a \le b$.
+
+\begin{itemize}
+    \item \textbf{Minorantes:} Todo número $x \in \mathbb{N}$ tal que $x \le 4$. Es decir, los naturales \boxed{$\{0,1,2,3,4\}$}.
+    \item \textbf{Mayorantes:} Todo número $x \in \mathbb{N}$ tal que $x \ge 60$. Es decir, \boxed{$\{60,61,62,\dots\}$}.
+    \item \textbf{Mínimo:} \boxed{$4$}, ya que es el menor elemento del conjunto. Además es el ínfimo y el único elemento minimal.
+    \item \textbf{Máximo:} \boxed{$60$}, ya que es el mayor elemento del conjunto. Además es el supremo y el único elemento maximal.
+    \item \textbf{Ínfimo:} \boxed{$4$}.
+    \item \textbf{Supremo:} \boxed{$60$}.
+    \item \textbf{Elementos minimales:} \boxed{$\{4\}$}.
+    \item \textbf{Elementos maximales:} \boxed{$\{60\}$}.
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 17]
+
+\textbf{b) Orden por divisibilidad en \(\mathbb{N}\)}
+
+Recordamos que en este orden \(x \le y\) significa \(x \mid y\). Tomamos
+\[
+B = \{4,12,16,20,60,32,36\}.
+\]
+
+Primero calculamos las \textbf{cotas} globales por divisibilidad:
+
+\begin{itemize}
+  \item \textbf{Minorantes (divisores comunes de todos los elementos de \(B\)):}  
+  Son los divisores de \(\operatorname{mcd}(B)\). Como
+  \[
+  \operatorname{mcd}(B) = \operatorname{mcd}(4,12,16,20,60,32,36) = 4,
+  \]
+  los divisores de \(4\) son \(\boxed{\{1,2,4\}}\).
+
+  \item \textbf{Mayorantes (múltiplos comunes de todos los elementos de \(B\)):}  
+  Son los múltiplos de \(\operatorname{mcm}(B)\).
+  \[
+  \operatorname{mcm}(B) = 2^5 \cdot 3^2 \cdot 5 = 1440.
+  \]
+  Por tanto, los mayorantes son \(\boxed{\{1440, 2880, \dots\}}\).
+
+  \item \textbf{Mínimo:}  
+  Elemento de \(B\) que divide a todos los demás. Como \(4 \in B\) y \(4 \mid x\) para todo \(x \in B\), se tiene mínimo \(\boxed{4}\).  
+  Además, coincide con el ínfimo y el único elemento minimal.
+
+  \item \textbf{Máximo:}  
+  Elemento de \(B\) que sea múltiplo de todos los demás. No existe tal elemento en \(B\) (el mínimo común múltiplo \(1440 \notin B\)), por tanto \(\boxed{\text{No existe}}\).
+
+  \item \textbf{Ínfimo:}  
+  \(\boxed{4}\).
+
+  \item \textbf{Supremo:}  
+  El menor de los mayorantes es \(\boxed{1440}\).
+
+  \item \textbf{Elementos minimales:}  
+  \(\boxed{\{4\}}\).
+
+  \item \textbf{Elementos maximales:}  
+  \(x \in B\) es maximal si no existe \(y \in B\), \(y \neq x\), con \(x \mid y\).  
+  Los elementos de \(B\) que no dividen a ningún otro distinto son \(32, 36\) y \(60\).\\
+  \(\boxed{\{32,36,60\}}\).
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 18]
+Dado $X = \{0,1,2,3,4,5,6,7,8\}$, consideramos el conjunto $\mathcal{P}(X)$ ordenado por inclusión, y
+el subconjunto
+\[
+B = \{\{2,3\},\{2,4\},\{2,3,6\},\{2,4,7\},\{2,3,4,6,7\}\}.
+\]
+Obtenga los elementos distinguidos de $B$.
+\tcblower
+
+\textbf{Orden por inclusión en $\mathcal{P}(X)$}
+
+En este orden, $A \le B$ si y solo si $A \subseteq B$.
+
+\begin{itemize}
+    \item \textbf{Minorantes:}  
+    Son los conjuntos que están incluidos en todos los elementos de $B$, es decir, su intersección común.  
+    \[
+    \{2,3\} \cap \{2,4\} \cap \{2,3,6\} \cap \{2,4,7\} \cap \{2,3,4,6,7\} = \{2\}.
+    \]
+    Por tanto, los minorantes son todos los subconjuntos de $\{2\}$, es decir:  
+    \(\boxed{\{\emptyset, \{2\}\}}\).
+
+    \item \textbf{Mayorantes:}  
+    Son los conjuntos que contienen a todos los elementos de $B$, es decir, los superconjuntos de su unión.  
+    \[
+    \{2,3\} \cup \{2,4\} \cup \{2,3,6\} \cup \{2,4,7\} \cup \{2,3,4,6,7\} = \{2,3,4,6,7\}.
+    \]
+    Por tanto, los mayorantes son todos los conjuntos de $\mathcal{P}(X)$ que contienen a $\{2,3,4,6,7\}$:
+    \[
+    \boxed{
+\left\{
+\begin{aligned}
+& \{2,3,4,6,7\}, \{0,2,3,4,6,7\}, \{1,2,3,4,6,7\}, \{2,3,4,5,6,7\}, \{2,3,4,6,7,8\}, \\
+& \{0,1,2,3,4,6,7\}, \{0,2,3,4,5,6,7\}, \{0,2,3,4,6,7,8\}, \{1,2,3,4,5,6,7\}, \\
+& \{1,2,3,4,6,7,8\}, \{2,3,4,5,6,7,8\}, \{0,1,2,3,4,5,6,7\}, \{0,1,2,3,4,6,7,8\}, \\
+& \{0,2,3,4,5,6,7,8\}, \{1,2,3,4,5,6,7,8\}, \{0,1,2,3,4,5,6,7,8\}
+\end{aligned}
+\right\}
+}
+    \]
+
+    \item \textbf{Mínimo:}  
+    No existe ningún elemento de $B$ que esté contenido en todos los demás.  
+    \(\boxed{\text{No existe}}\).
+
+    \item \textbf{Máximo:}  
+    Es el elemento de $B$ que contiene a todos los demás.  
+    \(\{2,3,4,6,7\}\) contiene a todos los elementos de $B$, por tanto el máximo es  
+    \(\boxed{\{2,3,4,6,7\}}\).  
+    Además, coincide con el supremo y es el único elemento maximal.
+
+    \item \textbf{Ínfimo:}  
+    Es el mayor de los minorantes, es decir, el más grande entre los conjuntos que están incluidos en todos los de $B$.  
+    \(\boxed{\{2\}}\).
+
+    \item \textbf{Supremo:}  
+    \(\boxed{\{2,3,4,6,7\}}\).
+
+    \item \textbf{Elementos minimales:}  
+    Son aquellos que no contienen a ningún otro elemento distinto del conjunto.  
+    En este caso, \(\{2,3\}\) y \(\{2,4\}\) no contienen a ningún otro de $B$, luego  
+    \(\boxed{\{\{2,3\}, \{2,4\}\}}\).
+
+    \item \textbf{Elementos maximales:}  
+    \(\boxed{\{\{2,3,4,6,7\}\}}\).
+\end{itemize}
+
+\end{ejercicio}
+
+\section{Aplicaciones}
+
+\subsection{Tipos de Aplicaciones}
+
+\begin{ejercicio}[title=Ejercicio 20]
+Dadas dos aplicaciones $f:X\to Y$ y $g:Y\to Z$, demuestre que:
+
+a) Si $f$ y $g$ son inyectivas, entonces $g\circ f$ es inyectiva.\\
+b) Si $f$ y $g$ son sobreyectivas, entonces $g\circ f$ es sobreyectiva.\\
+c) Si $f$ y $g$ son biyectivas, entonces $g\circ f$ es biyectiva.
+\tcblower
+\textbf{a) } Demostrar que si $f$ y $g$ son inyectivas, entonces $g \circ f$ es inyectiva.
+
+\begin{itemize}
+  \item Supongamos $g \circ f(x_1) = g \circ f(x_2)$.  
+  Entonces $g(f(x_1)) = g(f(x_2))$.
+  \item Como $g$ es inyectiva, $f(x_1) = f(x_2)$.  
+  \item Como $f$ es inyectiva, $x_1 = x_2$.
+  \item Por tanto, $\boxed{g \circ f \text{ es inyectiva}.}$
+\end{itemize}
+
+\textbf{b) } Demostrar que si $f$ y $g$ son sobreyectivas, entonces $g \circ f$ es sobreyectiva.
+
+\begin{itemize}
+  \item Sea $z \in Z$. Como $g$ es sobreyectiva, existe $y \in Y$ tal que $g(y) = z$.
+  \item Como $f$ es sobreyectiva, existe $x \in X$ tal que $f(x) = y$.
+  \item Entonces $g(f(x)) = g(y) = z$.
+  \item Por tanto, $\boxed{g \circ f \text{ es sobreyectiva}.}$
+\end{itemize}
+
+\textbf{c) } Demostrar que si $f$ y $g$ son biyectivas, entonces $g \circ f$ es biyectiva.
+
+\begin{itemize}
+  \item Como $f$ y $g$ son inyectivas, $g \circ f$ es inyectiva (apartado a)).
+  \item Como $f$ y $g$ son sobreyectivas, $g \circ f$ es sobreyectiva (apartado b)).
+  \item Por tanto, $\boxed{g \circ f \text{ es biyectiva}.}$
+\end{itemize}
+
+\end{ejercicio}
+
+\subsection{Aplicación Inversa}
+
+\begin{ejercicio}[title=Ejercicio 19]
+Para cada una de las aplicaciones siguientes, describa de la forma más precisa posible el conjunto imagen, y estudie si es inyectiva, sobreyectiva y biyectiva. Si es biyectiva, dé una expresión para la aplicación inversa:
+
+a) $f:\mathbb{N}\to\mathbb{N}$,\quad $f(n)=n+1$.\\[4pt]
+b) $f:\mathbb{Z}\to\mathbb{Z}$,\quad $f(n)=n+1$.\\[4pt]
+c) $f:\mathbb{N}\to\mathbb{N}$,\quad $f(n)=\lfloor\sqrt{n}\rfloor$.\\[4pt]
+d) $f:\mathbb{Q}\to\mathbb{Q}$,\quad $f(x)=\dfrac{2x+1}{3}-\dfrac{1}{2}$.\\[4pt]
+e) $f:\mathbb{Z}\times\mathbb{Z}\to\mathbb{Z}$,\quad $f(x,y)=2x+3y$.\\[4pt]
+f) $f:\mathbb{Z}\times\mathbb{Z}\to\mathbb{Z}\times\mathbb{Z}$,\quad $f(x,y)=(2x+y,x+y)$.\\[4pt]
+g) $f:\mathbb{Z}\times\mathbb{Z}\to\mathbb{Z}\times\mathbb{Z}$,\quad $f(x,y)=(x+y,x-y)$.
+
+\vspace{0.5em}
+
+(Para un número real $x$, denotamos por $\lfloor x\rfloor$ la parte entera de $x$, es decir, el mayor número entero $z$ tal que $z\le x$.)
+\tcblower
+
+\textbf{a) } $f:\mathbb{N}\to\mathbb{N},\ f(n)=n+1$.
+
+\begin{itemize}
+  \item \textbf{Imagen:} 
+  \[
+    \operatorname{Im}(f) = \{f(n) : n \in \mathbb{N}\} = \{n+1 : n \in \mathbb{N}\} = \boxed{\mathbb{N} \setminus \{0\}}.
+  \]
+  \item \textbf{Inyectiva:} $f(n_1)=f(n_2)\Rightarrow n_1+1=n_2+1$, entonces $n_1=n_2$. \boxed{\text{Sí.}}
+  \item \textbf{Sobreyectiva:} $\operatorname{Im}(f) = \mathbb{N} \setminus \{0\}$, $B = \mathbb{N} \Rightarrow \operatorname{Im}(f) \ne B$. \boxed{\text{No.}}
+  \item \textbf{Biyectiva:} Es inyectiva aunque no es sobreyectiva. \boxed{\text{No.}}
+\end{itemize}
+
+\textbf{b) } $f:\mathbb{Z}\to\mathbb{Z},\ f(n)=n+1$.
+
+\begin{itemize}
+  \item \textbf{Imagen:} 
+  \[
+    \operatorname{Im}(f) = \{f(n) : n \in \mathbb{Z}\} = \{n+1 : n \in \mathbb{Z}\} = \boxed{\mathbb{Z}}.
+  \]
+  \item \textbf{Inyectiva:} $f(n_1)=f(n_2)\Rightarrow n_1+1=n_2+1$, entonces $n_1=n_2$. \boxed{\text{Sí.}}
+  \item \textbf{Sobreyectiva:} $\operatorname{Im}(f) = \mathbb{Z} = B$. \boxed{\text{Sí.}}
+  \item \textbf{Biyectiva:} Es inyectiva y sobreyectiva. \boxed{\text{Sí.}}
+  \item \textbf{Inversa:}  
+Sea $n \in \mathbb{Z}$. Buscamos $m \in \mathbb{Z}$ tal que $f(m) = n$:  
+\[
+f(m) = m + 1 = n \quad \Rightarrow \quad m = n - 1.
+\]
+\[
+\boxed{f^{-1}(n) = n - 1, \quad n \in \mathbb{Z}}.
+\]
+\end{itemize}
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 19]
+
+\textbf{c) } $f:\mathbb{N}\to\mathbb{N},\ f(n)=\lfloor \sqrt{n} \rfloor$.
+
+\begin{itemize}
+  \item \textbf{Imagen:} 
+  \[
+    \operatorname{Im}(f) = \{f(n) : n \in \mathbb{N}\} = \{\lfloor \sqrt{n} \rfloor : n \in \mathbb{N}\} = \boxed{\mathbb{N}}.
+  \]
+  \item \textbf{Inyectiva:} $f(n_1) = f(n_2) \Rightarrow n_1 = n_2? \Rightarrow \lfloor \sqrt{n_1} \rfloor = \lfloor \sqrt{n_2} \rfloor \Rightarrow n_1 = n_2? \Rightarrow \lfloor \sqrt{1} \rfloor = \lfloor \sqrt{2} \rfloor \text{ no implica } 1 = 2$. \boxed{\text{No.}}
+  \item \textbf{Sobreyectiva:} $\operatorname{Im}(f) = \mathbb{N} = B$. \boxed{\text{Sí.}}
+  \item \textbf{Biyectiva:} No es inyectiva aunque sí sobreyectiva. \boxed{\text{No.}}
+\end{itemize}
+
+\textbf{d) } $f:\mathbb{Q}\to\mathbb{Q},\ f(x)=\dfrac{2x+1}{3}-\dfrac{1}{2}$.
+
+\begin{itemize}
+  \item \textbf{Imagen:} 
+  \[
+    \operatorname{Im}(f) = \left\{ \frac{2x+1}{3} - \frac{1}{2} : x \in \mathbb{Q} \right\} = \boxed{\mathbb{Q}}.
+  \]
+  \item \textbf{Inyectiva:} $f(x_1) = f(x_2) \Rightarrow \dfrac{2x_1+1}{3} - \dfrac{1}{2} = \dfrac{2x_2+1}{3} - \dfrac{1}{2} \Rightarrow x_1 = x_2$. \boxed{\text{Sí.}}
+  \item \textbf{Sobreyectiva:} $\operatorname{Im}(f) = \mathbb{Q} = B$. \boxed{\text{Sí.}}
+  \item \textbf{Biyectiva:} Es inyectiva y sobreyectiva. \boxed{\text{Sí.}}
+  \item \textbf{Inversa:}  
+Sea $y \in \mathbb{Q}$. Buscamos $x \in \mathbb{Q}$ tal que $f(x) = y$:  
+\[
+\frac{2x+1}{3} - \frac{1}{2} = y \quad \Rightarrow \quad \frac{2x+1}{3} = y + \frac{1}{2} \quad \Rightarrow \quad 2x+1 = 3\left(y + \frac{1}{2}\right) = 3y + \frac{3}{2} \]
+\[\Rightarrow \quad 2x = 3y + \frac{1}{2} \quad \Rightarrow \quad x = \frac{3y}{2} + \frac{1}{4}.
+\]  
+Por tanto, la aplicación inversa es  
+\[
+\boxed{f^{-1}(x) = \frac{3x}{2} + \frac{1}{4}, \quad x \in \mathbb{Q}}.
+\]
+\end{itemize}
+
+\textbf{e) } $f:\mathbb{Z}\times\mathbb{Z}\to\mathbb{Z},\ f(x,y)=2x+3y$.
+
+\begin{itemize}
+  \item \textbf{Imagen:} 
+  \[
+    \operatorname{Im}(f) = \{ 2x+3y : (x,y) \in \mathbb{Z}\times\mathbb{Z} \} = \boxed{\mathbb{Z}}.
+  \]
+  \item \textbf{Inyectiva:} Supongamos $f(x_1,y_1) = f(x_2,y_2) \Rightarrow 2x_1 + 3y_1 = 2x_2 + 3y_2$.  
+  Tomemos por ejemplo $(x_1,y_1) = (3,-2)$ y $(x_2,y_2) = (-3,2)$. Entonces $f(3,-2) = f(-3,2) = 0$, pero $(3,-2) \neq (-3,2)$. Por tanto, no es inyectiva. \boxed{\text{No.}}
+  \item \textbf{Sobreyectiva:} $\operatorname{Im}(f) = \mathbb{Z} = B$. \boxed{\text{Sí.}}
+  \item \textbf{Biyectiva:} No es inyectiva aunque sí sobreyectiva. \boxed{\text{No.}}
+\end{itemize}
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 19]
+
+\textbf{f) } $f:\mathbb{Z}\times\mathbb{Z}\to\mathbb{Z}\times\mathbb{Z},\ f(x,y)=(2x+y, x+y)$.
+
+\begin{itemize}
+  \item \textbf{Imagen:} 
+  \[
+    \operatorname{Im}(f) = \{ (2x+y, x+y) : (x,y) \in \mathbb{Z}\times\mathbb{Z} \} = \boxed{\mathbb{Z}\times\mathbb{Z}}.
+  \]
+  \item \textbf{Inyectiva:} Supongamos $f(x_1,y_1) = f(x_2,y_2) \Rightarrow (2x_1+y_1, x_1+y_1) = (2x_2+y_2, x_2+y_2)$.  
+  Resolviendo el sistema:
+  \[
+    2x_1 + y_1 = 2x_2 + y_2, \quad x_1 + y_1 = x_2 + y_2 \quad \Rightarrow \quad x_1 = x_2, \ y_1 = y_2.
+  \]  
+  Por tanto, \boxed{\text{Sí.}}
+  \item \textbf{Sobreyectiva:} $\operatorname{Im}(f) = \mathbb{Z}\times\mathbb{Z} = B$. \boxed{\text{Sí.}}
+  \item \textbf{Biyectiva:} Es inyectiva y sobreyectiva. \boxed{\text{Sí.}}
+  \item \textbf{Inversa:}  
+  Sea $(a,b) \in \mathbb{Z}\times\mathbb{Z}$. Buscamos $(x,y) \in \mathbb{Z}\times\mathbb{Z}$ tal que $f(x,y) = (a,b)$:  
+  \[
+    2x+y = a, \quad x+y = b \quad \Rightarrow \quad x = a-b, \ y = 2b-a.
+  \]  
+  Por tanto, la inversa es  
+  \[
+    \boxed{f^{-1}(x,y) = (x-y,\, 2x-y), \quad (x,y) \in \mathbb{Z}\times\mathbb{Z}}.
+  \]
+\end{itemize}
+
+\textbf{g) } $f:\mathbb{Z}\times\mathbb{Z}\to\mathbb{Z}\times\mathbb{Z},\ f(x,y)=(x+y, x-y)$.
+
+\begin{itemize}
+  \item \textbf{Imagen:} 
+  \[
+    \operatorname{Im}(f) = \{ (x+y, x-y) : (x,y) \in \mathbb{Z}\times\mathbb{Z} \} = \boxed{\mathbb{Z}\times\mathbb{Z}}.
+  \]
+  \item \textbf{Inyectiva:} Supongamos $f(x_1,y_1) = f(x_2,y_2) \Rightarrow (x_1+y_1, x_1-y_1) = (x_2+y_2, x_2-y_2)$.  
+  Resolviendo el sistema:
+  \[
+    x_1+y_1 = x_2+y_2, \quad x_1-y_1 = x_2-y_2 \quad \Rightarrow \quad x_1 = x_2, \ y_1 = y_2.
+  \]  
+  Por tanto, \boxed{\text{Sí.}}
+  \item \textbf{Sobreyectiva:} $\operatorname{Im}(f) = \mathbb{Z}\times\mathbb{Z} = B$. \boxed{\text{Sí.}}
+  \item \textbf{Biyectiva:} Es inyectiva y sobreyectiva. \boxed{\text{Sí.}}
+  \item \textbf{Inversa:}  
+  Sea $(a,b) \in \mathbb{Z}\times\mathbb{Z}$. Buscamos $(x,y) \in \mathbb{Z}\times\mathbb{Z}$ tal que $f(x,y) = (a,b)$:  
+  \[
+    x+y = a, \quad x-y = b \quad \Rightarrow \quad x = \frac{a+b}{2}, \ y = \frac{a-b}{2}.
+  \]
+  \[
+    \boxed{f^{-1}(x,y) = \left(\frac{x+y}{2},\, \frac{x-y}{2}\right), \quad (x,y) \in \mathbb{Z}\times\mathbb{Z}}
+  \]
+\end{itemize}
+    
+\end{ejercicio}
+
+\end{document}

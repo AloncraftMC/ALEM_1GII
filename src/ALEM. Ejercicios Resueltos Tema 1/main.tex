@@ -1,0 +1,6691 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Para insertar imágenes
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{hyperref} % Enlaces y referencias clicables
+\usepackage{lmodern} % Fuente moderna
+\usepackage{geometry} % Márgenes
+\usepackage{polynom}
+\usepackage[most]{tcolorbox} % Cajitas para ejemplos y procedimientos
+\geometry{margin=2.5cm}
+
+% ==== Definición de estilos de caja ====
+\tcbset{
+  colback=white,
+  colframe=black!60,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{procedimiento}[1][]{
+  colback=green!5!white,
+  colframe=green!60!black,
+  title=\textbf{Procedimiento},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejemplo}[1][]{
+  colback=blue!5!white,
+  colframe=blue!60!black,
+  title=\textbf{Ejemplo},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejercicio}[1][]{
+  colback=red!5!white,
+  colframe=red!60!black,
+  title=\textbf{Ejercicio},
+  fonttitle=\bfseries,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt,
+  #1
+}
+
+% ==== Documento principal ====
+\title{Álgebra Lineal y Estructuras Matemáticas (ALEM) Ejercicios Resueltos Tema 1}
+\author{Alonso Hernández Robles (Grupo E)}
+\date{08/11/2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Cambio de Base}
+
+\subsection{Pasar un número de base \(b\ge2\) a base \(b'\ge2\)}
+
+\begin{ejercicio}[title=Ejercicio 1]
+Dado el número $(211102)_3$ representado en base 3, expréselo en base 7.
+\tcblower
+\textbf{Resolución:}
+
+Primero, convertimos el número de base 3 a base 10.  
+
+Recordemos que en base 3:
+
+\[
+(211102)_3 = 2\cdot 3^5 + 1\cdot 3^4 + 1\cdot 3^3 + 1\cdot 3^2 + 0\cdot 3^1 + 2\cdot 3^0
+\]
+
+Calculamos cada término:
+
+\[
+2\cdot 3^5 = 2 \cdot 243 = 486
+\] 
+\[
+1\cdot 3^4 = 1 \cdot 81 = 81
+\] 
+\[
+1\cdot 3^3 = 1 \cdot 27 = 27
+\] 
+\[
+1\cdot 3^2 = 1 \cdot 9 = 9
+\] 
+\[
+0\cdot 3^1 = 0
+\] 
+\[
+2\cdot 3^0 = 2
+\]
+
+Sumamos todos los términos:
+
+\[
+486 + 81 + 27 + 9 + 0 + 2 = 605
+\]
+
+Por lo tanto:
+
+\[
+(211102)_3 = (605)_{10}
+\]
+
+Ahora convertimos de base 10 a base 7. Para ello, hacemos divisiones sucesivas por 7:
+
+\[
+605 / 7 = 86 \text{ resto } 3
+\] 
+\[
+86 / 7 = 12 \text{ resto } 2
+\] 
+\[
+12 / 7 = 1 \text{ resto } 5
+\]
+
+Leyendo los restos de abajo hacia arriba, obtenemos:
+
+\[
+(605)_{10} = (1523)_7
+\]
+
+\[
+(211102)_3 = \boxed{(1523)_7}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 2]
+a) Represente el número $687$ en base 2, en base 8 y en base 16. \\
+b) Represente el número $1528$ en base 3 y en base 9.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a) Convertir $687$ a diferentes bases}
+
+\textbf{Base 2:} Dividimos sucesivamente entre 2 y tomamos los restos:
+
+\[
+687 / 2 = 343 \text{ resto } 1
+\] 
+\[
+343 / 2 = 171 \text{ resto } 1
+\] 
+\[
+171 / 2 = 85 \text{ resto } 1
+\] 
+\[
+85 / 2 = 42 \text{ resto } 1
+\] 
+\[
+42 / 2 = 21 \text{ resto } 0
+\] 
+\[
+21 / 2 = 10 \text{ resto } 1
+\] 
+\[
+10 / 2 = 5 \text{ resto } 0
+\] 
+\[
+5 / 2 = 2 \text{ resto } 1
+\] 
+\[
+2 / 2 = 1 \text{ resto } 0
+\]
+
+Leyendo los restos de abajo hacia arriba:
+
+\[
+(687)_{10} = \boxed{(1010101111)_2}
+\]
+
+\textbf{Base 8:} Dividimos entre 8:
+
+\[
+687 / 8 = 85 \text{ resto } 7
+\] 
+\[
+85 / 8 = 10 \text{ resto } 5
+\] 
+\[
+10 / 8 = 1 \text{ resto } 2
+\]
+
+Leyendo los restos de abajo hacia arriba:
+
+\[
+(687)_{10} = \boxed{(1257)_8}
+\]
+
+\textbf{Base 16:} Dividimos entre 16:
+
+\[
+687 / 16 = 42 \text{ resto } 15 = F
+\] 
+\[
+42 / 16 = 2 \text{ resto } 10 = A
+\]
+
+Leyendo los restos de abajo hacia arriba:
+
+\[
+(687)_{10} = \boxed{(2AF)_{16}}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 2]
+\textbf{b) Convertir $1528$ a base 3 y base 9}
+
+\textbf{Base 3:} Dividimos entre 3:
+
+\[
+1528 / 3 = 509 \text{ resto } 1
+\] 
+\[
+509 / 3 = 169 \text{ resto } 2
+\] 
+\[
+169 / 3 = 56 \text{ resto } 1
+\] 
+\[
+56 / 3 = 18 \text{ resto } 2
+\] 
+\[
+18 / 3 = 6 \text{ resto } 0
+\] 
+\[
+6 / 3 = 2 \text{ resto } 0
+\]
+
+Leyendo los restos de abajo hacia arriba:
+
+\[
+(1528)_{10} = \boxed{(2002101)_3}
+\]
+
+\textbf{Base 9:} Dividimos entre 9:
+
+\[
+1528 / 9 = 169 \text{ resto } 7
+\] 
+\[
+169 / 9 = 18 \text{ resto } 7
+\] 
+\[
+18 / 9 = 2 \text{ resto } 0
+\]
+
+Leyendo los restos de abajo hacia arriba:
+
+\[
+(1528)_{10} = \boxed{(2077)_9}
+\]
+
+\end{ejercicio}
+
+\subsection{Ecuaciones con Bases}
+
+\begin{ejercicio}[title=Ejercicio 3]
+En cada apartado, encuentre las bases $b$ en las que se verifica la igualdad propuesta:
+
+a) $3_b \cdot 4_b = 22_b$ \\
+b) $25_b = 22_{b+1}$ \\
+c) $231_b = 170_{b+1}$ \\
+d) $2211_b = 1430_{b+1}$ \\
+e) $114_b = 3_b \cdot 11_b$
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a) } $3_b \cdot 4_b = 22_b$  
+
+\vspace{0.5em}
+
+El dígito 4 indica que $b > 4$, es decir $b \ge 5$.  
+Convertimos directamente a decimal:
+
+\[
+3 \cdot 4 = 2b + 2 \implies 12 = 2b + 2 \implies \boxed{b = 5}
+\]
+
+\vspace{0.5em}
+
+\textbf{b) } $25_b = 22_{b+1}$  
+
+\vspace{0.5em}
+
+Los dígitos máximos indican $b \ge 6$ y $b+1 \ge 3$, siempre cierto.  
+Convertimos:
+
+\[
+2b + 5 = 2(b+1) + 2 \implies 2b + 5 = 2b + 4 \implies 5 = 4
+\]
+
+No hay solución, por lo que \boxed{\textbf{no existe base}}.
+
+\vspace{0.5em}
+
+\textbf{c) } $231_b = 170_{b+1}$  
+
+\vspace{0.5em}
+
+Dígito máximo 3 → $b \ge 4$, dígito 7 en $170_{b+1}$ → $b+1 \ge 8 \implies b \ge 7$.  
+Ecuación en decimal:
+
+\[
+2b^2 + 3b + 1 = 1\cdot(b+1)^2 + 7(b+1) + 0
+\]
+
+\[
+2b^2 + 3b + 1 = b^2 + 2b + 1 + 7b + 7 = b^2 + 9b + 8
+\]
+
+\[
+2b^2 + 3b + 1 = b^2 + 9b + 8 \implies b^2 - 6b - 7 = 0
+\]
+
+\[
+b = \frac{6 \pm \sqrt{36 + 28}}{2} = \frac{6 \pm 8}{2} \implies b = 7 \text{ o } -1
+\]
+
+Como $b \ge 7$, \[
+\boxed{b = 7}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 3]
+
+\textbf{d) } $2211_b = 1430_{b+1}$  
+
+\vspace{0.5em}
+
+Dígitos máximos: 2 → $b \ge 3$, 4 → $b+1 \ge 5 \implies b \ge 4$.  
+Ecuación en decimal:
+
+\[
+2b^3 + 2b^2 + b + 1 = 1\cdot(b+1)^3 + 4(b+1)^2 + 3(b+1) + 0
+\]
+
+\[
+2b^3 + 2b^2 + b + 1 = b^3 + 3b^2 + 3b + 1 + 4b^2 + 8b + 4 + 3b + 3
+\]
+
+\[
+2b^3 + 2b^2 + b + 1 = b^3 + 7b^2 + 14b + 8 \implies b^3 - 5b^2 - 13b - 7 = 0
+\]
+
+Probando raíces enteras, $b=7$ funciona:
+
+\[
+\begin{array}{r|rrrr}
+  & 1 & -5 & -13 & -7 \\
+7 &   & 7 & 14 & 7 \\
+\hline
+  & 1 & 2 & 1 & 0 \\
+\end{array}
+\]
+
+Ahora resolvemos la ecuación cuadrática:
+
+\[
+b^2 + 2b + 1 = 0
+\]
+
+Aplicamos la fórmula general de segundo grado:
+
+\[
+b = \frac{-2 \pm \sqrt{4 - 4}}{2} = -1
+\]
+
+Como $b$ debe ser positiva, esta solución no es válida.  
+
+\[
+\boxed{b = 7}
+\]
+
+\vspace{0.5em}
+
+\textbf{e) } $114_b = 3_b \cdot 11_b$  
+
+\vspace{0.5em}
+
+Dígitos máximos: 4 → $b \ge 5$.  
+Ecuación en decimal:
+
+\[
+b^2 + b + 4 = 3(b+1) = 3b + 3 \implies b^2 - 2b + 1 = 0 \implies (b-1)^2 = 0
+\]
+
+\[
+b = 1 \not\ge 5
+\]
+
+Por lo tanto, \boxed{\textbf{no existe base}}.
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 4]
+Encuentre todos los números naturales que en base 10 se pueden escribir con dos cifras, y en base 16 se escriben con las mismas cifras que en base 10, pero cambiadas de orden.
+
+\tcblower
+\textbf{Resolución:}
+
+\[
+t = (ab)_{10} = (ba)_{16}, \quad a,b \in \{0,\dots,9\}
+\]
+
+\[
+10a + b = 16b + a \implies 3a = 5b
+\]
+
+Probamos todos los valores de \(a = 0,1,\dots,9\) para ver si existe un dígito \(b \in \{0,\dots,9\}\) que cumpla la ecuación:
+
+\[
+\begin{aligned}
+a = 0 &\implies b = 0 \quad \text{válido: } t = 0 \\
+a = 1 &\implies b = 3/5 \quad (\text{no válido}) \\
+a = 2 &\implies b = 6/5 \quad (\text{no válido}) \\
+a = 3 &\implies b = 9/5 \quad (\text{no válido}) \\
+a = 4 &\implies b = 12/5 \quad (\text{no válido}) \\
+a = 5 &\implies b = 3 \quad \text{válido: } t = 53 \\
+a = 6 &\implies b = 18/5 \quad (\text{no válido}) \\
+a = 7 &\implies b = 21/5 \quad (\text{no válido}) \\
+a = 8 &\implies b = 24/5 \quad (\text{no válido}) \\
+a = 9 &\implies b = 27/5 \quad (\text{no válido})
+\end{aligned}
+\]
+
+\[
+\boxed{t = 0 \text{ o } t = 53}
+\]
+
+\end{ejercicio}
+
+\section{Propiedades de la Divisibilidad}
+
+\begin{ejercicio}[title=Ejercicio 15]
+Calcule todos los números enteros $a$ tales que el número entero $a^2 + 4a + 2$ divide a $7$.
+\tcblower
+\textbf{Resolución:}
+
+Queremos que:
+\[
+a^2 + 4a + 2 \mid 7.
+\]
+Esto significa que existe un número entero $k$ tal que:
+\[
+7 = k(a^2 + 4a + 2).
+\]
+
+Por tanto, $a^2 + 4a + 2$ debe ser un divisor de $7$. Los divisores enteros de $7$ son:
+\[
+\{-7, -1, 1, 7\}.
+\]
+
+Estudiaremos cada caso:
+
+\begin{enumerate}
+\item $a^2 + 4a + 2 = 1$
+\[
+a^2 + 4a + 1 = 0 \quad \Rightarrow \quad (a + 2)^2 = 3.
+\]
+$\Rightarrow$ No tiene soluciones enteras.
+
+\item $a^2 + 4a + 2 = -1$
+\[
+a^2 + 4a + 3 = 0 \quad \Rightarrow \quad (a + 1)(a + 3) = 0.
+\]
+$\Rightarrow a = -1, -3.$
+
+\item $a^2 + 4a + 2 = 7$
+\[
+a^2 + 4a - 5 = 0 \quad \Rightarrow \quad (a + 5)(a - 1) = 0.
+\]
+$\Rightarrow a = -5, 1.$
+
+\item $a^2 + 4a + 2 = -7$
+\[
+a^2 + 4a + 9 = 0 \quad \Rightarrow \quad (a + 2)^2 = -5.
+\]
+$\Rightarrow$ No tiene soluciones reales ni enteras.
+\end{enumerate}
+
+\vspace{0.5em}
+Por tanto, las soluciones enteras son:
+\[
+\boxed{a = -5, -3, -1, 1.}
+\]
+\end{ejercicio}
+
+\section{Propiedades del MCD y MCM}
+
+\begin{ejercicio}[title=Ejercicio 6]
+Para cualesquiera $m, k \in \mathbb{Z}$, pruebe que $\text{mcd}(m, k \cdot m + 1) = 1$.
+
+\tcblower
+\textbf{Resolución:}
+
+Sea 
+
+\[
+g = \text{mcd}(m, k \cdot m + 1)
+\]
+
+\begin{itemize}
+    \item Por dato del ejercicio y definición de máximo común divisor, $g \mid m$.
+    \item Por propiedad de la divisibilidad, si $g \mid m$ entonces también $g \mid k m$.
+    \item Como además por dato del ejercicio, $g \mid (k m + 1)$, y usando la propiedad de que si $a \mid b$ y $a \mid b'$ entonces $a \mid (b \pm b')$, se sigue que:
+    \[
+    g \mid (k m + 1) - k m \implies g \mid 1
+    \]
+    \item Como $g > 0$ porque ninguno pueden ser 0 a la vez, la única posibilidad es:
+    \[
+    g = 1
+    \]
+\end{itemize}
+
+\[
+\boxed{\text{mcd}(m, k \cdot m + 1) = 1}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 7]
+¿Qué valores puede tomar $\text{mcd}(n^2 - n + 1, n + 2)$ cuando $n$ varía en $\mathbb{Z}$?
+
+\tcblower
+\textbf{Resolución:}
+
+Dividimos:
+
+\[
+n^2 - n + 1 / (n + 2) = n - 3 \quad \text{resto } 7
+\]
+
+Es decir:
+
+\[
+n^2 - n + 1 = (n + 2)(n - 3) + 7
+\]
+
+Por la propiedad del máximo común divisor (si $a = b q + d$, entonces $\text{mcd}(a,b) = \text{mcd}(b,d)$):
+
+\[
+\text{mcd}(n^2 - n + 1, n + 2) = \text{mcd}(n + 2, 7)
+\]
+
+Como $\text{mcd}(n+2, 7) \le 7$ y 7 es primo, los únicos posibles valores son:
+
+\[
+\boxed{1 \text{ y } 7}
+\]
+
+\end{ejercicio}
+
+\section{Números Primos}
+
+\begin{ejercicio}[title=Ejercicio 14]
+Demuestre que el conjunto de los números primos es infinito.
+\tcblower
+\textbf{Resolución:}
+
+Demostraremos el resultado por \textbf{reducción al absurdo}.  
+Es decir, supondremos lo contrario de lo que queremos demostrar y veremos que dicha suposición lleva a una contradicción.\\
+El hecho de que lleguemos a una contradicción implica que hemos demostrado lo contrario a la suposición que habíamos hecho inicialmente.
+
+\vspace{0.5em}
+
+\textbf{1. Suposición inicial:}  
+Supongamos que existen solamente un número finito de números primos.  
+Podemos enumerarlos todos como:
+
+\[
+P = \{p_1, p_2, \dots, p_n\}
+\]
+
+donde cada $p_i$ es primo.
+
+\vspace{0.5em}
+
+\textbf{2. Construcción de un nuevo número:}  
+Consideremos el número siguiente:
+
+\[
+t = p_1 \cdot p_2 \cdot \dots \cdot p_n + 1
+\]
+
+Este número $t$ se obtiene multiplicando todos los primos conocidos y sumando $1$.
+
+\vspace{0.5em}
+
+\textbf{3. Propiedad fundamental de $t$:}  
+Ninguno de los primos $p_i$ divide a $t$.
+
+En efecto, si dividimos $t$ por cualquiera de ellos, el cociente es el producto del resto de primos y el resto es $1$:
+%% Insertar 2 ejemplos muy sencillos
+Esto implica que:
+
+\[
+p_i \nmid t \quad \text{para todo } i = 1, 2, \dots, n.
+\]
+
+\vspace{0.5em}
+
+\textbf{4. Factorización de $t$:}  
+Por el \textbf{Teorema Fundamental de la Aritmética}, todo número entero mayor que $1$ puede escribirse como producto de primos:
+
+\[
+t = q_1 \cdot q_2 \cdot \dots \cdot q_n
+\]
+
+donde cada $q_j$ es un número primo.
+
+\vspace{0.5em}
+
+\textbf{5. Deducción:}  
+Como $t$ es divisible por cada $q_j$, tenemos $q_j \mid t$.  
+Pero ya hemos visto que ninguno de los primos $p_i \in P$ divide a $t$, así que ninguno de los $q_j$ puede coincidir con ninguno de los $p_i$.  
+En consecuencia:
+\[
+q_j \notin P \quad \text{para todo } j.
+\]
+\[
+\text{Es decir, $q_j$ es un primo que no pertenece al conjunto de los primos $P$.}
+\]
+
+\vspace{0.5em}
+
+\textbf{6. Contradicción:}  
+Esto contradice la suposición inicial de que $\{p_1, p_2, \dots, p_n\}$ contenía \emph{todos} los números primos.  
+Hemos encontrado al menos un nuevo primo $q_j$ que no está en ese conjunto.
+
+\textbf{7. Conclusión:}  
+La hipótesis de que el conjunto de los números primos es finito es falsa.
+\[
+\boxed{\text{El conjunto de los números primos es infinito.}}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 16]
+Para cualquier número entero $m\ge 2$, demuestre que $m$ es primo si y solo si no existe ningún número primo $p$ tal que $p\mid m$ y $p\le \sqrt{m}$.
+\tcblower
+\textbf{Resolución:}
+
+\vspace{0.4em}
+Queremos demostrar que:
+\[\textbf{Si no existe primo $p$ con $p\mid m$ y $p\le\sqrt{m}$ $\Rightarrow$ $m$ es primo.}\]
+
+Demostramos la contraposición, ya que resulta más fácil:
+
+\[
+\text{Si } m \text{ no es primo} \Rightarrow \text{existe un primo } p \text{ con } p\mid m \text{ y } p\le\sqrt{m}.
+\]
+
+\begin{enumerate}
+
+\item Si $m$ no es primo, entonces podemos escribirlo como:
+\[
+m = a\cdot b
+\]
+con $a,b \in \mathbb{Z}$ tales que $1<a\le b<m$.
+
+\item Si suponemos $a > \sqrt m$ y $b > \sqrt m$, entonces $a \cdot b > m$, lo cual es falso porque hemos dicho que $a \cdot b = m$.
+
+Entonces como $a \not> \sqrt m$, se da que $a \le \sqrt m$.
+
+\item Se sabe que $a$ factoriza como producto de primos por el Teorema Fundamental de la Aritmética. Esto garantiza que $a$ tiene por lo menos un factor primo $p$. Entonces se da que $p \mid a$.
+
+\item \begin{itemize}
+    \item Por (1) sabemos que $m = a \cdot b$, entonces $a \mid m$. Entonces juntándolo con (3): $p \mid a$ y $a \mid m \implies \boxed{p \mid m}$.
+    \item Por (3) sabemos que $p \mid a$, entonces $p \le a$. Entonces juntándolo con (2): $p \le a \le \sqrt m \implies \boxed{p \le \sqrt m}$
+\end{itemize}
+
+\item Entonces hemos demostrado que:
+\[
+\text{Si } m \text{ no es primo, existe un primo } p \text{ con } p\mid m \text{ y } p\le\sqrt{m}.
+\]
+\end{enumerate}
+
+La contraposición de esta afirmación es exactamente: $m$ es primo si y solo si no existe ningún número primo $p$ tal que $p\mid m$ y $p\le \sqrt{m}$.
+
+\[
+\boxed{\,m\ \text{es primo} \iff \text{no existe un primo } p \text{ tal que } p\mid m \text{ y } p\le\sqrt{m}.\,}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 17]
+Factorice los números $941$ y $943$ como producto de primos.
+\tcblower
+\textbf{Resolución:}
+
+\vspace{0.5em}
+    \textbf{Número 941:}
+        Probamos divisibilidad por los primos menores o iguales a $\sqrt{941} \approx 30.7$:
+        \[
+        2,3,5,7,11,13,17,19,23,29
+        \]
+        \begin{itemize}
+            \item 941 es impar → no divisible por 2.
+            \item Suma de cifras $9+4+1=14$ no divisible por 3 → no divisible por 3.
+            \item Termina en 1 → no divisible por 5.
+            \item 941 / 7 = 134 resto 3 → no divisible.
+            \item 941 / 11 = 85 resto 6 → no divisible.
+            \item 941 / 13 = 72 resto 5 → no divisible.
+            \item 941 / 17 = 55 resto 6 → no divisible.
+            \item 941 / 19 = 49 resto 10 → no divisible.
+            \item 941 / 23 = 40 resto 21 → no divisible.
+            \item 941 / 29 = 32 resto 13 → no divisible.
+        \end{itemize}
+        Concluimos que 941 no tiene divisores primos menores o iguales a $\sqrt{941}$, por lo tanto:
+        \[
+        \boxed{941 \text{ es primo}}
+        \]
+    
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 17]
+    
+    \textbf{Número 943:}
+        Probamos divisibilidad por los primos menores o iguales a $\sqrt{943} \approx 30.7$:
+        \[
+        2,3,5,7,11,13,17,19,23,29
+        \]
+        \begin{itemize}
+            \item 943 es impar → no divisible por 2.
+            \item Suma de cifras $9+4+3=16$ no divisible por 3 → no divisible por 3.
+            \item Termina en 3 → no divisible por 5.
+            \item 943 / 7 = 134 resto 5 → no divisible.
+            \item 943 / 11 = 85 resto 8 → no divisible.
+            \item 943 / 13 = 72 resto 7 → no divisible.
+            \item 943 / 17 = 55 resto 8 → no divisible.
+            \item 943 / 19 = 49 resto 12 → no divisible.
+            \item 943 / 23 = 41 resto 0 → divisible.
+        \end{itemize}
+        Concluimos:
+        \[
+        \boxed{943 = 23 \cdot 41}
+        \]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 20]
+Si $p$ es un número primo, demuestre que $\sqrt{p}$ no pertenece a $\mathbb{Q}$, el conjunto de los números racionales. De forma más general, pruebe que si $p_1,\dots,p_n$ son números primos distintos, entonces $\sqrt{p_1\cdots p_n} \notin \mathbb{Q}$.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{Parte 1:} Demostración de que $\sqrt{p} \notin \mathbb{Q}$
+
+Usamos \textbf{reducción al absurdo}. Supongamos que $\sqrt{p}$ es racional. Entonces existen enteros positivos $a,b \in \mathbb{N}$ tales que:
+
+\[
+\sqrt{p} = \frac{a}{b}, \quad a,b \in \mathbb{N}.
+\]
+
+Elevamos al cuadrado:
+
+\[
+p = \frac{a^2}{b^2} \implies pb^2 = a^2.
+\]
+
+Ahora consideremos la factorización prima de $a^2$ y de $pb^2$.  
+
+\begin{itemize}
+    \item Por el Teorema Fundamental de la Aritmética, cada entero mayor que 1 se puede factorizar de forma única como producto de  potencias de primos distintos.
+    \item En $a^2$, todos los exponentes de los primos son pares, ya que al estar $a$ elevado al cuadrado, cualquier exponente de cualquier primo se va a multiplicar por 2. 
+    \item En $b^2$ pasa exactamente lo mismo, pero en $pb^2$, el primo $p$ aparece \textbf{una vez más} que en $b^2$, es decir, aparece un número \textbf{impar} de veces. Sin embargo, en $a^2$, el primo $p$ aparece un número \textbf{par} de veces por el punto anterior.
+\end{itemize}
+
+Esto genera una contradicción: \emph{la factorización prima es \textbf{única}, por lo que \textbf{los exponentes de cada primo deben coincidir} en ambos lados}, pero aquí $p$ aparece con exponente impar en el lado izquierdo y par en el lado derecho.  
+
+Por tanto, nuestra suposición es falsa:
+
+\[
+\boxed{\sqrt{p} \notin \mathbb{Q}}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 20]
+
+\textbf{Parte 2:} Demostración de que $\sqrt{p_1\cdots p_n} \notin \mathbb{Q}$
+
+Usamos \textbf{reducción al absurdo}. Supongamos que $\sqrt{p_1\cdots p_n}$ es racional. Entonces existen enteros positivos $a,b \in \mathbb{N}$ tales que:
+
+\[
+\sqrt{p_1\cdots p_n} = \frac{a}{b}, \quad a,b \in \mathbb{N}.
+\]
+
+Elevamos al cuadrado:
+
+\[
+p_1 \cdots p_n = \frac{a^2}{b^2} \implies (p_1 \cdots p_n) b^2 = a^2.
+\]
+
+Ahora consideremos la factorización prima de $a^2$ y de $(p_1 \cdots p_n)b^2$.  
+
+\begin{itemize}
+    \item Por el Teorema Fundamental de la Aritmética, cada entero mayor que 1 se puede factorizar de forma única como producto de potencias de primos distintos.
+    \item En $a^2$, todos los exponentes de los primos son pares, ya que al estar $a$ elevado al cuadrado, cualquier exponente de cualquier primo se va a multiplicar por 2. 
+    \item En $b^2$ pasa exactamente lo mismo, pero en $(p_1 \cdots p_n)b^2$, cada primo $p_i$ aparece \textbf{una vez más} que en $b^2$, es decir, aparece un número \textbf{impar} de veces. Sin embargo, en $a^2$, cada $p_i$ aparece un número \textbf{par} de veces por el punto anterior.
+\end{itemize}
+
+Esto genera una contradicción: \emph{la factorización prima es \textbf{única}, por lo que \textbf{los exponentes de cada primo deben coincidir} en ambos lados}, pero aquí cada $p_i$ aparece con exponente impar en el lado izquierdo y par en el lado derecho.  
+
+Por tanto, nuestra suposición es falsa:
+
+\[
+\boxed{\sqrt{p_1\cdots p_n} \notin \mathbb{Q}}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 21]
+Encuentre todos los números primos $p$ tales que $p+2$ y $p+4$ también sean números primos.
+\tcblower
+\textbf{Resolución:}
+
+Buscamos primos $p$ tales que $p$, $p+2$ y $p+4$ sean todos primos.  
+
+\begin{itemize}
+    \item Consideremos $p > 3$. Entonces $p$ es impar.
+    \item Observemos que entre tres números consecutivos impares ($p$, $p+2$, $p+4$), uno de ellos siempre es divisible por 3.
+    \item Como todo número divisible por 3 mayor que 3 no puede ser primo, esto significa que para $p>3$, no puede ocurrir que $p$, $p+2$ y $p+4$ sean todos primos.
+\end{itemize}
+
+Por lo tanto, sólo necesitamos probar los primos menores o iguales a 3:
+
+\[
+p = 2 \Rightarrow p+2 = 4 \text{ (no primo)}, \quad p+4 = 6 \text{ (no primo)}
+\]
+\[
+p = 3 \Rightarrow p+2 = 5 \text{ (primo)}, \quad p+4 = 7 \text{ (primo)}
+\]
+
+Por tanto, la única solución es:
+
+\[
+\boxed{p = 3} \implies p+2 = 5, \quad p+4 = 7.
+\]
+
+\end{ejercicio}
+
+\section{Algoritmo Extendido de Euclides y Coeficientes de Bézout}
+
+\begin{ejercicio}[title=Ejercicio 5]
+Aplique el Algoritmo Extendido de Euclides para calcular el máximo común divisor y unos coeficientes de Bézout para los números $a = 551$ y $b = 209$. Calcule también el mínimo común múltiplo de $a$ y $b$.
+
+\tcblower
+\textbf{Resolución:}
+
+Aplicamos el algoritmo de Euclides:
+
+\[
+\begin{aligned}
+551 / 209 &= 2 \quad \text{resto } 133 \\
+209 / 133 &= 1 \quad \text{resto } 76 \\
+133 / 76  &= 1 \quad \text{resto } 57 \\
+76 / 57   &= 1 \quad \text{resto } \boxed{19} \\
+57 / 19   &= 3 \quad \text{resto } 0
+\end{aligned}
+\]
+
+Por lo tanto:
+
+\[
+\boxed{\text{mcd}(551,209) = 19}
+\]
+
+Ahora, construimos la tabla del Algoritmo Extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 209 & - & 0 & 1 \\
+1 & 133 & 2 & 1 & -2 \\
+2 & 76  & 1 & -1 & 3 \\
+3 & 57  & 1 & 2 & -5 \\
+4 & \boxed{19} & 1 & -3 & 8
+\end{array}
+\]
+
+Comprobación de los coeficientes de Bézout:
+
+\[
+551 \cdot (-3) + 209 \cdot (8) = 19
+\]
+
+\[
+\boxed{-3 \text{ y } 8 \text{ son unos coeficientes de Bézout para } 551 \text{ y } 209}
+\]
+
+Finalmente, calculamos el mínimo común múltiplo usando la relación:
+
+\[
+\text{mcm}(a,b) = \frac{|a \cdot b|}{\text{mcd}(a,b)} = \frac{551 \cdot 209}{19} = 6061
+\]
+
+\[
+\boxed{\text{mcm}(551,209) = 6061}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 8]
+Calcule el máximo común divisor y unos coeficientes de Bézout para $143,\;187$ y $221$.
+\tcblower
+\textbf{Resolución:}
+
+Primero
+\[
+187 / 143 = 1 \ \text{resto } 44
+\]
+\[
+143 / 44 = 3 \ \text{resto } \boxed{11}
+\]
+\[
+44 / 11 = 4 \ \text{resto } 0
+\]
+
+\[
+\text{mcd}(187,143) = \boxed{11}
+\]
+
+Tabla del algoritmo extendido para (187,143):
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 143 & - & 0 & 1\\
+1 & 44  & 1 & 1 & -1\\
+2 & \boxed{11} & 3 & -3 & 4
+\end{array}
+\]
+
+\[
+\boxed{11} = 187 \cdot (-3) + 143 \cdot (4)
+\]
+
+Ahora
+\[
+\text{mcd}(\text{mcd}(187,143),221) = \text{mcd}(11,221)
+\]
+
+\[
+221 / 11 = 20 \ \text{resto } \boxed{1}
+\]
+
+\[
+\text{mcd}(221,11) = \boxed{\text{mcd}(143, 187, 221) = 1}
+\]
+
+Tabla del algoritmo extendido para (221,11):
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 11 & - & 0 & 1\\
+1 & \boxed{1} & 20 & 1 & -20
+\end{array}
+\]
+
+\[
+221 \cdot (1) + 11 \cdot (-20) = \boxed{1}
+\]
+
+Sustituyendo la expresión de $11$ obtenida antes:
+\[
+221 \cdot (1) + (187 \cdot (-3) + 143 \cdot (4)) \cdot (-20) = \boxed{1}
+\]
+
+Desarrollando:
+\[
+221 \cdot (1) + 187 \cdot ((-3)\cdot(-20)) + 143 \cdot (4\cdot(-20)) = \boxed{1}
+\]
+\[
+143\cdot(-80) + 187\cdot(60) + 221\cdot(1) = \boxed{1}
+\]
+
+\[
+\boxed{\text{$-80$, 60 y 1 son unos coeficientes de Bézout para 143,\,187 y 221.}}
+\]
+
+\end{ejercicio}
+
+\section{Ecuaciones Diofánticas}
+
+\subsection{Con 2 incógnitas}
+
+\begin{ejercicio}[title=Ejercicio 9]
+Resuelva cada una de las siguientes ecuaciones diofánticas:
+
+a) $11x + 19y = 2$.\\
+b) $11x - 19y = 4$.\\
+c) $21x + 35y = 861$.\\
+d) $21x + 35y = 877$.
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a) } $11x + 19y = 2$
+\[
+19 / 11 = 1 \ \text{resto } 8
+\]
+\[
+11 / 8 = 1 \ \text{resto } 3
+\]
+\[
+8 / 3 = 2 \ \text{resto } 2
+\]
+\[
+3 / 2 = 1 \ \text{resto } \boxed{1}
+\]
+
+\[
+\text{mcd}(11,19) = \boxed{1}
+\]
+Como $1 \mid 2$, la ecuación tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 11 & - & 0 & 1\\
+1 & 8 & 1 & 1 & -1\\
+2 & 3 & 1 & -1 & 2\\
+3 & 2 & 2 & 3 & -5\\
+4 & \boxed{1} & 1 & -4 & 7
+\end{array}
+\]
+
+\[
+19 \cdot (-4) + 11 \cdot (7) = 1
+\]
+
+Multiplicamos por $2$ para obtener la solución particular de la ecuación dada:
+
+\[
+11 \cdot (14) + 19 \cdot (-8) = 2
+\]
+
+Por tanto,
+\[
+x_0 = 14, \quad y_0 = -8
+\]
+
+La solución general viene dada por:
+\[
+x = x_0 + \frac{b}{g}k, \quad y = y_0 - \frac{a}{g}k, \quad k \in \mathbb{Z}
+\]
+
+En este caso:
+\[
+\boxed{
+x = 14 + 19k, \quad y = -8 - 11k, \quad k \in \mathbb{Z}
+}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 9]
+
+\textbf{b) } $11x - 19y = 4$
+
+\vspace{0.5em}
+
+\[
+\text{mcd}(11, -19) = \text{mcd}(11, 19) = 1
+\]
+Como $1 \mid 4$, la ecuación tiene solución.
+
+Por el apartado anterior sabemos que:
+\[
+11 \cdot (14) + 19 \cdot (-8) = 2
+\]
+
+Cambiando el signo de $y$, tenemos:
+\[
+11 \cdot (14) - 19 \cdot (8) = 2
+\]
+
+Multiplicamos por $2$ para obtener la solución particular de esta ecuación:
+\[
+11 \cdot (28) - 19 \cdot (16) = 4
+\]
+
+Por tanto:
+\[
+x_0 = 28, \quad y_0 = 16
+\]
+
+La solución general viene dada por:
+\[
+\boxed{
+x = 28 - 19k, \quad y = 16 - 11k, \quad k \in \mathbb{Z}
+}
+\]
+
+\textbf{c) } $21x + 35y = 861$
+
+\vspace{0.5em}
+
+\[
+35 / 21 = 1 \ \text{resto } 14
+\]
+\[
+21 / 14 = 1 \ \text{resto } \boxed{7}
+\]
+\[
+14 / 7 = 2 \ \text{resto } 0
+\]
+
+\[
+\text{mcd}(21,35) = 7
+\]
+
+Comprobamos si $7 \mid 861$:
+\[
+861 / 7 = 123 \ \text{resto } 0
+\]
+Por tanto, $7 \mid 861$ y la ecuación tiene solución.
+
+Simplificamos dividiendo entre $7$:
+\[
+3x + 5y = 123
+\]
+
+\vspace{0.5em}
+
+\[
+5 / 3 = 1 \ \text{resto } 2
+\]
+\[
+3 / 2 = 1 \ \text{resto } \boxed{1}
+\]
+
+\[
+\text{mcd}(3,5) = \boxed{1}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 9]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 3 & - & 0 & 1\\
+1 & 2 & 1 & 1 & -1\\
+2 & \boxed{1} & 1 & -1 & 2
+\end{array}
+\]
+
+\[
+3 \cdot (2) + 5 \cdot (-1) = \boxed{1}
+\]
+
+Multiplicamos por $123$ para obtener una solución particular:
+\[
+3 \cdot (246) + 5 \cdot (-123) = 123
+\]
+
+Por tanto:
+\[
+x_0 = 246, \quad y_0 = -123
+\]
+
+La solución general viene dada por:
+\[
+\boxed{
+x = 246 + 5k, \quad y = -123 - 3k, \quad k \in \mathbb{Z}
+}
+\]
+
+\textbf{d) } $21x + 35y = 877$
+
+\vspace{0.5em}
+
+Por el ejercicio anterior sabemos que:
+\[
+\text{mcd}(21,35) = 7
+\]
+
+Comprobamos si $7 \mid 877$:
+\[
+877 / 7 = 125 \ \text{resto } 2
+\]
+
+Por tanto:
+\[
+7 \nmid 877
+\]
+
+\[
+\boxed{\text{La ecuación no tiene solución.}}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 10]
+¿Cuántas soluciones de la ecuación diofántica $11x + 13y = 2025$ verifican que $x > 0$ e $y > 0$?
+\tcblower
+\textbf{Resolución:}
+
+Primero, aplicamos el algoritmo extendido de Euclides para $11$ y $13$:
+
+\[
+13 / 11 = 1 \ \text{resto } 2
+\]
+\[
+11 / 2 = 5 \ \text{resto } \boxed{1}
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 11 & - & 0 & 1\\
+1 & 2 & 1 & 1 & -1\\
+2 & \boxed{1} & 5 & -5 & 6
+\end{array}
+\]
+
+De aquí obtenemos la solución particular de la ecuación $11x + 13y = 1$:
+
+\[
+x_0 = 6, \quad y_0 = -5
+\]
+
+Multiplicando por $2025$ para nuestra ecuación:
+
+\[
+x = 12150 + 13k, \quad y = -10125 - 11k, \quad k \in \mathbb{Z}
+\]
+
+\vspace{0.5em}
+
+Imponemos las condiciones de positividad:
+
+\[
+x > 0 \implies 12150 + 13k > 0 \implies 13k > -12150 \implies k > -\frac{12150}{13} \approx -934,61
+\]
+
+\[
+y > 0 \implies -10125 - 11k > 0 \implies -11k > 10125 \implies k < -\frac{10125}{11} \approx -920,45
+\]
+
+\vspace{0.5em}
+
+Por tanto, los valores enteros de $k$ que cumplen ambas condiciones son:
+
+\[
+-934 \le k \le -921
+\]
+
+El número de soluciones enteras es:
+
+\[
+|-934 - (-921)| + 1 = 14
+\]
+
+\[
+\boxed{14 \text{ soluciones}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 11]
+Descomponga la fracción 
+$
+\frac{126}{299}
+$ 
+como suma de dos fracciones cuyos denominadores sean $13$ y $23$.
+\tcblower
+\textbf{Resolución:}
+
+Planteamos:
+
+\[
+\frac{126}{299} = \boxed{\frac{x}{13} + \frac{y}{23}} \implies 23x + 13y = 126
+\]
+
+\vspace{0.5em}
+
+Aplicamos el algoritmo extendido de Euclides a $23$ y $13$:
+
+\[
+23 / 13 = 1 \ \text{resto } 10
+\]
+\[
+13 / 10 = 1 \ \text{resto } 3
+\]
+\[
+10 / 3 = 3 \ \text{resto } \boxed{1}
+\]
+
+\[
+\text{mcd}(23,13) = \boxed{1}
+\]
+
+\[
+1 \mid 126 \implies \text{tiene solución}
+\]
+
+\vspace{0.5em}
+
+Tabla del algoritmo extendido:
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 13 & - & 0 & 1\\
+1 & 10 & 1 & 1 & -1\\
+2 & 3 & 1 & -1 & 2\\
+3 & \boxed{1} & 3 & 4 & -7
+\end{array}
+\]
+
+\[
+23 \cdot 4 + 13 \cdot (-7) = 1
+\]
+
+Multiplicando por $126$:
+
+\[
+23 \cdot (4 \cdot 126) + 13 \cdot (-7 \cdot 126) = 126
+\]
+
+\[
+23 \cdot 504 + 13 \cdot (-882) = 126
+\]
+
+Por tanto, una solución particular es:
+
+\[
+x_0 = 504, \quad y_0 = -882
+\]
+
+La solución general es:
+
+\[
+x = 504 + 13k, \quad y = -882 - 23k, \quad k \in \mathbb{Z}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 12]
+Un hombre recibió un cheque bancario, pero al cobrarlo el cajero confundió el número de euros con el número de céntimos. Sin darse cuenta de esto, el hombre gastó 68 céntimos, y perplejo descubrió que tenía el doble del dinero que aparecía en el cheque. Determine la cantidad de dinero que aparecía en el cheque, si se sabe que era menor que 100 euros.
+\tcblower
+\textbf{Resolución:}
+
+Sea $x$ el número de euros y $y$ el número de céntimos que aparecían en el cheque. Entonces el cheque tenía un valor de:
+\[
+x \text{ euros } + y \text{ céntimos } = x + \frac{y}{100} \text{ euros}
+\]
+
+Pero como el cajero confundió euros y céntimos, el hombre recibe:
+\[
+y \text{ euros } + x \text{ céntimos } = y + \frac{x}{100} \text{ euros}
+\]
+
+Luego, después de gastar 68 céntimos ($0,68$ euros), le queda:
+\[
+y + \frac{x}{100} - 0,68 \text{ euros}
+\]
+
+Se sabe que esto es el doble de lo que aparecía en el cheque:
+\[
+y + \frac{x}{100} - 0,68 = 2 \left( x + \frac{y}{100} \right)
+\]
+
+Multiplicamos todo por $100$ para eliminar decimales:
+
+\[
+100y + x - 68 = 200x + 2y
+\]
+
+\[
+100y - 2y + x - 200x - 68 = 0 \implies -199x +98y = 68
+\]
+\[
+\text{mcd}(98,-199) = \text{mcd}(98,199)
+\]
+
+\vspace{0.5em}
+
+Aplicamos el algoritmo extendido de Euclides a $98$ y $199$:
+
+\[
+199 / 98 = 2 \ \text{resto } 3
+\]
+\[
+98 / 3 = 32 \ \text{resto } 2
+\]
+\[
+3 / 2 = 1 \ \text{resto } \boxed{1}
+\]
+
+\[
+\text{mcd}(98,199) = \boxed{1}
+\]
+\[
+1 \mid 68 \implies\text{ Tiene solución}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 12]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 98 & - & 0 & 1\\
+1 & 3 & 2 & 1 & -2\\
+2 & 2 & 32 & -32 & 65\\
+3 & \boxed{1} & 1 & 33 & -67
+\end{array}
+\]
+
+\[
+199 \cdot (33) + 98 \cdot (-67) = \boxed{1}
+\]
+
+Multiplicando por 68:
+\[
+-199 \cdot (-2244) + 98 \cdot (-4556) = 68
+\]
+
+\[
+x = -2244 + 98k, \quad y = -4556 + 199k, \quad k \in \mathbb{Z}
+\]
+
+\textbf{Imponemos que $0 < x + \frac{y}{100} < 100$:}
+
+\[
+0 < (-2244 + 98k) + \frac{-4556 + 199k}{100} < 100
+\]
+
+Multiplicamos todo por 100:
+
+\[
+0 < 100(-2244 + 98k) + (-4556 + 199k) < 100 \cdot 100
+\]
+\[
+0 < -224400 + 9800k - 4556 + 199k < 10000
+\]
+\[
+0 < -228956 + 9999 k < 10000
+\]
+\[
+228956 < 9999 k < 238956
+\]
+
+Dividimos entre 9999 para obtener $k$ en fracciones exactas:
+
+\[
+\frac{228956}{9999} < k < \frac{238956}{9999}
+\]
+
+\[
+\frac{228956}{9999} \approx 22,8957, \quad \frac{238956}{9999} \approx 23,8964
+\]
+
+Por tanto, el único entero que cumple es:
+
+\[
+k = 23
+\]
+
+Sustituyendo $k = 23$:
+
+\[
+x = -2244 + 98 \cdot 23 = 32\text{ euros}
+\]
+\[
+y = -4556 + 199 \cdot 23 = 66\text{ céntimos}
+\]
+
+La cantidad que aparecía en el cheque es:
+
+\[
+\boxed{32,66 \text{ euros}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 13]
+¿Para cuántos números enteros $c$ tales que $100 < c < 400$ tiene solución la ecuación diofántica $138x + 114y = c$?
+\tcblower
+\textbf{Resolución:}
+
+Primero, calculamos el mcd de los coeficientes:
+
+\[
+138 / 114 = 1 \ \text{resto } 24
+\]
+\[
+114 / 24 = 4 \ \text{resto } 18
+\]
+\[
+24 / 18 = 1 \ \text{resto } \boxed{6}
+\]
+\[
+18 / 6 = 3 \ \text{resto } 0
+\]
+\[
+\text{mcd}(138,114) = \boxed{6}
+\]
+
+Para que la ecuación tenga solución, $6 \mid c$.
+
+\vspace{0.5em}
+
+Contamos los múltiplos de 6 entre 100 y 400 usando la propiedad del suelo del cociente (Tema 0):
+
+\[
+\text{Número de múltiplos} = \Big\lfloor \frac{400}{6} \Big\rfloor - \Big\lfloor \frac{100}{6} \Big\rfloor
+\]
+
+\[
+\Big\lfloor \frac{400}{6} \Big\rfloor = \lfloor 66,666\ldots \rfloor = 66
+\]
+
+\[
+\Big\lfloor \frac{100}{6} \Big\rfloor = \lfloor 16,666\ldots \rfloor = 16
+\]
+
+\[
+66 - 16 = \boxed{50\text{ números}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 18]
+Resuelva cada una de las ecuaciones diofánticas siguientes:
+\[
+\text{a) } x^2 = 941 + y^2, \quad 
+\text{b) } x^2 = 943 + y^2
+\]
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a) } $x^2 = 941 + y^2$
+
+Reescribimos la ecuación como diferencia de cuadrados:
+\[
+x^2 - y^2 = 941 \implies (x - y)(x + y) = 941
+\]
+
+Como 941 es primo (ejercicio 17), las únicas factorizaciones enteras posibles son:
+
+\begin{enumerate}
+    \item $x+y = 1$, $x-y = 941$  
+    \[
+    x = \frac{1+941}{2} = 471, \quad y = \frac{1-941}{2} = -470
+    \]
+
+    \item $x+y = 941$, $x-y = 1$  
+    \[
+    x = \frac{941+1}{2} = 471, \quad y = \frac{941-1}{2} = 470
+    \]
+
+    \item $x+y = -1$, $x-y = -941$  
+    \[
+    x = \frac{-1+(-941)}{2} = -471, \quad y = \frac{-1-(-941)}{2} = 470
+    \]
+
+    \item $x+y = -941$, $x-y = -1$  
+    \[
+    x = \frac{-941+(-1)}{2} = -471, \quad y = \frac{-941-(-1)}{2} = -470
+    \]
+\end{enumerate}
+
+Por tanto, las soluciones enteras son:
+\[
+\boxed{(x,y) = (471,470), (471,-470), (-471,470), (-471,-470)}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 18]
+
+\textbf{b) } $x^2 = 943 + y^2$
+
+Reescribimos como diferencia de cuadrados:
+\[
+x^2 - y^2 = 943 \implies (x - y)(x + y) = 943
+\]
+
+Como 943 = 23 · 41, las posibles factorizaciones enteras son 8:
+
+\[
+\begin{array}{c|c|c}
+\textbf{Caso} & x + y & x - y \\
+\hline
+1 & 1 & 943 \\
+2 & 943 & 1 \\
+3 & -1 & -943 \\
+4 & -943 & -1 \\
+5 & 23 & 41 \\
+6 & 41 & 23 \\
+7 & -23 & -41 \\
+8 & -41 & -23 \\
+\end{array}
+\]
+
+\[
+\text{Resolvemos los siguientes 8 sistemas:}
+\]
+\vspace{0.1em}
+\[
+1) \begin{cases}
+x + y = 1 \\[2pt]
+x - y = 943
+\end{cases}
+\quad
+2) \begin{cases}
+x + y = 943 \\[2pt]
+x - y = 1
+\end{cases}
+\quad
+3) \begin{cases}
+x + y = -1 \\[2pt]
+x - y = -943
+\end{cases}
+\quad
+4) \begin{cases}
+x + y = -943 \\[2pt]
+x - y = -1
+\end{cases}
+\]
+
+\[
+5) \begin{cases}
+x + y = 23 \\[2pt]
+x - y = 41
+\end{cases}
+\quad
+6) \begin{cases}
+x + y = 41 \\[2pt]
+x - y = 23
+\end{cases}
+\quad
+7) \begin{cases}
+x + y = -23 \\[2pt]
+x - y = -41
+\end{cases}
+\quad
+8) \begin{cases}
+x + y = -41 \\[2pt]
+x - y = -23
+\end{cases}
+\]
+
+\vspace{1em}
+
+\[
+\boxed{
+\begin{array}{c|c|c|c|c}
+\textbf{Caso} & x + y & x - y & x & y \\
+\hline
+1 & 1 & 943 & 472 & -471 \\
+2 & 943 & 1 & 472 & 471 \\
+3 & -1 & -943 & -472 & 471 \\
+4 & -943 & -1 & -472 & -471 \\
+5 & 23 & 41 & 32 & -9 \\
+6 & 41 & 23 & 32 & 9 \\
+7 & -23 & -41 & -32 & 9 \\
+8 & -41 & -23 & -32 & -9 \\
+\end{array}
+}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 19]
+Resuelva cada una de las ecuaciones diofánticas siguientes:
+\[
+\text{a) } xy - 5x + y = 18, \quad
+\text{b) } xy - 4y + 3x - 205 = 0, \quad
+\text{c) } 2xy - y + 6x - 56 = 0.
+\]
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a) } $xy - 5x + y = 18$
+
+\vspace{0.3em}
+Agrupamos términos en función de $y$:
+
+\[
+y(x + 1) - 5x = 18
+\]
+
+Despejamos $y$:
+
+\[
+y = \frac{18 + 5x}{x + 1}
+\]
+
+Para que $y$ sea entero, el denominador $(x + 1)$ debe dividir al numerador $(18 + 5x)$:
+
+\[
+x + 1 \mid 18 + 5x
+\]
+
+Desarrollamos el numerador para expresar $18 + 5x$ en función de $(x+1)$:
+
+\[
+18 + 5x = 5(x + 1) + (18 - 5) = 5(x + 1) + 13
+\]
+
+\vspace{0.5em}
+
+De esta forma, el resto de la división de $18 + 5x$ entre $(x + 1)$ es $13$.  
+Por tanto:
+\[
+x + 1 \mid 13
+\]
+
+Por tanto, los posibles valores son los divisores enteros de $13$:
+
+\[
+x + 1 \in \{\pm1, \pm13\}
+\]
+
+De ahí obtenemos:
+
+\[
+\begin{cases}
+x + 1 = 1 &\Rightarrow x = 0,\\[0.3em]
+x + 1 = -1 &\Rightarrow x = -2,\\[0.3em]
+x + 1 = 13 &\Rightarrow x = 12,\\[0.3em]
+x + 1 = -13 &\Rightarrow x = -14.
+\end{cases}
+\]
+
+Ahora sustituimos en $y = \dfrac{18 + 5x}{x + 1}$:
+
+\[
+\begin{array}{c|c}
+x & y\\
+\hline
+0 & 18 \\
+-2 & -8 \\
+12 & 6 \\
+-14 & 4
+\end{array}
+\]
+
+\vspace{0.5em}
+
+\[
+\boxed{\text{Las soluciones enteras son } (0,18),\, (-2,-8),\, (12,6),\, (-14,-16).}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 19]
+\textbf{b) } $xy - 4y + 3x - 205 = 0$
+
+\vspace{0.3em}
+Agrupamos términos en función de $y$:
+
+\[
+y(x - 4) + 3x - 205 = 0
+\]
+
+Despejamos $y$:
+
+\[
+y = \frac{205 - 3x}{x - 4}
+\]
+
+Para que $y$ sea entero, el denominador $(x - 4)$ debe dividir al numerador $(205 - 3x)$:
+
+\[
+x - 4 \mid 205 - 3x
+\]
+
+Desarrollamos el numerador para expresar $205 - 3x$ en función de $(x-4)$:
+
+\[
+205 - 3x = -3(x - 4) + \big(205 - 3\cdot(-4)\big) = -3(x - 4) + 193
+\]
+
+De esta forma, el resto de la división de $205 - 3x$ entre $(x - 4)$ es $193$.  
+Por tanto:
+\[
+x - 4 \mid 193
+\]
+
+Como $193$ es primo, los divisores posibles de $193$ son $\pm1$ y $\pm193$:
+\[
+x - 4 \in \{\pm1, \pm193\}
+\]
+
+De ahí obtenemos los valores de $x$:
+\[
+\begin{cases}
+x - 4 = 1 &\Rightarrow x = 5,\\[0.3em]
+x - 4 = -1 &\Rightarrow x = 3,\\[0.3em]
+x - 4 = 193 &\Rightarrow x = 197,\\[0.3em]
+x - 4 = -193 &\Rightarrow x = -189.
+\end{cases}
+\]
+
+Sustituimos en $y = \dfrac{205 - 3x}{x - 4}$ para hallar $y$:
+
+\[
+\begin{array}{c|c}
+x & y \\
+\hline
+5 & 190\\
+3 & -196\\
+197 & -2\\
+-189 & -4
+\end{array}
+\]
+
+\vspace{0.5em}
+
+\[
+\boxed{\text{Las soluciones enteras son } (5,190),\, (3,-196),\, (197,-2),\, (-189,-4).}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 19]
+\textbf{c) } $2xy - y + 6x - 56 = 0$
+
+\vspace{0.3em}
+Agrupamos términos en función de $y$:
+
+\[
+y(2x - 1) + 6x - 56 = 0
+\]
+
+Despejamos $y$:
+
+\[
+y = \frac{56 - 6x}{2x - 1}
+\]
+
+Para que $y$ sea entero, el denominador $(2x - 1)$ debe dividir al numerador $(56 - 6x)$:
+
+\[
+2x - 1 \mid 56 - 6x
+\]
+
+Desarrollamos el numerador para expresar $56 - 6x$ en función de $(2x - 1)$:
+
+\[
+56 - 6x = -3(2x - 1) + \big(56 - (-3)\big) = -3(2x - 1) + 53
+\]
+
+De esta forma, el resto de la división de $56 - 6x$ entre $(2x - 1)$ es $53$.  
+Por tanto:
+\[
+2x - 1 \mid 53
+\]
+
+Como $53$ es primo, los divisores posibles de $53$ son $\pm1$ y $\pm53$:
+\[
+2x - 1 \in \{\pm1, \pm53\}
+\]
+
+De ahí obtenemos los valores de $x$:
+\[
+\begin{cases}
+2x - 1 = 1 &\Rightarrow x = 1,\\[0.3em]
+2x - 1 = -1 &\Rightarrow x = 0,\\[0.3em]
+2x - 1 = 53 &\Rightarrow x = 27,\\[0.3em]
+2x - 1 = -53 &\Rightarrow x = -26.
+\end{cases}
+\]
+
+Sustituimos en $y = \dfrac{56 - 6x}{2x - 1}$ para hallar $y$:
+
+\[
+\begin{array}{c|c}
+x & y \\
+\hline
+1 & 50\\
+0 & -56\\
+27 & -2\\
+-26 & -4
+\end{array}
+\]
+
+\vspace{0.5em}
+
+\[
+\boxed{\text{Las soluciones enteras son } (1,50),\, (0,-56),\, (27,-2),\, (-26,-4).}
+\]
+\end{ejercicio}
+
+\subsection{Con 3 incógnitas}
+
+\begin{ejercicio}[title=Ejercicio 9]
+Resuelva cada una de las siguientes ecuaciones diofánticas:
+
+e) $4x + 6y + 7z = 1$.\\
+f) $36x - 51y + 57z = 11$.\\
+g) $36x + 48y + 57z = 15$.\\
+h) $35x + 45y - 63z = 1$.
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{e) } $4x + 6y + 7z = 1$
+
+\vspace{0.5em}
+
+\[
+\text{mcd}(4,6,7) = \text{mcd}(\text{mcd}(4,6),7)
+\]
+
+\[
+6 / 4 = 1 \ \text{resto } \boxed{2}
+\]
+\[
+4 / 2 = 2 \ \text{resto } 0
+\]
+
+\[
+\text{mcd}(4,6) = \boxed{2}
+\]
+
+\[
+\text{mcd}(4,6,7) = \text{mcd}(2,7)
+\]
+
+\[
+7 / 2 = 3 \ \text{resto } \boxed{1}
+\]
+
+\[
+\text{mcd}(2,7) = \boxed{1}
+\]
+
+\[
+\Rightarrow 1 \mid 1 \quad\text{(tiene solución)}
+\]
+
+\vspace{0.5em}
+
+Miramos los mcd de los pares:
+\[
+\text{mcd}(4,6)=2,\quad \text{mcd}(4,7)=1,\quad \text{mcd}(6,7)=1
+\]
+Como al menos uno de los mcd de los pares es $1$ (por ejemplo $\text{mcd}(4,7)=1$), procedemos con el \textbf{primer caso} tomando una variable libre. Aquí elegimos $x=k$.
+
+Sustituyendo $x=k$ en la ecuación:
+\[
+4k + 6y + 7z = 1 \implies 6y + 7z = 1 - 4k
+\]
+
+\[
+7 / 6 = 1 \ \text{resto } \boxed{1}
+\]
+
+Tabla del algoritmo extendido para (6,7):
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 6 & - & 0 & 1\\
+1 & \boxed{1} & 1 & 1 & -1
+\end{array}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 9]
+
+\[
+6\cdot(-1) + 7\cdot(1) = \boxed{1}
+\]
+
+Multiplicando por $1-4k$ para obtener la solución particular:
+\[
+6 \cdot (4k-1) + 7 \cdot (1-4k) = 1-4k
+\]
+\[
+y_0 = -1 + 4k, \quad z_0 = 1 - 4k
+\]
+
+La solución general es:
+\[
+\boxed{
+x = k, \quad y = -1 + 4k + 7k', \quad z = 1 - 4k - 6k', \quad k, k' \in \mathbb{Z}
+}
+\]
+
+\textbf{f) } $36x - 51y + 57z = 11$
+
+\vspace{0.5em}
+
+\[
+\text{mcd}(36,-51,57) = \text{mcd}(36,51,57) = \text{mcd}(\text{mcd}(36,51),57)
+\]
+
+\[
+51 / 36 = 1 \ \text{resto } 15
+\]
+\[
+36 / 15 = 2 \ \text{resto } 6
+\]
+\[
+15 / 6 = 2 \ \text{resto } \boxed{3}
+\]
+\[
+6 / 3 = 2 \ \text{resto } 0
+\]
+
+\[
+\text{mcd}(36,51) = \boxed{3}
+\]
+
+\[
+\text{mcd}(36,51,57) = \text{mcd}(3,57)
+\]
+\[
+57 / \boxed{3} = 19 \ \text{resto } 0
+\]
+
+\[
+\text{mcd}(3,57) = 3 = \text{mcd}(36,51,57)
+\]
+\[
+3 \nmid 11
+\]
+
+\[
+\boxed{\text{La ecuación no tiene solución.}}
+\]
+
+\textbf{g) } $36x + 48y + 57z = 15$
+
+\vspace{0.5em}
+
+\[
+\text{mcd}(36,48,57) = \text{mcd}(\text{mcd}(36,48),57)
+\]
+
+\[
+48 / 36 = 1 \ \text{resto } \boxed{12}
+\]
+\[
+36 / 12 = 3 \ \text{resto } 0
+\]
+
+\[
+\text{mcd}(36,48,57) = \text{mcd}(12,57)
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 9]
+    
+\[
+57 / 12 = 4 \ \text{resto } 9
+\]
+\[
+12 / 9 = 1 \ \text{resto } \boxed{3}
+\]
+\[
+9 / 3 = 3 \ \text{resto } 0
+\]
+
+\[
+\text{mcd}(36,48,57) = \boxed{3}
+\]
+
+Como $3 \mid 15$, la ecuación tiene solución.
+
+\vspace{0.5em}
+
+Simplificamos la ecuación dividiendo entre $3$:
+\[
+12x + 16y + 19z = 5
+\]
+
+\vspace{0.5em}
+
+Miramos los mcd de los pares:
+\[
+\text{mcd}(12,16) = 4, \quad \text{mcd}(12,19) = 1, \quad \text{mcd}(16,19) = 1
+\]
+
+Como al menos uno de los mcd es 1, estamos ante el primer caso: tomamos $x = k$.
+
+\[
+16y + 19z = 5 - 12k
+\]
+
+$\text{mcd}(16,19) = \boxed{1}$, aplicamos el algoritmo extendido:
+
+\[
+19 / 16 = 1 \ \text{resto } 3
+\]
+\[
+16 / 3 = 5 \ \text{resto } \boxed{1}
+\]
+
+Tabla del algoritmo extendido:
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 16 & - & 0 & 1\\
+1 & 3 & 1 & 1 & -1\\
+2 & \boxed{1} & 5 & -5 & 6
+\end{array}
+\]
+
+\[
+\boxed{1} = 16 \cdot (6) + 19 \cdot (-5)
+\]
+
+Multiplicando por $(5 - 12k)$ obtenemos una solución particular:
+\[
+16 \cdot (30 - 72k) + 19 \cdot (-25 + 60k) = 5 - 12k
+\]
+
+Por tanto:
+\[
+y_0 = 30 - 72k, \quad z_0 = -25 + 60k, \quad x = k
+\]
+
+La solución general usando $k'\in \mathbb{Z}$ es:
+\[
+\boxed{
+x = k, \quad y = 30 - 72k + 19k', \quad z = -25 + 60k - 16k', \quad k,k' \in \mathbb{Z}
+}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 9]
+
+\textbf{h) } $35x + 45y - 63z = 1$
+
+\vspace{0.5em}
+
+\[
+\text{mcd}(35,45,-63) = \text{mcd}(35,45,63) = \text{mcd}(\text{mcd}(35,45),63)
+\]
+
+\[
+45 / 35 = 1 \ \text{resto } 10
+\]
+\[
+35 / 10 = 3 \ \text{resto } \boxed{5}
+\]
+\[
+10 / 5 = 2 \ \text{resto } 0
+\]
+
+\[
+\text{mcd}(35,45,63) = \text{mcd}(5,63)
+\]
+
+\[
+63 / 5 = 12 \ \text{resto } 3
+\]
+\[
+5 / 3 = 1 \ \text{resto } 2
+\]
+\[
+3 / 2 = 1 \ \text{resto } \boxed{1}
+\]
+
+\[
+\text{mcd}(35,45,63) = \boxed{1}
+\]
+
+\[
+1 \mid 1 \quad \text{(tiene solución)}
+\]
+
+\vspace{0.5em}
+
+Comprobamos los mcd de los pares:
+\[
+\text{mcd}(35,45) = 5, \quad \text{mcd}(35,63) = 7, \quad \text{mcd}(45,63) = 9
+\]
+
+Como ninguno es 1, estamos ante el segundo caso. Tomamos la variable combinada.
+
+\[
+\text{mcd}(35,45) = 5\Rightarrow 35x + 45y = 5(7x + 9y) = 5t
+\]
+
+\[
+5t - 63z = 1
+\]
+
+\[
+\text{mcd}(5,63) = 1
+\]
+
+\vspace{0.5em}
+
+Tabla del algoritmo extendido para (5,63):
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 5 & - & 0 & 1\\
+1 & 3 & 12 & 1 & -12\\
+2 & 2 & 1 & -1 & 13\\
+3 & \boxed{1} & 1 & 2 & -25
+\end{array}
+\]
+
+\[
+5 \cdot (-25) + 63 \cdot (2) = \boxed{1}
+\]
+\[
+5 \cdot (-25) - 63 \cdot (-2) = \boxed{1}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 9]
+
+\[
+t_0 = -25, \quad z_0 = -2
+\]
+
+\[
+t = -25 - 63k, \quad z = -2 - 5k
+\]
+
+\vspace{0.5em}
+
+Ahora resolvemos $7x + 9y = t$:
+
+\[
+7x + 9y = -25 - 63k
+\]
+
+\[
+9 / 7 = 1 \ \text{resto } 2
+\]
+\[
+7 / 2 = 3 \ \text{resto } \boxed{1}
+\]
+
+Tabla del algoritmo extendido para (7,9):
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i\\
+\hline
+0 & 7 & - & 0 & 1\\
+1 & 2 & 1 & 1 & -1\\
+2 & \boxed{1} & 3 & -3 & 4
+\end{array}
+\]
+
+\[
+7 \cdot (4) + 9 \cdot (-3) = \boxed{1}
+\]
+
+Multiplicando por $(-25 - 63k)$ obtenemos la solución particular:
+
+\[
+7 \cdot (-100 - 252k) + 9 \cdot (75 + 189k) = -25 - 63k
+\]
+
+Finalmente, la solución general del sistema es:
+\[
+\boxed{
+x = -100 - 252k + 9k', \quad y = 75 + 189k - 7k', \quad z = -2 - 5k, \quad k,k' \in \mathbb{Z}
+}
+\]
+    
+\end{ejercicio}
+
+\section{La Relación de Congruencia en \(\mathbb{Z}\)}
+
+\begin{ejercicio}[title=Ejercicio 22]
+Sean $a,b,c,d,m \in \mathbb{Z}$, con $m \ge 2$, tales que 
+\(
+\begin{cases}
+    a \equiv c \pmod{m} \\
+    b \equiv d \pmod{m}.
+\end{cases}
+\) 
+Demuestre que: \\
+a) $a+b \equiv c+d \pmod{m}$ \\
+b) $a \cdot b \equiv c \cdot d \pmod{m}$.
+\tcblower
+\textbf{Resolución:}
+
+Como $a \equiv c \pmod{m}$ y $b \equiv d \pmod{m}$, existen enteros $k_1, k_2 \in \mathbb{Z}$ tales que:
+
+\[
+a = c + k_1 m, \quad b = d + k_2 m.
+\]
+
+\textbf{a)}  
+
+\[
+a + b = (c + k_1 m) + (d + k_2 m) = (c + d) + (k_1 + k_2)m.
+\]
+
+Como $(k_1 + k_2)m$ es múltiplo de $m$, tenemos:
+
+\[
+\boxed{a + b \equiv c + d \pmod{m}}.
+\]
+
+\textbf{b)}  
+
+\[
+a \cdot b = (c + k_1 m)(d + k_2 m) = cd + c k_2 m + d k_1 m + k_1 k_2 m^2.
+\]
+
+\vspace{0.5em}
+
+Factorizamos $m$ en los términos extra:
+\[
+a \cdot b = cd + m(c k_2 + d k_1 + k_1 k_2 m).
+\]
+
+Como $(c k_2 + d k_1 + k_1 k_2 m)m$ es múltiplo de $m$, tenemos:
+
+\[
+\boxed{a \cdot b \equiv c \cdot d \pmod{m}}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 23]
+Si $t = (a_n a_{n-1} \dots a_1 a_0)_{10}$ es un número natural escrito en base 10, demuestre que
+\[
+t \equiv a_n + a_{n-1} + \dots + a_1 + a_0 \pmod{9},
+\]
+y deduzca la regla del 9 para calcular el resto de la división entre 9.
+\tcblower
+\textbf{Resolución:}
+
+Sabemos que:
+\[
+10 \equiv 1 \pmod{9}.
+\]
+
+Por tanto, para cualquier $k \in \mathbb{N}$:
+\[
+10^k \equiv 1^k = 1 \pmod{9}.
+\]
+
+Ahora escribimos $t$ en su forma decimal desarrollada:
+\[
+t = a_n 10^n + a_{n-1} 10^{n-1} + \dots + a_1 10 + a_0.
+\]
+$t$ es congruente consigo mismo sea cual sea el módulo:
+\[
+t \equiv a_n 10^n + a_{n-1} 10^{n-1} + \dots + a_1 10 + a_0 \pmod{9}
+\]
+Aplicando las propiedades de la suma y en producto en congruencia y seguidamente la congruencia módulo 9:
+\[
+\boxed{t \equiv a_n + a_{n-1} + \dots + a_1 + a_0 \pmod{9}}.
+\]
+
+\textbf{Conclusión:} El resto de la división de un número entre 9 es congruente con la suma de sus cifras. \boxed{\text{Esta es la famosa \emph{regla del 9}}}.
+\end{ejercicio}
+
+\section{Inverso en Anillos Conmutativos}
+
+\begin{ejercicio}[title=Ejercicio 24]
+¿Es la clase $[301]$ una unidad en $\mathbb{Z}_{5831}$?
+\tcblower
+\textbf{Resolución:} \\
+Para que $[301]$ tenga inverso, es necesario que $\mathrm{mcd}(301,5831) = 1$. Calculamos:  
+
+\[
+\begin{aligned}
+5831 / 301 &= 19 \text{ resto } 112 \\
+301 / 112 &= 2 \text{ resto } 77 \\
+112 / 77  &= 1 \text{ resto } 35 \\
+77 / 35   &= 2 \text{ resto } \boxed{7} \\
+35 / 7    &= 5 \text{ resto } 0
+\end{aligned}
+\]
+
+Por lo tanto, $\mathrm{mcd}(301,5831) = 7 \neq 1 \Rightarrow \boxed{\text{No es una unidad}}$
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 25]
+Calcule el inverso del elemento $[14]$ en $\mathbb{Z}_{87}$.
+\tcblower
+\textbf{Resolución:} \\
+Primero, usamos el algoritmo de Euclides para calcular $\mathrm{mcd}(14,87)$:
+
+\[
+\begin{aligned}
+87 / 14 &= 6 \text{ resto } 3 \\
+14 / 3  &= 4 \text{ resto } 2 \\
+3 / 2   &= 1 \text{ resto } \boxed{1}
+\end{aligned}
+\]
+
+Ahora, construimos la tabla con los coeficientes $u_i, v_i$ para la combinación lineal:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 14 & - & 0 & 1 \\
+1 & 3  & 6 & 1 & -6 \\
+2 & 2  & 4 & -4 & 25 \\
+3 & \boxed{1} & 1 & 5 & -31
+\end{array}
+\]
+
+De la última fila, $-31$ es un inverso de $14$ en $\mathbb{Z}_{87}$:  
+\[
+-31 \mod 87 = 56
+\]
+
+Por lo tanto, el inverso de $[14]$ en $\mathbb{Z}_{87}$ es \boxed{$[56]$}.
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 27]
+Encuentre todos los números enteros $m$ tales que $2 \le m \le 30$ y el anillo $\mathbb{Z}_m$ es un cuerpo.
+\tcblower
+\textbf{Resolución:} \\
+Recordemos que $\mathbb{Z}_m$ es un cuerpo si y solo si $m$ es primo.  
+Por lo tanto, buscamos los primos entre $2$ y $30$:
+
+\[
+\boxed{m = 2, 3, 5, 7, 11, 13, 17, 19, 23, 29}
+\]
+\end{ejercicio}
+
+\subsection{Función \(\varphi\) de Euler en \(\mathbb{Z}_m\)}
+
+\begin{ejercicio}[title=Ejercicio 26]
+¿Cuántos elementos de $\mathbb{Z}_{114048}$ tienen inverso?
+\tcblower
+\textbf{Resolución:} \\
+El número de elementos invertibles en $\mathbb{Z}_n$ viene dado por la función de Euler $\varphi(n)$.  
+Primero factorizamos $114048$ en primos:
+
+\[
+114048 = 2^7 \cdot 3^4 \cdot 11
+\]
+
+Luego aplicamos la función $\varphi$:
+
+\[
+\varphi(114048) = \varphi(2^7) \cdot \varphi(3^4) \cdot \varphi(11)
+\]
+
+\[
+\varphi(2^7) = 2^7 - 2^6 = 2^6, \quad
+\varphi(3^4) = 3^4 - 3^3 = 3^3 \cdot 2, \quad
+\varphi(11) = 11-1 = 10
+\]
+
+\[
+\varphi(114048) = 2^6 \cdot 3^3 \cdot 2 \cdot 10 = \boxed{34560}
+\]
+
+Por lo tanto, 34560 elementos de $\mathbb{Z}_{114048}$ tienen inverso.
+\end{ejercicio}
+
+\section{Sistemas de Ecuaciones en Congruencias}
+
+\subsection{Ecuación de una congruencia lineal}
+
+\begin{ejercicio}[title=Ejercicio 32]
+Resuelva cada una de las siguientes ecuaciones en congruencias:
+
+a) $45x \equiv 1 \pmod{18}$
+
+b) $45x \equiv 2 \pmod{17}$
+
+c) $35x \equiv 21 \pmod{49}$
+
+d) $(x+5)^2 \equiv x^2 + 4 \pmod{11}$
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)} \\[0.3em]
+\[
+45x \equiv 1 \pmod{18}
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+45 / 18 = 2 \text{ resto } 9,\quad 18 / 9 = 2 \text{ resto } 0
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(45,18) = 9
+\]
+
+Como $9\nmid 1$, la congruencia no tiene solución.
+
+\[
+\boxed{\text{No tiene solución.}}
+\]
+
+\vspace{1em}
+
+\textbf{b)} \\[0.3em]
+\[
+45x \equiv 2 \pmod{17}
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+45 / 17 = 2 \text{ resto } 11
+\]
+\[
+17 / 11 = 1 \text{ resto } 6
+\]
+\[
+11 / 6 = 1 \text{ resto } 5
+\]
+\[
+6 / 5 = 1 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(45,17) = \boxed{1}
+\]
+
+Como $1\mid 2$, la congruencia tiene solución.
+
+\vspace{0.5em}
+
+Aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 17 & - & 0 & 1 \\
+1 & 11 & 2 & 1 & -2 \\
+2 & 6 & 1 & -1 & 3 \\
+3 & 5 & 1 & 2 & -5 \\
+4 & \boxed{1} & 1 & -3 & 8 \\
+\end{array}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 32]
+
+$u = -3$ es un inverso de $17$ módulo $45$.
+
+Recordamos que, en general:
+\[
+x = \frac{b}{g}u + \frac{m}{g}k, \quad k\in\mathbb{Z}.
+\]
+
+Sustituyendo:
+\[
+x = \frac{2}{1}(-3) + \frac{17}{1}k = -6 + 17k.
+\]
+
+\[
+\boxed{x = 11 + 17k, \quad k \in \mathbb{Z}}
+\]
+
+\vspace{1em}
+
+\textbf{c)} \\[0.3em]
+\[
+35x \equiv 21 \pmod{49}
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+49 / 35 = 1 \text{ resto } 14
+\]
+\[
+35 / 14 = 2 \text{ resto } \boxed{7}
+\]
+\[
+14 / 7 = 2 \text{ resto } 0
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(35,49) = \boxed{7}
+\]
+
+Como $7 \mid 21$, la congruencia tiene solución.
+
+\vspace{0.5em}
+
+Dividimos toda la congruencia entre $7$:
+
+\[
+5x \equiv 3 \pmod{7}
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+7 / 5 = 1 \text{ resto } 2
+\]
+\[
+5 / 2 = 2 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(5,7) = \boxed{1}
+\]
+
+Como $1\mid 3$, la congruencia tiene solución.
+
+\vspace{0.5em}
+
+Aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 5 & - & 0 & 1 \\
+1 & 2 & 1 & 1 & -1 \\
+2 & \boxed{1} & 2 & -2 & 3 \\
+\end{array}
+\]
+
+$u = 3$ es un inverso de $5$ módulo $7$.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 32]
+
+\vspace{0.5em}
+
+Recordamos que, en general:
+\[
+x = \frac{b}{g}u + \frac{m}{g}k, \quad k\in\mathbb{Z}.
+\]
+
+Sustituyendo:
+\[
+x = \frac{3}{1}(3) + \frac{7}{1}k = 9 + 7k.
+\]
+
+\[
+\boxed{x = 9 + 7k, \quad k \in \mathbb{Z}}
+\]
+
+\vspace{1em} \\
+
+\textbf{d)} \\[0.3em]
+\[
+(x + 5)^2 \equiv x^2 + 4 \pmod{11}
+\]
+
+Desarrollamos el cuadrado del primer término:
+\[
+x^2 + 10x + 25 \equiv x^2 + 4 \pmod{11}
+\]
+
+Simplificamos:
+\[
+10x + 25 \equiv 4 \pmod{11} \quad \Rightarrow \quad 10x \equiv -21 \pmod{11}
+\]
+
+Multiplicamos por $-1$ para facilitar el cálculo:
+\[
+-10x \equiv 21 \pmod{11}
+\]
+
+Como $-10 \equiv 1 \pmod{11}$, obtenemos:
+\[
+x \equiv 21 \pmod{11}
+\]
+
+Dividimos el resto:
+\[
+21 / 11 = 1 \text{ resto } 10
+\]
+
+Por tanto:
+\[
+\boxed{x = 10 + 11k, \quad k \in \mathbb{Z}}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 33]
+Resuelva cada una de las siguientes ecuaciones diofánticas, planteando y resolviendo ecuaciones en congruencia:
+
+a) \; $23x + 7y = 4$.
+
+b) \; $54x + 42y = 76$.
+
+c) \; $54x + 42y = 78$.
+
+d) \; $14x - 21y + 33z = 2$.
+
+e) \; $6x + 10y + 15z = 1$.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)} \\[0.3em]
+\[
+23x + 7y = 4
+\]
+
+Planteamos la congruencia equivalente:
+\[
+23x \equiv 4 \pmod{7}
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+23 / 7 = 3 \text{ resto } 2
+\]
+\[
+7 / 2 = 3 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(23,7) = \boxed{1}
+\]
+
+Como $1 \mid 4$, la congruencia tiene solución.
+
+\vspace{0.5em}
+
+Aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 7 & - & 0 & 1 \\
+1 & 2 & 3 & 1 & -3 \\
+2 & \boxed{1} & 3 & -3 & 10 \\
+\end{array}
+\]
+
+$u = -3$ es un inverso de $23$ módulo $7$.
+
+\vspace{0.5em}
+
+Recordamos que, en general:
+\[
+x = \frac{b}{g}u + \frac{m}{g}k, \quad k\in\mathbb{Z}.
+\]
+
+Sustituyendo:
+\[
+x = \frac{4}{1}(-3) + \frac{7}{1}k = -12 + 7k.
+\]
+\[
+x = 2 + 7k, \quad k \in \mathbb{Z}
+\]
+
+\vspace{0.5em}
+
+Sustituyendo en la ecuación original:
+\[
+23(2 + 7k) + 7y = 4 \quad \Rightarrow \quad y = -6 - 23k.
+\]
+\[
+\boxed{(x, y) = (2 + 7k,\; -6 - 23k), \quad k \in \mathbb{Z}}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 33]
+
+\textbf{b)} \\[0.3em]
+\[
+54x + 42y = 76
+\]
+
+Simplificamos dividiendo entre $2$:
+\[
+27x + 21y = 38
+\]
+
+Planteamos la congruencia equivalente:
+\[
+27x \equiv 38 \pmod{21}
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+27 / 21 = 1 \text{ resto } 6
+\]
+\[
+21 / 6 = 3 \text{ resto } \boxed{3}
+\]
+\[
+6 / 3 = 2 \text{ resto } 0
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(27,21) = \boxed{3}
+\]
+
+Como $3 \nmid 38$, la congruencia no tiene solución.
+
+\[
+\boxed{\text{La ecuación diofántica no tiene solución.}}
+\]
+
+\vspace{1em}
+
+\textbf{c)} \\[0.3em]
+\[
+54x + 42y = 78
+\]
+
+Dividimos entre 2 para simplificar:
+\[
+27x + 21y = 39
+\]
+
+Planteamos la congruencia equivalente:
+\[
+27x \equiv 39 \pmod{21}
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+27 / 21 = 1 \text{ resto } 6
+\]
+\[
+21 / 6 = 3 \text{ resto } \boxed{3}
+\]
+\[
+6 / 3 = 2 \text{ resto } 0
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(27,21) = \boxed{3}
+\]
+
+Como $3 \mid 39$, la congruencia tiene solución.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 33]
+
+Aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 21 & - & 0 & 1 \\
+1 & 6 & 1 & 1 & -1 \\
+2 & \boxed{3} & 3 & -3 & 4 \\
+\end{array}
+\]
+
+$u = -3$
+
+\vspace{0.5em}
+
+Recordamos la fórmula general:
+\[
+x = \frac{b}{g}u + \frac{m}{g}k, \quad k\in\mathbb{Z}.
+\]
+
+\[
+x = \frac{39}{3}(-3) + \frac{21}{3}k = -39 + 7k.
+\]
+
+\[
+x = 3 + 7k, \quad k \in \mathbb{Z}
+\]
+
+\vspace{0.5em}
+
+Sustituyendo en la ecuación original para obtener $y$:
+\[
+54(3+7k) + 42y = 78 \quad \Rightarrow \quad y = -2 - 9k.
+\]
+\[
+\boxed{(x,y) = (3 + 7k,\; -2 - 9k), \quad k \in \mathbb{Z}}
+\]
+
+\vspace{1em}
+
+\textbf{d)} \\[0.3em]
+\[
+14x - 21y + 33z = 2
+\]
+
+Primero calculamos el máximo común divisor:
+\[
+\operatorname{mcd}(14,-21,33)=\operatorname{mcd}(\operatorname{mcd}(14,21),33).
+\]
+
+\[
+21 / 14 = 1 \text{ resto } \boxed{7}
+\]
+\[
+14 / 7 = 2 \text{ resto } 0
+\]
+\[
+\Rightarrow\ \operatorname{mcd}(14,21)=7.
+\]
+
+\[
+33 / 7 = 4 \text{ resto } 5
+\]
+\[
+7 / 5 = 1 \text{ resto } 2
+\]
+\[
+5 / 2 = 2 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow\ \operatorname{mcd}(7,33)=1.
+\]
+
+Por tanto
+\[
+\operatorname{mcd}(14,-21,33)=1 \quad\text{y}\quad 1\mid 2,
+\]
+de modo que la ecuación tiene solución.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 33]
+
+\begin{itemize}
+    \item $\operatorname{mcd}(14,-21)=7\ne 1$
+    \item $\operatorname{mcd}(14,33)=1 \Rightarrow$ 1er caso
+    \item $\operatorname{mcd}(21,33)=3\ne 1$
+\end{itemize}
+
+Tomamos $y=k$, $k\in\mathbb{Z}$, y pasamos términos:
+\[
+14x + 33z = 2 + 21k.
+\]
+
+Planteamos la congruencia para $x$:
+\[
+14x \equiv 2 + 21k \pmod{33}.
+\]
+
+Calculamos $\operatorname{mcd}(14,33)$:
+
+\[
+33 / 14 = 2 \text{ resto } 5
+\]
+\[
+14 / 5 = 2 \text{ resto } 4
+\]
+\[
+5 / 4 = 1 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow\ \operatorname{mcd}(14,33)=\boxed{1}
+\]
+
+Aplicamos el algoritmo extendido de Euclides para hallar el inverso de $14$ módulo $33$:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 14 & - & 0 & 1 \\
+1 & 5  & 2 & 1 & -2 \\
+2 & 4  & 2 & -2 & 5 \\
+3 & \boxed{1} & 1 & 3 & -7 \\
+\end{array}
+\]
+
+De la tabla se obtiene $u = -7$.
+
+\vspace{0.5em}
+
+Por tanto
+\[
+x = -7(2+21k) + 33k' = -14 -147k + 33k',\quad k,k'\in\mathbb{Z}.
+\]
+
+Sustituimos en la ecuación original para despejar $z$:
+\[
+14x + 33z = 2 + 21k
+\]
+\[
+14(-14 -147k + 33k') + 33z = 2 + 21k
+\]
+\[
+z = 6 + 63k - 14k'.
+\]
+
+\[
+\boxed{(x,y,z)=\bigl(-14-147k+33k',\; k,\; 6+63k-14k'\bigr),\quad k,k'\in\mathbb{Z}.}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 33]
+
+\textbf{e)} \\[0.3em]
+\[
+6x + 10y + 15z = 1
+\]
+
+Calculamos el máximo común divisor:
+\[
+\operatorname{mcd}(6,10,15)=\operatorname{mcd}(\operatorname{mcd}(6,10),15).
+\]
+\[
+10 / 6 = 1 \text{ resto } 4
+\]
+\[
+6 / 4 = 1 \text{ resto } \boxed{2}
+\]
+\[
+4 / 2 = 2 \text{ resto } 0
+\]
+\[
+\Rightarrow\ \operatorname{mcd}(6,10)=2.
+\]
+
+\[
+15 / 2 = 7 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow\ \operatorname{mcd}(2,15)=1.
+\]
+
+Por tanto
+\[
+\operatorname{mcd}(6,10,15)=1 \quad\text{y}\quad 1\mid 1,
+\]
+de modo que la ecuación tiene solución.
+
+\vspace{0.5em}
+
+Observamos que:
+\begin{itemize}
+    \item $\operatorname{mcd}(6,10)=2\ne 1$
+    \item $\operatorname{mcd}(6,15)=3\ne 1$
+    \item $\operatorname{mcd}(10,15)=5\ne 1$
+\end{itemize}
+por lo que estamos en el segundo caso (hay que parametrizar).  
+Escribimos
+\[
+6x + 10y = 2(3x+5y)=2t,
+\]
+y la ecuación queda
+\[
+2t + 15z = 1.
+\]
+
+Planteamos la congruencia para $t$:
+\[
+2t \equiv 1 \pmod{15}.
+\]
+
+Calculamos $\operatorname{mcd}(2,15)$ (ya vimos que es $1$) y aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 2 & - & 0 & 1 \\
+1 & \boxed{1} & 7 & 1 & -7 \\
+\end{array}
+\]
+
+$u=-7$ es un inverso de $2$ módulo $15$.
+
+\[
+t = -7 + 15k = 8 + 15k,\quad k\in\mathbb{Z}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 33]
+
+Sustituyendo en $2t + 15z = 1$:
+\[
+2(8+15k) + 15z = 1 \quad\Rightarrow\quad 16 + 30k + 15z = 1
+\]
+\[
+15z = -15 - 30k \quad\Rightarrow\quad z = -1 - 2k,\quad k\in\mathbb{Z}.
+\]
+
+Ahora volvemos a $3x + 5y = t = 8 + 15k$. Planteamos la congruencia módulo $5$:
+\[
+3x \equiv 8 + 15k \pmod{5}.
+\]
+
+Calculamos $\operatorname{mcd}(3,5)=1$ y aplicamos el algoritmo extendido:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 3 & - & 0 & 1 \\
+1 & 2 & 1 & 1 & -1 \\
+2 & \boxed{1} & 1 & -1 & 2 \\
+\end{array}
+\]
+
+$u=2$ es inverso de $3$ módulo $5$. Entonces
+\[
+x = (8+15k)\cdot 2 + 5k' = 16 + 30k + 5k',\quad k,k'\in\mathbb{Z}.
+\]
+
+Sustituimos en $3x + 5y = 8 + 15k$ para despejar $y$:
+\[
+3(16 + 30k + 5k') + 5y = 8 + 15k
+\]
+\[
+48 + 90k + 15k' + 5y = 8 + 15k
+\]
+\[
+5y = -40 - 75k - 15k'
+\]
+\[
+y = -8 - 15k - 3k',\quad k,k'\in\mathbb{Z}.
+\]
+
+\[
+\boxed{(x,y,z)=\bigl(16 + 30k + 5k',\; -8 - 15k - 3k',\; -1 - 2k\bigr),\quad k,k'\in\mathbb{Z}.}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 34]
+Obtenga la expresión de todos los números enteros $n \in \mathbb{Z}$ para los cuales la ecuación diofántica
+\[
+49x + 28y = 4 + 5n
+\]
+tiene solución.
+\tcblower
+\textbf{Resolución:}
+
+\[
+49x + 28y = 4 + 5n
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+49 / 28 = 1 \text{ resto } 21
+\]
+\[
+28 / 21 = 1 \text{ resto } \boxed{7}
+\]
+\[
+21 / 7 = 3 \text{ resto } 0
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(49,28) = \boxed{7}
+\]
+
+La ecuación tiene solución si y sólo si $7 \mid (4 + 5n)$.
+
+\vspace{0.5em}
+
+Planteamos la congruencia:
+\[
+4 + 5n \equiv 0 \pmod{7} \quad \Rightarrow \quad 5n \equiv -4 \pmod{7}.
+\]
+Como $-4 \equiv 3 \pmod{7}$, tenemos:
+\[
+5n \equiv 3 \pmod{7}.
+\]
+
+Calculamos el inverso de $5$ módulo $7$:
+
+\[
+7 / 5 = 1 \text{ resto } 2
+\]
+\[
+5 / 2 = 2 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(5,7) = \boxed{1}
+\]
+
+Aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 5 & - & 0 & 1 \\
+1 & 2 & 1 & 1 & -1 \\
+2 & \boxed{1} & 2 & -2 & 3 \\
+\end{array}
+\]
+
+De la tabla obtenemos $u = 3$, que es un inverso de $5$ módulo $7$.
+
+\vspace{0.5em}
+
+Por tanto:
+\[
+n \equiv 3 \cdot 3 \equiv 9 \equiv 2 \pmod{7}.
+\]
+
+\[
+\boxed{n = 2 + 7k, \quad k \in \mathbb{Z}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 35]
+Calcule todas las soluciones de la ecuación diofántica
+\[
+17x + 15y = 2
+\]
+tales que $4x + y$ es múltiplo de $19$.
+\tcblower
+\textbf{Resolución:}
+
+\[
+17x + 15y = 2
+\]
+
+Calculamos el máximo común divisor:
+
+\[
+17 / 15 = 1 \text{ resto } 2
+\]
+\[
+15 / 2 = 7 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(17,15) = \boxed{1}
+\]
+
+Como $1 \mid 2$, la ecuación tiene solución.
+
+\vspace{0.5em}
+
+Aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 15 & - & 0 & 1 \\
+1 & 2 & 1 & 1 & -1 \\
+2 & \boxed{1} & 7 & -7 & 8 \\
+\end{array}
+\]
+
+De aquí obtenemos:
+\[
+17(-7) + 15(8) = 1.
+\]
+
+Multiplicamos por $2$ para obtener una solución particular:
+\[
+17(-14) + 15(16) = 2.
+\]
+
+Por tanto:
+\[
+x_0 = -14, \quad y_0 = 16.
+\]
+
+La solución general del sistema es:
+\[
+x = -14 + 15k, \quad y = 16 - 17k, \quad k \in \mathbb{Z}.
+\]
+
+\vspace{0.5em}
+
+Ahora imponemos que $4x + y$ sea múltiplo de $19$:
+\[
+4x + y = 4(-14 + 15k) + (16 - 17k) = -56 + 60k + 16 - 17k = -40 + 43k.
+\]
+
+Queremos:
+\[
+19 \mid (-40 + 43k) \quad \Leftrightarrow \quad 43k \equiv 40 \pmod{19}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 35]
+
+Calculamos el inverso de $43$ módulo $19$:
+
+\[
+43 / 19 = 2 \text{ resto } 5
+\]
+\[
+19 / 5 = 3 \text{ resto } 4
+\]
+\[
+5 / 4 = 1 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow \ \operatorname{mcd}(43,19) = \boxed{1}
+\]
+
+Aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 19 & - & 0 & 1 \\
+1 & 5 & 2 & 1 & -2 \\
+2 & 4 & 3 & -3 & 7 \\
+3 & \boxed{1} & 1 & 4 & -9 \\
+\end{array}
+\]
+
+De la tabla: $u = 4$ es un inverso de $43$ módulo $19$.
+
+\vspace{0.5em}
+
+Por tanto:
+\[
+k \equiv 40 \cdot 4 \equiv 160 \equiv 8 \pmod{19}.
+\]
+
+\[
+\boxed{k = 8 + 19k', \quad k' \in \mathbb{Z}}
+\]
+
+Sustituyendo en las soluciones generales:
+
+\[
+x = -14 + 15(8 + 19k') = 106 + 285k', \quad
+y = 16 - 17(8 + 19k') = -120 - 323k'.
+\]
+
+\[
+\boxed{
+\begin{cases}
+x = 106 + 285k',\\
+y = -120 - 323k',
+\end{cases}
+\quad k' \in \mathbb{Z}.
+}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 36]
+Para cualesquiera números enteros $a$ y $b$, demuestre que $3a + b$ es múltiplo de $11$
+si y sólo si $a + 15b$ es múltiplo de $11$.
+\tcblower
+\textbf{Resolución:}
+
+Queremos probar que:
+\[
+11 \mid (3a + b) \ \Leftrightarrow \ 11 \mid (a + 15b).
+\]
+
+\vspace{0.5em}
+
+Supongamos primero que $11 \mid (3a + b)$.
+
+Entonces:
+\[
+3a + b \equiv 0 \pmod{11} \quad \Rightarrow \quad 3a \equiv -b \pmod{11}.
+\]
+
+Multiplicamos ambos lados por el inverso de $3$ módulo $11$.
+Como $3 \cdot 4 = 12 \equiv 1 \pmod{11}$, el inverso de $3$ es $4$.
+
+\[
+a \equiv -4b \pmod{11} \quad \Rightarrow \quad a \equiv 7b \pmod{11}.
+\]
+
+\vspace{0.5em}
+
+Ahora veamos la otra condición:
+\[
+a + 15b \equiv 0 \pmod{11} \quad \Rightarrow \quad a \equiv -15b \pmod{11}.
+\]
+Como $-15 \equiv -4 \equiv 7 \pmod{11}$, se obtiene igualmente:
+\[
+a \equiv 7b \pmod{11}.
+\]
+
+Por tanto, ambas condiciones son equivalentes:
+\[
+\boxed{11 \mid (3a + b) \ \Leftrightarrow \ 11 \mid (a + 15b).}
+\]
+
+\end{ejercicio}
+
+\subsection{Resolución de un sistema de ecuaciones en congruencias}
+
+\begin{ejercicio}[title=Ejercicio 37]
+Resuelva los siguientes sistemas de ecuaciones en congruencia:
+
+a) 
+\[
+\begin{cases}
+x \equiv 0 \pmod{3},\\
+x \equiv 0 \pmod{7}.
+\end{cases}
+\]
+
+b)
+\[
+\begin{cases}
+x \equiv 4 \pmod{75},\\
+x \equiv 11 \pmod{84}.
+\end{cases}
+\]
+
+c)
+\[
+\begin{cases}
+x \equiv -4 \pmod{75},\\
+x \equiv 11 \pmod{84}.
+\end{cases}
+\]
+
+d)
+\[
+\begin{cases}
+8x \equiv 7 \pmod{33},\\
+x \equiv 8 \pmod{21}.
+\end{cases}
+\]
+
+e)
+\[
+\begin{cases}
+3x \equiv 2 \pmod{7},\\
+8x \equiv 9 \pmod{11},\\
+14x \equiv 4 \pmod{23}.
+\end{cases}
+\]
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)} \\[0.3em]
+\[
+\begin{cases}
+x \equiv 0 \pmod{3},\\
+x \equiv 0 \pmod{7}.
+\end{cases}
+\]
+Del primer módulo $x\equiv 0\pmod{3}\Rightarrow x=3k$. Sustituimos en la segunda congruencia:
+\[
+3k \equiv 0 \pmod{7}.
+\]
+Simplificamos dividiendo entre 3:
+\[
+k \equiv 0 \pmod{7} \implies k = 7k',\quad k'\in \mathbb{Z}
+\]
+\[
+\boxed{x = 21k',\quad k'\in\mathbb{Z}.}
+\]
+
+\vspace{0.8em}
+
+\textbf{b)} \\[0.3em]
+\[
+\begin{cases}
+x \equiv 4 \pmod{75},\\
+x \equiv 11 \pmod{84}.
+\end{cases}
+\]
+De la primera congruencia $x\equiv 4\pmod{75}\Rightarrow x=4+75k$.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 37]
+
+Sustituimos en la segunda:
+\[
+4+75k \equiv 11 \pmod{84}\quad\Longrightarrow\quad 75k \equiv 7 \pmod{84}.
+\]
+Calculamos $\operatorname{mcd}(75,84)$:
+\[
+84 / 75 = 1 \text{ resto } 9
+\]
+\[
+75 / 9 = 8 \text{ resto } \boxed{3}
+\]
+\[
+9 / 3 = 3 \text{ resto } 0
+\]
+\[
+\Rightarrow\ \operatorname{mcd}(75,84)=3.
+\]
+Como $3\nmid 7$, la congruencia no tiene solución.
+
+\[
+\boxed{\text{No tiene solución.}}
+\]
+
+\vspace{0.8em}
+
+\textbf{c)} \\[0.3em]
+\[
+\begin{cases}
+x \equiv -4 \pmod{75},\\
+x \equiv 11 \pmod{84}.
+\end{cases}
+\]
+De la primera congruencia $x\equiv -4\pmod{75}\Rightarrow x=-4+75k$. Sustituimos en la segunda:
+\[
+-4 + 75k \equiv 11 \pmod{84}\quad\Longrightarrow\quad 75k \equiv 15 \pmod{84}.
+\]
+Como en el apartado anterior $\operatorname{mcd}(75,84)=3$ y $3\mid 15$, sí hay solución. Dividimos la congruencia entre $3$:
+\[
+25k \equiv 5 \pmod{28}.
+\]
+
+\[
+28 / 25 = 1 \text{ resto } 3
+\]
+\[
+25 / 3 = 8 \text{ resto } \boxed{1}
+\]
+
+Ahora $\operatorname{mcd}(28,25) = 1$ y $1\mid 5$, entonces tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 25 & - & 0 & 1 \\
+1 & 3 & 1 & 1 & -1 \\
+2 & \boxed{1} & 8 & -8 & 9 \\
+\end{array}
+\]
+
+Entonces $k = 17 + 28k'$, $t\in\mathbb{Z}$. Sustituyendo
+\[
+x = -4 + 75(17 + 28k') = -4 + 1275 + 2100k' = 1271 + 2100k'.
+\]
+\[
+\boxed{x = 1271 + 2100k',\quad k'\in\mathbb{Z}.}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 37]
+
+\textbf{d)} \\[0.3em]
+\[
+\begin{cases}
+8x \equiv 7 \pmod{33},\\
+x \equiv 8 \pmod{21}.
+\end{cases}
+\]
+
+De la segunda congruencia $x \equiv 8 \pmod{21}\Rightarrow x = 8 + 21k$. Sustituimos en la primera:
+\[
+8(8 + 21k) \equiv 7 \pmod{33}.
+\]
+Calculamos:
+\[
+64 + 168k \equiv 7 \pmod{33} \quad\Rightarrow\quad 168k \equiv -57 \pmod{33}.
+\]
+Reducimos:
+\[
+-57 \equiv 9 \pmod{33},\quad 168 \equiv 3 \pmod{33}.
+\]
+Por tanto:
+\[
+3k \equiv 9 \pmod{33}.
+\]
+Como $\operatorname{mcd}(3,33) = 3$ y $3\mid 9$, dividimos entre $3$:
+\[
+k \equiv 3 \pmod{11} \Rightarrow k = 3 + 11k',\quad k'\in \mathbb{Z}.
+\]
+Sustituyendo:
+\[
+x = 8 + 21(3 + 11k') = 8 + 63 + 231k' = 71 + 231k'.
+\]
+\[
+\boxed{x = 71 + 231k',\quad k'\in \mathbb{Z}.}
+\]
+
+\vspace{0.8em}
+
+\textbf{e)} \\[0.3em]
+\[
+\begin{cases}
+3x \equiv 2 \pmod{7},\\
+8x \equiv 9 \pmod{11},\\
+14x \equiv 4 \pmod{23}.
+\end{cases}
+\]
+
+Primera congruencia:
+\[
+3x \equiv 2 \pmod{7}.
+\]
+Calculamos el inverso de $3$ módulo $7$:
+
+\[
+7 / 3 = 2 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow \operatorname{mcd}(3,7) = 1.
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 3 & - & 0 & 1 \\
+1 & \boxed{1} & 2 & 1 & -2 \\
+\end{array}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 37]
+
+Inverso de $3$ módulo $7$: $u = -2 \equiv 5$.  
+\[
+x \equiv 2\cdot 5 \equiv 10 \equiv 3 \pmod{7}.
+\]
+\[
+x = 3 + 7k.
+\]
+
+Segunda congruencia:
+\[
+8(3 + 7k) \equiv 9 \pmod{11}.
+\]
+\[
+24 + 56k \equiv 9 \pmod{11}.
+\]
+\[
+24 \equiv 2 \pmod{11},\quad 56 \equiv 1 \pmod{11}.
+\]
+\[
+2 + k \equiv 9 \pmod{11} \Rightarrow k \equiv 7 \pmod{11}.
+\]
+\[
+k = 7 + 11k'.
+\]
+Sustituyendo:
+\[
+x = 3 + 7(7 + 11k') = 52 + 77k'.
+\]
+
+Tercera congruencia:
+\[
+14(52 + 77k') \equiv 4 \pmod{23}.
+\]
+\[
+14\cdot 52 = 728 \equiv 15 \pmod{23},\quad 14\cdot 77 \equiv 14\cdot 8 = 112 \equiv 20 \pmod{23}.
+\]
+\[
+15 + 20k' \equiv 4 \pmod{23} \Rightarrow 20k' \equiv -11 \equiv 12 \pmod{23}.
+\]
+
+Buscamos el inverso de $20$ módulo $23$:
+
+\[
+23 / 20 = 1 \text{ resto } 3
+\]
+\[
+20 / 3 = 6 \text{ resto } 2
+\]
+\[
+3 / 2 = 1 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow \operatorname{mcd}(20,23) = 1.
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 20 & - & 0 & 1 \\
+1 & 3 & 1 & 1 & -6 \\
+2 & 2 & 6 & -6 & 7 \\
+3 & \boxed{1} & 1 & 7 & -8 \\
+\end{array}
+\]
+
+Inverso de $20$ módulo $23$: $u = -8 \equiv 15$.
+
+\[
+k' \equiv 12\cdot 15 \equiv 180 \equiv 19 \pmod{23}.
+\]
+\[
+k' = 19 + 23k'',\quad k''\in\mathbb{Z}.
+\]
+Sustituyendo en $x = 52 + 77k'$:
+\[
+x = 52 + 77(19 + 23k'') = 52 + 1463 + 1771k'' = 1515 + 1771k''.
+\]
+
+\[
+\boxed{x = 1515 + 1771k'',\quad k''\in\mathbb{Z}.}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 38]
+Calcule cuántos números enteros $x$ verifican que $0 \le x \le 2000$, el resto de dividir $x$ entre $14$ es $6$, y el resto de dividir $x$ entre $19$ es $5$.
+\tcblower
+\textbf{Resolución:}
+
+Planteamos el sistema:
+\[
+\begin{cases}
+    x \equiv 6 \pmod{14}\\
+    x \equiv 5 \pmod{19}
+\end{cases}
+\]
+
+De la primera congruencia $x = 6 + 14k$. Sustituimos en la segunda:
+\[
+6 + 14k \equiv 5 \pmod{19}\quad\Longrightarrow\quad 14k \equiv -1 \equiv 18 \pmod{19}.
+\]
+
+Calculamos $\operatorname{mcd}(14,19)$:
+\[
+19 / 14 = 1 \text{ resto } 5
+\]
+\[
+14 / 5 = 2 \text{ resto } 4
+\]
+\[
+5 / 4 = 1 \text{ resto } \boxed{1}
+\]
+\[
+\Rightarrow\ \operatorname{mcd}(14,19)=\boxed{1}.
+\]
+
+Como $1\mid 18$, la congruencia tiene solución.
+
+Aplicamos el algoritmo extendido de Euclides para hallar el inverso de $14$ módulo $19$:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 14 & - & 0 & 1 \\
+1 & 5  & 1 & 1 & -1 \\
+2 & 4  & 2 & -2 & 3 \\
+3 & \boxed{1} & 1 & 3 & -4 \\
+\end{array}
+\]
+
+De la tabla, el inverso de $14$ módulo $19$ es $u = -4 \equiv 15$.
+
+\[
+k \equiv 18\cdot 15 \equiv 270 \equiv 4 \pmod{19}.
+\]
+Por tanto:
+\[
+k = 4 + 19k',\quad k'\in \mathbb{Z}.
+\]
+
+Sustituyendo en $x = 6 + 14k$:
+\[
+x = 6 + 14(4 + 19k') = 6 + 56 + 266k' = 62 + 266k'.
+\]
+
+Imponemos $0 \le x \le 2000$:
+\[
+0 \le 62 + 266k' \le 2000.
+\]
+\[
+-62 \le 266k' \le 1938 \quad\Rightarrow\quad -0.23 \le k' \le 7.28.
+\]
+\[
+0 \le k' \le 7.
+\]
+Por tanto $k$ puede tomar $7-0+1$ valores, entonces son en total:
+
+\[
+\boxed{\text{8}\text{ números}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 39]
+Sea el sistema de ecuaciones en congruencia
+\[
+\begin{cases}
+15x \equiv 7 \pmod{16},\\
+10x \equiv 14 \pmod{28}.
+\end{cases}
+\]
+
+Elija la opción correcta:
+
+a) No tiene solución.  \\
+b) Tiene solución, pero ninguna entre 0 y 100.  \\
+c) Tiene exactamente una solución entre 0 y 100.  \\
+d) Tiene exactamente dos soluciones entre 0 y 100.
+\tcblower
+\textbf{Resolución:}
+
+Simplificamos la segunda ecuación a:
+\[
+5x \equiv 7 \pmod{14}.
+\]
+
+Resolvemos la primera:
+\[
+15x \equiv 7 \pmod{16}.
+\]
+
+Calculamos el máximo común divisor:
+\[
+16 / 15 = 1 \text{ resto } \boxed{1}.
+\]
+\[
+\Rightarrow \operatorname{mcd}(16,15) = \boxed{1}.
+\]
+Como $1\mid 7$, la congruencia tiene solución.
+
+Aplicamos el algoritmo extendido de Euclides:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 15 & - & 0 & 1 \\
+1 & \boxed{1} & 1 & 1 & -1 \\
+\end{array}
+\]
+
+Entonces el inverso de $15$ módulo $16$ es $u = -1 \equiv 15$.  
+Por tanto:
+\[
+x = 7\cdot(-1) + 16k = -7 + 16k = 9 + 16k.
+\]
+
+Sustituimos en la segunda congruencia:
+\[
+5(9 + 16k) \equiv 7 \pmod{14}.
+\]
+\[
+45 + 80k \equiv 7 \pmod{14} \quad\Rightarrow\quad 80k \equiv -38 \pmod{14}.
+\]
+
+Reducimos:
+\[
+-38 \equiv 4 \pmod{14}.
+\]
+Como $\operatorname{mcd}(80,14)=2$, dividimos entre $2$:
+\[
+40k \equiv 2 \pmod{7}.
+\]
+Reducimos $40 \pmod{7}$:
+\[
+40 \equiv 5 \pmod{7} \quad\Rightarrow\quad 5k \equiv 2 \pmod{7}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 39]
+
+Calculamos el inverso de $5$ módulo $7$:
+
+\[
+7 / 5 = 1 \text{ resto } 2
+\]
+\[
+5 / 2 = 2 \text{ resto } 1
+\]
+\[
+2 / 1 = 2 \text{ resto } 0
+\]
+\[
+\Rightarrow \operatorname{mcd}(5,7) = \boxed{1}.
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 7 & - & 0 & 1 \\
+1 & 5 & 1 & 1 & -1 \\
+2 & 2 & 2 & -2 & 3 \\
+3 & \boxed{1} & 1 & 3 & -4 \\
+\end{array}
+\]
+
+De la tabla: $u = 3$ es un inverso de $5$ módulo $7$.
+
+\[
+k \equiv 2\cdot 3 \equiv 6 \pmod{7} \Rightarrow k = 6 + 7k'.
+\]
+
+Sustituyendo:
+\[
+x = 9 + 16(6 + 7k') = 9 + 96 + 112k' = 105 + 112k'.
+\]
+
+Imponemos $0 \le x \le 100$:
+\[
+0 \le 105 + 112k' \le 100.
+\]
+\[
+-105/112 \le k' \le -5/112 \quad\Rightarrow\quad -0.93 \le k' \le -0.04.
+\]
+
+No hay valores enteros $k'$ que cumplan esta condición.
+
+\[
+\boxed{\text{b) Tiene solución, pero ninguna entre 0 y 100.}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 40]
+Un comerciante compró cuatro camiones de naranjas, todos ellos con el mismo peso.
+Al envasar el primero en sacos de 5 kilos, sobró 1 kilo; al envasar el segundo en sacos de 8 kilos, faltaron 2 kilos para completar el último saco;
+al envasar el tercero en sacos de 15 kilos, sobraron 6 kilos; y al envasar el cuarto en sacos de 19 kilos, sobraron 4 kilos.
+Calcule la menor cantidad de kilos que había en cada camión, sabiendo que dicha cantidad era mayor que 4000 kilos.
+\tcblower
+\textbf{Resolución:}
+
+Sea \(x\) el peso en kilos de cada camión.  
+\begin{itemize}
+    \item Al envasar el primero en sacos de 5 kg, sobra 1 kg: \(x \equiv 1 \pmod{5}\).  
+    \item Al envasar el segundo en sacos de 8 kg, faltan 2 kg para completar un saco: \(x \equiv -2 \pmod{8}\).  
+    \item Al envasar el tercero en sacos de 15 kg, sobran 6 kg: \(x \equiv 6 \pmod{15}\).  
+    \item Al envasar el cuarto en sacos de 19 kg, sobran 4 kg: \(x \equiv 4 \pmod{19}\).  
+\end{itemize}
+
+El sistema es entonces
+\[
+\begin{cases}
+x \equiv 1 \pmod{5} \\
+x \equiv -2 \pmod{8} \\
+x \equiv 6 \pmod{15} \\
+x \equiv 4 \pmod{19}
+\end{cases}
+\]
+
+De la primera, \(x = 1+5k\).
+
+La segunda se puede reescribir como \(x \equiv 6 \pmod{8}\).
+
+Sustituyendo en la segunda:
+\[
+1+5k \equiv 6 \pmod{8} \implies 5k \equiv 5 \pmod{8}.
+\]
+
+Simplifico:
+\[
+k \equiv 1 \pmod{8}, \text{ entonces } k = 1 + 8k'.
+\]
+
+Entonces
+\[
+x = 1+5(1+8k') = 6+40k'.
+\]
+
+Sustituyendo en la tercera:
+\[
+6+40k' \equiv 6 \pmod{15} \implies 40k' \equiv 0 \pmod{15} \implies 10k' \equiv 0 \pmod{15}.
+\]
+
+Entonces, calculamos el \(\operatorname{mcd}\):
+\[
+15/10 = 1 \text{ resto } \boxed{5}
+\]
+\[
+10/5 = 2 \text{ resto } 0
+\]
+
+\[
+\operatorname{mcd}(15,10) = \boxed{5} \text{ y } 5 \mid 0 \implies \text{ Tiene solución.}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 40]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 10 & - & 0 & 1 \\
+1 & \boxed{5} & 1 & 1 & -1
+\end{array}
+\]
+
+\[
+u = -1 \implies k' = \frac{0}{5} \cdot (-1) + \frac{15}{5} k'' \implies k' = 3 k'', \quad k'' \in \mathbb{Z}.
+\]
+
+Entonces
+\[
+x = 6 + 40(3k'') = 6 + 120 k'', \quad k'' \in \mathbb{Z}.
+\]
+
+Sustituyendo en la cuarta:
+\[
+6 + 120 k'' \equiv 4 \pmod{19} \implies 120 k'' \equiv -2 \pmod{19} \implies 60 k'' \equiv -1 \pmod{19}
+\]
+\[
+\implies 60 k'' \equiv 18 \pmod{19} \implies 30 k'' \equiv 9 \pmod{19}.
+\]
+
+Calculamos \(\operatorname{mcd}(30,19)\) usando el algoritmo de Euclides:
+\begin{align*}
+30 / 19 &= 1 \text{ resto } 11 \\
+19 / 11 &= 1 \text{ resto } 8 \\
+11 / 8  &= 1 \text{ resto } 3 \\
+8 / 3   &= 2 \text{ resto } 2 \\
+3 / 2   &= 1 \text{ resto } \boxed{1}
+\end{align*}
+
+\(\operatorname{mcd}(30,19) = 1\) y \(1 \mid 9 \implies\) Tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 19 & - & 0 & 1 \\
+1 & 11 & 1 & 1 & -1 \\
+2 & 8 & 1 & -1 & 2 \\
+3 & 3 & 3 & 2 & -3 \\
+4 & 2 & 2 & -5 & 8 \\
+5 & \boxed{1} & 1 & 7 & -11
+\end{array}
+\]
+
+\[
+u = 7 \implies k'' = \frac{9}{1}\cdot 7 + \frac{19}{1} k''' \implies k'' = 63 + 19 k''', \quad k''' \in \mathbb{Z}.
+\]
+
+Entonces
+\[
+x = 6 + 120 (63 + 19 k''') = 6 + 7560 + 2280 k''' = 7566 + 2280 k'''.
+\]
+\[
+x = 726 + 2280 k''', \quad k''' \in \mathbb{Z}.
+\]
+
+Imponemos que la cantidad sea \(>4000\):
+\[
+726 + 2280 k''' > 4000 \implies 2280 k''' > 3274 \implies k''' > \frac{3274}{2280} \approx 1,43.
+\]
+
+Entonces la menor cantidad que es mayor que \(4000\) se averigua con \(k''' = 2\):
+\[
+x = 726 + 4560 = \boxed{5286 \text{ kilos}}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 41]
+Se dispone de tres contadores $C_1, C_2$ y $C_3$ que se incrementan al mismo tiempo y cuyos rangos de valores van desde $0$ hasta $9$, desde $0$ hasta $14$ y desde $0$ hasta $83$, respectivamente.
+Si en un instante de tiempo $t_0$ marcan $7$, $7$ y $79$, respectivamente,
+¿existe algún instante de tiempo posterior a $t_0$ en el que los tres contadores marquen $0$ a la vez?
+\tcblower
+\textbf{Resolución:}
+
+Sea $t_0$ el instante de tiempo inicial en el que los contadores marcan los valores dados.  
+\begin{itemize}
+    \item $C_1$: $t_0 \equiv 7 \pmod{10}$  
+    \item $C_2$: $t_0 \equiv 7 \pmod{15}$  
+    \item $C_3$: $t_0 \equiv 79 \pmod{84}$  
+\end{itemize}
+
+De la primera, $t_0 = 7 + 10 k$. Sustituyendo en la segunda:
+\[
+7 + 10 k \equiv 7 \pmod{15} \implies 10 k \equiv 0 \pmod{15}
+\]
+\[
+\implies 2 k \equiv 0 \pmod{3} \implies k \equiv 0 \pmod{3}.
+\]
+
+Entonces $k = 3 k'$, y
+\[
+t_0 = 7 + 10 (3 k') = 7 + 30 k'.
+\]
+
+Sustituyendo en la tercera:
+\[
+7 + 30 k' \equiv 79 \pmod{84} \implies 30 k' \equiv 72 \pmod{84}
+\]
+\[
+\implies 15 k' \equiv 36 \pmod{42} \implies 5 k' \equiv 12 \pmod{14}.
+\]
+
+Calculamos \(\operatorname{mcd}(5,14)\) usando el algoritmo de Euclides:
+\begin{align*}
+14 / 5 &= 2 \text{ resto } 4 \\
+5 / 4  &= 1 \text{ resto } \boxed{1}
+\end{align*}
+
+\(\operatorname{mcd}(5,14) = 1\) y $1 \mid 12 \implies$ Tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 5 & - & 0 & 1 \\
+1 & 4 & 1 & 1 & -2 \\
+2 & \boxed{1} & 1 & -1 & 3
+\end{array}
+\]
+
+\[
+u = 3 \implies k' = \frac{12}{1} \cdot 3 + \frac{14}{1} k'' \implies k' = 36 + 14 k''.
+\]
+
+\[
+k' = 8 + 14 k'' \quad (\text{equivalente módulo } 14)
+\]
+
+Entonces
+\[
+t_0 = 7 + 30 (8 + 14 k'') = 247 + 420 k'', \quad k'' \in \mathbb{Z}.
+\]
+
+Tomando $k'' = 0$, se obtiene el primer valor de $t_0 = 247$.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 41]
+
+Ahora buscamos si existen $t_1 > t_0 = 247$ tal que los tres contadores marquen $0$:
+\[
+t_1 \equiv 0 \pmod{10}, \quad t_1 \equiv 0 \pmod{15}, \quad t_1 \equiv 0 \pmod{84}.
+\]
+
+De la primera: $t_1 = 10 k$. Sustituyendo en la segunda:
+\[
+10 k \equiv 0 \pmod{15}.
+\]
+
+Calculamos \(\operatorname{mcd}(10,15)\):
+\begin{align*}
+15 / 10 &= 1 \text{ resto } \boxed{5} \\
+10 / 5  &= 2 \text{ resto } 0
+\end{align*}
+
+\(\operatorname{mcd}(10,15) = 5\) y $5 \mid 0 \implies$ Tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 10 & - & 0 & 1 \\
+1 & \boxed{5} & 1 & 1 & -1
+\end{array}
+\]
+
+\[
+u = -1 \implies k = 0 + \frac{15}{5} k' = 3 k', \quad k' \in \mathbb{Z}.
+\]
+
+Entonces $t_1 = 30 k'$. Sustituyendo en la tercera:
+\[
+30 k' \equiv 0 \pmod{84}.
+\]
+
+Calculamos \(\operatorname{mcd}(30,84)\):
+\begin{align*}
+84 / 30 &= 2 \text{ resto } 24 \\
+30 / 24 &= 1 \text{ resto } \boxed{6} \\
+24 / 6 &= 4 \text{ resto } 0
+\end{align*}
+
+\(\operatorname{mcd}(30,84) = 6\) y $6 \mid 0 \implies$ Tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 30 & - & 0 & 1 \\
+1 & 24 & 2 & 1 & -2 \\
+2 & \boxed{6} & 1 & -1 & 3
+\end{array}
+\]
+
+\[
+u = 3 \implies k' = 0 + \frac{84}{6} k'' = 14 k'', \quad k'' \in \mathbb{Z}.
+\]
+\[
+t_1 = 30 k' = 30 (14 k'') = 420 k'', \quad k'' \in \mathbb{Z}.
+\]
+
+Queremos el primer número mayor que 247:
+\[
+420 k'' > 247 \implies k'' > \frac{247}{420} \approx 0.58 \implies k'' \ge 1.
+\]
+
+Entonces \boxed{\text{existen $t_1$ posteriores a $t_0$ determinados por $t_1 = 420k'',\quad k'' \ge 1$}}. 
+\[
+t_1 = 420 \text{ es el primer instante en que los tres contadores marcan 0 simultáneamente}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 42]
+Resuelva cada una de las ecuaciones siguientes en el anillo $\mathbb{Z}_{45}$:
+
+a) $12a + 6 = 2a + 1$.  \\
+b) $17a + 6 = 2a + 1$.  \\
+c) $18a + 6 = 2a + 1$.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a) } Resolver $12a + 6 = 2a + 1$ en $\mathbb{Z}_{45}$:
+\[
+12a + 6 \equiv 2a + 1 \pmod{45} \implies 10a \equiv -5 \pmod{45} \implies 10a \equiv 40 \pmod{45}.
+\]
+
+Dividimos entre 5: 
+\[
+2a \equiv 8 \pmod{9}.
+\]
+
+Calculamos \(\operatorname{mcd}(2,9)\) usando el algoritmo de Euclides:
+\begin{align*}
+9 / 2 &= 4 \text{ resto } \boxed{1} 
+\end{align*}
+
+\(\operatorname{mcd}(2,9) = 1\) y $1 \mid 8 \implies$ Tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 2 & - & 0 & 1 \\
+1 & \boxed{1} & 4 & 1 & -4
+\end{array}
+\]
+\[
+u = -4 \equiv 5 \pmod{9} \implies a = 8 \cdot 5 + 9 k = 40 + 9 k \implies a \equiv 4 + 9 k \pmod{45}.
+\]
+
+Las soluciones deben estar en $\mathbb{Z}_{45}$: $0 \le 4 + 9 k < 45 \implies 0 \le k \le 4$.  
+
+\[
+\begin{aligned}
+k = 0 &\implies a = 4 \\
+k = 1 &\implies a = 13 \\
+k = 2 &\implies a = 22 \\
+k = 3 &\implies a = 31 \\
+k = 4 &\implies a = 40
+\end{aligned}
+\]
+
+\[
+\boxed{a = 4, 13, 22, 31, 40}
+\]
+
+\textbf{b) } Resolver $17a + 6 = 2a + 1$ en $\mathbb{Z}_{45}$:
+\[
+17a + 6 \equiv 2a + 1 \pmod{45} \implies 15a \equiv -5 \pmod{45} \implies 15a \equiv 40 \pmod{45}.
+\]
+
+Dividimos entre 5:
+\[
+3a \equiv 8 \pmod{9}.
+\]
+
+Calculamos \(\operatorname{mcd}(3,9)\) usando el algoritmo de Euclides:
+\begin{align*}
+9 / 3 &= 3 \text{ resto } \boxed{0}
+\end{align*}
+
+\(\operatorname{mcd}(3,9) = 3\) y $3 \nmid 8 \implies$ \textbf{No tiene solución.}
+
+\[
+\boxed{\text{Sin solución en } \mathbb{Z}_{45}}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 42]
+
+\textbf{c) } Resolver $18a + 6 = 2a + 1$ en $\mathbb{Z}_{45}$:
+\[
+18a + 6 \equiv 2a + 1 \pmod{45} \implies 16a \equiv -5 \pmod{45} \implies 16a \equiv 40 \pmod{45}.
+\]
+
+Calculamos \(\operatorname{mcd}(16,45)\) usando el algoritmo de Euclides:
+\begin{align*}
+45 / 16 &= 2 \text{ resto } 13 \\
+16 / 13 &= 1 \text{ resto } 3 \\
+13 / 3  &= 4 \text{ resto } \boxed{1}
+\end{align*}
+
+\(\operatorname{mcd}(16,45) = 1\) y $1 \mid 40 \implies$ Tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 16 & - & 0 & 1 \\
+1 & 13 & 2 & 1 & -2 \\
+2 & 3 & 1 & -1 & 3 \\
+3 & \boxed{1} & 4 & 5 & -14
+\end{array}
+\]
+
+\[
+u = -14
+\]
+
+\[
+a = \frac{40}{1}(-14) + \frac{45}{1} k, \quad k \in \mathbb{Z}
+\]
+
+\[
+a = -560 + 45 k \equiv 25 + 45 k \pmod{45}.
+\]
+
+Las soluciones deben estar en $\mathbb{Z}_{45}$:
+\[
+0 \le 25 + 45 k < 45 \implies -\frac{25}{45} \le k < \frac{20}{45} \implies 0 \le k \le 0 \implies k = 0
+\]
+
+\[
+\boxed{a = 25}
+\]
+
+\end{ejercicio}
+
+\section{Reducción de Potencias}
+
+\begin{ejercicio}[title=Ejercicio 28]
+Calcule el resto de dividir: \\
+a) $8562^{123}$ entre 11.\\
+b) $10119^{123}$ entre 13.\\
+c) $100^{103^{109}}$ entre 17.\\
+d) $22^{12345}$ entre 36.\\
+e) $28^{100}$ entre 176.
+\tcblower
+\textbf{a)} $r_{11}(8562^{123})$ \\
+Primero reducimos la base módulo 11:
+
+\[
+8562 / 11 = 778 \text{ resto } 4
+\]
+
+Por lo tanto:
+
+\[
+r_{11}(8562^{123}) = r_{11}(4^{123})
+\]
+
+Ahora reducimos el exponente. Como $\mathrm{mcd}(4,11) = 1$, existe un $l \in \mathbb{N}$ tal que $4^l \equiv 1 \pmod{11}$ y $l \mid \varphi(11)$.
+
+\vspace{0.5em}
+
+Como $\varphi(11) = 10$, $l \mid 10$.  
+Entonces $l \in \{1,2,5,10\}$:
+
+\[
+\begin{aligned}
+l = 1 &: 4^1 = 4 \not\equiv 1 \pmod{11} \\
+l = 2 &: 4^2 = 16 \equiv 5 \not\equiv 1 \pmod{11} \\
+l = 5 &: 4^5 = 5 \cdot 5 \cdot 4 = 100 \equiv 1 \pmod{11} \quad \Rightarrow l = 5
+\end{aligned}
+\]
+
+Dividimos el exponente entre $l$:
+
+\[
+123 / 5 = 24 \text{ resto } 3 \quad \Rightarrow \quad r_{11}(4^{123}) = r_{11}(4^3)
+\]
+\[
+4^3 = 64, \quad 64 / 11 = 5 \text{ resto } 9
+\]
+\[
+r_{11}(4^{3}) = \boxed{9}
+\]
+
+\textbf{b)} $r_{13}(10119^{123})$ \\
+
+Primero reducimos la base módulo 13:
+
+\[
+10119 / 13 = 778 \text{ resto } 5
+\]
+
+Por lo tanto:
+
+\[
+r_{13}(10119^{123}) = r_{13}(5^{123})
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 28]
+
+Ahora reducimos la potencia. Como $\mathrm{mcd}(13,5) = 1$, existe $l \in \mathbb{N}$, $l \ge 1$, tal que $5^l \equiv 1 \pmod{13}$ y $l \mid \varphi(13)$.
+
+\vspace{0.5em}
+
+Como $\varphi(13) = 12$, $l \mid 12$.  
+Entonces $l \in \{1,2,3,4,6,12\}$:
+
+\[
+\begin{aligned}
+l = 1 &: 5^1 = 5 \not\equiv 1 \pmod{13} \\
+l = 2 &: 5^2 = 25 \equiv 12 \not\equiv 1 \pmod{13} \\
+l = 3 &: 5^3 = 125 \equiv 8 \not\equiv 1 \pmod{13} \\
+l = 4 &: 5^4 = 5^3\cdot5 \equiv 8\cdot5 = 40 \equiv 1 \pmod{13} \quad \Rightarrow l = 4
+\end{aligned}
+\]
+
+Dividimos el exponente entre $l$:
+
+\[
+123 / 4 = 30 \text{ resto } 3 \quad \Rightarrow \quad r_{13}(5^{123}) = r_{13}(5^3)
+\]
+\[
+5^3 = 125, \quad 125 / 13 = 9 \text{ resto } 8
+\]
+\[
+r_{13}(5^3) = \boxed{8}
+\]
+
+\textbf{c)} $r_{17}\bigl(100^{103^{109}}\bigr)$ \\
+
+Primero reducimos la base módulo 17:
+
+\[
+100 / 17 = 5 \text{ resto } 15
+\]
+
+Por lo tanto:
+
+\[
+r_{17}\bigl(100^{103^{109}}\bigr) = r_{17}\bigl(15^{103^{109}}\bigr)
+\]
+
+Ahora reducimos la potencia. Como $\mathrm{mcd}(15,17)=1$, existe $l\in\mathbb{N}$, $l\ge 1$, tal que $15^l\equiv 1\pmod{17}$ y $l\mid\varphi(17)$.
+
+\vspace{0.5em}
+
+Como $\varphi(17)=16$, $l\mid 16$.  
+Entonces $l\in\{1,2,4,8,16\}$:
+
+\[
+\begin{aligned}
+l=1 &: 15^1 = 15 \not\equiv 1 \pmod{17} \\
+l=2 &: 15^2 = 225 \equiv 4 \not\equiv 1 \pmod{17} \\
+l=4 &: 15^4 = 4^2 = 16 \equiv -1 \not\equiv 1 \pmod{17} \\
+l=8 &: 15^8 = (15^4)^2 \equiv (-1)^2 \equiv 1 \pmod{17} \quad \Rightarrow l = 8
+\end{aligned}
+\]
+
+Por tanto hay que calcular el resto de dividir $103^{109}$ entre $8$.
+
+Reduzco la base:
+
+\[
+103 / 8 = 12 \text{ resto } 7
+\]
+\[
+\Rightarrow\quad r_{8}\bigl(103^{109}\bigr) = r_{8}\bigl(7^{109}\bigr)
+\]
+
+Reducimos la potencia. Como $\mathrm{mcd}(7,8)=1$, existe $l'\in\mathbb{N}$ tal que $7^{l'}\equiv 1\pmod{8}$ y $l'\mid\varphi(8)$.
+
+\vspace{0.5em}
+
+Como $\varphi(8)=4$, $l'\mid 4$. Entonces $l'\in\{1,2,4\}$:
+
+\[
+\begin{aligned}
+l'=1 &: 7^1 = 7 \not\equiv 1 \pmod{8} \\
+l'=2 &: 7^2 = 49 \equiv 1 \pmod{8} \quad \Rightarrow l' = 2
+\end{aligned}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 28]
+
+Dividimos el exponente entre $l'$:
+
+\[
+109 / 2 = 54 \text{ resto } 1 \quad \Rightarrow \quad r_{8}(7^{109}) = r_{8}(7^1) = 7
+\]
+
+Por tanto
+\[
+r_{8}\bigl(103^{109}\bigr) = 7
+\]
+
+y volvemos al paso anterior:
+
+\[
+r_{17}\bigl(15^{103^{109}}\bigr) = r_{17}\bigl(15^{7}\bigr) = r_{17}(170859375)
+\]
+
+\[
+r_{17}(15^7) = \boxed{8}
+\]
+
+\textbf{d)} $r_{36}\bigl(22^{12345}\bigr)$ \\
+
+Primero reducimos la base módulo 36:  
+La base ya está reducida: \(22\).
+
+Calculamos $\operatorname{mcd}(22,36)=2\neq 1$. Entonces descomponemos el módulo en dos factores coprimos:
+\[
+36 = 2^2\cdot 3^2 = 4\cdot 9.
+\]
+
+Sea \(a=22^{12345}\). Trabajamos por separado con módulo \(4\) y módulo \(9\).
+
+\vspace{0.5em}
+
+1) Módulo \(4\).
+\[
+r_{4}(a)=0 \quad\Rightarrow\quad a\equiv 0 \pmod{4}.
+\]
+
+2) Módulo \(9\). Calculamos:
+\[
+22 / 9 = 2 \text{ resto } 4 \quad\Rightarrow\quad r_{9}\bigl(22^{12345}\bigr)=r_{9}\bigl(4^{12345}\bigr).
+\]
+Como $\operatorname{mcd}(4,9)=1$, existe \(l\in\mathbb{N}\) tal que \(4^l\equiv 1\pmod{9}\) y \(l\mid\varphi(9)\).  
+Dado que \(\varphi(9)=6\), los candidatos son \(l\in\{1,2,3,6\}\):
+
+\[
+\begin{aligned}
+l=1 &: 4^1=4\not\equiv 1\pmod{9},\\
+l=2 &: 4^2=16\equiv 7\not\equiv 1\pmod{9},\\
+l=3 &: 4^3=64\equiv 1\pmod{9}\quad\Rightarrow\; l=3.
+\end{aligned}
+\]
+
+Dividimos el exponente entre \(l\):
+\[
+12345 / 3 = 4115 \text{ resto } 0 \quad\Rightarrow\quad r_{9}(4^{12345}) = r_{9}(4^0)=r_{9}(1)=1.
+\]
+
+Por tanto la segunda ecuación es:
+\[
+a\equiv 1 \pmod{9}.
+\]
+
+Ahora resolvemos el sistema
+\[
+\begin{cases}
+a\equiv 0 \pmod{4},\\[4pt]
+a\equiv 1 \pmod{9}.
+\end{cases}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 28]
+
+Poniendo \(a=4k\) y sustituyendo en la segunda congruencia:
+\[
+4k \equiv 1 \pmod{9}.
+\]
+
+$\operatorname{mcd}(4,9) = 1 \text{ y } 1 \mid 1 \;\Rightarrow\; \text{tiene solución.}$
+\[
+\begin{aligned}
+    9 / 4 &= 2 \text{ resto } \boxed{1}
+\end{aligned}
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 4 & - & 1 & 0 \\
+1 & \boxed{1} & 2 & -2 & 1
+\end{array}
+\]
+
+Entonces: \(k = -2 + 9k'\).  
+Sustituimos en \(a = 4k\):
+
+\[
+a = 4(-2 + 9k') = -8 + 36k'.
+\]
+
+Tomando \(k' = 1\):  
+\(a = 28.\)
+
+Por tanto:
+\[
+r_{36}(22^{12345}) = r_{36}(28) = \boxed{28}.
+\]
+
+\textbf{e)} $r_{176}\bigl(28^{100}\bigr)$ \\
+
+Vemos que la base ya está reducida.  
+Reducimos el exponente:
+
+\[
+\begin{aligned}
+176 / 28 &= 6 \text{ resto } 8 \\
+28 / 8 &= 3 \text{ resto } \boxed{4} \\
+8 / 4 &= 2 \text{ resto } 0
+\end{aligned}
+\]
+
+Como $\mathrm{mcd}(176,28) = 4 \neq 1$, tenemos que descomponer el módulo en dos números:  
+uno que tenga factores en común con la base y otro que no.
+
+\[
+176 = 2^4 \cdot 11 = 16 \cdot 11
+\]
+
+Sabemos que $28 = 2^2 \cdot 7$, por tanto una buena elección de números será  
+$16$ (tiene el factor $2$ en común) y $11$ (no tiene).
+
+Llamamos $a = 28^{100}$.
+
+Entonces:
+\[
+\begin{aligned}
+1) & \text{ }r_{16}(a) = 0 \Rightarrow a \equiv 0 \pmod{16} \\
+2) & \text{ }r_{11}(a) = r_{11}(28^{100})    
+\end{aligned}
+\]
+
+Reducimos la base módulo $11$:
+\[
+28 / 11 = 2 \text{ resto } 6
+\]
+\[
+r_{11}(28^{100}) = r_{11}(6^{100})
+\]
+
+Reducimos el exponente:
+\[
+\mathrm{mcd}(11,6) = 1 \Rightarrow \exists\, l \in \mathbb{N},\, l \ge 1 \text{ tal que } 6^l \equiv 1 \pmod{11},\; l \mid \varphi(11)
+\]
+Como $\varphi(11) = 10$, se tiene $l \mid 10 \Rightarrow l \in \{1,2,5,10\}$.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 28]
+
+\[
+\begin{aligned}
+l=1 &: 6^1 = 6 \not\equiv 1 \pmod{11} \\
+l=2 &: 6^2 = 36 \equiv 3 \not\equiv 1 \pmod{11} \\
+l=5 &: 6^5 = 3 \cdot 3 \cdot 6 = 54 \equiv -1 \pmod{11} \\
+l=10 &: 6^{10} = (-1)^2 \equiv 1 \pmod{11}
+\end{aligned}
+\]
+
+Por tanto $l = 10$.
+
+Dividimos el exponente:
+\[
+100 / 10 = 10 \text{ resto } 0 \quad \Rightarrow \quad r_{11}(6^{100}) = r_{11}(6^0) = r_{11}(1) = 1
+\]
+
+Entonces $a \equiv 1 \pmod{11}$.
+
+De la primera ecuación, $a = 16k$.  
+Sustituyendo en la segunda:
+\[
+16k \equiv 1 \pmod{11}.
+\]
+
+Reducimos:
+\[
+16 / 11 = 1 \text{ resto } 5.
+\]
+\[
+5k \equiv 1 \pmod{11}.
+\]
+
+Buscamos el inverso de $5$ módulo $11$:
+
+\[
+11 / 5 = 2 \text{ resto } \boxed{1}
+\]
+
+Como mcd(5,11) = 1 y 1 | 1, tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 5 & - & 0 & 1 \\
+1 & \boxed{1} & 2 & 1 & -2
+\end{array}
+\]
+
+Por tanto $k = -2 + 11k'$.
+
+Sustituyendo:
+\[
+a = 16(-2 + 11k') = -32 + 176k'.
+\]
+
+Tomando $k' = 1$:
+\[
+a = 144.
+\]
+
+Por tanto:
+\[
+r_{176}(28^{100}) = r_{176}(144) = \boxed{144}.
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 29]
+Justifique que el número $111^{333} + 333^{111}$ es múltiplo de $7$.
+\tcblower
+\textbf{Resolución:}
+
+Si $111^{333} + 333^{111}$ es múltiplo de $7$, entonces  
+\[
+r_7(111^{333} + 333^{111}) = 0
+\]
+
+Calculamos:
+
+\[
+r_7(111^{333} + 333^{111}) = r_7\big(r_7(111^{333}) + r_7(333^{111})\big)
+\]
+
+---
+
+\textbf{1) Cálculo de $r_7(111^{333})$}
+
+Primero reducimos la base módulo $7$:
+
+\[
+111 / 7 = 15 \text{ resto } 6
+\]
+
+Por lo tanto:
+
+\[
+r_7(111^{333}) = r_7(6^{333})
+\]
+
+Ahora reducimos el exponente.  
+Como $\mathrm{mcd}(6,7) = 1$, existe un $l \in \mathbb{N}$ tal que $6^l \equiv 1 \pmod{7}$ y $l \mid \varphi(7)$.
+
+\vspace{0.5em}
+
+Como $\varphi(7) = 6$, $l \mid 6$.  
+Entonces $l \in \{1,2,3,6\}$:
+
+\[
+\begin{aligned}
+l = 1 &: 6^1 = 6 \not\equiv 1 \pmod{7} \\
+l = 2 &: 6^2 = 36 \equiv 1 \pmod{7} \quad \Rightarrow l = 2
+\end{aligned}
+\]
+
+Dividimos el exponente entre $l$:
+
+\[
+333 / 2 = 166 \text{ resto } 1 \quad \Rightarrow \quad r_7(6^{333}) = r_7(6^1)
+\]
+
+\[
+r_7(6) = 6
+\]
+
+
+\textbf{2) Cálculo de $r_7(333^{111})$}
+
+Reducimos la base módulo $7$:
+
+\[
+333 / 7 = 47 \text{ resto } 4
+\]
+
+Por lo tanto:
+
+\[
+r_7(333^{111}) = r_7(4^{111})
+\]
+
+Ahora reducimos el exponente.  
+Como $\mathrm{mcd}(4,7) = 1$, existe un $l \in \mathbb{N}$ tal que $4^l \equiv 1 \pmod{7}$ y $l \mid \varphi(7)$.
+
+\vspace{0.5em}
+
+Como $\varphi(7) = 6$, $l \mid 6$.  
+Entonces $l \in \{1,2,3,6\}$:
+
+\[
+\begin{aligned}
+l = 1 &: 4^1 = 4 \not\equiv 1 \pmod{7} \\
+l = 2 &: 4^2 = 16 \equiv 2 \not\equiv 1 \pmod{7} \\
+l = 3 &: 4^3 = 64 \equiv 1 \pmod{7} \quad \Rightarrow l = 3
+\end{aligned}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 29]
+
+Dividimos el exponente entre $l$:
+
+\[
+111 / 3 = 37 \text{ resto } 0 \quad \Rightarrow \quad r_7(4^{111}) = r_7(4^0)
+\]
+
+\[
+r_7(4^0) = r_7(1) = 1
+\]
+
+---
+
+\textbf{Conclusión:}
+
+\[
+r_7(111^{333} + 333^{111}) = r_7(6 + 1) = r_7(7) = 0
+\]
+
+Por tanto, \boxed{\text{$111^{333} + 333^{111}$ es múltiplo de $7$}}.
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 30]
+Calcule los cuatro dígitos menos significativos del número $7424^{1234}$ cuando se representa en base $3$.
+\tcblower
+\textbf{Resolución:}
+
+Sea $t = 7424^{1234} = \dots + a_4\cdot 3^4 + a_3\cdot 3^3 + a_2\cdot 3^2 + a_1\cdot 3 + a_0$.
+
+Respecto a la parte $\{\dots + a_4\cdot 3^4\}$, cada sumando es múltiplo de $3^4$.  
+Como $3^4 = 81$, se tiene
+\[
+r_{81}(t) = a_3\cdot 3^3 + a_2\cdot 3^2 + a_1\cdot 3 + a_0.
+\]
+
+Calculamos $r_{81}(7424^{1234})$.
+
+Reducimos la base módulo $81$:
+
+\[
+7424 / 81 = 91 \text{ resto } 53
+\]
+
+Por tanto:
+
+\[
+r_{81}(7424^{1234}) = r_{81}(53^{1234}).
+\]
+
+Ahora reducimos el exponente. Como $\operatorname{mcd}(53,81)=1$, existe $l\in\mathbb{N}$, $l\ge1$ tal que $53^l\equiv 1\pmod{81}$ y $l\mid\varphi(81)$.
+
+\vspace{0.5em}
+
+Como $\varphi(81)=\varphi(3^4)=3^3\cdot 2 = 54$, $l\mid 54$.  
+Entonces $l\in\{1,2,3,6,9,18,27,54\}$:
+
+\[
+\begin{aligned}
+l=1 &: 53^1 = 53 \not\equiv 1 \pmod{81} \\
+l=2 &: 53^2 = 2809 \equiv 55 \not\equiv 1 \pmod{81} \\
+l=3 &: 53^3 = 2809\cdot 53 \equiv 55\cdot 53 \equiv 80 \not\equiv 1 \pmod{81} \\
+l=6 &: 53^6 \equiv 80^2 \equiv (-1)^2 \equiv 1 \pmod{81} \quad \Rightarrow l=6
+\end{aligned}
+\]
+
+Dividimos el exponente entre $l$:
+
+\[
+1234 / 6 = 205 \text{ resto } 4 \quad \Rightarrow \quad r_{81}(53^{1234}) = r_{81}(53^4).
+\]
+
+Calculamos $53^4 \pmod{81}$: como $53^3 \equiv 80$, se tiene
+\[
+53^4 \equiv 80\cdot 53 \equiv -1\cdot 53 \equiv -53 \equiv 28 \pmod{81}.
+\]
+
+Por tanto $r_{81}(7424^{1234}) = 28$.
+
+Convertimos $28$ a base $3$:
+
+\[
+\begin{aligned}
+    28 / 3 = 9 \text{ resto } 1 \\
+9 / 3 = 3 \text{ resto } 0 \\
+3 / 3 = 1 \text{ resto } 0
+\end{aligned}
+\]
+
+Es decir,
+\[
+(28)_{10} = (1001)_3.
+\]
+
+\[
+\text{Los cuatro dígitos menos significativos en base 3 son \boxed{1001}}.
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 31]
+Para cada número natural $n\ge 1$, sea $t_n$ el número que se escribe en base $2$ con $n$ dígitos todos iguales a $1$.  
+Encuentre todos los $n$ tales que $t_n$ es múltiplo de $2025$.
+\tcblower
+\textbf{Resolución:}
+
+Observamos que
+\[
+t_n = (11\ldots1)_2 = 2^n - 1.
+\]
+
+Como $2025 = 5^2 \cdot 3^4 = 25 \cdot 81$, buscamos los $n$ tales que
+\[
+2^n - 1 \equiv 0 \pmod{25}\quad\text{y}\quad 2^n - 1 \equiv 0 \pmod{81}.
+\]
+Es decir,
+\[
+2^n \equiv 1 \pmod{25}\quad\text{y}\quad 2^n \equiv 1 \pmod{81}.
+\]
+
+---
+
+\textbf{1) Módulo $25$}
+
+Como $\varphi(25)=20$, $l \mid 20$. Entonces $l \in \{1,2,4,5,10,20\}$.  
+Calculamos potencias empezando por $5$ porque antes no pueden empezar a ser congruentes con $1$:
+
+\[
+2^5 = 32 \equiv 7 \pmod{25},
+\]
+\[
+2^{10} \equiv 7^2 = 49 \equiv -1 \equiv 24 \pmod{25},
+\]
+\[
+2^{20} \equiv (2^{10})^2 \equiv 24^2 \equiv (-1)^2 \equiv 1 \pmod{25}.
+\]
+
+Entonces $l = 20$.
+
+Por tanto, para que $2^n\equiv 1\pmod{25}$ es necesario y suficiente que $n$ sea múltiplo de $20$.
+
+---
+
+\textbf{2) Módulo $81$}
+
+Como $\varphi(81)=54$, $l \mid 54$. Entonces $l \in \{1,2,3,6,9,18,27,54\}$.  
+Calculamos potencias empezando por $9$ porque antes no pueden empezar a ser congruentes con $1$:
+
+\[
+2^9 = 512 \equiv 26 \pmod{81},
+\]
+\[
+2^{18} \equiv 26^2 = 676 \equiv 28 \pmod{81},
+\]
+\[
+2^{27} \equiv 26 \cdot 28 \equiv 728 \equiv -1 \equiv 80 \pmod{81},
+\]
+\[
+2^{54} \equiv (2^{27})^2 \equiv (-1)^2 \equiv 1 \pmod{81}.
+\]
+
+Entonces $l = 54$.
+
+Por tanto, para que $2^n\equiv 1\pmod{81}$ es necesario y suficiente que $n$ sea múltiplo de $54$.
+
+---
+
+\textbf{Conclusión:}
+
+Necesitamos simultáneamente $20\mid n$ y $54\mid n$, entonces $\operatorname{mcm}(20,54)\mid n$.
+\[
+20 = 2^2\cdot 5,\qquad 54 = 2\cdot 3^3 \quad\Rightarrow\quad \operatorname{mcm}(20,54)=2^2\cdot 3^3\cdot 5 = 4\cdot 27\cdot 5 = 540.
+\]
+\[
+\boxed{\,n=540k\quad\text{con }k\in\mathbb{N},\ k\ge 1.\,}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 50]
+Utilice el Teorema de Euler-Fermat para justificar que si $p$ es un número primo, entonces
+\[
+a^p \equiv a \pmod{p}
+\]
+para todo $a \in \mathbb{Z}_p$.
+\tcblower
+\textbf{Resolución:}
+
+Por el \textbf{Teorema de Euler–Fermat}, sabemos que si $n$ es un número natural y $a$ es un entero tal que $\operatorname{mcd}(a,n) = 1$, entonces:
+\[
+a^{\varphi(n)} \equiv 1 \pmod{n}.
+\]
+
+En particular, si $p$ es un número primo, entonces $\varphi(p) = p - 1$. Por lo tanto, $\operatorname{mcd}(a,p) = 1$ y se cumple que:
+\[
+a^{p-1} \equiv 1 \pmod{p}.
+\]
+
+Multiplicando ambos lados por $a$, obtenemos:
+\[
+\boxed{a^p \equiv a \pmod{p}}.
+\]
+\end{ejercicio}
+
+\section{Polinomios con Coeficientes en un Cuerpo}
+
+\begin{ejercicio}[title=Ejercicio 43]
+En $\mathbb{Z}_5[x]$ calcule el resto y el cociente de dividir el polinomio
+\[
+x^5 + 2x^3 + 4x^2 + x + 1
+\]
+entre $3x^2 + x + 2$.
+\tcblower
+\textbf{Resolución:}
+
+Primero calculamos el inverso de $3$ en $\mathbb{Z}_5$:
+
+\[
+5 / 3 = 1 \text{ resto } 2, \quad 3 / 2 = 1 \text{ resto } \boxed{1}
+\]
+
+\(\operatorname{mcd}(3,5) = 1 \implies\) Tiene inverso.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 3 & - & 0 & 1 \\
+1 & 2 & 1 & 1 & -1 \\
+2 & \boxed{1} & 1 & -1 & 2
+\end{array}
+\]
+
+\[
+u = 2 \implies 3^{-1} = 2 \text{ en } \mathbb{Z}_5
+\]
+
+Multiplicamos por el inverso en los cálculos:
+\[
+2 \cdot 3^{-1} = 4, \quad 3 \cdot 3^{-1} = 1
+\]
+
+Dividimos el polinomio:
+
+\[
+x^5 + 2x^3 + 4x^2 + x + 1 \, / \, 3x^2 + x + 2 = 2x^3 + x^2 + 4x + 1 \text{ resto } 2x + 4
+\]
+
+\[
+\boxed{
+q(x) = 2x^3 + x^2 + 4x + 1, \quad r(x) = 2x + 4
+}
+\]
+
+\end{ejercicio}
+
+\section{MCM de Polinomios}
+
+\begin{ejercicio}[title=Ejercicio 44]
+Calcule un máximo común divisor para los polinomios
+\[
+f(x) = x^4 - x^3 + 4x^2 - 3x + 3, \quad g(x) = x^4 + 2x^2 - x + 2
+\]
+en $\mathbb{Q}[x]$.  
+¿Qué grado tiene cualquier mínimo común múltiplo de $f(x)$ y $g(x)$?
+\tcblower
+\textbf{Resolución:}
+
+Calculamos $\operatorname{mcd}(f(x), g(x))$ usando el algoritmo de Euclides para polinomios:
+
+\[
+f(x) = x^4 - x^3 + 4x^2 - 3x + 3, \quad g(x) = x^4 + 2x^2 - x + 2
+\]
+
+Calculamos $\operatorname{mcd}(f(x), g(x))$:
+
+\[
+x^4 - x^3 + 4x^2 - 3x + 3 \text{ / } x^4 + 2x^2 - x + 2 = 1 \text{ resto } -x^3 + 2x^2 - 2x + 1
+\]
+\[
+x^4 + 2x^2 - x + 2 \text{ / } -x^3 + 2x^2 - 2x + 1 = -x-2 \text{ resto } 4x^2 -4x +4
+\]
+\[
+-x^3 + 2x^2 - 2x + 1 \text{ / } 4x^2 -4x +4 = -\frac{1}{4}x + \frac{1}{4} \text{ resto } 0
+\]
+
+Por lo tanto, un $\operatorname{mcd}$ de $f(x)$ y $g(x)$ es
+\[
+4x^2 -4x +4
+\]
+
+Normalizamos multiplicando por $4^{-1}$ en $\mathbb{Q}$:
+\[
+4^{-1} (4x^2 - 4x + 4) = x^2 - x + 1
+\]
+\[
+\boxed{\operatorname{mcd}(f(x), g(x)) = x^2 - x + 1}
+\]
+
+\vspace{0.5em}
+
+Para el mínimo común múltiplo: Sabemos que
+\[
+f(x) \cdot g(x) \sim \operatorname{mcd}(f(x), g(x)) \cdot \operatorname{mcm}(f(x), g(x)).
+\]
+
+Por grados:
+\[
+\operatorname{grado}(f(x) \cdot g(x)) = \operatorname{grado}(\operatorname{mcd}(f(x), g(x)) \cdot \operatorname{mcm}(f(x), g(x))).
+\]
+\[
+\operatorname{grado}(f(x)) + \operatorname{grado}(g(x)) = \operatorname{grado}(\operatorname{mcd}(f(x), g(x))) + \operatorname{grado}(\operatorname{mcm}(f(x), g(x))).
+\]
+
+\[
+4 + 4 = 2 + \operatorname{grado}(\operatorname{mcm}(f(x), g(x))) \implies \operatorname{grado}(\operatorname{mcm}(f(x), g(x))) = 6
+\]
+
+\[
+\boxed{\operatorname{grado}(\operatorname{mcm}(f(x), g(x))) = 6}
+\]
+
+\end{ejercicio}
+
+\section{Raíces y Multiplicidad de Polinomios}
+
+\begin{ejercicio}[title=Ejercicio 45]
+En $\mathbb{Z}_{11}[x]$ calcule el resto de dividir el polinomio $x^{400} + 2x + 6$ entre:
+
+a) $x + 10$.  \\
+b) $x + 1$.  \\
+c) $x + 2$.  \\
+d) $4x + 1$.
+\tcblower
+\textbf{Resolución:}
+
+Usamos el teorema del resto: $f(x)/(x-a) \implies$ resto $= f(a)$.
+
+\textbf{a) } $x+10$:
+
+\[
+f(-10) = f(1) = 1^{400} + 2\cdot 1 + 6 = 1 + 2 + 6 = \boxed{9}
+\]
+
+\textbf{b) } $x+1$:
+
+\[
+f(-1) = (-1)^{400} + 2(-1) + 6 = 1 -2 + 6 = \boxed{5}
+\]
+
+\textbf{c) } $x+2$:
+
+\[
+f(-2) = (-2)^{400} + 2(-2) + 6 = 2^{400} + (-4) + 6 = 2^{400} + 2
+\]
+
+Reducimos módulo 11:  
+
+\[
+(-2) \equiv 9 \pmod{11} \implies 9^{400} + 2
+\]
+
+Reducimos exponente usando el teorema de Euler:
+
+\vspace{0.5em}
+
+\(\operatorname{mcd}(9,11) = 1 \implies \exists l \in \mathbb{N}, l \ge 1, 9^l \equiv 1 \pmod{11}\) y \(l \mid \varphi(11) = 10\). \\
+
+Entonces \(l \in \{1,2,5,10\}\):
+
+\[
+9^1 = 9 \neq 1, \quad 9^2 = 81 \equiv 4, \quad 9^5 \equiv 1 \pmod{11}
+\]
+\[
+400 / 5 = 80 \text{ resto } 0 \implies 9^{400} \equiv 9^0 \equiv 1 \pmod{11}
+\]
+
+\[
+9^{400} + 2 \equiv 1 + 2 = \boxed{3}
+\]
+
+\textbf{d) } $4x+1$:
+
+Primero hacemos mónico: necesitamos el inverso de 4 en $\mathbb{Z}_{11}$.
+
+\[
+11 / 4 = 2 \text{ resto } 3, \quad 4 / 3 = 1 \text{ resto } \boxed{1}
+\]
+
+Como $\operatorname{mcd}(4,11) = 1$, 4 tiene inverso en $\mathbb{Z}_{11}$.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 4 & - & 0 & 1 \\
+1 & 3 & 2 & 1 & -2 \\
+2 & \boxed{1} & 1 & -1 & 3
+\end{array}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 45]
+
+\[
+4^{-1} = 3
+\]
+
+Multiplicamos por 3: $3(4x+1) = x + 3 \implies$ resto $= f(-3) = f(8)$
+
+\[
+f(8) = 8^{400} + 2 \cdot 8 + 6 = 8^{400} + 22 \equiv 8^{400} \pmod{11}
+\]
+
+Reducimos exponente usando el teorema de Euler:
+
+\vspace{0.5em}
+
+\(\operatorname{mcd}(8,11) = 1 \implies \exists l \in \mathbb{N}, l \ge 1, 8^l \equiv 1 \pmod{11}\) y \(l \mid \varphi(11) = 10\). \\
+
+Entonces \(l \in \{1,2,5,10\}\):
+
+\[
+8^1 = 8 \neq 1, \quad 8^2 = 64 \equiv 9, \quad 8^5 \equiv -1 \neq 1, \quad 8^{10} \equiv 1 \pmod{11}
+\]
+
+\[
+400 / 10 = 40 \text{ resto } 0 \implies 8^{400} \equiv 8^0 \equiv 1 \pmod{11}
+\]
+
+\[
+\boxed{1}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 46]
+Calcule las raíces y las multiplicidades correspondientes del polinomio
+\[
+f(x) = 5x^4 + 4x^3 + 3x^2 + 8x + 2
+\]
+en $\mathbb{Z}_{11}$.
+\tcblower
+\textbf{Resolución:}
+
+Probamos raíces en $\mathbb{Z}_{11}$:
+
+\[
+\begin{array}{lcl}
+f(0) = 2 &\neq& 0, \\
+f(1) = 5 + 4 + 3 + 8 + 2 = 22 \equiv 0 \pmod{11}.
+\end{array}
+\]
+
+Por tanto, $\alpha = 1$ es raíz de $f(x)$.
+
+\vspace{0.5em}
+Estudiamos su multiplicidad aplicando Ruffini:
+
+\[
+\begin{array}{r|rrrrr}
+  & 5 & 4 & 3 & 8 & 2 \\
+1 &   & 5 & 9 & 1 & 9 \\
+\hline
+  & 5 & 9 & 1 & 9 & \boxed{0} \\
+1 &   & 5 & 3 & 4 \\
+\hline
+  & 5 & 3 & 4 & \boxed{2}
+\end{array}
+\]
+
+El resto es distinto de cero, por tanto \(\alpha = 1\) tiene multiplicidad \(m = 1\).
+
+\vspace{0.5em}
+Llamamos $g(x)$ al polinomio resultante:
+
+\[
+g(x) = 5x^3 + 9x^2 + x + 9.
+\]
+
+Comprobamos valores:
+
+\[
+\begin{array}{lcl}
+g(2) = 5\cdot8 + 9\cdot4 + 2 + 9 = 40 + 36 + 11 = 87 \equiv 10, \\
+g(3) = 5\cdot5 + 9\cdot9 + 3 + 9 = 25 + 81 + 12 = 118 \equiv 8, \\
+g(4) = 5\cdot9 + 9\cdot5 + 4 + 9 = 45 + 45 + 13 = 103 \equiv 4, \\
+g(5) = 5\cdot4 + 9\cdot3 + 5 + 9 = 20 + 27 + 14 = 61 \equiv 6, \\
+g(6) = 5\cdot7 + 9\cdot3 + 6 + 9 = 35 + 27 + 15 = 77 \equiv 0.
+\end{array}
+\]
+
+Por tanto, \(\alpha = 6\) es raíz de \(g(x)\) y también de \(f(x)\).
+
+\vspace{0.5em}
+Aplicamos Ruffini para estudiar su multiplicidad:
+
+\[
+\begin{array}{r|rrrr}
+  & 5 & 9 & 1 & 9 \\
+6 &   & 8 & 3 & 2 \\
+\hline
+  & 5 & 6 & 4 & \boxed{0} \\
+6 &   & 8 & 7 \\
+\hline
+  & 5 & 3 & \boxed{0} \\
+6 &   & 8 \\
+\hline
+  & 5 & \boxed{0}
+\end{array}
+\]
+
+Por tanto, \(\alpha = 6\) tiene multiplicidad \(m = 3\).
+
+\vspace{0.5em}
+\[
+\boxed{\text{Las raíces son } 1 \text{ y } 6, \text{ con multiplicidades } 1 \text{ y } 3, \text{ respectivamente.}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 47]
+Sea $p(x) = x^5 + x^4 + x^3 + 4x^2 + 3 \in \mathbb{Z}_5[x]$.  
+Entonces $p(x)$ es igual a: \\
+
+a) $(x + 2)^2 (x + 3)(x + 4)^2$.  \\
+b) $(x + 2)^2 (x + 3)^2 (x + 4)$.  \\
+c) $(x + 2)(x + 3)^2 (x + 4)^2$.  \\
+d) $(x + 2)^3 (x + 3)(x + 4)$.
+\tcblower
+\textbf{Resolución:}
+
+Primero observamos las equivalencias en $\mathbb{Z}_5$:
+
+\[
+(x + 2) = (x - 3), \quad (x + 3) = (x - 2), \quad (x + 4) = (x - 1).
+\]
+
+\vspace{0.5em}
+Probamos con la raíz $\alpha = 3$ (correspondiente a $x + 2$):
+
+\[
+\begin{array}{r|rrrrrr}
+  & 1 & 1 & 1 & 4 & 0 & 3 \\
+3 &   & 3 & 2 & 4 & 4 & 2 \\
+\hline
+  & 1 & 4 & 3 & 3 & 4 & \boxed{0} \\
+3 &   & 3 & 1 & 2 & 0 \\
+\hline
+  & 1 & 2 & 4 & 0 & \boxed{4}
+\end{array}
+\]
+
+El resto es distinto de cero, por tanto \(\alpha = 3\) tiene multiplicidad \(m = 1\). Esto parece decirnos que la respuesta correcta es la c).
+
+\vspace{0.5em}
+Comprobamos ahora la raíz \(\alpha = 2\) (correspondiente a \(x + 3\)):
+
+\[
+\begin{array}{r|rrrrr}
+  & 1 & 4 & 3 & 3 & 4 \\
+2 &   & 2 & 2 & 0 & 1 \\
+\hline
+  & 1 & 1 & 0 & 3 & \boxed{0} \\
+2 &   & 2 & 1 & 2 \\
+\hline
+  & 1 & 3 & 1 & \boxed{0}
+\end{array}
+\]
+
+Por tanto, \(\alpha = 2\) es raíz doble (\(m = 2\)).
+
+\vspace{0.5em}
+Finalmente, probamos con la raíz \(\alpha = 1\) (correspondiente a \(x + 4\)):
+
+\[
+\begin{array}{r|rrr}
+  & 1 & 3 & 1 \\
+1 &   & 1 & 4 \\
+\hline
+  & 1 & 4 & \boxed{0}
+\end{array}
+\]
+
+Por tanto, \(\alpha = 1\) es raíz simple (\(m = 1\)).
+
+\vspace{0.5em}
+Efectivamente, la factorización es:
+
+\[
+p(x) = (x + 2)(x + 3)^2(x + 4)^2.
+\]
+
+\[
+\boxed{\text{La opción correcta es la  c).}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 48]
+Justifique que $n^3 + 2$ no es múltiplo de $7$ para cualquier $n \in \mathbb{Z}$.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{1) Reducción al absurdo.}\\
+Supongamos, por el contrario, que existe \(n\in\mathbb{Z}\) tal que \(7\mid n^3+2\). Entonces
+\[
+n^3+2\equiv 0\pmod{7}\quad\Longrightarrow\quad n^3\equiv 5\pmod{7}.
+\]
+Comprobamos los cubos en \(\mathbb{Z}_7=\{0,1,2,3,4,5,6\}\):
+\[
+\begin{array}{c|c}
+n & n^3\pmod{7} \\ \hline
+0 & 0\\
+1 & 1\\
+2 & 8\equiv1\\
+3 & 27\equiv6\\
+4 & 64\equiv1\\
+5 & 125\equiv6\\
+6 & 216\equiv6
+\end{array}
+\]
+Los únicos restos posibles de \(n^3\) módulo \(7\) son \(0,1,6\); en particular nunca es \(5\). Esto contradice \(n^3\equiv5\pmod{7}\). Por tanto la suposición es falsa y
+\[
+\,7\nmid n^3+2\ \text{ para todo } n\in\mathbb{Z}\,.
+\]
+
+\textbf{2) Mediante la función }\(f:\mathbb{Z}_7\to\mathbb{Z}_7,\ f(x)=x^3+2.\)\\
+Evaluamos \(f\) en todos los elementos de \(\mathbb{Z}_7\):
+\[
+\begin{array}{c|c}
+x & x^3+2\pmod{7} \\ \hline
+0 & 0+2\equiv2\\
+1 & 1+2\equiv3\\
+2 & 1+2\equiv3\\
+3 & 6+2\equiv1\\
+4 & 1+2\equiv3\\
+5 & 6+2\equiv1\\
+6 & 6+2\equiv1
+\end{array}
+\]
+Los valores tomados por \(f\) son \(\{1,2,3\}\); nunca \(0\). Por tanto no existe \(x\in\mathbb{Z}_7\) tal que \(f(x)=0\), es decir,
+\[
+n^3+2\not\equiv0\pmod{7}\quad\text{para todo }n\in\mathbb{Z}.
+\]
+
+\[
+\boxed{\text{Conclusión: } n^3 + 2 \text{ no es múltiplo de } 7 \text{ para todo } n \in \mathbb{Z}.}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 49]
+Determine todos los números enteros \(n\) tales que el número \(n^3 + n^2 + 8\) es múltiplo de \(11\).
+\tcblower
+\textbf{Resolución:}
+
+Planteamos la congruencia:
+\[
+n^3 + n^2 + 8 \equiv 0 \pmod{11}.
+\]
+
+Sea \(f(n) = n^3 + n^2 + 8\).  
+Buscamos las raíces de \(f\) en \(\mathbb{Z}_{11} = \{0,1,2,3,4,5,6,7,8,9,10\}\):
+
+\[
+\begin{array}{c|c}
+n & f(n)\pmod{11} \\ \hline
+0 & 8 \\
+1 & 10 \\
+2 & 8 + 4 + 8 = 20 \equiv 9 \\
+3 & 27 + 9 + 8 = 44 \equiv 0
+\end{array}
+\]
+
+Por tanto, \(\alpha = 3\) es raíz de \(f(x)\).
+
+\vspace{0.5em}
+Estudiamos su multiplicidad aplicando Ruffini:
+
+\[
+\begin{array}{r|rrrr}
+  & 1 & 1 & 0 & 8 \\
+3 &   & 3 & 1 & 3 \\
+\hline
+  & 1 & 4 & 1 & \boxed{0} \\
+3 &   & 3 & -1 \\
+\hline
+  & 1 & 7 & \boxed{0} \\
+3 &   & 3 \\
+\hline
+  & 1 & \boxed{10}
+\end{array}
+\]
+
+El resto distinto de cero en la última división indica que \(\alpha = 3\) tiene multiplicidad \(m = 2\).
+
+\vspace{0.5em}
+El cociente obtenido es \(g(n) = n + 7\).  
+Comprobamos si \(g(4) = 0\) en \(\mathbb{Z}_{11}\):
+
+\[
+g(4) = 4 + 7 = 11 \equiv 0 \pmod{11}.
+\]
+
+Por tanto, \(\alpha = 4\) también es raíz de \(f(x)\).
+
+\vspace{0.5em}
+De esta forma, la factorización en \(\mathbb{Z}_{11}[x]\) es:
+
+\[
+f(n) = (n - 3)^2 (n - 4).
+\]
+
+La congruencia \(f(n) \equiv 0 \pmod{11}\) equivale a:
+
+\[
+(n - 3)^2 (n - 4) \equiv 0 \pmod{11}.
+\]
+
+De donde se obtienen dos casos:
+
+\[
+\begin{cases}
+n - 3 \equiv 0 \pmod{11} &\Rightarrow n \equiv 3 \pmod{11},\\
+n - 4 \equiv 0 \pmod{11} &\Rightarrow n \equiv 4 \pmod{11}.
+\end{cases}
+\]
+
+\vspace{0.5em}
+\[
+\text{Solución: }\boxed{n \in \{\,3 + 11k,\ k \in \mathbb{Z}\,\} \ \cup\ \{\,4 + 11k,\ k \in \mathbb{Z}\,\}.}
+\]
+\end{ejercicio}
+
+\section{Polinomios Irreducibles}
+
+\begin{ejercicio}[title=Ejercicio 51]
+Si $f(x) = a_nx^{np} + a_{n-1}x^{(n-1)p} + \cdots + a_1x^p + a_0 \in \mathbb{Z}_p[x]$, entonces se verifica que
+\[
+f(x) = (a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0)^p.
+\]
+
+Utilice la propiedad anterior para factorizar en $\mathbb{Z}_3[x]$ los siguientes polinomios como producto de irreducibles:
+\[
+f(x) = x^6 + x^3 + 1, \quad g(x) = x^6 + x^3 + 2, \quad h(x) = x^9 + x^6 + 2x^3 + 2, \quad j(x) = x^9 + 1.
+\]
+\tcblower
+\textbf{Resolución:}
+
+\medskip
+
+\noindent\(\bullet\) \(f(x)=x^6+x^3+1\). Como \(p=3\) se tiene
+\[
+f(x)=(x^2+x+1)^3.
+\]
+Llamamos \(f_1(x)=x^2+x+1\). Comprobamos raíces en \(\mathbb{Z}_3\):
+
+\[
+f_1(0)=1\neq 0,\qquad f_1(1)=1+1+1=3\equiv 0\pmod{3}.
+\]
+
+Aplicamos Ruffini con \(\alpha=1\):
+\[
+\begin{array}{r|rrr}
+  & 1 & 1 & 1 \\
+1 &   & 1 & 2 \\
+\hline
+  & 1 & 2 & \boxed{0} \\
+1 &   & 1 \\
+\hline
+  & 1 & \boxed{0}
+\end{array}
+\]
+
+Por tanto \(f_1(x)=(x-1)^2\) en \(\mathbb{Z}_3[x]\), es decir \(f_1(x)=(x+2)^2\). Entonces
+\[
+\boxed{f(x)=(x+2)^6}
+\]
+
+\medskip
+
+\noindent\(\bullet\) \(g(x)=x^6+x^3+2\). De nuevo \(p=3\) y
+\[
+g(x)=(x^2+x+2)^3.
+\]
+Comprobamos que \(x^2+x+2\) no tiene raíces en \(\mathbb{Z}_3\) (0,1,2 dan 2,1,2), por tanto es irreducible de grado 2.
+
+\[
+\boxed{g(x)=(x^2+x+2)^3}
+\]
+
+\medskip
+
+\noindent\(\bullet\) \(h(x)=x^9+x^6+2x^3+2\). Con \(p=3\) tenemos
+\[
+h(x)=(x^3+x^2+2x+2)^3.
+\]
+Sea \(h_1(x)=x^3+x^2+2x+2\). Probamos raíces:
+\[
+h_1(0)=2\neq0,\qquad h_1(1)=1+1+2+2=6\equiv0\pmod{3}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 51]
+
+Ruffini con \(\alpha=1\):
+\[
+\begin{array}{r|rrrr}
+  & 1 & 1 & 2 & 2 \\
+1 &   & 1 & 2 & 1 \\
+\hline
+  & 1 & 2 & 1 & \boxed{0}
+\end{array}
+\]
+
+Por tanto
+\[
+h_1(x)=(x-1)\,h_2(x),\qquad h_2(x)=x^2+2x+1.
+\]
+
+Comprobamos \(h_2(x)\):
+\[
+h_2(0)=1\neq0,\qquad h_2(1)=1+2+1=4\equiv1\neq0,
+\]
+\[
+h_2(2)=4+4+1=9\equiv0\pmod{3}.
+\]
+
+Como \(h_2\) es de grado \(2\) y hemos encontrado una raíz \(\alpha=2\) en \(\mathbb{Z}_3\), ésta debe ser doble; en efecto
+\[
+h_2(x)=(x-2)^2=(x+1)^2.
+\]
+
+Con todo:
+\[
+h_1(x)=(x-1)(x-2)^2=(x+2)(x+1)^2,
+\]
+y elevando al cubo:
+
+\[
+\boxed{h(x)=(x+2)^3 (x+1)^6}
+\]
+
+\medskip
+
+\noindent\(\bullet\) \(j(x) = x^9 + 1 \Rightarrow p = 3 \Rightarrow j(x) = (x^3 + 1)^3.\) \\
+
+Llamo \(j_1(x) = x^3 + 1.\) Compruebo raíces:
+\[
+j_1(0) = 1 \neq 0,\quad j_1(1) = 2 \neq 0,\quad j_1(2) = 0.
+\]
+Entonces \(\alpha = 2\) es raíz. Comprobamos multiplicidad mediante Ruffini:
+
+\[
+\begin{array}{r|rrrr}
+  & 1 & 0 & 0 & 1 \\
+2 &   & 2 & 1 & 2 \\
+\hline
+  & 1 & 2 & 1 & \boxed{0} \\
+2 &   & 1 & 2 \\
+\hline
+  & 1 & 0 & \boxed{0} \\
+2 &   & 2 \\
+\hline
+  & 1 & \boxed{0}
+\end{array}
+\]
+
+La multiplicidad es \(m = 3\), por tanto \(j_1(x) = (x + 1)^3.\)
+
+Entonces
+\[
+j(x) = ((x + 1)^3)^3 = (x + 1)^9.
+\]
+
+\[
+\boxed{j(x) = (x + 1)^9.}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 52]
+Factorice cada uno de los polinomios siguientes como producto de irreducibles:
+
+a) $x^6 + x^5 + x^4 + x^3 + x^2 + x + 1$ en $\mathbb{Z}_2[x]$.  \\
+b) $x^5 + x^3 + 2x^2 + x + 2$ en $\mathbb{Z}_3[x]$.  \\
+c) $x^5 + x^4 + x + 1$ en $\mathbb{Z}_5[x]$.  \\
+d) $x^7 + 6x$ en $\mathbb{Z}_7[x]$.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)} Sea 
+\[
+f(x) = x^6 + x^5 + x^4 + x^3 + x^2 + x + 1 \in \mathbb{Z}_2[x].
+\]
+
+\textbf{1) Comprobamos raíces en $\mathbb{Z}_2$.}
+
+\[
+f(0) = 1 \neq 0, \qquad f(1) = 1 + 1 + 1 + 1 + 1 + 1 + 1 = 7 \equiv 1 \pmod{2}.
+\]
+
+Por tanto, $f$ no tiene raíces en $\mathbb{Z}_2$, luego no tiene factores de grado $1$ ni de grado $5$.
+
+\vspace{0.5em}
+\textbf{2) Probamos divisibilidad por un polinomio de grado 2.}
+
+Dividimos por $x^2 + x + 1$:
+
+\[
+\dfrac{x^6 + x^5 + x^4 + x^3 + x^2 + x + 1}{x^2 + x + 1} = x^4 + x \quad \text{con resto } 1.
+\]
+
+Por tanto, $f$ no tiene factores de grado $2$ ni de grado $4$.
+
+\vspace{0.5em}
+\textbf{3) Probamos divisibilidad por un polinomio de grado 3.}
+
+Dividimos por $x^3 + x + 1$:
+
+\[
+\dfrac{x^6 + x^5 + x^4 + x^3 + x^2 + x + 1}{x^3 + x + 1} = x^3 + x^2 + 1 \quad \text{con resto } 0.
+\]
+
+Como $x^3 + x + 1$ y $x^3 + x^2 + 1$ son ambos mónicos e irreducibles en $\mathbb{Z}_2[x]$, se tiene:
+
+\[
+\boxed{f(x) = (x^3 + x + 1)(x^3 + x^2 + 1).}
+\]
+
+\textbf{b)} Sea 
+\[
+f(x) = x^5 + x^3 + 2x^2 + x + 2 \in \mathbb{Z}_3[x].
+\]
+
+\textbf{1) Comprobamos raíces en $\mathbb{Z}_3$.}
+
+\[
+\begin{array}{lcl}
+f(0) = 2 &\neq& 0, \\
+f(1) = 1 + 1 + 2 + 1 + 2 = 7 \equiv 1 \pmod{3}, \\
+f(2) = 32 + 8 + 8 + 2 + 2 = 52 \equiv 1 \pmod{3}.
+\end{array}
+\]
+
+Por tanto, $f$ no tiene raíces en $\mathbb{Z}_3$, luego no tiene factores de grado $1$ ni de grado $4$.
+
+\vspace{0.5em}
+\textbf{2) Probamos divisibilidad por polinomios de grado 2.}
+
+Dividimos por $x^2 + 1$:
+
+\[
+\dfrac{x^5 + x^3 + 2x^2 + x + 2}{x^2 + 1} = x^3 + 2 \quad \text{con resto } -2 \equiv 1 \pmod{3}.
+\]
+
+Por tanto, no divide a $f(x)$.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 52]
+
+Dividimos ahora por $x^2 + x + 2$:
+
+\[
+\dfrac{x^5 + x^3 + 2x^2 + x + 2}{x^2 + x + 2} = x^3 + 2x^2 + 1 \quad \text{con resto } 0.
+\]
+
+Por tanto,
+\[
+f(x) = (x^2 + x + 2)(x^3 + 2x^2 + 1).
+\]
+
+\vspace{0.5em}
+\textbf{3) Estudiamos la irreducibilidad de } \(f_1(x) = x^3 + 2x^2 + 1.\)
+
+Como $f(x)$ no tiene raíces en $\mathbb{Z}_3$, su factor cúbico $f_1(x)$ tampoco puede tener raíces, y por tanto no tiene factores de grado $1$ ni de grado $2$.
+
+Así, $f_1(x)$ es irreducible en $\mathbb{Z}_3[x]$.
+
+\[
+\boxed{f(x) = (x^2 + x + 2)(x^3 + 2x^2 + 1).}
+\]
+
+\textbf{c)} Sea 
+\[
+f(x) = x^5 + x^4 + x + 1 \in \mathbb{Z}_5[x].
+\]
+
+\textbf{1) Comprobamos raíces en $\mathbb{Z}_5$.}
+
+\[
+\begin{array}{lcl}
+f(0) = 1 &\neq& 0, \\
+f(1) = 1 + 1 + 1 + 1 = 4 &\neq& 0, \\
+f(2) = 2^5 + 2^4 + 2 + 1 = 32 + 16 + 3 = 51 \equiv 1, \\
+f(3) = 3^5 + 3^4 + 3 + 1 = 243 + 81 + 4 = 328 \equiv 3, \\
+f(4) = 4^5 + 4^4 + 4 + 1 = 1024 + 256 + 5 = 1285 \equiv 0.
+\end{array}
+\]
+
+Por tanto, $\alpha = 4$ es raíz de $f(x)$.
+
+\vspace{0.5em}
+\textbf{2) Determinamos su multiplicidad (Ruffini):}
+
+\[
+\begin{array}{r|rrrrrr}
+  & 1 & 1 & 0 & 0 & 1 & 1 \\
+4 &   & 4 & 0 & 0 & 0 & 4 \\
+\hline
+  & 1 & 0 & 0 & 0 & 1 & \boxed{0} \\
+4 &   & 4 & 1 & 4 & 1 \\
+\hline
+  & 1 & 4 & 1 & 4 & \boxed{2}
+\end{array}
+\]
+
+El resto es distinto de cero, por tanto la multiplicidad es \(m = 1\).  
+Sabemos que \((x - 4) = (x + 1)\) en \(\mathbb{Z}_5[x]\).
+
+\[
+f(x) = (x + 1)(x^4 + 1).
+\]
+
+\vspace{0.5em}
+\textbf{3) Factorizamos } \(f_1(x) = x^4 + 1.\)
+
+Como \(f(x)\) sólo tiene la raíz \(4\) (con multiplicidad \(1\)), \(f_1(x)\) no tiene raíces en \(\mathbb{Z}_5\), por lo que no tiene factores de grado \(1\) ni de grado \(3\).
+
+Buscamos los dos factores cuadráticos en los que se descompone \(f_1(x)\):
+\[
+x^4 + 1 = (x^2 + ax + b)(x^2 + cx + d),
+\]
+donde expandiendo:
+\[
+x^4 + (a + c)x^3 + (ac + b + d)x^2 + (ad + bc)x + bd.
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 52]
+Igualamos coeficientes con \(x^4 + 0x^3 + 0x^2 + 0x + 1\):
+\[
+\begin{cases}
+a + c = 0, \\
+ac + b + d = 0, \\
+ad + bc = 0, \\
+bd = 1.
+\end{cases}
+\]
+De \(a + c = 0 \Rightarrow c = -a\). Sustituyendo:
+\[
+\begin{cases}
+-a^2 + b + d = 0, \\
+a(d - b) = 0, \\
+bd = 1.
+\end{cases}
+\]
+
+Si \(a = 0\), entonces \(b = -d\) y \(d^2 = -1 \equiv 4 \pmod{5}\),  
+por tanto \(d = \pm 2 \Rightarrow d_1 = 2,\ d_2 = 3.\)
+
+Así:
+\[
+\begin{aligned}
+d = 2 &\Rightarrow b = -2 \equiv 3,\\
+d = 3 &\Rightarrow b = -3 \equiv 2.
+\end{aligned}
+\]
+
+Luego:
+\[
+x^4 + 1 = (x^2 + 2)(x^2 + 3).
+\]
+
+Ambos factores son irreducibles en \(\mathbb{Z}_5[x]\).
+
+\[
+\boxed{f(x) = (x + 1)(x^2 + 2)(x^2 + 3).}
+\]
+
+\textbf{d)} Sea 
+\[
+f(x) = x^7 + 6x \in \mathbb{Z}_7[x].
+\]
+
+\textbf{1) Comprobamos raíces en $\mathbb{Z}_7$.}
+
+\[
+f(0) = 0 \Rightarrow \alpha = 0 \text{ es raíz.}
+\]
+
+Comprobamos su multiplicidad (Ruffini):
+
+\[
+\begin{array}{r|rrrrrrrr}
+  & 1 & 0 & 0 & 0 & 0 & 0 & 6 & 0 \\
+0 &   & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+  & 1 & 0 & 0 & 0 & 0 & 0 & 6 & \boxed{0} \\
+0 &   & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+  & 1 & 0 & 0 & 0 & 0 & 0 & \boxed{6}
+\end{array}
+\]
+
+La multiplicidad es \(m = 1\).  
+Por tanto:
+\[
+f(x) = x(x^6 + 6).
+\]
+Llamamos \(f_1(x) = x^6 + 6.\)
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 52]
+
+\textbf{2) Buscamos raíces de } \(f_1(x)\) \textbf{ en } \(\mathbb{Z}_7.\)
+\[
+f_1(1) = 0 \Rightarrow \alpha = 1 \text{ es raíz.}
+\]
+
+Comprobamos su multiplicidad:
+
+\[
+\begin{array}{r|rrrrrrr}
+  & 1 & 0 & 0 & 0 & 0 & 0 & 6 \\
+1 &   & 1 & 1 & 1 & 1 & 1 & 1 \\
+\hline
+  & 1 & 1 & 1 & 1 & 1 & 1 & \boxed{0} \\
+1 &   & 1 & 2 & 3 & 4 & 5 \\
+\hline
+  & 1 & 2 & 3 & 4 & 5 & \boxed{6}
+\end{array}
+\]
+
+La multiplicidad es \(m = 1\).  
+Entonces:
+\[
+f(x) = x(x+6)(x^5 + x^4 + x^3 + x^2 + x + 1).
+\]
+Llamamos \(f_2(x) = x^5 + x^4 + x^3 + x^2 + x + 1.\)
+
+---
+
+\textbf{3) Raíces de } \(f_2(x)\) \textbf{ en } \(\mathbb{Z}_7.\)
+\[
+f_2(2) = 4 + 2 + 1 + 4 + 2 + 1 = 14 \equiv 0.
+\]
+\(\alpha = 2\) es raíz.
+
+\[
+\begin{array}{r|rrrrrr}
+  & 1 & 1 & 1 & 1 & 1 & 1 \\
+2 &   & 2 & 6 & 0 & 2 & 6 \\
+\hline
+  & 1 & 3 & 0 & 1 & 3 & \boxed{0} \\
+2 &   & 2 & 3 & 6 & 0 \\
+\hline
+  & 1 & 5 & 3 & 0 & \boxed{3}
+\end{array}
+\]
+
+La multiplicidad es \(m = 1\).  
+\[
+f(x) = x(x+6)(x+5)(x^4 + 3x^3 + x + 1).
+\]
+Llamamos \(f_3(x) = x^4 + 3x^3 + x + 1.\)
+
+---
+
+\textbf{4) Raíces de } \(f_3(x)\) \textbf{ en } \(\mathbb{Z}_7.\)
+\[
+f_3(3) = 4 + 3\cdot6 + 3 + 3 = 4 + 4 + 3 + 3 = 14 \equiv 0.
+\]
+\(\alpha = 3\) es raíz.
+
+\[
+\begin{array}{r|rrrrr}
+  & 1 & 3 & 0 & 1 & 3 \\
+3 &   & 3 & 4 & 5 & 4 \\
+\hline
+  & 1 & 6 & 4 & 6 & \boxed{0} \\
+3 &   & 3 & 6 & 2 \\
+\hline
+  & 1 & 2 & 3 & \boxed{1}
+\end{array}
+\]
+
+Multiplicidad \(m = 1\).
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 52]
+
+\[
+f(x) = x(x+6)(x+5)(x+4)(x^3 + 6x^2 + 4x + 6).
+\]
+Llamamos \(f_4(x) = x^3 + 6x^2 + 4x + 6.\)
+
+---
+
+\textbf{5) Raíces de } \(f_4(x)\) \textbf{ en } \(\mathbb{Z}_7.\)
+\[
+f_4(4) = 1 + 6\cdot2 + 4\cdot4 + 6 = 1 + 5 + 2 + 6 = 14 \equiv 0.
+\]
+\(\alpha = 4\) es raíz.
+
+\[
+\begin{array}{r|rrrr}
+  & 1 & 6 & 4 & 6 \\
+4 &   & 4 & 5 & 1 \\
+\hline
+  & 1 & 3 & 2 & \boxed{0} \\
+4 &   & 4 & 0 \\
+\hline
+  & 1 & 0 & \boxed{2}
+\end{array}
+\]
+
+Multiplicidad \(m = 1\).  
+\[
+f(x) = x(x+6)(x+5)(x+4)(x+3)(x^2 + 3x + 2).
+\]
+Llamamos \(f_5(x) = x^2 + 3x + 2.\)
+
+---
+
+\textbf{6) Raíces de } \(f_5(x)\) \textbf{ en } \(\mathbb{Z}_7.\)
+\[
+f_5(5) = 4 + 3\cdot5 + 2 = 4 + 1 + 2 = 0.
+\]
+\(\alpha = 5\) es raíz.
+
+\[
+\begin{array}{r|rrr}
+  & 1 & 3 & 2 \\
+5 &   & 5 & 5 \\
+\hline
+  & 1 & 1 & \boxed{0} \\
+5 &   & 5 \\
+\hline
+  & 1 & \boxed{6}
+\end{array}
+\]
+
+Multiplicidad \(m = 1.\)
+
+\[
+\boxed{f(x) = x(x+6)(x+5)(x+4)(x+3)(x+2)(x+1).}
+\]
+\end{ejercicio}
+
+\section{Relación de Congruencia en \(\mathbb{K}[x]\)}
+
+\begin{ejercicio}[title=Ejercicio 56]
+Sea el anillo $A = \dfrac{\mathbb{Z}_2[x]}{(x^4 + x^2 + 1)}$.  
+¿Cuántos elementos hay en $A$? ¿Es $A$ un cuerpo?
+Para cada uno de los elementos siguientes de $A$ obtenga, cuando exista, su inverso:
+\[
+x^3 + 1, \quad x^3 + x + 1, \quad x^3 + x^2 + 1.
+\]
+\tcblower
+\textbf{Resolución:}
+
+\textbf{Número de elementos en $A$:}
+
+La fórmula es:
+\[
+|A| = |\mathbb{Z}_p[x]/(m(x))| = p^{\operatorname{grado}(m(x))}.
+\]
+Por tanto:
+\[
+|A| = 2^4 = \boxed{16 \text{ elementos}}.
+\]
+
+\textbf{¿Es $A$ un cuerpo?}
+
+Esto equivale a comprobar si $m(x)$ es irreducible.  
+Sea $m(x) = x^4 + x^2 + 1$.
+
+1) Comprobamos si tiene raíces en $\mathbb{Z}_2$:
+\[
+m(0) = 1 \neq 0, \quad m(1) = 1 \neq 0.
+\]
+Como $m$ no tiene raíces, no tiene factores de grado $1$ ni $3$.
+
+2) Comprobamos si tiene factores de grado $2$:
+\[
+x^4 + x^2 + 1 / (x^2 + x + 1) = x^2 + x + 1 \text{ resto } 0.
+\]
+Entonces:
+\[
+m(x) = (x^2 + x + 1)^2 \Rightarrow m(x) \text{ no es irreducible.}
+\]
+
+\[
+\boxed{A \text{ no es un cuerpo.}}
+\]
+
+\textbf{Inversos:}
+
+\vspace{0.5em}
+
+$(x^3 + 1)^{-1}$
+
+Existe si $\operatorname{mcd}(x^3 + 1, x^4 + x^2 + 1) = 1$.
+
+\[
+\begin{aligned}
+x^4 + x^2 + 1 / (x^3 + 1) &= x \text{ resto } x^2 + x + 1, \\
+x^3 + 1 / (x^2 + x + 1) &= x + 1 \text{ resto } 0.
+\end{aligned}
+\]
+
+Por tanto:
+\[
+\operatorname{mcd}(x^3 + 1, x^4 + x^2 + 1) = x^2 + x + 1 \neq 1.
+\]
+\[
+\boxed{\text{No existe } (x^3 + 1)^{-1}}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 56]
+
+$(x^3 + x + 1)^{-1}$
+
+Existe si $\operatorname{mcd}(x^3 + x + 1, x^4 + x^2 + 1) = 1$.
+
+\[
+\begin{aligned}
+x^4 + x^2 + 1 / (x^3 + x + 1) &= x \text{ resto } x + 1, \\
+x^3 + x + 1 / (x + 1) &= x^2 + x \text{ resto } \boxed{1}.
+\end{aligned}
+\]
+
+\[
+\operatorname{mcd}(x^3 + x + 1, x^4 + x^2 + 1) = \boxed{1}.
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\ \hline
+0 & x^3 + x + 1 & - & 0 & 1 \\
+1 & x + 1 & x & 1 & x \\
+2 & \boxed{1} & x^2 + x & x^2 + x & x^3 + x^2 + 1
+\end{array}
+\]
+
+Por tanto, $u(x) = x^3 + x^2 + 1$.
+
+\[
+\boxed{(x^3 + x + 1)^{-1} = x^3 + x^2 + 1}
+\]
+
+---
+
+$(x^3 + x^2 + 1)^{-1}$
+
+Existe si $\operatorname{mcd}(x^3 + x^2 + 1, x^4 + x^2 + 1) = 1$.
+
+\[
+\begin{aligned}
+x^4 + x^2 + 1 / (x^3 + x^2 + 1) &= x + 1 \text{ resto } x, \\
+x^3 + x^2 + 1 / x &= x^2 + x \text{ resto } \boxed{1}.
+\end{aligned}
+\]
+
+\[
+\operatorname{mcd}(x^3 + x^2 + 1, x^4 + x^2 + 1) = 1.
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\ \hline
+0 & x^3 + x^2 + 1 & - & 0 & 1 \\
+1 & x & x + 1 & 1 & x + 1 \\
+2 & \boxed{1} & x^2 + x & x^2 + 1 & x^3 + x + 1
+\end{array}
+\]
+
+Por tanto, $u(x) = x^3 + x + 1$.
+
+\[
+\boxed{(x^3 + x^2 + 1)^{-1} = x^3 + x + 1}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 57]
+Justifique que el anillo $\dfrac{\mathbb{Z}_5[x]}{(x^3 + x^2 + x + 4)}$ es un cuerpo con las operaciones usuales y calcule el inverso del elemento $x^2 + 3x + 1$.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{Comprobamos si es un cuerpo:}
+
+El anillo será un cuerpo si $m(x) = x^3 + x^2 + x + 4$ es irreducible.
+
+1) Vemos si $m(x)$ tiene raíces en $\mathbb{Z}_5$:
+\[
+\begin{aligned}
+m(0) &= 4 \neq 0, \\
+m(1) &= 2 \neq 0, \\
+m(2) &= 3 + 4 + 2 + 4 = 3 \neq 0, \\
+m(3) &= 2 + 4 + 3 + 4 = 3 \neq 0, \\
+m(4) &= 4 + 1 + 4 + 4 = 3 \neq 0.
+\end{aligned}
+\]
+Como $m(x)$ no tiene raíces, no tiene factores de grado $1$ ni $2$, luego es irreducible.
+
+\[
+\boxed{\mathbb{Z}_5[x]/(x^3 + x^2 + x + 4) \text{ es un cuerpo.}}
+\]
+
+---
+
+\textbf{Cálculo del inverso de $x^2 + 3x + 1$:}
+
+Existe si $\operatorname{mcd}(x^2 + 3x + 1, x^3 + x^2 + x + 4) = 1$.
+
+\[
+\begin{aligned}
+x^3 + x^2 + x + 4 / (x^2 + 3x + 1) &= x + 3 \text{ resto } x + 1, \\
+x^2 + 3x + 1 / (x + 1) &= x + 2 \text{ resto } \boxed{4}.
+\end{aligned}
+\]
+
+Entonces $4$ es un $\operatorname{mcd}$ de $x^2 + 3x + 1$ y $x^3 + x^2 + x + 4$.  
+Como $4^{-1} = 4$ en $\mathbb{Z}_5$, tenemos:
+\[
+\operatorname{mcd}(x^2 + 3x + 1, x^3 + x^2 + x + 4) = 4^{-1}(4) = 1.
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\ \hline
+0 & x^2 + 3x + 1 & - & 0 & 1 \\
+1 & x + 1 & x + 3 & 1 & 4x + 2 \\
+2 & \boxed{4} & x + 2 & 4x + 3 & 4x^2
+\end{array}
+\]
+
+De la última fila:
+\[
+\boxed{4} = (x^3 + x^2 + x + 4)(4x + 3) + (x^2 + 3x + 1)(4x^2)
+\]
+
+Multiplicamos por $4^{-1} = 4$:
+\[
+1 = (x^3 + x^2 + x + 4)(x + 2) + (x^2 + 3x + 1)(x^2)
+\]
+
+Por tanto:
+\[
+\boxed{(x^2 + 3x + 1)^{-1} = x^2}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 60]
+Construya, cuando existan, cuerpos de $16$ elementos, de $18$ elementos, de $61$ elementos y de $81$ elementos.
+\tcblower
+\textbf{Resolución:}
+
+Recordamos que un cuerpo con $k$ elementos existe si $k = p^{\operatorname{grado}(m(x))}$, donde $p$ es un número primo y $m(x)$ es irreducible en $\mathbb{Z}_p[x]$.  
+En tal caso, el cuerpo será $\mathbb{Z}_p[x]_{m(x)}$.
+
+---
+
+\textbf{16 elementos:}  
+Factorizamos $16 = 2^4$. Cumple la condición, por tanto buscamos un polinomio $m(x)$ irreducible de grado $4$ en $\mathbb{Z}_2[x]$.
+
+\begin{itemize}
+\item $m_1(x) = x^4$.  
+$m_1(0) = 0 \Rightarrow$ no es irreducible.
+
+\item $m_2(x) = x^4 + 1$.  
+$m_2(0) = 1 \neq 0$,  
+$m_2(1) = 0 \Rightarrow$ no es irreducible.
+
+\item $m_3(x) = x^4 + x$.  
+$m_3(0) = 0 \Rightarrow$ no es irreducible.
+
+\item $m_4(x) = x^4 + x + 1$.  
+$m_4(0) = 1 \neq 0$,  
+$m_4(1) = 1 \neq 0 \Rightarrow$ no tiene raíces, por tanto no tiene factores de grado $1$ ni $3$.  
+Comprobamos factores de grado $2$:
+\[
+x^4 + x + 1 / (x^2 + x + 1) = x^2 + x + 1 \text{ resto } x.
+\]
+No tiene factores de grado $2$, luego $m_4$ es irreducible.
+\end{itemize}
+\[
+\boxed{\mathbb{Z}_2[x]_{x^4 + x + 1} \text{ es un cuerpo de } 16 \text{ elementos.}}
+\]
+
+---
+
+\textbf{18 elementos:}  
+$18 = 2 \cdot 3^2$ no es potencia de un número primo,  
+por tanto:
+
+\[
+\boxed{\text{No existe cuerpo de 18 elementos.}}
+\]
+
+---
+
+\textbf{61 elementos:}  
+61 es primo ($61 = 61^1$), tenemos $p = 61$ y $\operatorname{grado}(m(x)) = 1$.
+
+Cumple la condición, por tanto buscamos un polinomio $m(x)$ irreducible de grado $1$ en $\mathbb{Z}_{61}[x]$. Todos los $m(x)$ son irreducibles por tener grado 1.
+\[
+\boxed{\mathbb{Z}_{61}[x]_{x + a}, \quad a \in \mathbb{Z}_{61} \quad \text{ es un cuerpo de } 61 \text{ elementos.}}
+\]
+
+---
+
+\textbf{81 elementos:}  
+$81 = 3^4$. Cumple la condición, buscamos un polinomio irreducible de grado $4$ en $\mathbb{Z}_3[x]$.
+
+\begin{itemize}
+\item $m_1(x) = x^4$.  
+$m_1(0) = 0 \Rightarrow$ no es irreducible.
+
+\item $m_2(x) = x^4 + 1$.  
+$m_2(0) = 1$, $m_2(1) = 2$, $m_2(2) = 2 \Rightarrow$ no tiene raíces.  
+Comprobamos si tiene factores de grado $2$:
+\[
+x^4 + 1 / (x^2 + 1) = x^2 + 1 \text{ resto } 0,
+\]
+por tanto no es irreducible.
+\end{itemize}
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 60]
+
+\begin{itemize}
+\item $m_3(x) = x^4 + 2$.  
+$m_3(0) = 2$, $m_3(1) = 0 \Rightarrow$ no es irreducible.
+
+\item $m_4(x) = x^4 + x$.  
+$m_4(0) = 0 \Rightarrow$ no es irreducible.
+
+\item $m_5(x) = x^4 + x + 1$.  
+$m_5(0) = 1$, $m_5(1) = 0 \Rightarrow$ no es irreducible.
+
+\item $m_6(x) = x^4 + x + 2$.  
+$m_6(0) = 2$, $m_6(1) = 1$, $m_6(2) = 2 \Rightarrow$ no tiene raíces, así que no tiene factores de grado $1$ ni $3$.  
+Probamos divisiones por todos los polinomios de grado $2$ en $\mathbb{Z}_3[x]$:
+\[
+\begin{aligned}
+x^4 + x + 2 / (x^2 + 1) &= x^2 + 2 \text{ resto } x, \\
+x^4 + x + 2 / (x^2 + x + 2) &= x^2 + 2x + 2 \text{ resto } x + 1, \\
+x^4 + x + 2 / (x^2 + 2x + 2) &= x^2 + x + 2 \text{ resto } x + 1.
+\end{aligned}
+\]
+No se obtiene resto nulo, por tanto $m_6$ es irreducible.
+\end{itemize}
+\[
+\boxed{\mathbb{Z}_3[x]_{x^4 + x + 2} \text{ es un cuerpo de } 81 \text{ elementos.}}
+\]
+\end{ejercicio}
+
+
+\section{Ecuaciones en congruencia en \(\mathbb{K}[x]\)}
+
+\begin{ejercicio}[title=Ejercicio 53]
+Calcule el polinomio de menor grado que hay que sumarle al polinomio 
+\[
+2x^6 + x + 1
+\]
+para que el polinomio resultante sea múltiplo de \(3x^4 + x^3 + 1\) en \(\mathbb{Z}_7[x]\).
+\tcblower
+\textbf{Resolución:}
+
+\begin{itemize}
+    \item \textbf{Interpretación del enunciado:}  
+    Queremos hallar un polinomio \(f(x)\) tal que:
+    \[
+    2x^6 + x + 1 + f(x) \equiv 0 \pmod{3x^4 + x^3 + 1}, \quad f(x) \in \mathbb{Z}_7[x].
+    \]
+    Es decir,
+    \[
+    f(x) \equiv -\big(2x^6 + x + 1\big) \pmod{3x^4 + x^3 + 1}.
+    \]
+
+    \item \textbf{Pasamos a módulo 7:}  
+    \[
+    f(x) \equiv 5x^6 + 6x + 6 \pmod{3x^4 + x^3 + 1}.
+    \]
+
+    Entonces:
+    \[
+    f(x) = (5x^6 + 6x + 6) \cdot 1 + (3x^4 + x^3 + 1)\,k(x), \quad k(x) \in \mathbb{Z}_7[x].
+    \]
+
+    \item \textbf{División de } \(5x^6 + 6x + 6\) \textbf{ entre } \(3x^4 + x^3 + 1\):
+    \[
+5x^6 + 6x + 6 \ \text{ / }\ 3x^4 + x^3 + 1 \ =\ 4x^2 + x + 2 \ \text{ resto }\ 5x^3 + 3x^2 + 5x + 4
+\]
+
+    \item \textbf{Por tanto:}
+    \[
+    f(x) = 5x^3 + 3x^2 + 5x + 4 + (3x^4 + x^3 + 1)\,k(x).
+    \]
+
+    \item \textbf{El polinomio de menor grado} se obtiene tomando \(k(x) = 0\), es decir:
+    \[
+    \boxed{f(x) = 5x^3 + 3x^2 + 5x + 4.}
+    \]
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 54]
+En $\mathbb{Z}_5[x]$ calcule todos los polinomios $f(x)$ tales que el resto de dividir $(x^2 + 1)f(x) + x$ entre $x^3 + x + 2$ es $x + 2$.
+\tcblower
+\textbf{Resolución:}
+
+La congruencia es:
+\[
+(x^2 + 1)f(x) + x \equiv x + 2 \pmod{x^3 + x + 2}
+\]
+\[
+(x^2 + 1)f(x) \equiv 2 \pmod{x^3 + x + 2}
+\]
+
+Ahora:
+\[
+x^3 + x + 2 / x^2 + 1 = x \text{ resto } \boxed{2}
+\]
+
+Entonces $2$ es un $\operatorname{mcd}$ de $x^2 + 1$ y $x^3 + x + 2$.  
+Como $2^{-1} = 3$ en $\mathbb{Z}_5$, tenemos:
+\[
+\operatorname{mcd}(x^3 + x + 2, x^2 + 1) = 2^{-1}(2) = 1
+\]
+y como $1 \mid 2$, el sistema tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\ \hline
+0 & x^2 + 1 & - & 0 & 1 \\
+1 & \boxed{2} & x & 1 & 4x
+\end{array}
+\]
+
+Entonces:
+\[
+\boxed{2} = (x^3 + x + 2)(1) + (x^2 + 1)(4x)
+\]
+
+Multiplicamos por $2^{-1} = 3$:
+\[
+1 = (x^3 + x + 2)(3) + (x^2 + 1)(2x)
+\]
+
+Por tanto, $u(x) = 2x$.
+
+Recordamos que la fórmula general es:
+\[
+f(x) = \frac{b(x)}{g(x)} u(x) + \frac{m(x)}{g(x)} k(x), \quad k(x) \in \mathbb{K}[x]
+\]
+
+Entonces:
+\[
+f(x) = \frac{2}{1}(2x) + \frac{x^3 + x + 2}{1}k(x), \quad k(x) \in \mathbb{Z}_5[x]
+\]
+
+\[
+\boxed{f(x) = 4x + (x^3 + x + 2)k(x)}, \quad k(x) \in \mathbb{Z}_5[x]
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 55]
+En el anillo $\dfrac{\mathbb{Z}_2[x]}{(x^3 + x + 1)}$ el elemento $x^2 + x + 1$ es igual a:
+
+a) $x^4$. \\
+b) $x^5$. \\
+c) $x^6$. \\
+d) $x^7$.
+\tcblower
+\textbf{Resolución:}
+
+El elemento debe ser congruente con $x^2 + x + 1$ módulo $x^3 + x + 1$.
+
+Comprobamos el resto de dividir cada opción entre el módulo $x^3 + x + 1$:
+
+\[
+\begin{aligned}
+\text{a)} &\quad x^4 / (x^3 + x + 1) = x \text{ resto } x^2 + x \\
+&\Rightarrow x^4 \not\equiv x^2 + x + 1 \pmod{x^3 + x + 1} \\[6pt]
+\text{b)} &\quad x^5 / (x^3 + x + 1) = x^2 + 1 \text{ resto } x^2 + x + 1 \\
+&\Rightarrow x^5 \equiv x^2 + x + 1 \pmod{x^3 + x + 1} \\[6pt]
+\text{c)} &\quad x^6 / (x^3 + x + 1) = x^3 + x + 1 \text{ resto } x^2 + 1 \\
+&\Rightarrow x^6 \not\equiv x^2 + x + 1 \pmod{x^3 + x + 1} \\[6pt]
+\text{d)} &\quad x^7 / (x^3 + x + 1) = x^4 + x^2 + x + 1 \text{ resto } 1 \\
+&\Rightarrow x^7 \not\equiv x^2 + x + 1 \pmod{x^3 + x + 1}
+\end{aligned}
+\]
+
+Por tanto, la opción correcta es:
+
+\[
+\boxed{\text{b) } x^5}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 58]
+Obtenga todos los elementos $\omega \in \dfrac{\mathbb{Z}_2[x]}{(x^4 + x^3 + x^2)}$ tales que $(x^3 + x^2)\cdot\omega = x^3$.
+\tcblower
+\textbf{Resolución:}
+
+Tenemos:
+\[
+(x^3 + x^2)\omega = x^3 \pmod{x^4 + x^3 + x^2}.
+\]
+
+\textbf{Cálculo del $\operatorname{mcd}$:}
+
+\[
+\begin{aligned}
+x^4 + x^3 + x^2 / (x^3 + x^2) &= x \text{ resto } \boxed{x^2}, \\
+x^3 + x^2 / x^2 &= x + 1 \text{ resto } 0.
+\end{aligned}
+\]
+
+Por tanto, $x^2$ es un $\operatorname{mcd}$ de $x^3 + x^2$ y $x^4 + x^3 + x^2$.  
+Como es mónico:
+\[
+\operatorname{mcd}(x^4 + x^3 + x^2, x^3 + x^2) = x^2.
+\]
+Y como $x^2 \mid x^3$, el sistema tiene solución.
+
+---
+
+Simplificamos la ecuación dividiendo entre $x^2$:
+\[
+(x + 1)\omega = x \pmod{x^2 + x + 1}.
+\]
+
+Comprobamos que:
+\[
+x^2 + x + 1 / (x + 1) = x \text{ resto } \boxed{1}.
+\]
+Por tanto:
+\[
+\operatorname{mcd}(x^2 + x + 1, x + 1) = \boxed{1}.
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\ \hline
+0 & x + 1 & - & 0 & 1 \\
+1 & \boxed{1} & x & 1 & x
+\end{array}
+\]
+
+De aquí, $u(x) = x$.
+
+Usando la fórmula general:
+\[
+\omega = \frac{b(x)}{g(x)}u(x) + \frac{m(x)}{g(x)}k(x), \quad k(x) \in \mathbb{K}[x],
+\]
+tenemos:
+\[
+\omega = \frac{x}{1}x + \frac{x^2 + x + 1}{1}k(x), \quad k(x) \in \mathbb{Z}_2[x].
+\]
+
+\[
+\omega = x^2 + (x^2 + x + 1)k(x).
+\]
+
+Simplificando:
+\[
+x^2 / (x^2 + x + 1) = 1 \text{ resto } x + 1.
+\]
+
+\[
+\boxed{\omega = x + 1 + (x^2 + x + 1)k(x), \quad k(x) \in \mathbb{Z}_2[x]}
+\]
+\end{ejercicio}
+
+\section{Ecuaciones de grado 1 en \(\mathbb{K}[x]_{m(x)}\)}
+
+\begin{ejercicio}[title=Ejercicio 59]
+En el anillo $\dfrac{\mathbb{Z}_3[x]}{(x^3 + x + 2)}$ resuelva cada una de las ecuaciones siguientes cuya incógnita es $\omega$:
+
+a) $(x^2 + 2)\omega + 1 = x + \omega$.  \\
+b) $(x^2 + 2)\omega = x^2 + 2x$.  \\
+c) $x^2\omega = x^2 + x + \omega$.
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)} $(x^2 + 2)\omega + 1 = x + \omega$
+
+\[
+(x^2 + 1)\omega = x + 2 \pmod{x^3 + x + 2}.
+\]
+
+Cálculo del $\operatorname{mcd}$:
+
+\[
+\begin{aligned}
+x^3 + x + 2 / (x^2 + 1) &= x \text{ resto } \boxed{2}, \\
+2 &\text{ es un } \operatorname{mcd}(x^2 + 1, x^3 + x + 2).
+\end{aligned}
+\]
+
+Como $2^{-1} = 2$ en $\mathbb{Z}_3$, resulta:
+\[
+\operatorname{mcd}(x^2 + 1, x^3 + x + 2) = 2^{-1}\!\cdot 2 = 1.
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\ \hline
+0 & x^2 + 1 & - & 0 & 1 \\
+1 & \boxed{2} & x & 1 & 2x
+\end{array}
+\]
+
+De la identidad:
+\[
+\boxed{2} = (x^3 + x + 2)(1) + (x^2 + 1)(2x),
+\]
+multiplicamos por $2^{-1} = 2$:
+\[
+1 = (x^3 + x + 2)(2) + (x^2 + 1)(x).
+\]
+Por tanto, $u(x) = x$.
+
+\[
+\omega = \frac{x + 2}{1}x + \frac{x^3 + x + 2}{1}k(x), \quad k(x) \in \mathbb{Z}_3[x].
+\]
+
+\[
+\boxed{\omega = x^2 + 2x + (x^3 + x + 2)k(x), \quad k(x) \in \mathbb{Z}_3[x]}
+\]
+
+\vspace{0.5em}
+
+\textbf{b)} $(x^2 + 2)\omega = x^2 + 2x \pmod{x^3 + x + 2}$
+
+\[
+\begin{aligned}
+x^3 + x + 2 / (x^2 + 2) &= x \text{ resto } \boxed{2x + 2}, \\
+x^2 + 2 / (2x + 2) &= 2x + 1 \text{ resto } 0.
+\end{aligned}
+\]
+
+Entonces $2x + 2$ es un $\operatorname{mcd}$ de $x^2 + 2$ y $x^3 + x + 2$.  
+
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 59]
+
+Como $2^{-1} = 2$ en $\mathbb{Z}_3$:
+\[
+\operatorname{mcd}(x^2 + 2, x^3 + x + 2) = 2^{-1}(2x + 2) = x + 1.
+\]
+
+Pero
+\[
+\begin{aligned}
+x^2 + 2 / x+1 &= x + 1 \text{ resto } 2.
+\end{aligned}
+\]
+
+Entonces $x + 1 \nmid x^2 + 2$, luego:
+\[
+\boxed{\text{No tiene solución.}}
+\]
+
+\vspace{0.5em}
+
+\textbf{c)} $x^2\omega = x^2 + x + \omega$
+
+\[
+(x^2 + 2)\omega = x^2 + x \pmod{x^3 + x + 2}.
+\]
+
+Cálculo del $\operatorname{mcd}$:
+\[
+\begin{aligned}
+x^3 + x + 2 / (x^2 + 2) &= x \text{ resto } \boxed{2x + 2}, \\
+x^2 + 2 / (2x + 2) &= 2x + 1 \text{ resto } 0.
+\end{aligned}
+\]
+
+Por tanto, $2x + 2$ es un $\operatorname{mcd}$, y con $2^{-1} = 2$:
+\[
+\operatorname{mcd}(x^2 + 2, x^3 + x + 2) = 2^{-1}(2x + 2) = x + 1.
+\]
+Como $x^2 + x = x(x + 1)$, se cumple $x + 1 \mid x^2 + x \Rightarrow$ tiene solución.
+
+Simplificamos dividiendo entre $x + 1$:
+\[
+(x + 2)\omega = x \pmod{x^2 + 2x + 2}.
+\]
+
+Nuevo $\operatorname{mcd}$:
+\[
+x^2 + 2x + 2 / (x + 2) = x \text{ resto } \boxed{2}.
+\]
+Por tanto, $\operatorname{mcd}(x + 2, x^2 + 2x + 2) = 2^{-1}\cdot2 = 1$.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\ \hline
+0 & x + 2 & - & 0 & 1 \\
+1 & \boxed{2} & x & 1 & 2x
+\end{array}
+\]
+
+\[
+\boxed{2} = (x^2 + 2x + 2)(1) + (x + 2)(2x).
+\]
+Multiplicamos por $2^{-1} = 2$:
+\[
+1 = (x^2 + 2x + 2)(2) + (x + 2)(x),
+\]
+por tanto $u(x) = x$.
+\[
+\omega = \frac{x}{1}x + \frac{x^2 + 2x + 2}{1}k(x) = x^2 + (x^2 + 2x + 2)k(x), \quad k(x) \in \mathbb{Z}_3[x].
+\]
+
+Simplificando:
+\[
+x^2 / (x^2 + 2x + 2) = 1 \text{ resto } [2x + 2].
+\]
+\[
+\boxed{\omega = 2x + 2 + (x^2 + 2x + 2)k(x), \quad k(x) \in \mathbb{Z}_3[x]}
+\]
+\end{ejercicio}
+
+\end{document}

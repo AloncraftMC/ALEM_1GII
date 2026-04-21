@@ -1,0 +1,957 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Para insertar imágenes
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{hyperref} % Enlaces y referencias clicables
+\usepackage{lmodern} % Fuente moderna
+\usepackage{geometry} % Márgenes
+\usepackage{polynom}
+\usepackage[most]{tcolorbox} % Cajitas para ejemplos y procedimientos
+\geometry{margin=2.5cm}
+
+% ==== Definición de estilos de caja ====
+\tcbset{
+  colback=white,
+  colframe=black!60,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{procedimiento}[1][]{
+  colback=green!5!white,
+  colframe=green!60!black,
+  title=\textbf{Procedimiento},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejemplo}[1][]{
+  colback=blue!5!white,
+  colframe=blue!60!black,
+  title=\textbf{Ejemplo},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejercicio}[1][]{
+  colback=red!5!white,
+  colframe=red!60!black,
+  title=\textbf{Ejercicio},
+  fonttitle=\bfseries,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt,
+  #1
+}
+
+\newtcolorbox{ejercicioExamen}[1][]{
+  colback=yellow!5!white,
+  colframe=yellow!60!black,
+  title=\textbf{Ejercicio},
+  fonttitle=\bfseries,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt,
+  #1
+}
+
+% ==== Documento principal ====
+\title{Álgebra Lineal y Estructuras Matemáticas (ALEM) Examen Resuelto Temas 0 y 1}
+\author{Alonso Hernández Robles (Grupo E)}
+\date{09/11/2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ejercicioExamen}[title=Ejercicio 1]
+Sea la aplicación 
+\[
+f : \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \to 
+\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N})
+\]
+definida por \( f(A,B) = (A \setminus B,\, B) \). Entonces:
+
+\begin{enumerate}
+\item[$a)$] \( f(f(A,B)) = (A,B) \) para cualquiera \( (A,B) \in \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \).
+\item[$b)$] \( (\mathbb{N}, \mathbb{N}) \notin \mathrm{Im}(f) \).
+\item[$c)$] \( f \) no es inyectiva ni sobreyectiva.
+\item[$d)$] \( f \) es inyectiva pero no es sobreyectiva.
+\item[$e)$] \( f \) es sobreyectiva pero no es inyectiva.
+\item[$f)$] Ninguna de las opciones anteriores es correcta.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Primero, reescribimos la resta de conjuntos usando complementos e intersección:
+\[
+A \setminus B = A \cap \overline{B}.
+\]
+Por tanto, la función puede escribirse como
+\[
+f(A,B) = (A \cap \overline{B}, B).
+\]
+
+---
+
+\medskip
+\textbf{Apartado $a)$.} Queremos ver si se cumple
+\[
+f(f(A,B)) = (A,B) \quad \forall (A,B) \in \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}).
+\]
+
+Calculamos paso a paso:
+\[
+\begin{aligned}
+f(f(A,B)) &= f(A \cap \overline{B}, B) \\
+&=((A \cap \overline{B}) \cap \overline{\overline{B}}, \overline{\overline{B}}) \\
+&= ((A \cap \overline{B}) \cap B, B) \\
+&= (A \cap (\underbrace{\overline{B} \cap B}_{\varnothing}), B) \\
+&= (A \cap \varnothing, B) \\
+&= (\varnothing, B)
+\end{aligned}
+\]
+
+Observamos que 
+\[
+f(f(A,B)) = (\varnothing, B) \neq (A,B)
+\]
+en general. Solo se cumple si \(A = \varnothing\) y no para todos los conjuntos \(A\).
+
+\medskip
+Por tanto, la opción $a)$ es \textbf{falsa}.
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 1]
+
+\textbf{Apartado $b)$.} Queremos analizar si
+\[
+(\mathbb{N}, \mathbb{N}) \notin \mathrm{Im}(f),
+\]
+es decir, si \((\mathbb{N},\mathbb{N})\) no se obtiene mediante $f(A,B)$ para ningún valor del dominio.
+
+\medskip
+\textbf{Recordatorio:}
+\begin{itemize}
+    \item El \emph{dominio} de \(f\) es \(\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N})\), todos los pares de subconjuntos de \(\mathbb{N}\) sobre los que podemos evaluar \(f\).  
+    \item El \emph{codominio} también es \(\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N})\), es decir, todos los pares posibles de subconjuntos de \(\mathbb{N}\).  
+    \item La \emph{imagen} \(\mathrm{Im}(f)\) es el conjunto de todos los valores que realmente toma \(f\) al evaluarla en todos los elementos del dominio. Recordamos entonces que la imagen es un subconjunto del codominio, por lo que no tienen que ser necesariamente iguales.
+\end{itemize}
+
+\medskip
+Supongamos que \((\mathbb{N}, \mathbb{N}) \in \mathrm{Im}(f)\). Entonces debería existir algún par \((A,B)\) tal que
+\[
+f(A,B) = (\mathbb{N}, \mathbb{N}).
+\]
+
+Sustituyendo la definición de \(f\):
+\[
+(A \setminus B, \overline{B}) = (\mathbb{N}, \mathbb{N}).
+\]
+
+Escribimos esto como un sistema de ecuaciones:
+\[
+\begin{cases}
+A \setminus B = \mathbb{N},\\[2mm]
+\overline{B} = \mathbb{N}.
+\end{cases}
+\]
+
+De la segunda ecuación del sistema,
+\[
+\overline{B} = \mathbb{N} \implies B = \overline{\mathbb{N}}
+\]
+queremos saber qué es \(\overline{\mathbb{N}}\). Recordemos que, por definición, para cualquier conjunto \(A \subseteq X\), donde $X$ es el universo:
+\[
+\overline{A} = X \setminus A,
+\]
+es decir, \(\overline{A}\) son todos los elementos del universo $X$ que no están en \(A\).
+
+\vspace{0.5em}
+
+Aplicando esto a nuestro caso, el universo donde están $A$ y $B$ es $\mathbb{N}$, ya que estos dos conjuntos se definen en este ejercicio como subconjuntos de $\mathbb{N}$ por estar contenidos en $\mathcal{P}(\mathbb{N)}$.
+
+\vspace{0.5em}
+
+Entonces sustituyendo:
+\[
+B = \overline{\mathbb{N}} = \mathbb{N} \setminus \mathbb{N} = \varnothing.
+\]
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 1]
+
+Sustituyendo \(B = \varnothing\) en la primera ecuación:
+\[
+A \setminus B = A \setminus \varnothing = A = \mathbb{N}.
+\]
+
+\medskip
+Por tanto, el par
+\[
+(A,B) = (\mathbb{N}, \varnothing)
+\]
+pertenece al dominio \(\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N})\) y cumple que
+\[
+f(\mathbb{N}, \varnothing) = (A \setminus B, \overline{B}) = (\mathbb{N} \setminus \varnothing, \overline{\varnothing}) = (\mathbb{N}, \mathbb{N}).
+\]
+
+\medskip
+Como hemos encontrado un \((A,B)\) en el dominio que produce \((\mathbb{N}, \mathbb{N})\), concluimos que
+\[
+(\mathbb{N}, \mathbb{N}) \in \mathrm{Im}(f),
+\]
+y, por tanto, la opción $b)$ es \textbf{falsa}.
+
+---
+
+\textbf{Sobre la sobreyectividad de \(f\).}  
+
+Recordemos que
+\[
+f(A,B) = (A \setminus B, \overline{B}) = (A \cap \overline{B}, \overline{B}).
+\]
+
+Observamos para todo $(A,B)$, la primera componente del resultado es siempre subconjunto de la segunda:
+
+\[
+A \cap \overline{B} \subseteq \overline{B}.
+\]
+
+Si \(f(A,B) = (C,D)\), entonces, por definición de \(f\):
+\[
+C = A \cap \overline{B}, \quad D = \overline{B}.
+\]
+
+y entonces
+\[
+C \subseteq D.
+\]
+
+\medskip
+\textbf{Conclusión:} Para que un par \((C,D)\) pertenezca a la imagen de \(f\), necesariamente debe cumplirse que \(C \subseteq D\).  
+
+\begin{itemize}
+    \item Por ejemplo, si tomamos un par \((C,D)\) del codominio donde \(C \not\subseteq D\), entonces \textbf{no existe ningún par \((A,B)\)} que cumpla \(f(A,B) = (C,D)\).  
+    \item Esto implicaría que \((C,D) \notin \mathrm{Im}(f)\). Como al menos existiría este elemento $(C,D)$ que pertenece al codominio pero no a la imagen, la imagen de $f$ no sería igual al codominio, lo cual es la \textbf{definición} de sobreyectividad.
+\end{itemize}
+
+\underline{Ejemplo concreto para ver que \(f\) no es sobreyectiva:}
+
+\[
+(C,D) = (\mathbb{N}, \varnothing) \quad \in \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \quad \text{(codominio)}
+\]
+Claramente,
+\[
+\mathbb{N} \not\subseteq \varnothing,
+\]
+ya que la parte derecha no contiene ningún elemento.
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 1]
+
+Veamos si existe algún \((A,B)\) tal que \(f(A,B) = (\mathbb{N}, \varnothing)\).  
+La ecuación sería:
+\[
+(A \setminus B, \overline{B}) = (\mathbb{N}, \varnothing).
+\]
+De la segunda coordenada obtenemos \(\overline{B} = \varnothing \implies B = \mathbb{N}\).
+
+Sustituyendo en la primera:
+\[
+A \setminus \mathbb{N} = \mathbb{N} \implies \varnothing = \mathbb{N}.
+\]
+Por tanto, esta igualdad no puede cumplirse.
+
+\medskip
+Así, \emph{no existe} ningún par \((A,B)\) que produzca \((\mathbb{N}, \varnothing)\).  
+En consecuencia,
+\[
+(\mathbb{N}, \varnothing) \notin \mathrm{Im}(f) \text{ y } (\mathbb{N}, \varnothing) \in \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \]
+\[\implies \mathrm{Im}(f) \ne \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N})
+\]
+lo que confirma que \(f\) \textbf{no es sobreyectiva}.
+
+No todos los pares \((C,D)\) del codominio \(\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N})\) se pueden obtener como valores de \(f\).  
+
+\medskip
+\textbf{Consecuencia:}
+\begin{itemize}
+    \item La opción $d)$, que decía que \(f\) es inyectiva pero no sobreyectiva, es \textbf{falsa}.
+    \item La opción $f)$, que implicaría que \(f\) fuese biyectiva, también es \textbf{falsa}, ya que acabamos de ver que \(f\) no puede ser sobreyectiva.
+\end{itemize}
+
+\medskip
+\textbf{Sobre la inyectividad de \(f\).}
+
+Recordemos la definición: \(f\) es \emph{inyectiva} si
+\[
+f(A,B) = f(C,D) \Longrightarrow (A,B) = (C,D)
+\]
+para cualesquiera \((A,B),(C,D)\) en el dominio.
+
+Partimos de la igualdad de valores:
+\[
+f(A,B) = f(C,D).
+\]
+Sustituyendo la definición de \(f\):
+\[
+(A \setminus B,\; \overline{B}) = (C \setminus D,\; \overline{D}),
+\]
+es decir, usando la notación con intersección
+\[
+(A \cap \overline{B},\; \overline{B}) = (C \cap \overline{D},\; \overline{D}).
+\]
+
+De la igualdad de pares obtenemos el sistema
+\[
+\begin{cases}
+A \cap \overline{B} = C \cap \overline{D},\\[2mm]
+\overline{B} = \overline{D}.
+\end{cases}
+\]
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 1]
+
+De la segunda ecuación se sigue inmediatamente que
+\[
+\overline{B} = \overline{D} \Longrightarrow B = D.
+\]
+Sustituyendo \(D=B\) en la primera ecuación queda
+\[
+A \cap \overline{B} = C \cap \overline{B}.
+\]
+
+Esto no implica en general que \(A = C\)
+
+\medskip
+\underline{Contraejemplo concreto.} Tomemos por ejemplo \(B=\{1\}\), y define
+\[
+A = B = \{1\},\qquad C = \varnothing,\qquad D = B = \{1\}.
+\]
+Entonces \(B=D\) y
+\[
+A \cap \overline{B} = \{1\} \cap (\mathbb{N}\setminus\{1\}) = \varnothing,
+\]
+\[
+C \cap \overline{D} = \varnothing \cap (\mathbb{N}\setminus\{1\}) = \varnothing.
+\]
+Por tanto
+\[
+f(A,B) = (A \setminus B,\; \overline{B}) = (\varnothing,\; \overline{B})
+\]
+y
+\[
+f(C,D) = (C \setminus D,\; \overline{D}) = (\varnothing,\; \overline{B}),
+\]
+de modo que \(f(A,B)=f(C,D)\). Sin embargo \((A,B) \neq (C,D)\) porque \(A \neq C\).  
+
+\medskip
+Por tanto \(f\) no es inyectiva.
+
+\medskip
+\textbf{Conclusión final:} Como \(f\) no es inyectiva y ya hemos mostrado que tampoco es sobreyectiva, la opción correcta es
+\[
+\boxed{$c)$\quad f \text{ no es inyectiva ni sobreyectiva.}}
+\]
+
+
+\end{ejercicioExamen}
+
+%-------------------------------------------------
+\begin{ejercicioExamen}[title=Ejercicio 2]
+
+En \(\mathbb{Z}_{60}\) definimos la siguiente relación binaria: 
+\( a\, R\, b \) si y sólo si existe \( c \in \mathbb{Z}_{60} \) tal que \( a + c = b \).
+Entonces:
+
+\begin{enumerate}
+\item[$a)$] \( R \) es una relación de orden, pero no es una relación de equivalencia. 
+\item[$b)$] \( R \) no es una relación de orden, pero sí es una relación de equivalencia y \( \frac{\mathbb{Z}_{60}}{R} \) tiene cardinal 1.
+\item[$c)$] \( R \) no es una relación de orden, pero sí es una relación de equivalencia y \( \frac{\mathbb{Z}_{60}}{R} \) tiene cardinal 30.
+\item[$d)$] \( R \) no es una relación de orden ni de equivalencia.
+\item[$e)$] \( R \) no es una relación de orden, pero sí es una relación de equivalencia y \( \frac{\mathbb{Z}_{60}}{R} \) tiene cardinal 60.
+\item[$f)$] \( R \) es una relación de orden y de equivalencia.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\medskip
+\textbf{1. Reflexividad.}  
+Verificamos si \(a \, R \, a\) para todo \(a \in \mathbb{Z}_{60}\).  
+Necesitamos un \(c \in \mathbb{Z}_{60}\) tal que
+\[
+a + c \equiv a \pmod{60}.
+\]  
+Esto se cumple si \(c \equiv 0 \pmod{60}\), y efectivamente \(0 \in \mathbb{Z}_{60}\).  
+\(\implies\) La relación es \textbf{reflexiva}.
+
+\medskip
+\textbf{2. Simetría.}  
+Una relación es simétrica si
+\[
+a \, R \, b \implies b \, R \, a.
+\]
+
+Si \(a \, R \, b\), existe \(c_1 \in \mathbb{Z}_{60}\) tal que
+\[
+a + c_1 \equiv b \pmod{60}.
+\]
+
+Para que sea simétrica, necesitamos un \(c_2 \in \mathbb{Z}_{60}\) tal que
+\[
+b + c_2 \equiv a \pmod{60}.
+\]
+
+Pero esto siempre se puede lograr tomando \(c_2 \equiv -c_1 \pmod{60}\).  
+Como \(-c_1 \in \mathbb{Z}_{60}\) (ya que estamos trabajando en módulo 60), se cumple la simetría.  
+\(\implies\) La relación es \textbf{simétrica}.
+
+\medskip
+
+\textbf{3. Transitividad.}  
+
+Sea \(a, b, c \in \mathbb{Z}_{60}\). Queremos ver que
+\[
+a \, R \, b \text{ y } b \, R \, c \implies a \, R \, c.
+\]
+
+Por definición de \(R\):
+\[
+\exists x_1 \in \mathbb{Z}_{60} : a + x_1 \equiv b \pmod{60}, \quad
+\exists x_2 \in \mathbb{Z}_{60} : b + x_2 \equiv c \pmod{60}.
+\]
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 2]
+
+Sustituyendo la primera ecuación en la segunda:
+\[
+\exists x_1, x_2 \in \mathbb{Z}_{60} : a + x_1 + x_2 \equiv c \pmod{60}.
+\]
+
+Sea
+\[
+x = x_1 + x_2 \in \mathbb{Z}_{60}.
+\]
+
+Entonces
+\[
+\exists x \in \mathbb{Z}_{60} : a + x \equiv c \pmod{60} \implies a \, R \, c.
+\]
+
+\(\implies\) La relación es \textbf{transitiva}.
+\[
+R \text{ es una relación de equivalencia.}
+\]
+
+Entonces las opciones $a)$ y $d)$ son \textbf{falsas}.
+
+\medskip
+
+\medskip
+\textbf{4. Antisimetría.}  
+
+Recordemos que una relación \(R\) es \emph{antisimétrica} si
+\[
+a \, R \, b \text{ y } b \, R \, a \implies a = b
+\]
+para todos \(a,b \in \mathbb{Z}_{60}\).
+
+\medskip
+Veamos si se cumple con un ejemplo. Tomemos \(a = 0\) y \(b = 1\).  
+
+\vspace{0.5em}
+
+- Para \(a \, R \, b\), necesitamos \(c_1 \in \mathbb{Z}_{60}\) tal que
+\[
+0 + c_1 \equiv 1 \pmod{60}.
+\]  
+Podemos tomar \(c_1 = 1\), ya que \(0 + 1 \equiv 1 \pmod{60}\). Entonces \(0 \, R \, 1\).
+
+\vspace{0.5em}
+
+- Para \(b \, R \, a\), necesitamos \(c_2 \in \mathbb{Z}_{60}\) tal que
+\[
+1 + c_2 \equiv 0 \pmod{60}.
+\]  
+Podemos tomar \(c_1 = 59\), ya que \(1 + 59 \equiv 0 \pmod{60}\). Entonces \(1 \, R \, 0\).  
+
+\medskip
+Vemos que
+\[
+0 \, R \, 1 \text{ y } 1 \, R \, 0,
+\]
+pero \(0 \neq 1\).  
+
+\medskip
+\(\implies\) La relación \textbf{no es antisimétrica}.
+
+\medskip
+\textbf{Conclusión:}  
+Como la antisimetría no se cumple,
+\[
+R \text{ no puede ser una relación de orden.}
+\]
+
+\textbf{5. Cardinalidad de las clases de equivalencia.}
+
+Como para cualquier \(a,b \in \mathbb{Z}_{60}\) existe \(c \in \mathbb{Z}_{60}\) tal que \(a + c \equiv b \pmod{60}\), \textbf{todos los elementos están relacionados entre sí}.  
+\(\implies\) Hay una única clase de equivalencia.
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 2]
+
+\medskip
+Por lo que el cardinal del conjunto cociente es 1:
+\[
+\left| \frac{\mathbb{Z}_{60}}{R} \right| = 1
+\]
+
+\textbf{Respuesta:}  
+La opción correcta es
+\vspace{0.5em}
+
+\boxed{
+\begin{minipage}{\textwidth}
+$b)\quad R$ no es una relación de orden, pero sí es una relación de equivalencia y $\tfrac{\mathbb{Z}_{60}}{R}$ tiene \\ cardinal 1.
+\end{minipage}
+}
+
+\end{ejercicioExamen}
+
+%-------------------------------------------------
+\begin{ejercicioExamen}[title=Ejercicio 3]
+Dada la ecuación en congruencia 
+\[
+1820x + 1190 \equiv 0 \pmod{1267},
+\]
+sea \( n \) el número de soluciones \( x \) tales que \( 1000 \le x \le 9000 \). Entonces:
+
+\begin{enumerate}
+\item[$a)$] \( n = 19. \)
+\item[$b)$] \( n = 25. \)
+\item[$c)$] \( n = 38. \)
+\item[$d)$] \( n = 39. \)
+\item[$e)$] \( n = 44. \)
+\item[$f)$] Ninguna de las opciones anteriores es correcta.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Partimos de la congruencia:
+\[
+1820x + 1190 \equiv 0 \pmod{1267}.
+\]
+\[
+\Rightarrow 1820x \equiv -1190 \pmod{1267}.
+\]
+
+Reducimos \(1820 \equiv 553 \pmod{1267}\) y \(-1190 \equiv 77 \pmod{1267}\):
+\[
+553x \equiv 77 \pmod{1267}.
+\]
+
+\medskip
+Aplicamos el \textbf{algoritmo de Euclides} para calcular \(\operatorname{mcd}(553,1267)\):
+
+\[
+\begin{aligned}
+    1267\,/\,553 &= 2 \text{ resto } 161 \\
+    553\,/\,161 &= 3 \text{ resto } 70 \\
+    161\,/\,70 &= 2 \text{ resto } 21 \\
+    70\,/\,21 &= 3 \text{ resto } \boxed{7} \\
+    21\,/\,7 &= 3 \text{ resto } 0
+\end{aligned}
+\]
+
+Por tanto,
+\[
+\operatorname{mcd}(553,1267) = \boxed{7}.
+\]
+
+\medskip
+Como \(7 \mid 77\), la congruencia tiene solución. Dividimos toda la ecuación entre 7:
+
+\[
+79x \equiv 11 \pmod{181}.
+\]
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 3]
+
+Aplicamos de nuevo el \textbf{algoritmo de Euclides} para hallar el inverso de \(79\) módulo \(181\):
+
+\[
+\begin{aligned}
+    181\,/\,79 &= 2 \text{ resto } 23 \\
+    79\,/\,23 &= 3 \text{ resto } 10 \\
+    23\,/\,10 &= 2 \text{ resto } 3 \\
+    10\,/\,3 &= 3 \text{ resto } \boxed{1}
+\end{aligned}
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\ \hline
+0 & 181 &  & 1 & 0 \\
+1 & 79 & 2 & 0 & 1 \\
+2 & 23 & 3 & 1 & -2 \\
+3 & 10 & 2 & -3 & 7 \\
+4 & 3 & 3 & 7 & -16 \\
+5 & \boxed{1} & 2 & -24 & 55
+\end{array}
+\]
+
+\[
+u = 55 \implies 79^{-1} \equiv 55 \pmod{181}.
+\]
+
+\[
+x = 11(55) + 181k = 605 + 181k = 62 + 181k, \quad k \in \mathbb{Z}.
+\]
+
+Por tanto:
+\[
+x = 62 + 181k, \quad k \in \mathbb{Z}.
+\]
+
+\medskip
+Imponemos la condición \(1000 \le x \le 9000\):
+\[
+1000 \le 62 + 181k \le 9000.
+\]
+\[
+938 \le 181k \le 8938.
+\]
+\[
+5{,}1 \le k \le 49{,}3.
+\]
+\[
+6 \le k \le 49.
+\]
+
+Número de valores posibles:
+\[
+n = 49 - 6 + 1 = 44.
+\]
+\[
+\Rightarrow \text{La opción correcta es } \boxed{$e)$\quad n=44.}
+\]
+
+\end{ejercicioExamen}
+
+%-------------------------------------------------
+\begin{ejercicioExamen}[title=Ejercicio 4]
+El resto de dividir \( (100^{802} + 48)^{462} \) entre \( 41 \) es:
+
+\[
+\begin{tabular}{c c c c c c}
+$a)$ 9 & $b)$ 14 & $c)$ 15 & $d)$ 27 & $e)$ 32 & $f)$ 40
+\end{tabular}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Queremos calcular \(r_{41}\big((100^{802}+48)^{462}\big)\). En el fondo es calcular lo siguiente:
+
+\[
+r_{41}\big((100^{802}+48)^{462}\big)
+= r_{41}\Big(\big(r_{41}(r_{41}(100^{802})+r_{41}(48))\big)^{462}\Big).
+\]
+
+Observamos que \(r_{41}(48)=48-41=7\), luego
+\[
+r_{41}\big((100^{802}+48)^{462}\big)
+= r_{41}\big((r_{41}(100^{802})+7)^{462}\big).
+\]
+
+Calculemos \(r_{41}(100^{802})\).
+
+Reducimos la base:
+\[
+\begin{aligned}
+100\,/\,41 &= 2 \text{ resto } 18
+\end{aligned}
+\]
+por tanto
+\[
+r_{41}(100^{802}) = r_{41}(18^{802}).
+\]
+
+Para reducir el exponente:
+
+\[
+\begin{aligned}
+41\,/\,18 &= 2 \text{ resto } 5 \\
+18\,/\,5 &= 3 \text{ resto } 3 \\
+5\,/\,3 &= 1 \text{ resto } 2 \\
+3\,/\,2 &= 1 \text{ resto } \boxed{1} \\
+\end{aligned}
+\]
+
+Entonces $\operatorname{mcd}(41,18) = 1 \implies \exists l \in \mathbb{N} : l \ge 1, \quad 18^l \equiv 1 \pmod{41}$ y $l \mid \varphi(41)$.
+
+\vspace{0.5em}
+
+Como $\varphi(41) = 40, l \mid 40$. Entonces \(l \in\{1,2,4,5,8,10,20,40\}\).
+
+\[
+18^1 \equiv 18 \not\equiv 1,
+\]
+\[
+18^2 \equiv 324 \equiv 37 \not\equiv 1,
+\]
+\[
+18^4 \equiv 16 \not\equiv 1,
+\]
+\[
+18^5 \equiv 288 \equiv 1 \pmod{41}.
+\]
+
+Por tanto \(l=5\). Entonces
+\[
+\begin{aligned}
+802 \, / \, 5 =  160 \text{ resto } 2
+\end{aligned}
+\]
+
+Entonces $r_{41}(18^{802}) = r_{41}(18^2) = r_{41}(324)$.
+
+\[
+\begin{aligned}
+324 \, / \, 41 = 7 \text{ resto } 37
+\end{aligned}
+\]
+
+Entonces $r_{41}(324) = 37$.
+
+Así,
+\[
+r_{41}(100^{802}) = 37.
+\]
+
+Sustituimos en la expresión inicial:
+\[
+r_{41}\big((100^{802}+48)^{462}\big)
+= r_{41}\big((37 + 7)^{462}\big)
+= r_{41}\big(44^{462}\big).
+\]
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 4]
+    
+Reducimos la base \(44 \equiv 3 \pmod{41}\), luego
+\[
+r_{41}\big((100^{802}+48)^{462}\big) = r_{41}\big(3^{462}\big).
+\]
+
+Para reducir el exponente:
+
+\[
+\begin{aligned}
+41\,/\,3 &= 13 \text{ resto } 2 \\
+3\,/\,2 &= 1 \text{ resto } \boxed{1}
+\end{aligned}
+\]
+
+Entonces $\operatorname{mcd}(41,3) = 1 \implies \exists l \in \mathbb{N} : l \ge 1, \quad 3^l \equiv 1 \pmod{41}$ y $l \mid \varphi(41)$.
+
+\vspace{0.5em}
+
+Como $\varphi(41) = 40, l \mid 40$. Entonces \(l \in\{1,2,4,5,8,10,20,40\}\).
+
+\[
+3^1 \equiv 3 \not\equiv 1,
+\]
+\[
+3^2 \equiv 9 \not\equiv 1,
+\]
+\[
+3^4 \equiv 81 \equiv -1 \not\equiv 1,
+\]
+\[
+3^8 \equiv 1 \pmod{41}.
+\]
+
+Por tanto el orden es \(l=8\). Entonces
+\[
+\begin{aligned}
+462 \, / \, 8 = 57 \text{ resto } 6
+\end{aligned}
+\]
+
+Por lo que
+\[
+r_{41}(3^{462}) = r_{41}(3^6) = r_{41}(729)
+\]
+\[
+\begin{aligned}
+729 \, / \, 41 = 17 \text{ resto } 32
+\end{aligned}
+\]
+\[
+r_{41}(729) = 32
+\]
+
+Por tanto
+\[
+r_{41}\big((100^{802}+48)^{462}\big) = 32.
+\]
+
+\medskip
+\textbf{Respuesta:} la opción correcta es \(\boxed{$e)$\,\,\,32}\).
+
+\end{ejercicioExamen}
+
+%-------------------------------------------------
+\begin{ejercicioExamen}[title=Ejercicio 5]
+En \( \mathbb{Z}_7[x] \) tenemos el polinomio 
+\[
+f(x) = x^{42} + 2x^{28} + 3x^{21} + x^{14} + 3x^7 + 2.
+\]
+Entonces:
+
+\begin{enumerate}
+\item[$a)$] \( x^3 + x + 1 \) es un factor irreducible de \( f(x) \).
+\item[$b)$] \( \alpha = 6 \) es una raíz de \( f(x) \) cuya multiplicidad es 14.
+\item[$c)$] \( \alpha = 1 \) es una raíz de \( f(x) \) cuya multiplicidad es 7.
+\item[$d)$] \( x^3 + x^2 + 1 \) es un factor irreducible de \( f(x) \).
+\item[$e)$] \( \alpha = 4 \) es una raíz de \( f(x) \) cuya multiplicidad es 7.
+\item[$f)$] Ninguna de las opciones anteriores es correcta.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+En el ejercicio 51 de la relación de problemas del tema 1, aprendimos que en \(\mathbb{Z}_p\):
+\[
+f(x) = a_n x^{n p} + a_{n-1} x^{(n-1)p} + \dots + a_1 x^p + a_0 = (a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0)^p.
+\]
+
+Entonces en nuestro caso,
+\[
+f(x) = (x^6 + 2x^4 + 3x^3 + x^2 + 3x + 2)^7.
+\]
+
+Llamemos \( g(x) = x^6 + 2x^4 + 3x^3 + x^2 + 3x + 2 \).  
+Entonces \( f(x) = g(x)^7. \)
+
+\medskip
+Ahora vamos a fijarnos en la \textbf{$c)$}:  
+Comprobamos si \( \alpha = 1 \) es una raíz de \( f(x) \).  
+Veo si \( \alpha = 1 \) es una raíz de \( g(x) \):
+\[
+g(1) = 1 + 2 + 3 + 1 + 3 + 2 = 5 \neq 0.
+\]
+\(\alpha = 1\) no es raíz de \( g(x) \) → tampoco de \( f(x) \).  
+La opción $c)$ es \textbf{falsa}.
+
+\medskip
+Ahora vamos a fijarnos en la \textbf{$e)$}:  
+Comprobamos si \( \alpha = 4 \) es una raíz de \( f(x) \) → veo si \( \alpha = 4 \) es raíz de \( g(x) \).
+
+Usamos Ruffini para mayor facilidad de cálculo:
+\[
+\begin{array}{c|ccccccc}
+ & 1 & 0 & 2 & 3 & 1 & 3 & 2 \\
+4 &   & 4 & 2 & 2 & 6 & 0 & 5 \\
+\hline
+ & 1 & 4 & 4 & 5 & 0 & 3 & \boxed{0} \\
+4 &   & 4 & 4 & 4 & 1 & 4 \\
+\hline
+ & 1 & 1 & 1 & 2 & 1 & \boxed{0} \\
+4 &   & 4 & 6 & 0 & 1 \\
+\hline
+ & 1 & 5 & 0 & 2 & \boxed{2}
+\end{array}
+\]
+
+\(\alpha = 4\) es raíz de \( g(x) \) → también de \( f(x) \).
+
+\end{ejercicioExamen}
+\begin{ejercicioExamen}[title=Ejercicio 5]
+
+La multiplicidad es \(m = 2\) en \( g(x) \).  
+
+La multiplicidad es \(m = 2 \cdot 7 = 14\) en \( f(x) \).  
+
+→ La $e)$ es \textbf{falsa}.
+
+\vspace{1em}
+
+Ahora vamos a fijarnos en la \textbf{$b)$}:  
+Comprobamos si \( \alpha = 6 \) es una raíz de \( f(x) \) → veo si \( \alpha = 6 \) es raíz de \( g(x) \).
+
+Cojo el polinomio resultante de la operación anterior:  
+\[
+x^4 + x^3 + x^2 + 2x + 1.
+\]
+\[
+\begin{array}{c|ccccc}
+ & 1 & 1 & 1 & 2 & 1 \\
+6 &   & 6 & 0 & 6 & 6 \\
+\hline
+ & 1 & 0 & 1 & 1 & \boxed{0} \\
+6 &   & 6 & 1 & 5 \\
+\hline
+ & 1 & 6 & 2 & \boxed{6}
+\end{array}
+\]
+
+\(\alpha = 6\) es raíz de \( g(x) \) → también de \( f(x) \). 
+
+La multiplicidad es \(m = 1\) en \( g(x)\).  
+
+La multiplicidad es \(m = 1 \cdot 7 = 7\) en \( f(x)\).  
+
+→ La $b)$ es \textbf{falsa}.
+
+\medskip
+Tenemos que 
+\[
+g(x) = (x - 4)^2 (x - 6)(x^3 + x + 1).
+\]
+
+Llamo al factor de \( g(x) \): \( h(x) = x^3 + x + 1. \)
+
+\medskip
+Compruebo si \( h \) es irreducible:  
+Veo si tiene raíces en \(\mathbb{Z}_7\).
+
+Sabemos por antes que \( h(1) \neq 0, \ h(4) \neq 0, \ h(6) \neq 0. \)
+
+\[
+\begin{aligned}
+h(0) &= 1 \neq 0, \\
+h(2) &= 1 + 2 + 1 = 4 \neq 0, \\
+h(3) &= 6 + 3 + 1 = 3 \neq 0, \\
+h(5) &= h(-2) = (-2)^3 + (-2) + 1 = -8 - 2 + 1 = -9 \equiv 2 \neq 0.
+\end{aligned}
+\]
+
+\(h\) no tiene raíces → \(h(x)\) es irreducible.  
+\(\Rightarrow x^3 + x + 1\) es un factor irreducible de \( g(x) \) → también de \( f(x) \).
+
+\medskip
+Como la factorización de $g(x)$ es única, es imposible que $x^3 + x^2 + 1$ sea un factor irreducible de $g(x)$, y en consecuencia, también es imposible para $f(x)$.
+
+Entonces la opción $d)$ es \textbf{falsa}.
+
+\medskip
+Por tanto, la opción correcta es:
+\[
+\boxed{$a)$ \quad x^3 + x + 1 \text{ es un factor irreducible de } f(x).}
+\]
+
+\end{ejercicioExamen}
+
+\end{document}

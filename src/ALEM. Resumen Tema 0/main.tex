@@ -1,0 +1,794 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Para insertar imágenes
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{hyperref} % Enlaces y referencias clicables
+\usepackage{lmodern} % Fuente moderna
+\usepackage{geometry} % Márgenes
+\usepackage{cancel}
+\usepackage[most]{tcolorbox} % Cajitas para ejemplos y procedimientos
+\geometry{margin=2.5cm}
+
+% ==== Definición de estilos de caja ====
+\tcbset{
+  colback=white,
+  colframe=black!60,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{procedimiento}[1][]{
+  colback=green!5!white,
+  colframe=green!60!black,
+  title=\textbf{Procedimiento},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejemplo}[1][]{
+  colback=blue!5!white,
+  colframe=blue!60!black,
+  title=\textbf{Ejemplo},
+  fonttitle=\bfseries,
+  #1
+}
+
+% ==== Documento principal ====
+\title{Álgebra Lineal y Estructuras Matemáticas (ALEM) Resumen Tema 0}
+\author{Alonso Hernández Robles (Grupo E)}
+\date{20/10/2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Conjuntos}
+
+\begin{procedimiento}[title=Cardinal de un conjunto]
+El \textbf{cardinal de un conjunto} es el número de elementos que contiene dicho conjunto.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Cardinal de un conjunto]
+Sea $A = \{1, 2, 3\}$.  
+
+El número de elementos de $A$ es:
+\[
+|A| = 3
+\]
+\end{ejemplo}
+
+\begin{procedimiento}[title=Subconjunto de un conjunto]
+Se dice que un conjunto $A$ es \textbf{subconjunto} de un conjunto $B$ si todo elemento de $A$ pertenece también a $B$.  
+
+Se denota:
+\[
+A \subseteq B
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Subconjunto]
+Sea $A = \{1, 2\}$ y $B = \{1, 2, 3, 4\}$.  
+
+Como todos los elementos de $A$ están en $B$, se cumple:
+\[
+A \subseteq B
+\]
+\end{ejemplo}
+
+\begin{procedimiento}[title=Propiedades de la inclusión de conjuntos]
+El \textbf{principio de la inclusión de conjuntos} establece las siguientes propiedades:
+
+\begin{itemize}
+    \item \textbf{Reflexiva:} \quad $A \subseteq A \quad \forall A$
+    \item \textbf{Antisimétrica:} \quad Si $A \subseteq B$ y $B \subseteq A$, entonces $A = B$
+    \item \textbf{Transitiva:} \quad Si $A \subseteq B$ y $B \subseteq C$, entonces $A \subseteq C$
+\end{itemize}
+\end{procedimiento}
+
+\begin{procedimiento}[title=Conjunto vacío]
+El \textbf{conjunto vacío}, definido por $\varnothing = \{\}$, es el conjunto que no tiene ningún elemento.  
+
+Además, el conjunto vacío es \textbf{subconjunto de todo conjunto}, es decir:
+\[
+\varnothing \subseteq A \quad \forall A
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title=Conjunto potencia]
+El \textbf{conjunto potencia} de un conjunto $X$, denotado $\mathcal{P}(X)$, es el conjunto de todos los subconjuntos de $X$:
+\[
+\mathcal{P}(X) = \{ A \mid A \subseteq X \}
+\]
+
+El número de elementos del conjunto potencia es:
+\[
+|\mathcal{P}(X)| = 2^{|X|}
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Conjunto potencia]
+Sea $X = \{1, 2\}$.  
+
+\[
+\mathcal{P}(X) = \{\varnothing, \{1\}, \{2\}, \{1,2\}\}
+\]
+
+\[
+|\mathcal{P}(X)| = 2^{|X|} = 2^2 = 4
+\]
+\end{ejemplo}
+
+\subsection{Operaciones con conjuntos}
+
+Sean \( A, B, X \) tales que \( A, B \subseteq X \), donde \( X \) es el conjunto universo.
+
+\begin{procedimiento}[title=Unión]
+\textbf{1. Unión de \(A\) y \(B\):}
+
+\[
+A \cup B = \{ x \in X : x \in A \ \text{o} \ x \in B \}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+    \def\r{1.2}
+    % Fondo universo
+    \draw[thick] (-2.5,-1.5) rectangle (2.5,1.5) node[below left] {$X$};
+    % A y B
+    \begin{scope}
+        \clip (-2.5,-1.5) rectangle (2.5,1.5);
+        \fill[gray!30] (-0.8,0) circle(\r);
+        \fill[gray!30] (0.8,0) circle(\r);
+    \end{scope}
+    \draw (-0.8,0) circle(\r) node[left]{$A$};
+    \draw (0.8,0) circle(\r) node[right]{$B$};
+\end{tikzpicture}
+\end{center}
+
+\end{procedimiento}
+
+\begin{procedimiento}[title=Intersección]
+\textbf{2. Intersección de \(A\) y \(B\):}
+
+\[
+A \cap B = \{ x \in X : x \in A \ \text{y} \ x \in B \}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+    \def\r{1.2}
+    \draw[thick] (-2.5,-1.5) rectangle (2.5,1.5) node[below left] {$X$};
+    \begin{scope}
+        \clip (-0.8,0) circle(\r);
+        \fill[gray!30] (0.8,0) circle(\r);
+    \end{scope}
+    \draw (-0.8,0) circle(\r) node[left]{$A$};
+    \draw (0.8,0) circle(\r) node[right]{$B$};
+\end{tikzpicture}
+\end{center}
+
+\end{procedimiento}
+
+\begin{procedimiento}[title=Resta]
+\textbf{3. Resta de conjuntos:}
+
+\[
+A \setminus B = A - B = \{ x \in X : x \in A \ \text{y} \ x \notin B \}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+    \def\r{1.2}
+    \draw[thick] (-2.5,-1.5) rectangle (2.5,1.5) node[below left] {$X$};
+    \begin{scope}
+        \clip (-2.5,-1.5) rectangle (2.5,1.5);
+        \fill[gray!30] (-0.8,0) circle(\r);
+        \fill[white] (0.8,0) circle(\r);
+    \end{scope}
+    \draw (-0.8,0) circle(\r) node[left]{$A$};
+    \draw (0.8,0) circle(\r) node[right]{$B$};
+\end{tikzpicture}
+\end{center}
+\[
+\text{Además, }A \setminus B = A \cap \overline{B}
+\]
+
+\end{procedimiento}
+
+\begin{procedimiento}[title=Complementario]
+\textbf{4. Complementario de un conjunto:}
+
+\[
+\overline{A} = X \setminus A = \{ x \in X : x \notin A \}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+    \def\r{1.2}
+    % Complemento sombreado (todo menos A)
+    \begin{scope}
+        \clip (-2.5,-1.5) rectangle (2.5,1.5);
+        \fill[gray!30] (-2.5,-1.5) rectangle (2.5,1.5);
+        \fill[white] (0,0) circle(\r); % A queda en blanco
+    \end{scope}
+    % Conjunto A
+    \draw (0,0) circle(\r) node{$A$};
+    % Universo X
+    \draw[thick] (-2.5,-1.5) rectangle (2.5,1.5) node[below left] {$X$};
+\end{tikzpicture}
+\end{center}
+
+\end{procedimiento}
+
+\begin{ejemplo}
+Sea \( X = \{1,2,3,4,5,6\} \), \( A = \{1,2,4\} \) y \( B = \{1,4,6\} \).
+
+\[
+\begin{aligned}
+A \cup B &= \{1,2,4,6\}\\
+A \cap B &= \{1,4\}\\
+A \setminus B &= \{2\} \\
+\overline{A} &= \{3,5,6\}.
+\end{aligned}
+\]
+\end{ejemplo}
+
+\subsubsection{Leyes del Álgebra de Conjuntos}
+
+\begin{procedimiento}[title=Lista de Leyes]
+
+Sea \(A, B, C \subseteq X\). Se cumplen las siguientes leyes:
+
+\begin{itemize}
+    \item \textbf{Conmutativas:}
+    \[
+    \begin{aligned}
+    A \cup B &= B \cup A,\\
+    A \cap B &= B \cap A
+    \end{aligned}
+    \]
+    
+    \item \textbf{Asociativas:}
+    \[
+    \begin{aligned}
+    A \cup (B \cup C) &= (A \cup B) \cup C,\\
+    A \cap (B \cap C) &= (A \cap B) \cap C
+    \end{aligned}
+    \]
+    
+    \item \textbf{Doble Complementario:}
+    \[
+    \overline{\overline{A}} = A
+    \]
+    
+    \item \textbf{Absorción:}
+    \[
+    \begin{aligned}
+    A \cup (A \cap B) &= A,\\
+    A \cap (A \cup B) &= A
+    \end{aligned}
+    \]
+    
+    \item \textbf{Idempotencia:}
+    \[
+    \begin{aligned}
+    A \cup A &= A,\\
+    A \cap A &= A
+    \end{aligned}
+    \]
+    
+    \item \textbf{Distributivas:}
+    \[
+    \begin{aligned}
+    A \cup (B \cap C) &= (A \cup B) \cap (A \cup C),\\
+    A \cap (B \cup C) &= (A \cap B) \cup (A \cap C)
+    \end{aligned}
+    \]
+    
+    \item \textbf{Leyes de De Morgan:}
+    \[
+    \begin{aligned}
+    \overline{A \cup B} &= \overline{A} \cap \overline{B},\\
+    \overline{A \cap B} &= \overline{A} \cup \overline{B}
+    \end{aligned}
+    \]
+    
+    \item \textbf{Universo y Conjunto Vacío:}
+    \[
+    \begin{aligned}
+    A \cup X &= X, & A \cap \varnothing &= \varnothing,\\
+    A \cap X &= A, & A \cup \varnothing &= A,\\
+    A \cup \overline{A} &= X, & A \cap \overline{A} &= \varnothing,\\
+    \overline{X} &= \varnothing, & \overline{\varnothing} &= X
+    \end{aligned}
+    \]
+\end{itemize}
+
+\end{procedimiento}
+
+\subsubsection{Principio de dualidad}
+
+\begin{procedimiento}[title=Principio de Dualidad]
+El \textbf{principio de dualidad} establece que si en una proposición de álgebra de conjuntos se sustituyen:
+
+\[
+\begin{aligned}
+\cup &\longleftrightarrow \cap \\
+X   &\longleftrightarrow \varnothing
+\end{aligned}
+\]
+
+la proposición resultante también es verdadera.
+\end{procedimiento}
+\begin{ejemplo}
+Por ejemplo, consideremos la ley:
+
+\[
+A \cap \varnothing = \varnothing.
+\]
+
+Aplicando el principio de dualidad, intercambiamos \(\cap \leftrightarrow \cup\) y \(\varnothing \leftrightarrow X\):
+
+\[
+A \cup X = X,
+\]
+
+la cual también es cierta.
+\end{ejemplo}
+
+\subsection{Producto Cartesiano de Conjuntos}
+
+\begin{procedimiento}[title=Producto Cartesiano]
+Sea \(A_1, A_2, \dots, A_n\) conjuntos con \(n \in \mathbb{N}\) y \(n \ge 2\).  
+El \textbf{producto cartesiano} se define como:
+
+\[
+A_1 \times A_2 \times \dots \times A_n = 
+\{ (a_1, a_2, \dots, a_n) : a_1 \in A_1, a_2 \in A_2, \dots, a_n \in A_n \}.
+\]
+\end{procedimiento}
+
+\begin{ejemplo}
+Sea \(A = \{1,2\}\) y \(B = \{2,3,4\}\). Entonces:
+
+\[
+A \times B = \{ (1,2), (1,3), (1,4), (2,2), (2,3), (2,4) \}.
+\]
+\end{ejemplo}
+
+\begin{procedimiento}[title=Cardinal del Producto Cartesiano]
+La \textbf{cardinalidad} del producto cartesiano se calcula como:
+
+\[
+|A_1 \times A_2 \times \dots \times A_n| = |A_1| \cdot |A_2| \cdot \dots \cdot |A_n|.
+\]
+\end{procedimiento}
+
+\begin{ejemplo}
+Sea \(A = \{1,2\}\) y \(B = \{2,3,4\}\).  
+La cardinalidad del producto cartesiano se calcula como:
+
+\[
+|A \times B| = |A| \cdot |B| = 2 \cdot 3 = 6.
+\]
+\end{ejemplo}
+
+\section{Relaciones Binarias}
+
+\begin{procedimiento}[title=Definición de Relación Binaria]
+Una \textbf{relación binaria} sobre un conjunto \(A\) es un subconjunto \(R \subseteq A \times A\).  
+Si \((x,y) \in R\), se escribe \(xRy\) y se interpreta como “\(x\) está relacionado con \(y\) mediante \(R\)”.  
+
+Análogamente, si \((x,y) \notin R\), se puede denotar como \(x \cancel{R} y\), indicando que \(x\) no está relacionado con \(y\) mediante \(R\).
+\end{procedimiento}
+
+\subsection{Relaciones de Equivalencia}
+
+\begin{procedimiento}[title=Definición de Relación de Equivalencia]
+Una \textbf{relación de equivalencia} sobre \(A\) es una relación binaria \(R\) que cumple:  
+
+\begin{itemize}
+    \item \textbf{Reflexiva:} \(\forall a \in A, \ aRa\)
+    \item \textbf{Simétrica:} \(aRb \iff bRa\)
+    \item \textbf{Transitiva:} \(aRb \ \text{y} \ bRc \implies aRc\)
+\end{itemize}
+\end{procedimiento}
+
+\begin{procedimiento}[title=Clase de Equivalencia]
+La \textbf{clase de equivalencia} de un elemento \(a \in A\) es:
+
+\[
+[a] = \{ x \in A : xRa \}
+\]
+
+Propiedades:  
+\begin{itemize}
+    \item \(a \in [a]\)
+    \item \(aRb \iff [a] = [b]\)
+    \item \(a \cancel{R} b \iff [a] \cap [b] = \varnothing\)
+\end{itemize}
+\end{procedimiento}
+
+\begin{procedimiento}[title=Conjunto Cociente]
+El \textbf{conjunto cociente} de \(A\) respecto a \(R\) es:
+
+\[
+A/R = \{ [a] : a \in A \}
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 1: Relación Explícita]
+Sea \(A = \{1,2,3\}\) y  
+\(R = \{(1,1),(2,2),(3,3),(1,3),(3,1)\}\).  
+
+\begin{itemize}
+    \item \textbf{Reflexiva:} Todo elemento de \(A\) está relacionado consigo mismo:  
+    \((1,1),(2,2),(3,3) \in R\) → cumple.
+    
+    \item \textbf{Simétrica:} Para cada par \((x,y) \in R\), el par inverso \((y,x)\) también está en \(R\):  
+    \((1,3) \in R \) y \((3,1) \in R\), y los pares \((1,1),(2,2),(3,3)\) son simétricos consigo mismos → cumple.
+    
+    \item \textbf{Transitiva:} Si \((x,y) \in R\) y \((y,z) \in R\), entonces \((x,z) \in R\):  
+    Consideremos los pares:  
+    - \((1,3)\) y \((3,1)\) → \((1,1) \in R\)  
+    - Todos los demás pares cumplen trivialmente → cumple.
+\end{itemize}
+
+Entonces $R$ es una \textbf{Relación de Equivalencia}.
+
+\vspace{0.5em}
+
+\textbf{Clases de equivalencia:}  
+\[
+[1] = \{1,3\} = [3], \quad [2] = \{2\}
+\]
+
+\textbf{Conjunto cociente:}  
+\[
+A/R = \{[1],[2]\}
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo 2: Relación con fórmula]
+Sea \(X = \{1,2,3,4,5\}\) y \(Y = \{1,2,3\}\).  
+Definimos la relación \(R\) sobre \(\mathcal{P}(X)\) como:
+
+\[
+A \, R \, B \iff A \cup Y = B \cup Y
+\]
+
+\textbf{Justificación de las propiedades:}
+
+\begin{itemize}
+    \item \textbf{Reflexiva:} Para todo \(A \subseteq X\), se cumple \(A \cup Y = A \cup Y\) → \(A R A\) → cumple.
+    
+    \item \textbf{Simétrica:} Si \(A R B\), entonces \(A \cup Y = B \cup Y \implies B \cup Y = A \cup Y\) → \(B R A\) → cumple.
+    
+    \item \textbf{Transitiva:} Si \(A R B\) y \(B R C\), entonces \(A \cup Y = B \cup Y\) y \(B \cup Y = C \cup Y \implies A \cup Y = C \cup Y\) → \(A R C\) → cumple.
+\end{itemize}
+
+Por lo tanto, \(R\) es una \textbf{relación de equivalencia}.
+
+\vspace{0.5em}
+
+\textbf{Clases de equivalencia:}  
+Como \(Y = \{1,2,3\}\), cada clase está determinada por los elementos de \(X \setminus Y = \{4,5\}\).  
+Así, las clases de equivalencia son:
+
+\[
+\begin{aligned}
+[\varnothing] = &\{A \subseteq X : A \cup Y = Y\} \\
+= &\{ \varnothing, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\} \}, \\
+[\{4\}] = &\{A \subseteq X : A \cup Y = Y \cup \{4\}\} \\
+= &\{ \{4\}, \{1,4\}, \{2,4\}, \{3,4\}, \{1,2,4\}, \{1,3,4\}, \{2,3,4\}, \{1,2,3,4\} \}, \\
+[\{5\}] = &\{A \subseteq X : A \cup Y = Y \cup \{5\}\} \\
+= &\{ \{5\}, \{1,5\}, \{2,5\}, \{3,5\}, \{1,2,5\}, \{1,3,5\}, \{2,3,5\}, \{1,2,3,5\} \}, \\
+[\{4,5\}] = &\{A \subseteq X : A \cup Y = Y \cup \{4,5\}\} \\
+= &\{ \{4,5\}, \{1,4,5\}, \{2,4,5\}, \{3,4,5\}, \{1,2,4,5\}, \{1,3,4,5\}, \{2,3,4,5\}, \\
+&\{1,2,3,4,5\} \}.
+\end{aligned}
+\]
+
+\textbf{Conjunto cociente:}  
+\[
+\mathcal{P}(X)/R = \{ [\varnothing], [\{4\}], [\{5\}], [\{4,5\}] \}
+\]
+\end{ejemplo}
+
+
+\subsection{Relaciones de Orden}
+
+\begin{procedimiento}[title=Definición de Relación de Orden]
+Una relación binaria \(R\) sobre un conjunto \(A\) es una \textbf{relación de orden} si cumple:  
+
+\begin{itemize}
+    \item \textbf{Reflexiva:} \(\forall a \in A, \ aRa\)
+    \item \textbf{Antisimétrica:} \(aRb \ \text{y} \ bRa \implies a = b\)
+    \item \textbf{Transitiva:} \(aRb \ \text{y} \ bRc \implies aRc\)
+\end{itemize}
+
+Si \(aRb\) se puede escribir como \(a \le b\).  
+Si \(a \le b\) y \(a \neq b\), se escribe \(a < b\).
+\end{procedimiento}
+
+\begin{procedimiento}[title=Orden Total]
+Sea \((A, \le)\) un conjunto ordenado.  
+\((A, \le)\) es \textbf{totalmente ordenado} si para todo \(a_1, a_2 \in A\) se cumple:
+
+\[
+a_1 \le a_2 \quad \text{o} \quad a_2 \le a_1
+\]
+
+Un subconjunto \((B, \le)\) con \(B \subseteq A\) será también totalmente ordenado respecto a \(\le\).
+\end{procedimiento}
+
+\begin{procedimiento}[title=Elementos Distinguidos de un Conjunto Ordenado]
+Sea \((A, \le)\) un conjunto ordenado y \(B \subseteq A\) con \(B \neq \varnothing\).  
+
+\begin{itemize}
+    \item \textbf{Mayorante / Cota Superior de \(B\):} \(a \in A\) tal que \(b \le a\) para todo \(b \in B\)
+    \item \textbf{Minorante / Cota Inferior de \(B\):} \(a \in A\) tal que \(a \le b\) para todo \(b \in B\)
+    \item \textbf{Máximo de \(B\):} \(\hat{b} \in B\) que es mayorante de \(B\) (si existe, es el supremo y el único elemento maximal.)
+    \item \textbf{Mínimo de \(B\):} \(\hat{b} \in B\) que es minorante de \(B\) (si existe, es el ínfimo y el único elemento minimal.)
+    \item \textbf{Supremo de \(B\):} el mínimo de los mayorantes de \(B\)
+    \item \textbf{Ínfimo de \(B\):} el máximo de los minorantes de \(B\)
+    \item \textbf{Elemento Maximal de \(B\):} \(b \in B\) tal que no existe \(b' \in B\) con \(b < b'\)
+    \item \textbf{Elemento Minimal de \(B\):} \(b \in B\) tal que no existe \(b' \in B\) con \(b' < b\)
+\end{itemize}
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 1: Orden Usual]
+Sea \((\mathbb{N}, \le)\) con \(B = \{2,4,6,8\}\) y el orden usual.
+
+\textbf{Elementos notables:}
+\begin{itemize}
+    \item \textbf{Mayorantes de \(B\):} \(\{ n \in \mathbb{N} : 8 \le n \} = \{8,9,10,\dots\}\)
+    \item \textbf{Minorantes de \(B\):} \(\{ n \in \mathbb{N} : n \le 2 \} = \{0,1,2\}\)
+    \item \textbf{Máximo de \(B\):} 8 \(\rightarrow\) es el supremo y único elemento maximal
+    \item \textbf{Mínimo de \(B\):} 2 \(\rightarrow\) es el ínfimo y único elemento minimal
+\end{itemize}
+
+\textbf{Diagrama de Hasse:}
+
+\begin{center}
+\begin{tikzpicture}[scale=1, every node/.style={circle,draw,minimum size=7mm}]
+\node (n2) at (0,0) {2};
+\node (n4) at (0,1) {4};
+\node (n6) at (0,2) {6};
+\node (n8) at (0,3) {8};
+
+\draw (n2) -- (n4) -- (n6) -- (n8);
+\end{tikzpicture}
+\end{center}
+\end{ejemplo}
+
+\begin{procedimiento}[title=Relación de Divisibilidad en \(\mathbb{N}\)]
+\((\mathbb{N}, |)\) es un conjunto ordenado donde se define:
+
+\[
+a \le b \iff a \mid b
+\]
+
+es decir, \(a\) divide a \(b\).
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 2: Orden por Divisibilidad]
+Sea \((\mathbb{N}, |)\) con \(B = \{2,4,6,8\}\) y la relación de divisibilidad.
+
+\textbf{Elementos notables:}
+\begin{itemize}
+    \item \textbf{Mayorantes de \(B\):} 
+    \[
+    \{ n \in \mathbb{N} : 2|n, 4|n, 6|n, 8|n \} = \{ n \in \mathbb{N} : n | \text{mcm}(2,4,6,8) \} = \{0,24,48,\dots\}
+    \]
+    \item \textbf{Minorantes de \(B\):} 
+    \[
+    \{ n \in \mathbb{N} : n|2, n|4, n|6, n|8 \} = \{ n \in \mathbb{N} : n|\text{mcd}(2,4,6,8) \} = \{1,2\}
+    \]
+    \item \textbf{Máximo de \(B\):} No existe
+    \item \textbf{Mínimo de \(B\):} 2 \(\rightarrow\) es el ínfimo y único elemento minimal
+    \item \textbf{Supremo de \(B\):} \(\min\{0,24,48,\dots\} = 0\)
+    \item \textbf{Elementos maximales de \(B\):} \(\{6,8\}\)
+\end{itemize}
+
+\textbf{Diagrama de Hasse:}
+
+\begin{center}
+\begin{tikzpicture}[scale=1, every node/.style={circle,draw,minimum size=7mm}]
+\node (n2) at (0,0) {2};
+\node (n4) at (-1,1) {4};
+\node (n6) at (1,1) {6};
+\node (n8) at (-1,2) {8};
+
+\draw (n2) -- (n4);
+\draw (n2) -- (n6);
+\draw (n4) -- (n8);
+\end{tikzpicture}
+\end{center}
+\end{ejemplo}
+
+\begin{procedimiento}[title=Relación de Inclusión en \(\mathcal{P}(X)\)]
+Sea \(X\) un conjunto.  
+\((\mathcal{P}(X), \subseteq)\) es un conjunto ordenado donde se define:
+
+\[
+A \le B \iff A \subseteq B
+\]
+
+es decir, \(A\) está incluido en \(B\).
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 3: Orden por Inclusión]
+Sea \(X = \{0,1,2,3,4,5,6,7,8\}\) y \((\mathcal{P}(X), \subseteq)\) y consideremos el subconjunto:
+
+\[
+B = \{ \{2,3\}, \{2,4\}, \{2,3,6\}, \{2,4,7\}, \{2,3,4,6,7\} \}.
+\]
+
+\textbf{Elementos notables:}
+\begin{itemize}
+    \item \textbf{Mayorantes de \(B\):} 
+    \[
+    \{ A \subseteq X : \{2,3\} \subseteq A, \{2,4\} \subseteq A, \{2,3,6\} \subseteq A, \{2,4,7\} \subseteq A, \{2,3,4,6,7\} \subseteq A \}
+    \]
+    Es decir, todos los subconjuntos que contienen \(\{2,3,4,6,7\}\).
+    
+
+    
+    \item \textbf{Minorantes de \(B\):} 
+    \[
+\begin{aligned}
+\{ A \subseteq X :\ & A \subseteq \{2,3\},\ A \subseteq \{2,4\},\ A \subseteq \{2,3,6\}, \\
+& A \subseteq \{2,4,7\},\ A \subseteq \{2,3,4,6,7\} \} 
+= \{\{2\}\}
+\end{aligned}
+\]
+    
+    \item \textbf{Máximo de \(B\):} \(\{2,3,4,6,7\}\) \(\rightarrow\) es el supremo y único elemento maximal
+    
+    \item \textbf{Mínimo de \(B\):} No existe
+    
+    \item \textbf{Supremo de \(B\):} \(\{2,3,4,6,7\}\)
+    
+    \item \textbf{Ínfimo de \(B\):} \(\{2\}\)
+    
+    \item \textbf{Elementos maximales de \(B\):} \(\{\{2,3,4,6,7\}\}\)
+    
+    \item \textbf{Elementos minimales de \(B\):} \(\{\{2,3\}, \{2,4\}\}\)
+\end{itemize}
+\end{ejemplo}
+
+\section{Aplicaciones}
+
+\begin{procedimiento}[title=Definición de Aplicación]
+Sea \(f : A \to B\) una aplicación definida por
+
+\[
+a \mapsto f(a)
+\]
+
+donde:
+\begin{itemize}
+    \item \(A\) es el \textbf{dominio} de \(f\)
+    \item \(B\) es el \textbf{codominio} de \(f\)
+    \item \(f(a)\) es la \textbf{imagen} de \(a\) mediante \(f\)
+\end{itemize}
+\end{procedimiento}
+
+\begin{procedimiento}[title=Imagen de una Aplicación]
+La \textbf{imagen} de \(f\) se define como:
+
+\[
+\text{Im}(f) = \{ f(a) : a \in A \} \subseteq B
+\]
+\end{procedimiento}
+
+\subsection{Tipos de Aplicaciones}
+
+\begin{procedimiento}[title=Aplicación Inyectiva]
+\(f : A \to B\) es \textbf{inyectiva} si:
+
+\[
+f(a_1) = f(a_2) \implies a_1 = a_2
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title=Aplicación Sobreyectiva]
+\(f : A \to B\) es \textbf{sobreyectiva} si:
+
+\[
+\text{Im}(f) = B
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title=Aplicación Biyectiva]
+\(f : A \to B\) es \textbf{biyectiva} si es inyectiva y sobreyectiva al mismo tiempo.
+\end{procedimiento}
+
+\subsection{Aplicación Inversa}
+
+\begin{procedimiento}[title=Definición de Aplicación Inversa]
+Sea \(f : A \to B\) una aplicación.  
+\(f\) es \textbf{biyectiva} si y solo si existe una aplicación inversa
+
+\[
+f^{-1} : B \to A
+\]
+
+tal que:
+\begin{itemize}
+    \item \(f^{-1} \circ f(a) = a\) para todo \(a \in A\)
+    \item \(f^{-1} \circ f(b) = b\) para todo \(b \in B\)
+\end{itemize}
+
+Además, la aplicación inversa \(f^{-1}\) es \textbf{única} cuando existe.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 1: No Existe Aplicación Inversa]
+Sea la aplicación \(f: \mathbb{N} \to \mathbb{N}\) definida por:
+\[
+f(n) = n+1
+\]
+
+\textbf{1. Comprobar biyectividad:}  
+
+\begin{itemize}
+    \item Inyectiva: si \(f(n_1) = f(n_2) \implies n_1 = n_2\) → cumple.  
+    \item Sobreyectiva: \(\text{Im}(f) = \{ n+1 : n \in \mathbb{N} \} = \{1,2,3,\dots\} = \mathbb{N} \setminus \{0\} \neq \mathbb{N} = B\) → no cumple.
+    \item Por lo tanto, \(f\) \textbf{no es sobreyectiva}, y no existe \(f^{-1}\).
+\end{itemize}
+
+\textbf{2. Despejar \(f^{-1}(n)\):}  
+
+Como \(f\) no es biyectiva, no podemos definir \(f^{-1}\).  
+
+\textbf{3. Conclusión:}  
+
+\[
+\text{No existe aplicación inversa } f^{-1} : \mathbb{N} \to \mathbb{N}.
+\]
+
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo 2: Existe Aplicación Inversa]
+Sea la aplicación \(f: \mathbb{Z} \to \mathbb{Z}\) definida por:
+\[
+f(n) = n+1
+\]
+
+\textbf{1. Comprobar biyectividad:}  
+
+\begin{itemize}
+    \item Inyectiva: si \(f(n_1) = f(n_2) \implies n_1 = n_2\) → cumple.  
+    \item Sobreyectiva: \(\text{Im}(f) = \mathbb{Z} = B\) → cumple. 
+    \item Por lo tanto, \(f\) es \textbf{biyectiva} y existe \(f^{-1}\).
+\end{itemize}
+
+\textbf{2. Despejar \(f^{-1}(n)\):}  
+
+Sustituimos la definición de \(f\):
+\[
+f(f^{-1}(n)) = f^{-1}(n) + 1 = n
+\]
+
+Restamos 1 a ambos lados:
+\[
+f^{-1}(n) = n - 1
+\]
+
+\textbf{4. Conclusión:}  
+
+\[
+\boxed{f^{-1} : \mathbb{Z} \to \mathbb{Z}, \quad f^{-1}(n) = n-1}
+\]
+
+Así obtenemos la inversa de manera explícita.
+\end{ejemplo}
+
+\end{document}

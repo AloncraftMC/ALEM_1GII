@@ -1,0 +1,965 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Para insertar imágenes
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{hyperref} % Enlaces y referencias clicables
+\usepackage{lmodern} % Fuente moderna
+\usepackage{geometry} % Márgenes
+\usepackage[most]{tcolorbox} % Cajitas para ejemplos y procedimientos
+\geometry{margin=2.5cm}
+
+% ==== Definición de estilos de caja ====
+\tcbset{
+  colback=white,
+  colframe=black!60,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{procedimiento}[1][]{
+  colback=green!5!white,
+  colframe=green!60!black,
+  title=\textbf{Procedimiento},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejemplo}[1][]{
+  colback=blue!5!white,
+  colframe=blue!60!black,
+  title=\textbf{Ejemplo},
+  fonttitle=\bfseries,
+  #1
+}
+
+% ==== Documento principal ====
+\title{Álgebra Lineal y Estructuras Matemáticas (ALEM) Resumen Tema 2}
+\author{Alonso Hernández Robles (Grupo E)}
+\date{29/11/2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Conjuntos}
+
+\begin{procedimiento}[title=Cardinal de un conjunto]
+El cardinal de un conjunto $A$, denotado $|A|$, es el número de elementos de $A$.
+\end{procedimiento}
+
+\begin{procedimiento}[title=Conjunto potencia]
+El conjunto potencia de un conjunto $X$, denotado $\mathcal{P}(X)$, es el conjunto de todos los subconjuntos de $X$:
+\[
+\mathcal{P}(X) = \{ A \mid A \subseteq X \}
+\]
+Además, se cumple que:
+\[
+|\mathcal{P}(X)| = 2^{|X|}
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title=Conjuntos disjuntos]
+Dos conjuntos $A$ y $B$ son disjuntos cuando no tienen elementos en común, es decir:
+\[
+A \cap B = \varnothing
+\]
+\end{procedimiento}
+
+\subsection{Principio de la suma}
+
+\begin{procedimiento}[title=Principio de la suma]
+Sean $A_1, A_2, \dots, A_n$ conjuntos disjuntos dos a dos ($A_i \cap A_j = \varnothing$ para $i \neq j$). Entonces:
+\[
+|A_1 \cup A_2 \cup \dots \cup A_n| = |A_1| + |A_2| + \dots + |A_n|
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Principio de la suma]
+¿Cuántos números naturales menores o iguales a 20 son primos o múltiplos de 4?  
+
+Definimos:
+\begin{align*}
+X &= \{ x \in \mathbb{N} : x \le 20 \} \\
+A &= \{ x \in X : x \text{ es primo} \} \\
+B &= \{ x \in X : x \text{ es múltiplo de 4} \}
+\end{align*}
+
+1) Comprobamos que $A \cap B = \varnothing$ (no hay primos que sean múltiplos de 4).  
+
+2) Aplicamos el principio de la suma:
+\[
+|A \cup B| = |A| + |B|
+\]
+
+3) Calculamos cada cardinal:
+
+$A = \{2,3,5,7,11,13,17,19\} \implies |A| = 8; B = \{0,4,8,12,16,20\} \implies |B| = 6$
+
+Finalmente:
+\[
+|A \cup B| = |A| + |B| = 8 + 6 = 14
+\]
+
+Por lo tanto, hay 14 números naturales menores o iguales a 20 que son primos o múltiplos de 4.
+\end{ejemplo}
+
+\subsection{Principio del producto}
+
+\begin{procedimiento}[title=Principio del producto]
+Si $A_1, A_2, \dots, A_n$ son conjuntos finitos, entonces el número de elementos del producto cartesiano es:
+\[
+|A_1 \times A_2 \times \dots \times A_n| = |A_1| \cdot |A_2| \cdot \dots \cdot |A_n|
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Principio del producto]
+Un restaurante ofrece las siguientes opciones:
+
+\begin{itemize}
+    \item Primer plato: 3 opciones $\implies A_1 = \text{conjunto de  opciones} \implies |A_1| = 3$
+    \item Segundo plato: 4 opciones $\implies A_2 = \text{conjunto de  opciones} \implies |A_2| = 4$
+    \item Postre: 5 opciones $\implies A_3 = \text{conjunto de  opciones} \implies |A_3| = 5$
+\end{itemize}
+
+Formas de combinar los 3 platos:
+\[
+|A_1 \times A_2 \times A_3| = |A_1| \cdot |A_2| \cdot |A_3| = 3 \cdot 4 \cdot 5 = 60
+\]
+
+Por lo tanto, hay 60 menús posibles combinando los 3 platos.
+\end{ejemplo}
+
+\subsection{Parte entera de un número $x \in \mathbb{R}$}
+
+\begin{procedimiento}[title=Definición de parte entera]
+La parte entera o \textbf{suelo} de un número real $x$ es el número entero que más se acerca a $x$ por la izquierda:
+\[
+\lfloor x \rfloor = \max \{ z \in \mathbb{Z} : z \le x \}
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplos de parte entera]
+\[
+\lfloor 7.31 \rfloor = 7, \quad \lfloor -7.31 \rfloor = -8
+\]
+\end{ejemplo}
+
+\begin{procedimiento}[title=Parte entera de un cociente]
+Si $a, b \in \mathbb{Z}^+$, entonces $\lfloor a/b \rfloor$ es el cociente entero de dividir $a$ entre $b$ y representa cuántos números desde 1 hasta $a$ son múltiplos de $b$.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo de múltiplos]
+¿Cuántos números enteros positivos menores o iguales que 1000 son múltiplos de 7?
+
+\[
+\lfloor 1000/7 \rfloor = 142
+\]
+
+Por lo tanto, hay 142 múltiplos de 7 entre 1 y 1000.
+\end{ejemplo}
+
+\subsection{Principio de inclusión-exclusión}
+
+\begin{procedimiento}[title=Inclusión-exclusión para dos conjuntos]
+Para dos conjuntos $A$ y $B$, se cumple que:
+\[
+|A \cup B| = |A| + |B| - |A \cap B|
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title=Inclusión-exclusión para tres conjuntos]
+Para tres conjuntos $A$, $B$ y $C$, se cumple que:
+\[
+|A \cup B \cup C| = |A| + |B| + |C| - |A \cap B| - |A \cap C| - |B \cap C| + |A \cap B \cap C|
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Números múltiplos de 5 o 7]
+Encontrar los números enteros positivos menores o iguales que 1000 que son múltiplos de 5 o 7.
+\begin{align*}
+X &= \{ x \in \mathbb{Z} : 1 \le x \le 1000 \} \\
+A &= \{ x \in X : x \text{ es múltiplo de 5} \} \\
+B &= \{ x \in X : x \text{ es múltiplo de 7} \}
+\end{align*}
+
+El conjunto general es $A \boxed{\cup} B$ porque son múltiplos de 5 \boxed{o} 7.
+
+La intersección es:
+\[
+A \boxed{\cap} B = \{ x \in X : x \text{ es múltiplo de 5 \boxed{y}
+7} \}
+\]
+
+Aplicando el principio de inclusión-exclusión:
+\[
+|A \cup B| = |A| + |B| - |A \cap B| = \lfloor 1000/5 \rfloor + \lfloor 1000/7 \rfloor \boxed{-} \lfloor 1000/35 \rfloor
+\]
+
+Calculando cada parte:
+\[
+\lfloor 1000/5 \rfloor = 200, \quad
+\lfloor 1000/7 \rfloor = 142, \quad
+\lfloor 1000/35 \rfloor = 28
+\]
+
+Por lo tanto:
+\[
+|A \cup B| = 200 + 142 - 28 = 314
+\]
+
+Hay 314 números positivos menores o iguales a 1000 que son múltiplos de 5 o 7.
+\end{ejemplo}
+
+\subsection{Principio del complementario}
+
+\begin{procedimiento}[title=Principio del complementario]
+Sea $A \subseteq X$. El número de elementos de $A$ se puede calcular como:
+\[
+|A| = |X| - |\overline{A}|
+\]
+donde $\overline{A}$ es el complemento de $A$ en $X$.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Números no múltiplos de 10]
+Calcular cuántos números enteros $x$ cumplen $1 \le x \le 1000$ y no son múltiplos de 10.
+
+Definimos:
+\[
+X = \{ x \in \mathbb{Z} : 1 \le x \le 1000 \}, \quad 
+A = \{ x \in X : x \text{ no es múltiplo de 10} \}
+\]
+
+Entonces:
+\[
+\overline{A} = \{ x \in X : x \text{ es múltiplo de 10} \}
+\]
+
+Calculamos los cardinales:
+\[
+|X| = 1000, \quad |\overline{A}| = \lfloor 1000/10 \rfloor = 100
+\]
+
+Aplicando el principio del complementario:
+\[
+|A| = |X| - |\overline{A}| = 1000 - 100 = 900
+\]
+
+Por lo tanto, hay 900 números enteros entre 1 y 1000 que no son múltiplos de 10.
+\end{ejemplo}
+
+\subsection{Principio de la aplicación biyectiva}
+
+\begin{procedimiento}[title=Aplicación biyectiva]
+Si $f: A \to B$ es una aplicación biyectiva (inyectiva y sobreyectiva), entonces:
+\[
+|A| = |B|
+\]
+
+\textbf{Clave:} Si conocemos $|A|$, podemos definir un conjunto $B$ y una función biyectiva $f: A \to B$ para determinar $|B|$, y viceversa.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Soluciones de una ecuación en $\mathbb{Z}_5$]
+Calcular el número de soluciones de
+\[
+x + y + z = 1 \quad \text{en } \mathbb{Z}_5
+\]
+
+\textbf{Paso 1: Reescribimos la ecuación en función de dos variables:}
+\[
+x = 1 - y - z
+\]
+
+\textbf{Paso 2: Definimos nuevas variables independientes y expresamos cada variable:}
+\[
+y = k_1, \quad z = k_2, \quad k_1, k_2 \in \mathbb{Z}_5
+\]
+\[
+\implies x = 1 - k_1 - k_2
+\]
+Por lo tanto, cada solución \((x,y,z)\) del conjunto de soluciones $S$ puede escribirse como:
+\[
+(x,y,z) = (1 - k_1 - k_2, \, k_1, \, k_2), \quad k_1, k_2 \in \mathbb{Z}_5
+\]
+
+\textbf{Paso 3: Definimos la aplicación}
+\[
+f: \mathbb{Z}_5 \times \mathbb{Z}_5 \to S, \quad f(k_1, k_2) = (1 - k_1 - k_2, k_1, k_2)
+\]
+
+\textbf{Paso 4: Comprobamos que $f$ es biyectiva:}
+\begin{itemize}
+    \item \textbf{Inyectiva:} Si $f(k_1, k_2) = f(k_1', k_2')$, entonces
+    \[
+    (1 - k_1 - k_2, k_1, k_2) = (1 - k_1' - k_2', k_1', k_2') \implies k_1 = k_1', \; k_2 = k_2'
+    \]
+    Por lo tanto, $f$ es inyectiva.
+    
+    \item \textbf{Sobreyectiva:} Para todo $(x,y,z) \in S$, existen $(k_1,k_2) \in \mathbb{Z}_5^2$ tales que
+    \[
+    f(k_1, k_2) = (x,y,z)
+    \]
+    Por lo tanto, $f$ es sobreyectiva.
+\end{itemize}
+
+\textbf{Paso 5: Calculamos el cardinal del conjunto de soluciones:}
+\[
+|S| = |\mathbb{Z}_5 \times \mathbb{Z}_5| = |\mathbb{Z}_5| \cdot |\mathbb{Z}_5| = 5 \cdot 5 = 25
+\]
+
+\textbf{Conclusión:} Hay 25 soluciones en $\mathbb{Z}_5$ para la ecuación $x + y + z = 1$.
+\end{ejemplo}
+
+\subsection{Principio del palomar}
+
+\begin{procedimiento}[title=Principio del palomar]
+Si tenemos una aplicación $f: A \to B$ tal que $|A| > |B|$, entonces existen $a_1, a_2 \in A$, con $a_1 \neq a_2$, tales que $f(a_1) = f(a_2)$.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 1: Palomas en jaulas]
+Sea $A$ un conjunto de 5 palomas y $B$ un conjunto de 4 jaulas. Definimos $f: A \to B$, donde $f(a)$ es la jaula en la que se coloca la paloma $a$.
+
+\begin{itemize}
+    \item $|A| = 5$
+    \item $|B| = 4$
+\end{itemize}
+
+Como $|A| > |B|$, por el principio del palomar, existen al menos dos palomas $a_1, a_2 \in A$, distintas, tales que $f(a_1) = f(a_2)$, es decir, al menos dos palomas están en la misma jaula.
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo 2: Cumpleaños en el mismo mes]
+Sea $A$ el conjunto de al menos 13 personas y $B$ el conjunto de los meses del año.
+
+\begin{itemize}
+    \item $|A| \ge 13$
+    \item $|B| = 12$
+\end{itemize}
+
+Definimos $f: A \to B$, donde $f(a)$ es el mes en el que la persona $a$ cumple años.
+
+Como $|A| > |B|$, por el principio del palomar, existen al menos dos personas $a_1, a_2 \in A$, distintas, tales que $f(a_1) = f(a_2)$, es decir, que cumplen años en el mismo mes.
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo 3: Puntos en un cuadrado]
+Tengo un cuadrado de diagonal $3$ cm. Si marco $10$ puntos dentro, puedo asegurar que al menos hay $2$ puntos cuya distancia entre ellos es menor o igual a $1$ cm.
+
+Dividimos el cuadrado en $9$ subcuadrados de igual tamaño. Sea $A$ el conjunto de los $10$ puntos $\{P_1, P_2, \dots, P_{10}\}$ y $B$ el conjunto de los $9$ subcuadrados $\{C_1, C_2, \dots, C_9\}$. Definimos $f: A \to B$, donde $f(P_i)$ es el subcuadrado que contiene al punto $P_i$ (si un punto está en el borde de dos subcuadrados, se asigna a uno de ellos arbitrariamente).
+
+\begin{itemize}
+    \item $|A| = 10$
+    \item $|B| = 9$
+\end{itemize}
+
+Como $|A| > |B|$, por el principio del palomar, existen al menos dos puntos $P_i, P_j \in A$, con $P_i \neq P_j$, tales que $f(P_i) = f(P_j)$, es decir, están en el mismo subcuadrado.
+
+\vspace{5pt}
+
+Visualmente, el cuadrado original tiene diagonal $3$ cm, por lo tanto la diagonal de cada subcuadrado es 1cm. Por tanto, la distancia máxima entre dos puntos dentro del mismo subcuadrado es de $1$ cm.  
+Aplicando el principio del palomar, al menos dos de los $10$ puntos deben encontrarse dentro del mismo subcuadrado, y por tanto, separados una distancia menor o igual que $1$ cm.
+
+\begin{center}
+\begin{tikzpicture}[scale=2]
+
+    %-------------------------------------
+    % CUADRADO 1: solo el cuadrado con diagonal
+    %-------------------------------------
+    \begin{scope}[shift={(0,0)}]
+        % Cuadrado grande
+        \draw[thick] (0,0) rectangle (2,2);
+        % Diagonal
+        \draw[thick, black] (0,0) -- (2,2);
+        % Etiqueta diagonal
+        \node[black, rotate=45] at (0.9,1.1) {3 cm};
+    \end{scope}
+
+    %-------------------------------------
+    % CUADRADO 2: dividido en 9 subcuadrados
+    %-------------------------------------
+    \begin{scope}[shift={(2.8,0)}]
+        % Cuadrado grande
+        \draw[thick] (0,0) rectangle (2,2);
+        % Divisiones
+        \draw[thin] (0,0.666) -- (2,0.666);
+        \draw[thin] (0,1.333) -- (2,1.333);
+        \draw[thin] (0.666,0) -- (0.666,2);
+        \draw[thin] (1.333,0) -- (1.333,2);
+
+        % Diagonal del subcuadrado central
+        \draw[thick, black] (0.666,0.666) -- (1.333,1.333);
+        % Etiqueta
+        \node[black, rotate=45] at (0.9,1.1) {1 cm};
+    \end{scope}
+
+    %-------------------------------------
+    % CUADRADO 3: el de los puntos (ya hecho)
+    %-------------------------------------
+    \begin{scope}[shift={(5.6,0)}]
+        % Cuadrado grande
+        \draw[thick] (0,0) -- (2,0) -- (2,2) -- (0,2) -- cycle;
+        % Dividir en 9 subcuadrados
+        \draw[thin] (0,0.666) -- (2,0.666);
+        \draw[thin] (0,1.333) -- (2,1.333);
+        \draw[thin] (0.666,0) -- (0.666,2);
+        \draw[thin] (1.333,0) -- (1.333,2);
+
+        % Puntos (10)
+        \filldraw[black, opacity=1] (0.15,0.25) circle (0.04);
+        \filldraw[black, opacity=1] (0.55,0.5) circle (0.04); % segundo punto mismo subcuadro
+        \filldraw[gray, opacity=0.5] (1,0.15) circle (0.04);
+        \filldraw[gray, opacity=0.5] (1.8,0.45) circle (0.04);
+        \filldraw[gray, opacity=0.5] (0.15,0.8) circle (0.04);
+        \filldraw[gray, opacity=0.5] (1,1.2) circle (0.04);
+        \filldraw[gray, opacity=0.5] (1.5,0.8) circle (0.04);
+        \filldraw[gray, opacity=0.5] (0.1,1.8) circle (0.04);
+        \filldraw[gray, opacity=0.5] (1.2,1.9) circle (0.04);
+        \filldraw[gray, opacity=0.5] (1.8,1.4) circle (0.04);
+
+        % Etiquetas de los subcuadrados
+        \node at (0.333,0.333) {$C_1$};
+        \node at (1,0.333) {$C_2$};
+        \node at (1.666,0.333) {$C_3$};
+        \node at (0.333,1) {$C_4$};
+        \node at (1,1) {$C_5$};
+        \node at (1.666,1) {$C_6$};
+        \node at (0.333,1.666) {$C_7$};
+        \node at (1,1.666) {$C_8$};
+        \node at (1.666,1.666) {$C_9$};
+    \end{scope}
+
+\end{tikzpicture}
+\end{center}
+
+
+
+Por lo tanto, al menos dos de los $10$ puntos están a una distancia menor o igual que $1$ cm.
+\end{ejemplo}
+
+\subsubsection{Principio del palomar generalizado}
+
+\begin{procedimiento}
+Sea $f : A \to B$ una aplicación y supongamos que $|A| > n \, |B|$. Entonces existen $a_1, a_2, \dots, a_{n+1} \in A$ distintos tales que:
+\[
+f(a_1) = f(a_2) = \cdots = f(a_{n+1}).
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Puntos en un cuadrado]
+Probar que si en un cuadrado de diagonal $3$ cm marcamos $100$ puntos, existen al menos $12$ puntos tales que la distancia entre dos cualesquiera de ellos es menor o igual que $1$ cm.
+
+\vspace{5pt}
+
+Dividimos el cuadrado de diagonal $3$ cm en $9$ subcuadrados de igual tamaño.  
+Sea $A = \{P_1, P_2, \dots, P_{100}\}$ el conjunto de puntos y $B = \{C_1, C_2, \dots, C_9\}$ el conjunto de los subcuadrados.  
+Definimos $f : A \to B$, donde $f(P_i)$ es el subcuadrado que contiene al punto $P_i$.
+
+\[
+|A| = 100, \quad |B| = 9
+\]
+Como $100 > 11 \cdot 9 = 99$, se cumple $|A| > 11|B|$.  
+Por tanto, por el principio del palomar generalizado, existen al menos $12$ puntos distintos dentro del mismo subcuadrado.
+
+\vspace{0.5em}
+
+Cada subcuadrado tiene diagonal $1$ cm (como se demostró en el ejemplo anterior).  
+Por tanto, la distancia entre dos puntos cualesquiera dentro de un mismo subcuadrado es menor o igual que $1$ cm.  
+Así, existen al menos $12$ puntos tales que la distancia entre dos cualesquiera de ellos es $\leq 1$ cm.
+
+\begin{center}
+\begin{tikzpicture}[scale=2]
+
+    % Cuadrado grande
+    \draw[thick] (0,0) rectangle (2,2);
+
+    % Dividir en 9 subcuadrados
+    \draw[thin] (0,0.666) -- (2,0.666);
+    \draw[thin] (0,1.333) -- (2,1.333);
+    \draw[thin] (0.666,0) -- (0.666,2);
+    \draw[thin] (1.333,0) -- (1.333,2);
+
+
+    % 12 puntos negros (en el mismo subcuadrado central)
+    \foreach \i in {1,...,12}{
+        \pgfmathsetmacro{\px}{0.8 + 0.5*rnd}
+        \pgfmathsetmacro{\py}{0.7 + 0.5*rnd}
+        \filldraw[gray,opacity=0.3] (\px,\py) circle (0.03);
+    }
+    
+    % Etiquetas de los subcuadrados
+    \node at (0.333,0.333) {$C_1$};
+    \node at (1,0.333) {$C_2$};
+    \node at (1.666,0.333) {$C_3$};
+    \node at (0.333,1) {$C_4$};
+    \node at (1,1) {$C_5$};
+    \node at (1.666,1) {$C_6$};
+    \node at (0.333,1.666) {$C_7$};
+    \node at (1,1.666) {$C_8$};
+    \node at (1.666,1.666) {$C_9$};
+
+\end{tikzpicture}
+\end{center}
+
+\end{ejemplo}
+
+\subsection{Cardinal de la resta}
+
+\begin{procedimiento}[title=Cardinal de la resta de conjuntos]
+Para dos conjuntos $A$ y $B$ se cumple:
+\[
+|A \setminus B| = |A| - |A \cap B|
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Cardinal de la resta]
+Sea 
+\[
+A = \{1,2,3,4,5,6,7,8\}, \qquad
+B = \{2,4,6,9\}. \qquad
+\text{Entonces }A \setminus B = \{1,3,5,7,8\}.
+\]
+
+Primero encontramos la intersección:
+\[
+A \cap B = \{2,4,6\} \implies |A \cap B| = 3
+\]
+
+Aplicamos la fórmula del cardinal de la resta:
+\[
+|A \setminus B| = |A| - |A \cap B| = 8 - 3 = 5
+\]
+\end{ejemplo}
+
+\section{Ecuaciones en Recurrencia}
+
+\subsection{Factorial de un número natural $n$}
+
+\begin{procedimiento}[title=Definición de factorial]
+El factorial de un número natural $n$ se define como:
+
+\[
+0! = 1
+\]
+
+\[
+n! = n \cdot (n-1) \cdot (n-2) \cdot \dots \cdot 2 \cdot 1, \quad n \ge 1
+\]
+
+También se puede expresar de forma recursiva:
+\[
+n! = n \cdot (n-1)!, \quad n \ge 1
+\]
+\end{procedimiento}
+
+\subsection{Números Combinatorios}
+
+\begin{procedimiento}[title=Definición de números combinatorios]
+El número combinatorio $\binom{n}{k}$ se define como:
+\[
+\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!}
+\]
+Es útil saber que:
+\[
+\binom{n}{0} = 1, \quad \binom{n}{n} = 1, \quad \binom{n}{1} = n
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title=Propiedad de simetría]
+Los números combinatorios satisfacen la propiedad de simetría:
+\[
+\binom{n}{k} = \binom{n}{n-k}
+\]
+\end{procedimiento}
+
+\section{Selecciones de elementos}
+
+\begin{procedimiento}[title=Selecciones de elementos de un conjunto]
+Sea $A = \{a_1, a_2, \dots, a_n\}$ un conjunto de $n$ elementos. Para seleccionar $k$ elementos de $A$ se consideran dos criterios:
+
+\begin{enumerate}
+    \item \textbf{Orden importa o no importa}:
+    \begin{itemize}
+        \item Orden importa $\Rightarrow$ \textbf{Variaciones}
+        \item Orden no importa $\Rightarrow$ \textbf{Combinaciones}
+    \end{itemize}
+    
+    \item \textbf{Se permiten repeticiones o no}:
+    \begin{itemize}
+        \item Sin repetición
+        \item Con repetición
+    \end{itemize}
+\end{enumerate}
+
+De esta forma obtenemos el siguiente esquema:
+
+\begin{itemize}
+    \item \textbf{Variaciones} (orden importa)
+    \begin{itemize}
+        \item Sin repetición: \textbf{Variaciones ordinarias}
+        \begin{itemize}
+            \item Si $k = n$: \textbf{Permutaciones ordinarias}.
+        \end{itemize}
+        \item Con repetición
+        \begin{itemize}
+            \item Si $k = n$ en secuencias: \textbf{Permutaciones con repetición}.
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{Combinaciones} (orden no importa)
+    \begin{itemize}
+        \item Sin repetición: \textbf{Combinaciones ordinarias}
+        \item Con repetición
+    \end{itemize}
+\end{itemize}
+\end{procedimiento}
+
+\subsection{Variaciones Ordinarias: Orden importa, sin repetición}
+
+\begin{procedimiento}[title=Definición de variaciones ordinarias]
+Las \textbf{variaciones ordinarias} son las formas de escoger $k$ elementos de un conjunto de $n$ elementos cuando:
+
+\begin{itemize}
+    \item El orden importa.
+    \item No se permiten repeticiones.
+\end{itemize}
+
+El número de variaciones ordinarias se calcula con la fórmula:
+\[
+V(n,k) = \frac{n!}{(n-k)!}
+\]
+Además, $V(n,k)$ representa el número de aplicaciones inyectivas que se pueden definir de un conjunto de $k$ elementos en un conjunto de $n$ elementos, donde $k \le n$.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Banderas de 3 franjas]
+Sea $A = \{\text{blanco, azul, rojo, amarillo, verde}\}$.  
+
+Se desea formar banderas de 3 franjas con colores distintos.  
+
+\begin{itemize}
+    \item Colores distintos $\Rightarrow$ sin repetición
+    \item Las franjas corresponden a posiciones distintas $\Rightarrow$ el orden importa
+\end{itemize}
+
+Por lo tanto, es un caso de \textbf{Variaciones Ordinarias}:
+
+\[
+|A| = 5 \implies V(5,3) = \frac{5!}{(5-3)!} = \frac{120}{2} = 60
+\]
+
+Hay 60 banderas posibles.
+\end{ejemplo}
+
+\subsubsection{Permutaciones Ordinarias ($k=n$)}
+
+\begin{procedimiento}[title=Permutaciones]
+Si $k = n$, todas las variaciones ordinarias son permutaciones ordinarias, es decir, todas las formas posibles de ordenar los $n$ elementos de un conjunto:
+
+\[
+V(n,n) = n!
+\]
+Además, $V(n,n) = n!$ representa el número de aplicaciones biyectivas que se pueden definir entre dos conjuntos de $n$ elementos cada uno.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo de permutaciones ordinarias]
+Sea un conjunto de 3 elementos.  
+
+Número de formas de ordenarlos:
+\[
+3! = 6
+\]
+\end{ejemplo}
+
+\subsection{Variaciones con repetición: Orden importa, con repetición}
+
+\begin{procedimiento}[title=Definición de variaciones con repetición]
+Las \textbf{variaciones con repetición} son las formas de escoger $k$ elementos de un conjunto de $n$ elementos cuando:
+\begin{itemize}
+    \item El orden importa.
+    \item Se permiten repeticiones.
+\end{itemize}
+
+El número de variaciones con repetición se calcula con la fórmula:
+\[
+\operatorname{VR}(n,k) = n^k
+\]
+Además, $\operatorname{VR}(n,k)$ representa el número de aplicaciones que se pueden definir de un conjunto de $k$ elementos en un conjunto de $n$ elementos, donde cada elemento puede elegirse múltiples veces.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Quiniela]
+Sea $A = \{1, X, 2\}$ el conjunto de resultados posibles para cada partido de fútbol en una quiniela (1 para victoria del equipo local, X para empate, 2 para victoria del equipo visitante).  
+
+Se desea formar una quiniela (lista) con los resultados de 15 partidos.  
+
+\begin{itemize}
+    \item El orden de los partidos importa $\Rightarrow$ el orden importa
+    \item Se pueden repetir resultados $\Rightarrow$ con repetición
+\end{itemize}
+
+Por lo tanto, es un caso de \textbf{Variaciones con repetición}:
+
+\[
+|A| = 3 \implies \operatorname{VR}(3,15) = 3^{15}
+\]
+
+Hay $3^{15}$ quinielas posibles.
+\end{ejemplo}
+
+\subsubsection{Permutaciones con repetición ($k=n$ en secuencias)}
+
+\begin{procedimiento}[title=Permutaciones con repetición]
+Si $k = n$ y algunos elementos son idénticos (es decir, ya \textbf{no} hablamos de un conjunto, sino de una \textbf{secuencia }de elementos, como una palabra), las variaciones con repetición se convierten en permutaciones con repetición, es decir, todas las formas posibles de ordenar los $n$ elementos de una secuencia, considerando las repeticiones de elementos idénticos.
+
+El número de permutaciones con repetición se calcula con la fórmula:
+\[
+\binom{n}{k_1, k_2, \dots, k_t} = \frac{n!}{k_1! \cdot k_2! \cdot \dots \cdot k_t!}
+\]
+donde $n$ es el número total de elementos y $k_1, k_2, \dots, k_t$ son las frecuencias de los elementos repetidos.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Ordenar las letras de RELEER]
+¿De cuántas maneras se pueden ordenar todas las letras de la palabra RELEER?
+
+La palabra RELEER tiene 6 letras. Contamos las frecuencias:
+\begin{itemize}
+    \item Hay 2 R ($k_1 = 2$).
+    \item Hay 3 E ($k_2 = 3$).
+    \item Hay 1 L ($k_3 = 1$).
+\end{itemize}
+
+El número total de letras es $n = 2 + 3 + 1 = 6$. Aplicamos la fórmula del número combinatorio:
+\[
+\binom{6}{2, 3, 1} = \frac{6!}{2! \cdot 3! \cdot 1!} = \frac{720}{2 \cdot 6 \cdot 1} = \frac{720}{12} = 60
+\]
+
+Por lo tanto, hay 60 formas de ordenar las letras de RELEER.
+
+\textbf{¿Y el número de formas cuando las dos R están juntas?}
+
+Consideramos las dos R como una sola \textit{superletra} RR. Esto reduce el número total de elementos a ordenar a $5$ (RR, E, E, E, L). Las frecuencias son:
+\begin{itemize}
+    \item Hay 1 RR ($k_1 = 1$).
+    \item Hay 3 E ($k_2 = 3$).
+    \item Hay 1 L ($k_3 = 1$).
+\end{itemize}
+
+El número total de elementos es $n = 1 + 3 + 1 = 5$. Aplicamos la fórmula:
+\[
+\binom{5}{1, 3, 1} = \frac{5!}{1! \cdot 3! \cdot 1!} = \frac{120}{1 \cdot 6 \cdot 1} = \frac{120}{6} = 20
+\]
+
+Por lo tanto, hay 20 formas de ordenar las letras de RELEER con las dos R juntas.
+\end{ejemplo}
+
+\subsection{Combinaciones Ordinarias: Orden no importa, sin repetición}
+
+\begin{procedimiento}[title=Definición de combinaciones ordinarias]
+Las \textbf{combinaciones ordinarias} son las formas de escoger $k$ elementos de un conjunto de $n$ elementos cuando:
+\begin{itemize}
+    \item El orden no importa.
+    \item No se permiten repeticiones.
+\end{itemize}
+
+El número de combinaciones ordinarias se calcula con la fórmula:
+\[
+\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!}
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Subconjuntos de 2 elementos]
+Sea $A = \{1, 2, 3, 4\}$. Hallar el número de subconjuntos de $A$ con 2 elementos.
+
+\begin{itemize}
+    \item Los elementos son distintos $\Rightarrow$ sin repetición
+    \item El orden no importa (los subconjuntos $\{1, 2\}$ y $\{2, 1\}$ son el mismo) $\Rightarrow$ orden no importa
+\end{itemize}
+
+Por lo tanto, es un caso de \textbf{Combinaciones ordinarias}:
+
+\[
+|A| = 4 \implies \binom{4}{2} = \frac{4!}{2! \cdot (4-2)!} = \frac{24}{2 \cdot 2} = \frac{24}{4} = 6
+\]
+
+Los subconjuntos son: $\{1, 2\}, \{1, 3\}, \{1, 4\}, \{2, 3\}, \{2, 4\}, \{3, 4\}$.
+
+Por lo tanto, hay 6 subconjuntos de $A$ con 2 elementos.
+\end{ejemplo}
+
+\subsection{Combinaciones con repetición: Orden no importa, con repetición}
+
+\begin{procedimiento}[title=Definición de combinaciones con repetición]
+Las \textbf{combinaciones con repetición} son las formas de escoger $k$ elementos de un conjunto de $n$ elementos cuando:
+\begin{itemize}
+    \item El orden no importa.
+    \item Se permiten repeticiones.
+\end{itemize}
+
+El número de combinaciones con repetición se calcula con la fórmula:
+\[
+\operatorname{CR}(n,k) = \binom{n-1+k}{k}
+\]
+que también puede expresarse como:
+\[
+\operatorname{CR}(n,k) = \binom{n-1+k}{n-1}
+\]
+
+Además, existe una aplicación biyectiva entre el conjunto formado por las combinaciones con repetición de $n$ elementos tomados de $k$ en $k$ y el conjunto de las soluciones de la ecuación $x_1 + x_2 + \dots + x_n = k$ en los números naturales $\mathbb{N}$.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 1: Selección de pasteles]
+Una pastelería vende 8 tipos de pasteles. ¿De cuántas formas se puede seleccionar una docena de pasteles?
+
+\begin{itemize}
+    \item Se pueden elegir pasteles del mismo tipo $\Rightarrow$ con repetición
+    \item El orden no importa (elegir 2 pasteles de fresa y 1 de chocolate es lo mismo que elegir 1 de chocolate y 2 de fresa) $\Rightarrow$ orden no importa
+\end{itemize}
+
+Por lo tanto, es un caso de \textbf{Combinaciones con repetición}:
+
+\[
+n = 8, k = 12 \implies \operatorname{CR}(8,12) = \binom{8-1+12}{12} = \binom{19}{12} = \frac{19!}{12! \cdot 7!} = 50\,388
+\]
+
+Por lo tanto, hay 50\,388 formas de seleccionar una docena de pasteles.
+
+\textbf{¿Y si pedimos al menos uno de cada tipo?}
+
+Si se requiere al menos un pastel de cada uno de los 8 tipos, seleccionamos primero un pastel de cada tipo (8 pasteles), y luego seleccionamos los 4 pasteles restantes ($12 - 8 = 4$). Esto es un caso de combinaciones con repetición con $k = 4$:
+
+\[
+n = 8, k = 4 \implies \operatorname{CR}(8,4) = \binom{8-1+4}{4} = \binom{11}{4} = \frac{11!}{4! \cdot 7!}
+= 330
+\]
+
+Por lo tanto, hay 330 formas de seleccionar una docena de pasteles con al menos uno de cada tipo.
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo 2: Soluciones de una ecuación]
+Determinar el número de soluciones de la ecuación $x_1 + x_2 + x_3 + x_4 = 7$ en los números naturales $\mathbb{N}$.
+
+\vspace{0.5em}
+
+Por lo tanto, es un caso de \textbf{Combinaciones con repetición}, donde $n$ es el número de variables (4) y $k$ es el número de unidades a distribuir (7):
+
+\[
+n = 4, k = 7 \implies \operatorname{CR}(4,7) = \binom{4-1+7}{7} = \binom{10}{7} = \frac{10!}{7! \cdot 3!} = 120
+\]
+
+Por lo tanto, hay 120 soluciones para la ecuación $x_1 + x_2 + x_3 + x_4 = 7$ en $\mathbb{N}$.
+\end{ejemplo}
+
+\subsection{Resumen de fórmulas para seleccionar $n$ elementos}
+
+\begin{procedimiento}[title=Seleccionar $n$ elementos de $k$ en $k$]
+\begin{itemize}
+    \item \textbf{Orden importa:}
+    \begin{itemize}
+        \item \textbf{Sin repetición:}
+        \begin{itemize}
+            \item Variaciones Ordinarias: $V(n,k) = \dfrac{n!}{(n-k)!}$
+            \item Permutaciones Ordinarias: $V(n,n) = n!$
+        \end{itemize}
+        \item \textbf{Con repetición:}
+        \begin{itemize}
+            \item Variaciones con Repetición: $\operatorname{VR}(n,k) = n^k$
+            \item Permutaciones con Repetición: $\dfrac{n!}{k_1!k_2!\dots k_t!}$
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Orden no importa:}
+    \begin{itemize}
+        \item \textbf{Sin repetición:}
+        \begin{itemize}
+            \item Combinaciones Ordinarias: $\binom{n}{k} = \dfrac{n!}{k!(n-k)!}$
+        \end{itemize}
+        \item \textbf{Con repetición:}
+        \begin{itemize}
+            \item Combinaciones con Repetición: $\operatorname{CR}(n,k) = \binom{n-1+k}{k} = \binom{n-1+k}{n-1}$
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{procedimiento}
+
+
+\section{Coeficientes Multinomiales}
+
+\subsection{Teorema del Binomio de Newton}
+
+\begin{procedimiento}[title=Teorema del binomio de Newton]
+Sean $n \in \mathbb{N}$, y $x, y$ elementos de un anillo tales que $xy = yx$. Entonces:
+\[
+(x + y)^n = \sum_{k=0}^n \binom{n}{k} x^{n-k} y^k
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: $(x + y)^2$]
+Desarrollemos $(x + y)^2$ usando el teorema del binomio de Newton:
+\[
+(x + y)^2 = \sum_{k=0}^2 \binom{2}{k} x^{2-k} y^k
+\]
+Calculamos cada término:
+\begin{itemize}
+    \item Para $k = 0$: $\binom{2}{0} x^{2-0} y^0 = 1 \cdot x^2 \cdot 1 = x^2$
+    \item Para $k = 1$: $\binom{2}{1} x^{2-1} y^1 = 2 \cdot x \cdot y = 2xy$
+    \item Para $k = 2$: $\binom{2}{2} x^{2-2} y^2 = 1 \cdot 1 \cdot y^2 = y^2$
+\end{itemize}
+Por lo tanto:
+\[
+(x + y)^2 = x^2 + 2xy + y^2
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo: $(x + y)^4$]
+Desarrollemos $(x + y)^4$ usando el triángulo de Pascal. Las primeras filas del triángulo de Pascal son:
+\begin{itemize}
+    \item $n=0$: 1
+    \item $n=1$: 1 1
+    \item $n=2$: 1 2 1
+    \item $n=3$: 1 3 3 1
+    \item $n=4$: 1 4 6 4 1
+\end{itemize}
+Para $n=4$, los coeficientes son $1, 4, 6, 4, 1$. Estos corresponden a $\binom{4}{k}$ para $k = 0, 1, 2, 3, 4$. Asociamos cada coeficiente con los términos $x^{4-k} y^k$:
+\begin{itemize}
+    \item $k=0$: $\binom{4}{0} = 1 \implies x^4$
+    \item $k=1$: $\binom{4}{1} = 4 \implies 4 x^3 y$
+    \item $k=2$: $\binom{4}{2} = 6 \implies 6 x^2 y^2$
+    \item $k=3$: $\binom{4}{3} = 4 \implies 4 x y^3$
+    \item $k=4$: $\binom{4}{4} = 1 \implies y^4$
+\end{itemize}
+Por lo tanto:
+\[
+(x + y)^4 = x^4 + 4 x^3 y + 6 x^2 y^2 + 4 x y^3 + y^4
+\]
+\end{ejemplo}
+
+\subsection{Teorema Multinomial}
+
+\begin{procedimiento}[title=Teorema multinomial (Binomio de Newton generalizado)]
+Sean $n \in \mathbb{N}$ y $x_1, \dots, x_t$ elementos de un anillo tales que $x_i x_j = x_j x_i$ para cualquier $i, j$. Entonces:
+\[
+(x_1 + \dots + x_t)^n = \sum_{k_1 + \dots + k_t = n} \binom{n}{k_1, k_2, \dots, k_t} x_1^{k_1} \dots x_t^{k_t}
+\]
+donde la suma se realiza sobre todas las t-tuplas $(k_1, k_2, \dots, k_t)$ de números naturales tales que $k_1 + k_2 + \dots + k_t = n$, y el coeficiente multinomial es:
+\[
+\binom{n}{k_1, k_2, \dots, k_t} = \frac{n!}{k_1! \cdot k_2! \cdot \dots \cdot k_t!}
+\]
+Además, el número de sumandos en la expresión se calcula como el número de combinaciones con repetición $\operatorname{CR}(t,n)$.
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Número de sumandos de $(x + y + z)^{10}$]
+Determinar el número de sumandos en la expansión de $(x + y + z)^{10}$.
+
+\vspace{0.5em}
+
+$t = 3$ (variables $x, y, z$) y $n = 10$ (exponente):
+
+\[
+\operatorname{CR}(3,10) = \binom{3-1+10}{10} = \binom{12}{10} = \frac{12!}{10! \cdot 2!} = \frac{12 \cdot 11}{2 \cdot 1} = 66
+\]
+
+Por lo tanto, hay 66 sumandos en la expansión de $(x + y + z)^{10}$.
+\end{ejemplo}
+
+\end{document}

@@ -1,0 +1,7767 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Para insertar imágenes
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{hyperref} % Enlaces y referencias clicables
+\usepackage{lmodern} % Fuente moderna
+\usepackage{geometry} % Márgenes
+\usepackage{polynom}
+\usepackage[most]{tcolorbox} % Cajitas para ejemplos y procedimientos
+\usepackage{newunicodechar}
+\usepackage{cancel}
+\usepackage[svgnames]{xcolor}
+\newunicodechar{⋆}{\star}
+\geometry{margin=2.5cm}
+
+% ==== Definición de estilos de caja ====
+\tcbset{
+  colback=white,
+  colframe=black!60,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{procedimiento}[1][]{
+  colback=green!5!white,
+  colframe=green!60!black,
+  title=\textbf{Procedimiento},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejemplo}[1][]{
+  colback=blue!5!white,
+  colframe=blue!60!black,
+  title=\textbf{Ejemplo},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejercicio}[1][]{
+  colback=red!5!white,
+  colframe=red!60!black,
+  title=\textbf{Ejercicio},
+  fonttitle=\bfseries,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt,
+  #1
+}
+
+% ==== Documento principal ====
+\title{Álgebra Lineal y Estructuras Matemáticas (ALEM) Ejercicios Resueltos Tema 3}
+\author{Alonso Hernández Robles (Grupo E)}
+\date{23/12/2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Operaciones con Matrices}
+
+\begin{ejercicio}[title=Ejercicio 1]
+Sean $A,B \in \mathfrak{M}_2(\mathbb{Z}_7)$ tales que
+\[
+A + B = 
+\begin{pmatrix}
+4 & 3\\
+2 & 6
+\end{pmatrix}, 
+\qquad
+A - B =
+\begin{pmatrix}
+5 & 1\\
+4 & 2
+\end{pmatrix}.
+\]
+Calcule la matriz $A^2 - B^2$.
+
+\tcblower
+\textbf{Resolución:}
+
+Planteamos las dos ecuaciones como un sistema:
+\[
+\begin{cases}
+A + B = \begin{pmatrix}4 & 3\\[2pt] 2 & 6\end{pmatrix}\\[4pt]
+A - B = \begin{pmatrix}5 & 1\\[2pt] 4 & 2\end{pmatrix}
+\end{cases}
+\]
+
+Sumando las dos ecuaciones:
+\[
+2A =
+\begin{pmatrix}
+4+5 & 3+1\\[2pt]
+2+4 & 6+2
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 & 4\\[2pt]
+6 & 1
+\end{pmatrix}.
+\]
+
+Como $2^{-1}=4$ en $\mathbb{Z}_7$, multiplicamos por $4$:
+\[
+A = 4 \cdot 
+\begin{pmatrix}
+2 & 4\\[2pt]
+6 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2\\[2pt]
+3 & 4
+\end{pmatrix}.
+\]
+
+Sustituyendo en la primera ecuación para obtener \(B\):
+\[
+\begin{pmatrix}1 & 2\\[2pt]3 & 4\end{pmatrix} + B =
+\begin{pmatrix}4 & 3\\[2pt]2 & 6\end{pmatrix}
+\implies
+B =
+\begin{pmatrix}4 & 3\\[2pt]2 & 6\end{pmatrix}
+-
+\begin{pmatrix}1 & 2\\[2pt]3 & 4\end{pmatrix}
+=
+\begin{pmatrix}3 & 1\\[2pt]6 & 2\end{pmatrix}.
+\]
+
+Calculamos los cuadrados:
+
+\[
+A^2 =
+\begin{pmatrix}1 & 2\\[2pt]3 & 4\end{pmatrix}
+\begin{pmatrix}1 & 2\\[2pt]3 & 4\end{pmatrix}
+=
+\begin{pmatrix}
+1\cdot1+2\cdot3 & 1\cdot2+2\cdot4\\[2pt]
+3\cdot1+4\cdot3 & 3\cdot2+4\cdot4
+\end{pmatrix}
+=
+\begin{pmatrix}
+1+6 & 2+8\\[2pt]
+3+12 & 6+16
+\end{pmatrix}
+\equiv
+\begin{pmatrix}
+0 & 3\\[2pt]
+1 & 1
+\end{pmatrix}.
+\]
+
+\[
+B^2 =
+\begin{pmatrix}3 & 1\\[2pt]6 & 2\end{pmatrix}
+\begin{pmatrix}3 & 1\\[2pt]6 & 2\end{pmatrix}
+=
+\begin{pmatrix}
+3\cdot3+1\cdot6 & 3\cdot1+1\cdot2\\[2pt]
+6\cdot3+2\cdot6 & 6\cdot1+2\cdot2
+\end{pmatrix}
+=
+\begin{pmatrix}
+9+6 & 3+2\\[2pt]
+18+12 & 6+4
+\end{pmatrix}
+\equiv
+\begin{pmatrix}
+1 & 5\\[2pt]
+2 & 3
+\end{pmatrix}.
+\]
+
+Finalmente:
+\[
+A^2 - B^2 =
+\begin{pmatrix}0 & 3\\[2pt]1 & 1\end{pmatrix}
+-
+\begin{pmatrix}1 & 5\\[2pt]2 & 3\end{pmatrix}
+=
+\boxed{\begin{pmatrix}6 & 5\\[2pt]6 & 5\end{pmatrix}}.
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 2]
+Sean las matrices 
+\[
+A = 
+\begin{pmatrix}
+1 & a\\
+2 & b
+\end{pmatrix},
+\qquad
+B =
+\begin{pmatrix}
+4 & 6\\
+10 & 2
+\end{pmatrix}
+\]
+con coeficientes en $\mathbb{Z}_{11}$.
+Determine todos los pares ordenados $(a,b)$ para los cuales se verifica que $(A+B)\cdot(A-B)=A^2-B^2$.
+
+\tcblower
+\textbf{Resolución:}
+
+\vspace{0.5em}
+
+\textbf{Método 1. Construir las matrices correspondientes e igualarlas.}
+
+\begin{itemize}
+    \item Calculamos:
+    \[
+    A+B =
+    \begin{pmatrix}
+    5 & a+6\\
+    1 & b+2
+    \end{pmatrix},\qquad
+    A-B =
+    \begin{pmatrix}
+    8 & a+5\\
+    3 & b+9
+    \end{pmatrix}
+    \]
+    \item Multiplicamos:
+    \[
+    (A+B)(A-B) =
+    \begin{pmatrix}
+    7+3a+7 & 5a+3+(a+b)(b+9)\\
+    8+3b+6 & a+5+(b+2)(b+9)
+    \end{pmatrix} =
+    \]
+    \[ =
+    \begin{pmatrix}
+    3a+3 & ab+3a+6b+4\\
+    3b+3 & b^2+a+1
+    \end{pmatrix}
+    \]
+    \item Calculamos $A^2$:
+    \[
+    A^2 = 
+    \begin{pmatrix}
+    1 & a\\
+    2 & b
+    \end{pmatrix}
+    \begin{pmatrix}
+    1 & a\\
+    2 & b
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    2a+1 & a+ab\\
+    2b+2 & 2a+b^2
+    \end{pmatrix}
+    \]
+    \item Calculamos $B^2$:
+    \[
+    B^2 =
+    \begin{pmatrix}
+    4 & 6\\
+    10 & 2
+    \end{pmatrix}
+    \begin{pmatrix}
+    4 & 6\\
+    10 & 2
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    10 & 3\\
+    5 & 9
+    \end{pmatrix}
+    \]
+    \item Restamos:
+    \[
+    A^2-B^2 =
+    \begin{pmatrix}
+    2a+1-10 & a+ab-3\\
+    2b+2-5 & 2a+b^2-9
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    2a+2 & ab+a+8\\
+    2b+8 & b^2+2a+2
+    \end{pmatrix}
+    \]
+    \item Igualamos $(A+B)(A-B) = A^2-B^2$:
+    \[
+    \begin{pmatrix}
+    3a+3 & ab+3a+6b+4\\
+    3b+3 & b^2+a+1
+    \end{pmatrix} = 
+    \begin{pmatrix}
+    2a+2 & ab+a+8\\
+    2b+8 & b^2+2a+2
+    \end{pmatrix}
+    \]
+    \item Los elementos ${\cdot}_{11}$ han de ser iguales. Análogamente con los elementos ${\cdot}_{21}$:
+    \[
+    3a+3 = 2a+2 \implies \boxed{a=10}, \quad
+    3b+3 = 2b+8 \implies \boxed{b=5}.
+    \]
+    \item Estos valores funcionan para el resto de las ecuaciones (se han omitido las comprobaciones).
+\end{itemize}
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 2]
+
+\textbf{Método 2. Usando $(A+B)(A-B) = A^2-B^2 \iff AB = BA$.}
+
+\begin{itemize}
+    \item Calculamos:
+    \[
+    AB = 
+    \begin{pmatrix}
+    1 & a\\ 2 & b
+    \end{pmatrix}
+    \begin{pmatrix}
+    4 & 6\\ 10 & 2
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    10a+4 & 2a+6\\
+    10b+8 & 2b+1
+    \end{pmatrix},
+    \]
+    \[
+    BA = 
+    \begin{pmatrix}
+    4 & 6\\ 10 & 2
+    \end{pmatrix}
+    \begin{pmatrix}
+    1 & a\\ 2 & b
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    5 & 4a+6b\\
+    3 & 10a+2b
+    \end{pmatrix}
+    \]
+    \item Los elementos ${\cdot}_{11}$ han de ser iguales. Análogamente con los elementos ${\cdot}_{21}$:
+    \[
+    10a+4 = 5 \implies \boxed{a = 10}, \quad
+    10b+8 = 3 \implies \boxed{b = 5}.
+    \]
+    \item Comprobamos la igualdad de los otros elementos:
+    \[
+    2(10)+6 = 4(10)+6(5) = 4. \text{ Sí}.
+    \]\[
+    2(5)+1 = 10(10)+2(5) = 0. \text{ Sí}.
+    \]
+\end{itemize}
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 3]
+Dadas $A,B \in \mathfrak{M}_n(K)$, ambas simétricas, pruebe que $A \cdot B$ es simétrica si y sólo si $A \cdot B = B \cdot A$.
+
+\tcblower
+\textbf{Resolución:}
+
+Debemos efectuar la demostración en ambos sentidos:
+
+\begin{itemize}
+    \item[$\boxed\Rightarrow$] Supongamos que $A\cdot B$ es simétrica.  
+    Por definición, esto significa
+    \[
+    A\cdot B = (A\cdot B)^T.
+    \] 
+    Pero sabemos que por propiedades del producto de matrices se cumple
+    \[
+    (A\cdot B)^T = B^T \cdot A^T.
+    \] 
+    Como $A$ y $B$ son simétricas ($A^T = A$, $B^T = B$), obtenemos
+    \[
+    B^T \cdot A^T  = B \cdot A.
+    \] 
+    Por tanto, $A \cdot B = B \cdot A$.
+
+    \item[$\boxed{\Leftarrow}$] Supongamos que $A \cdot B = B \cdot A$.  
+    Aplicando la traspuesta a ambos lados:
+    \[
+    (A \cdot B)^T = (B \cdot A)^T.
+    \] 
+    Por propiedades del producto de matrices:
+    \[
+    (B \cdot A)^T = A^T \cdot B^T.
+    \] 
+    Como $A$ y $B$ son simétricas ($A^T = A$, $B^T = B$), obtenemos:
+    \[
+    (A \cdot B)^T = A \cdot B.
+    \] 
+    Por la definición, esto significa que $A \cdot B$ es simétrica.
+\end{itemize}
+\[
+\boxed{A \cdot B \text{ simétrica } \quad \Longleftrightarrow \quad A \cdot B = B \cdot A}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 4]
+Si 
+\[
+A = 
+\begin{pmatrix}
+ab & b^2\\
+- a^2 & -ab
+\end{pmatrix},
+\]
+compruebe que $A^2$ es la matriz nula.
+
+\tcblower
+\textbf{Resolución:}
+
+Calculamos $A^2 = A \cdot A$:
+
+\[
+A^2 =
+\begin{pmatrix}
+ab & b^2\\
+- a^2 & -ab
+\end{pmatrix}
+\begin{pmatrix}
+ab & b^2\\
+- a^2 & -ab
+\end{pmatrix}
+=\begin{pmatrix}
+a^2 b^2 - a^2 b^2 & a b^3 - a b^3 \\
+- a^3 b + a^3 b & - a^2 b^2 + a^2 b^2
+\end{pmatrix}
+=
+\boxed{\begin{pmatrix}
+0 & 0 \\
+0 & 0
+\end{pmatrix}}.
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 5]
+En cada apartado, resuelva el sistema propuesto en $\mathfrak{M}_2(\mathbb{Z}_7)$:
+
+\[
+\begin{tabular}{c @{\hspace{2cm}} c}
+$a)\begin{cases}
+4A + 5B =
+\begin{pmatrix}
+3 & 2\\
+6 & 3
+\end{pmatrix}\\[1em]
+2A + 3B =
+\begin{pmatrix}
+1 & 2\\
+0 & 0
+\end{pmatrix}
+\end{cases}$ &
+$b)\begin{cases}
+5A + 2B^T =
+\begin{pmatrix}
+5 & 2\\
+2 & 3
+\end{pmatrix}\\[1em]
+3A^T + 5B =
+\begin{pmatrix}
+4 & 1\\
+6 & 2
+\end{pmatrix}
+\end{cases}$
+\end{tabular}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)}
+
+\vspace{0.5em}
+
+Multiplicamos por 2 la segunda ecuación:
+
+\[
+\begin{cases}
+    4A + 5B = 
+    \begin{pmatrix}
+        3 & 2 \\
+        6 & 3
+    \end{pmatrix} \\
+    4A + 6B = 
+    \begin{pmatrix}
+        2 & 4 \\
+        0 & 0
+    \end{pmatrix}
+\end{cases}
+\]
+
+Restando la segunda a la primera:
+
+\[
+-B = 
+\begin{pmatrix}
+1 & -2\\
+6 & 3
+\end{pmatrix}
+\implies B = 
+\begin{pmatrix}
+-1 & 2\\
+-6 & -3
+\end{pmatrix}
+=
+\begin{pmatrix}
+6 & 2\\
+1 & 4
+\end{pmatrix}.
+\]
+
+Sustituyendo en la segunda ecuación:
+
+\[
+2A + 3B = 
+\begin{pmatrix}
+1 & 2\\
+0 & 0
+\end{pmatrix} 
+\implies
+2A = 
+\begin{pmatrix}
+1 & 2\\
+0 & 0
+\end{pmatrix} - 3B 
+=
+\]
+\[=
+\begin{pmatrix}
+1 & 2\\
+0 & 0
+\end{pmatrix} - 
+3 \begin{pmatrix}
+6 & 2\\
+1 & 4
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2\\
+0 & 0
+\end{pmatrix} - 
+\begin{pmatrix}
+4 & 6\\
+3 & 5
+\end{pmatrix}
+=
+\begin{pmatrix}
+4 & 3\\
+4 & 2
+\end{pmatrix}.
+\]
+
+\vspace{0.5em}
+
+Multiplicando por $2^{-1} = 4$ en $\mathbb{Z}_7$:
+
+\[
+A = 4 \cdot 
+\begin{pmatrix}
+4 & 3\\
+4 & 2
+\end{pmatrix} =
+\begin{pmatrix}
+2 & 5\\
+2 & 1
+\end{pmatrix}.
+\]
+
+\[
+\boxed{A = \begin{pmatrix}2 & 5\\ 2 & 1\end{pmatrix}}, \quad 
+\boxed{B = \begin{pmatrix}6 & 2\\ 1 & 4\end{pmatrix}}.
+\]
+
+\textbf{b)}
+
+\vspace{0.5em}
+
+Por propiedades de la traspuesta y la suma, aplicando la traspuesta a la segunda ecuación original obtenemos un sistema equivalente con \(B^T\):
+
+\[
+(3A^T + 5B)^T = 
+\begin{pmatrix}
+4 & 1\\
+6 & 2
+\end{pmatrix}^T
+\implies
+3A + 5B^T =
+\begin{pmatrix}
+4 & 6\\
+1 & 2
+\end{pmatrix}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 5]
+
+Así, el sistema equivalente en las incógnitas \(A\) y \(B^T\) es
+
+\[
+\begin{cases}
+5A + 2B^T =
+\begin{pmatrix}
+5 & 2\\
+2 & 3
+\end{pmatrix},\\[4pt]
+3A + 5B^T =
+\begin{pmatrix}
+4 & 6\\
+1 & 2
+\end{pmatrix}.
+\end{cases}
+\]
+
+Sumamos ambas ecuaciones en $\mathbb{Z}_7$ y queda:
+\[
+A = \begin{pmatrix}2 & 1\\[2pt] 3 & 5\end{pmatrix}
+\]
+
+Calculamos la traspuesta:
+\[
+A^T = \begin{pmatrix}2 & 3\\[2pt] 1 & 5\end{pmatrix}.
+\]
+
+Para poder sustituirla en la segunda ecuación original:
+\[
+3A^T + 5B = \begin{pmatrix}4 & 1\\[2pt] 6 & 2\end{pmatrix}
+\quad\Rightarrow\quad
+3\begin{pmatrix}2 & 3\\[2pt] 1 & 5\end{pmatrix} + 5B =
+\begin{pmatrix}4 & 1\\[2pt] 6 & 2\end{pmatrix}.
+\]
+
+Calculamos \(3A^T\) en \(\mathbb{Z}_7\):
+\[
+3\begin{pmatrix}2 & 3\\[2pt] 1 & 5\end{pmatrix} =
+\begin{pmatrix}6 & 2\\[2pt] 3 & 1\end{pmatrix}.
+\]
+
+Despejamos \(5B\):
+\[
+5B =
+\begin{pmatrix}4 & 1\\[2pt] 6 & 2\end{pmatrix}
+-
+\begin{pmatrix}6 & 2\\[2pt] 3 & 1\end{pmatrix}
+=
+\begin{pmatrix}5 & 6\\[2pt] 3 & 1\end{pmatrix}.
+\]
+
+Como \(5^{-1}=3\) en \(\mathbb{Z}_7\), multiplicamos por \(3\) para obtener \(B\):
+\[
+B = 3 \begin{pmatrix}5 & 6\\[2pt] 3 & 1\end{pmatrix}
+=
+\begin{pmatrix}1 & 4\\[2pt] 2 & 3\end{pmatrix}.
+\]
+
+\[
+\boxed{A = \begin{pmatrix}2 & 1\\ 3 & 5\end{pmatrix}}, \qquad
+\boxed{B = \begin{pmatrix}1 & 4\\ 2 & 3\end{pmatrix}}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 6]
+Demuestre que toda matriz de $\mathfrak{M}_n(\mathbb{R})$ se expresa de manera única como suma de una matriz simétrica y una matriz antisimétrica.  
+Aplique lo que acaba de probar a la matriz siguiente:
+\[
+B =
+\begin{pmatrix}
+1 & 7\\
+2 & -4
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Sea \(M\in\mathfrak{M}_n(\mathbb{R})\). Queremos demostrar que existen \(S,A\) tales que
+\[
+M = S + A,
+\]
+con \(S\) simétrica y \(A\) antisimétrica.
+
+Trasponemos ambos miembros. Usamos propidades de la suma y la definición de simétrica ($S=S^T$) y antisimétrica ($A=-A^T$):
+\[
+M^T = (S+A)^T = S^T + A^T = S - A.
+\]
+
+Por tanto obtenemos el sistema
+\[
+\begin{cases}
+M = S + A\\[4pt]
+M^T = S - A
+\end{cases}
+\]
+
+Sumando y restando estas dos ecuaciones despejamos:
+\[
+M + M^T = 2S \quad\Longrightarrow\quad S = \frac{M+M^T}{2},
+\]
+\[
+M - M^T = 2A \quad\Longrightarrow\quad A = \frac{M-M^T}{2}.
+\]
+
+Si S es simétrica, entonces por definición \(S = S^T\). Igualando y aplicando propiedades:
+\[
+\frac{M+M^T}{2}
+= \left(\frac{M+M^T}{2}\right)^T
+= \frac{(M+M^T)^T}{2}
+= \frac{M^T+M}{2}
+= \frac{M+M^T}{2}
+\]
+\[
+\implies
+\text{S es simétrica.}
+\]
+
+Si A es antisimétrica, entonces por definición \(A = -A^T\). Igualando y aplicando propiedades:
+\[
+\frac{M-M^T}{2}
+= -\left(\frac{M-M^T}{2}\right)^T
+= -\frac{(M-M^T)^T}{2}
+= -\frac{M^T-M}{2}
+= \frac{M-M^T}{2}
+\]
+\[
+\implies
+\text{A es antisimétrica.}
+\]
+
+Entonces
+\[
+\boxed{\forall M \in \mathfrak{M}_n(\mathbb{R})\quad M = S+A, \qquad S\text{ simétrica,} \quad A\text{ antisimétrica.}}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 6]
+\textbf{Aplicación al caso concreto.}
+\[
+B=
+\begin{pmatrix}
+1 & 7\\
+2 & -4
+\end{pmatrix}, \qquad
+B^T=
+\begin{pmatrix}
+1 & 2\\
+7 & -4
+\end{pmatrix}.
+\]
+
+Calculamos la parte simétrica:
+\[
+S=\frac{B+B^T}{2}=\frac{1}{2}
+\begin{pmatrix}
+1+1 & 7+2\\[4pt]
+2+7 & -4-4
+\end{pmatrix}
+=\frac{1}{2}
+\begin{pmatrix}
+2 & 9\\[4pt]
+9 & -8
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & \tfrac{9}{2}\\[4pt]
+\tfrac{9}{2} & -4
+\end{pmatrix}.
+\]
+
+Calculamos la parte antisimétrica:
+\[
+A=\frac{B-B^T}{2}=\frac{1}{2}
+\begin{pmatrix}
+1-1 & 7-2\\[4pt]
+2-7 & -4+4
+\end{pmatrix}
+=\frac{1}{2}
+\begin{pmatrix}
+0 & 5\\[4pt]
+-5 & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 & \tfrac{5}{2}\\[4pt]
+-\tfrac{5}{2} & 0
+\end{pmatrix}.
+\]
+
+Comprobación:
+\[
+S+A =
+\begin{pmatrix}
+1 & \tfrac{9}{2}\\[4pt]
+\tfrac{9}{2} & -4
+\end{pmatrix}
++
+\begin{pmatrix}
+0 & \tfrac{5}{2}\\[4pt]
+-\tfrac{5}{2} & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 7\\[4pt]
+2 & -4
+\end{pmatrix}=B.
+\]
+
+\[
+\boxed{B = S+A, \qquad S\text{ simétrica,} \quad A\text{ antisimétrica.}}
+\]
+\end{ejercicio}
+
+\section{Operaciones o Transformaciones Elementales sobre Matrices}
+
+\begin{ejercicio}[title=Ejercicio 8]
+Calcule el rango de la matriz siguiente con coeficientes en $\mathbb{R}$:
+\[
+A =
+\begin{pmatrix}
+1 & 2 & -1 & 2\\
+1 & 3 & 2 & -1\\
+1 & 1 & -4 & 5\\
+1 & 4 & 5 & -4
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Aplicamos operaciones elementales de fila para obtener una matriz en forma escalonada por filas y observar el número de filas no nulas, que es el rango.
+
+\[
+A =
+\begin{pmatrix}
+1 & 2 & -1 & 2\\
+1 & 3 & 2 & -1\\
+1 & 1 & -4 & 5\\
+1 & 4 & 5 & -4
+\end{pmatrix}
+\overset{\substack{F_4 - F_1 \\ F_3 - F_1 \\ F_2 - F_1 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & -1 & 2\\
+0 & -1 & -3 & 3\\
+0 & 1 & 3 & -3\\
+0 & -2 & -6 & 6
+\end{pmatrix}
+\overset{\substack{F_4 - 2F_2 \\ F_3 + 2F_2 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & -1 & 2\\
+0 & -1 & -3 & 3\\
+0 & -1 & -3 & 3\\
+0 & 0 & 0 & 0
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_3 - F_2 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & -1 & 2\\
+0 & -1 & -3 & 3\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{pmatrix}
+\text{ está en forma escalonada por filas, entonces:}
+\]
+
+\[
+\operatorname{Rg}(A) = \text{nº filas no nulas} = \boxed{2}.
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 9]
+Calcule el rango de la matriz siguiente con coeficientes en $\mathbb{Z}_7$:
+\[
+A =
+\begin{pmatrix}
+3 & 2 & 5 & 4 & 1\\
+2 & 5 & 6 & 1 & 4\\
+6 & 3 & 1 & 4 & 3\\
+1 & 0 & 5 & 1 & 1\\
+5 & 3 & 3 & 3 & 2
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Aplicamos operaciones elementales de fila :
+
+\[
+A =
+\begin{pmatrix}
+3 & 2 & 5 & 4 & 1\\
+2 & 5 & 6 & 1 & 4\\
+6 & 3 & 1 & 4 & 3\\
+1 & 0 & 5 & 1 & 1\\
+5 & 3 & 3 & 3 & 2
+\end{pmatrix}
+\overset{\substack{5F_1\\4F_2\\6F_3\\3F_5\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 3 & 4 & 6 & 5\\
+1 & 6 & 3 & 4 & 2\\
+1 & 4 & 6 & 3 & 4\\
+1 & 0 & 5 & 1 & 1\\
+1 & 2 & 2 & 2 & 6
+\end{pmatrix}
+\overset{\substack{F_2 - F_1\\F_3 - F_1\\F_4 - F_1\\F_5 - F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 3 & 4 & 6 & 5\\
+0 & 3 & 6 & 5 & 4\\
+0 & 1 & 2 & 4 & 6\\
+0 & 4 & 1 & 2 & 3\\
+0 & 6 & 5 & 3 & 1
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_3 + 2F_2\\F_4 + F_2\\F_5 - 2F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 3 & 4 & 6 & 5\\
+0 & 3 & 6 & 5 & 4\\
+0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0
+\end{pmatrix}
+\text{ está en forma escalonada por filas, entonces:}
+\]
+
+\[
+\operatorname{Rg}(A) = \text{nº filas no nulas} = \boxed{2}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 10]
+La forma normal de Hermite por filas de la matriz 
+\[
+A =
+\begin{pmatrix}
+3 & 1 & 1 & 2\\
+1 & 4 & 2 & 1\\
+5 & 2 & 1 & 3
+\end{pmatrix}
+\in \mathfrak{M}_{3\times 4}(\mathbb{Z}_7)
+\]
+es:
+
+\[
+\begin{tabular}{clclclcl}
+(a) &
+$\begin{pmatrix}
+1 & 0 & 0 & 6\\
+0 & 1 & 0 & 3\\
+0 & 0 & 1 & 2
+\end{pmatrix}$ &
+(b) &
+$\begin{pmatrix}
+1 & 0 & 0 & 2\\
+0 & 1 & 0 & 5\\
+0 & 0 & 1 & 2
+\end{pmatrix}$ &
+(c) &
+$\begin{pmatrix}
+1 & 0 & 1 & 1\\
+0 & 1 & 3 & 2\\
+0 & 0 & 0 & 0
+\end{pmatrix}$ &
+(d) &
+$\begin{pmatrix}
+1 & 0 & 1 & 0\\
+0 & 1 & 3 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}$
+\end{tabular}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Aplicamos operaciones elementales de fila (en $\mathbb{Z}_7$):
+
+\[
+A =
+\begin{pmatrix}
+3 & 1 & 1 & 2\\
+1 & 4 & 2 & 1\\
+5 & 2 & 1 & 3
+\end{pmatrix}
+\overset{\substack{5F_1 \\ 3F_3 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 5 & 3\\
+1 & 4 & 2 & 1\\
+1 & 6 & 3 & 2
+\end{pmatrix}
+\overset{\substack{F_2 - F_1 \\ F_3 - F_1 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 5 & 3\\
+0 & 6 & 4 & 5\\
+0 & 1 & 5 & 6
+\end{pmatrix}
+\overset{\substack{F_2 + F_3 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 5 & 3\\
+0 & 0 & 2 & 4\\
+0 & 1 & 5 & 6
+\end{pmatrix}
+\overset{\substack{4F_2 \\{}}}{\sim_f}
+\]
+
+\[
+\begin{pmatrix}
+1 & 5 & 5 & 3\\
+0 & 0 & 1 & 2\\
+0 & 1 & 5 & 6
+\end{pmatrix}
+\overset{\substack{F_2 \leftrightarrow F_3 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 5 & 3\\
+0 & 1 & 5 & 6\\
+0 & 0 & 1 & 2
+\end{pmatrix}
+\overset{\substack{F_1 - 5F_3 \\ F_2 - 5F_3 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 0 & 0\\
+0 & 1 & 0 & 3\\
+0 & 0 & 1 & 2
+\end{pmatrix}
+\overset{\substack{F_1 - 5F_2 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 & 6\\
+0 & 1 & 0 & 3\\
+0 & 0 & 1 & 2
+\end{pmatrix}
+= H_f(A)
+\]
+
+Por tanto la forma normal de Hermite por filas de \(A\) es
+
+\[
+\boxed{\text{a)}\;
+\begin{pmatrix}
+1 & 0 & 0 & 6\\
+0 & 1 & 0 & 3\\
+0 & 0 & 1 & 2
+\end{pmatrix}
+\;}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 11]
+Estudie cuáles de las matrices siguientes con coeficientes en $\mathbb{Z}_7$ son equivalentes por filas:
+
+\[
+A =
+\begin{pmatrix}
+1 & 2 & 3 & 3\\
+3 & 4 & 1 & 2\\
+1 & 1 & 6 & 5
+\end{pmatrix}, \quad
+B =
+\begin{pmatrix}
+3 & 1 & 0 & 2\\
+2 & 4 & 2 & 1\\
+6 & 1 & 5 & 5
+\end{pmatrix}, \quad
+C =
+\begin{pmatrix}
+3 & 1 & 3 & 2\\
+2 & 4 & 6 & 1\\
+6 & 1 & 2 & 5
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Sabemos que dos matrices $A$ y $B$ serán equivalentes por filas si su forma normal de Hermite por filas es la misma, es decir, $H_f(A)=H_f(B)$.
+
+\vspace{0.5em}
+
+Calculamos $H_f(A)$:
+\[
+A =
+\begin{pmatrix}
+1 & 2 & 3 & 3\\
+3 & 4 & 1 & 2\\
+1 & 1 & 6 & 5
+\end{pmatrix}
+\overset{\substack{F_2 - 3F_1 \\ F_3 - F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & 3 & 3\\
+0 & 5 & 6 & 0\\
+0 & 6 & 3 & 2
+\end{pmatrix}
+\overset{\substack{3F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & 3 & 3\\
+0 & 1 & 4 & 0\\
+0 & 6 & 3 & 2
+\end{pmatrix}
+\overset{\substack{F_1 - 2F_2 \\ F_3 + F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 & 3\\
+0 & 1 & 4 & 0\\
+0 & 0 & 0 & 2
+\end{pmatrix}
+\]
+\[
+\overset{\substack{4F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 & 3\\
+0 & 1 & 4 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_1 - 3F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 & 0\\
+0 & 1 & 4 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+= H_f(A).
+\]
+
+\vspace{0.5em}
+
+Calculamos $H_f(B)$:
+\[
+B =
+\begin{pmatrix}
+3 & 1 & 0 & 2\\
+2 & 4 & 2 & 1\\
+6 & 1 & 5 & 5
+\end{pmatrix}
+\overset{\substack{5F_1 \\ 4F_2 \\ 6F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 0 & 3\\
+1 & 2 & 1 & 4\\
+1 & 6 & 2 & 2
+\end{pmatrix}
+\overset{\substack{F_2-F_1 \\ F_3-F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 0 & 3\\
+0 & 4 & 1 & 1\\
+0 & 1 & 2 & 6
+\end{pmatrix}
+\overset{\substack{2F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 0 & 3\\
+0 & 1 & 2 & 2\\
+0 & 1 & 2 & 6
+\end{pmatrix}
+\]
+\[
+\overset{\substack{F_3 - F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 0 & 3\\
+0 & 1 & 2 & 2\\
+0 & 0 & 0 & 4
+\end{pmatrix}
+\overset{\substack{2F_3 \\ F_1 - 5F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 4 & 0\\
+0 & 1 & 2 & 2\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_2 - 2F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 4 & 0\\
+0 & 1 & 2 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+= H_f(B).
+\]
+
+\vspace{0.5em}
+
+Calculamos $H_f(C)$:
+\[
+C =
+\begin{pmatrix}
+3 & 1 & 3 & 2\\
+2 & 4 & 6 & 1\\
+6 & 1 & 2 & 5
+\end{pmatrix}
+\overset{\substack{5F_1 \\ 4F_2 \\ -F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 1 & 3\\
+1 & 2 & 3 & 4\\
+1 & 6 & 5 & 2
+\end{pmatrix}
+\overset{\substack{F_2-F_1 \\ F_3-F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 1 & 3\\
+0 & 4 & 2 & 1\\
+0 & 1 & 4 & 6
+\end{pmatrix}
+\overset{\substack{2F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 1 & 3\\
+0 & 1 & 4 & 2\\
+0 & 1 & 4 & 6
+\end{pmatrix}
+\]
+\[
+\overset{F_3-F_2}{\sim_f}
+\begin{pmatrix}
+1 & 5 & 1 & 3\\
+0 & 1 & 4 & 2\\
+0 & 0 & 0 & 4
+\end{pmatrix}
+\overset{\substack{2F_3 \\ F_1 - 5F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 & 0\\
+0 & 1 & 4 & 2\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_2 - 2F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 & 0\\
+0 & 1 & 4 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+= H_f(C).
+\]
+
+\vspace{0.5em}
+
+Observamos que $H_f(A) = H_f(C)$, entonces \boxed{\text{$A$ y $C$ son equivalentes por filas}}.
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 12]
+Calcule la forma normal de Hermite por columnas de la matriz siguiente con coeficientes en $\mathbb{Z}_7$:
+\[
+A =
+\begin{pmatrix}
+1 & 2 & 3 & 4\\
+5 & 3 & 1 & 6\\
+3 & 4 & 2 & 3
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+\[
+A =
+\begin{pmatrix}
+1 & 2 & 3 & 4\\
+5 & 3 & 1 & 6\\
+3 & 4 & 2 & 3
+\end{pmatrix}
+\overset{\substack{4C_2 \\ 5C_3 \\ 2C_4 \\ {}}}{\sim_c}
+\begin{pmatrix}
+1 & 1 & 1 & 1\\
+5 & 5 & 5 & 5\\
+3 & 2 & 3 & 6
+\end{pmatrix}
+\overset{\substack{C_4 - C_1 \\ C_3 - C_1 \\ C_2 - C_1 \\ {}}}{\sim_c}
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+5 & 0 & 0 & 0\\
+3 & 6 & 0 & 3
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{-C_2 \\ 5C_4\\ {}}}{\sim_c}
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+5 & 0 & 0 & 0\\
+3 & 1 & 0 & 1
+\end{pmatrix}
+\overset{\substack{C_4 - C_2 \\ C_1 - 3C_2 \\ {}}}{\sim_c}
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+5 & 0 & 0 & 0\\
+0 & 1 & 0 & 0
+\end{pmatrix}
+= H_c(A).
+\]
+
+Entonces:
+
+\[
+\boxed{
+H_c(A) =
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+5 & 0 & 0 & 0\\
+0 & 1 & 0 & 0
+\end{pmatrix}
+}
+\]
+\end{ejercicio}
+
+\section{Sistemas de Ecuaciones Lineales}
+
+\subsection{Teorema de Rouché--Frobenius}
+
+\begin{ejercicio}[title=Ejercicio 27]
+Acerca del sistema siguiente con coeficientes en $\mathbb{R}$:
+\[
+\begin{cases}
+x + ay - z = 1\\
+x + y + z = a
+\end{cases}
+\]
+podemos afirmar que:
+
+\begin{enumerate}
+\item[a)] Independientemente del valor de $a$, es compatible determinado.
+\item[b)] Independientemente del valor de $a$, es compatible indeterminado.
+\item[c)] Es siempre incompatible.
+\item[d)] La compatibilidad o incompatibilidad depende del valor de $a$.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Usamos el teorema de Rouché–Frobenius para averiguar la compatibilidad del sistema. Esto consiste en analizar los valores de los rangos de $A$ y $(A\,|\,B)$. Calculamos una matriz en forma escalonada por filas para averiguar los rangos:
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & a & -1 &\Big|& 1\\
+1 & 1 &  1 &\Big|& a
+\end{pmatrix}
+\overset{\substack{F_2 - F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & a & -1 &\Big|& 1\\
+0 & 1-a & 2 &\Big|& a-1
+\end{pmatrix} \quad \text{\shortstack{ está en forma\\escalonada por filas.}}
+\]
+\[
+\Rightarrow \operatorname{Rg}(A)=\text{nº filas no nulas en }A = 2
+\]
+porque, sea cual sea el valor de $a$, las filas no pueden ser nulas por ya haber elementos no nulos en ellas. 
+De la misma forma,
+\[
+\Rightarrow \operatorname{Rg}(A\,|\,B)=\text{nº filas no nulas en }(A\,|\,B)=2.
+\]
+
+Como
+\[
+\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=2 \neq 3=\text{nº incógnitas},
+\]
+por el teorema de Rouché-Frobenius, el sistema es SCI sea cual sea el valor de \(a\).
+
+\[
+\boxed{\text{b) Independientemente del valor de }a,\ \text{es compatible indeterminado.}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 28]
+Sea el sistema siguiente de ecuaciones lineales en $\mathbb{R}$:
+\[
+\begin{cases}
+x + ay + 3az = a + 3\\
+ay + 2az = a + 1
+\end{cases}
+\]
+Entonces:
+
+\begin{enumerate}
+\item[a)] El sistema es compatible determinado independientemente de $a$.
+\item[b)] El sistema es compatible indeterminado independientemente de $a$.
+\item[c)] El sistema es incompatible independientemente de $a$.
+\item[d)] La compatibilidad del sistema depende de $a$.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Usamos el teorema de Rouché–Frobenius para averiguar la compatibilidad del sistema. Esto consiste en analizar los valores de los rangos de $A$ y $(A\,|\,B)$. Calculamos una matriz en forma escalonada por filas para averiguar los rangos. $(A\,|\,B)$ ya está en forma escalonada por filas, pero aplicamos una operación elemental de filas para simplificar la discriminación de valores de $a$:
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & a & 3a &\Big|& a+3\\
+0 & a & 2a &\Big|& a+1
+\end{pmatrix}
+\overset{\substack{F_1 - F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & a &\Big|& 2\\
+0 & a & 2a &\Big|& a+1
+\end{pmatrix}
+\]
+
+\vspace{0.5em}
+
+Analizamos rangos en función de \(a\).
+
+\vspace{0.5em}
+
+Para \(A\):
+\begin{itemize}
+\item La primera fila de \(A\) nunca puede ser nula (tiene un 1).
+\item La segunda fila de \(A\) es \((0,a,2a)\), que es nula si y sólo si \(a=0\).
+\end{itemize}
+
+Por tanto
+\[
+\operatorname{Rg}(A)=
+\begin{cases}
+1 & \text{si } a=0,\\[4pt]
+2 & \text{si } a\neq 0,
+\end{cases}
+\qquad \neq \text{nº incógnitas} = 3.
+\]
+
+\vspace{0.5em}
+
+Para \((A\,|\,B)\):
+
+\begin{itemize}
+\item La primera fila nunca puede ser nula (contiene un 1 y también un 2).
+\item La segunda fila de \((A\,|\,B)\) es \((0,a,2a\,|\,a+1)\). Para que esa fila sea nula necesitaríamos simultáneamente \(a=0\), \(2a=0\) y \(a+1=0\), es decir \(a=0\) y \(a=-1\) a la vez, lo cual es imposible. Por tanto la segunda fila nunca es nula.
+\end{itemize}
+
+Así
+\[
+\operatorname{Rg}(A\,|\,B)=2 \neq \text{nº incógnitas} = 3 \quad\text{para todo }a.
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 28]
+Comparando rangos:
+\[
+\begin{cases}
+\operatorname{Rg}(A)=1\ne\operatorname{Rg}(A\,|\,B)= 2 \quad &\text{si } a=0,\\[4pt]
+\operatorname{Rg}(A)= \operatorname{Rg}(A\,|\,B) = 2 \neq \text{nº incógnitas} = 3\quad &\text{si } a\neq 0.
+\end{cases}
+\]
+
+Por el teorema de Rouché–Frobenius eso significa que:
+\[
+\text{El sistema es }
+\begin{cases}
+\text{SI} \quad &\text{si } a=0,\\[4pt]
+\text{SCI}\quad &\text{si } a\neq 0.
+\end{cases}
+\]
+
+Por tanto la compatibilidad depende de \(a\). La respuesta es:
+\[
+\boxed{\text{d) La compatibilidad del sistema depende de }a.}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 29]
+Para el sistema de ecuaciones siguiente con coeficientes en $\mathbb{Z}_{11}$:
+\[
+\begin{cases}
+3x + y + a z = 1\\
+2x + 4y + (8a + 1)z = 2\\
+x + 8y + (4a + 10)z = 10
+\end{cases}
+\]
+se verifica que:
+
+\begin{enumerate}
+\item[a)] Es incompatible para cualquier valor de $a$.
+\item[b)] Hay valores de $a$ para los cuales es compatible y valores de $a$ para los cuales es incompatible.
+\item[c)] Es compatible indeterminado para cualquier valor de $a$.
+\item[d)] Es compatible para cualquier valor de $a$. Además, hay valores de $a$ para los cuales es compatible determinado y otros para los cuales es compatible indeterminado.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Usamos el teorema de Rouché–Frobenius para averiguar la compatibilidad del sistema. Esto consiste en analizar los valores de los rangos de $A$ y $(A\,|\,B)$. Calculamos una matriz en forma escalonada por filas.
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+3 & 1 & a &\Big|& 1\\
+2 & 4 & 8a+1 &\Big|& 2\\
+1 & 8 & 4a+10 &\Big|& 10
+\end{pmatrix}
+\overset{\substack{F_2+3F_1\\F_3+7F_1}}{\sim_f}
+\begin{pmatrix}
+3 & 1 & a &\Big|& 1\\
+0 & 7 & 1 &\Big|& 5\\
+0 & 4 & 10 &\Big|& 6
+\end{pmatrix}
+\overset{\substack{F_3+F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+3 & 1 & a &\Big|& 1\\
+0 & 7 & 1 &\Big|& 5\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix},
+\]
+que está en forma escalonada por filas.
+
+\vspace{1em}
+
+Tanto para $A$ como para $(A\,|\,B)$:
+\begin{itemize}
+    \item La primera fila no puede ser nula porque tiene elementos no nulos.
+    \item La segunda fila es no nula.
+    \item La tercera fila es nula.
+\end{itemize}
+
+Por tanto
+\[
+\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=2 \neq 3 = \text{ nº de incógnitas.}
+\]
+
+Por el teorema de Rouché–Frobenius, es un SCI sea cual sea el valor de $a$.
+
+\[
+\boxed{\text{c) Es compatible indeterminado para cualquier valor de }a.}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 37 (⋆)]
+Sean $\mathbb{K}$ un cuerpo, $n \in \mathbb{N}$, $x_0,x_1,\ldots,x_n \in \mathbb{K}$ distintos entre sí, e $y_0,y_1,\ldots,y_n \in \mathbb{K}$ no necesariamente distintos.  
+Demuestre que existe un único polinomio $f(x) \in \mathbb{K}[x]$ tal que $\operatorname{grado}(f(x)) \le n$ y $f(x_i) = y_i$ para todo $i \in \{0,1,\ldots,n\}$.  
+El único polinomio $f(x)$ que verifica las condiciones anteriores se denomina \textit{polinomio de interpolación}.
+
+\tcblower
+\textbf{Resolución:}
+
+Queremos encontrar un polinomio 
+\[
+f(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n
+\]
+de grado como máximo $n$ que pase por los puntos $(x_i, y_i)$, es decir, que cumpla $f(x_i) = y_i$ para $i=0,1,\dots,n$. Es decir,
+\[
+\begin{cases}
+f(x_0) = y_0\\
+f(x_1) = y_1\\
+\vdots\\
+f(x_n) = y_n.
+\end{cases}
+\]
+
+Esto nos da un sistema de $n+1$ ecuaciones lineales con $n+1$ incógnitas $(a_0, a_1, \dots, a_n)$:
+\[
+\begin{cases}
+a_0 + a_1 x_0 + a_2 x_0^2 + \cdots + a_n x_0^n = y_0\\
+a_0 + a_1 x_1 + a_2 x_1^2 + \cdots + a_n x_1^n = y_1\\
+\vdots\\
+a_0 + a_1 x_n + a_2 x_n^2 + \cdots + a_n x_n^n = y_n
+\end{cases}
+\]
+
+La matriz de coeficientes de este sistema es:
+\[
+A =
+\begin{pmatrix}
+1 & x_0 & x_0^2 & \cdots & x_0^n \\
+1 & x_1 & x_1^2 & \cdots & x_1^n \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^n
+\end{pmatrix}.
+\]
+
+Su determinante es, por propiedades de los determinantes, el determinante de la traspuesta. Pero el determinante de la traspuesta es el de \textit{Vandermonde}. Por el ejercicio 34, sabemos que entonces vale:
+\[
+|A| = |A^T| = \prod_{0 \le j < k \le n} (x_j - x_k).
+\]
+Como los $x_i$ son todos distintos, cada factor $x_j - x_k$ es distinto de cero, y por tanto:
+\[
+\scalebox{1}{$
+|A| \neq 0 \quad \Rightarrow \quad \text{SCD} \quad \Rightarrow \quad \text{1 solución}
+$}
+\]
+En otras palabras, hay un único conjunto de coeficientes $(a_0, a_1, \dots, a_n)$ que hace que el polinomio pase por todos los puntos dados. Por lo tanto:
+
+\[
+\boxed{\exists f(x) \in \mathbb{K}[x]: \operatorname{grado}(f(x)) \le n,\,\forall i \in \{0,1,\ldots,n\}\,\, f(x_i) = y_i}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 38]
+Encuentre el único polinomio $f(x) \in \mathbb{Z}_7[x]$ de grado menor o igual que 2 que verifica $f(1)=2$, $f(3)=3$, $f(6)=5$.
+
+\tcblower
+\textbf{Resolución:}
+
+Por el Ejercicio 37, sabemos que existe un único polinomio que cumple las condiciones dadas.
+
+Como $\operatorname{grado}(f(x))\le 2$, escribimos
+\[
+f(x)=ax^2+bx+c,\qquad a,b,c\in\mathbb{Z}_7.
+\]
+
+Imponiendo las condiciones:
+\[
+\begin{aligned}
+f(1)=a+b+c=2,\\
+f(3)=2a+3b+c=3,\\
+f(6)=a+6b+c=5.
+\end{aligned}
+\]
+Luego surge el siguiente sistema:
+\[
+\begin{cases}
+a+b+c=2,\\
+2a+3b+c=3,\\
+a+6b+c=5.
+\end{cases}
+\]
+
+Aplicamos Gauss--Jordan en $\mathbb{Z}_7$ con la matriz ampliada:
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 2\\
+2 & 3 & 1 &\Big|& 3\\
+1 & 6 & 1 &\Big|& 5
+\end{pmatrix}
+\overset{\substack{F_2+5F_1\\F_3+6F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 2\\
+0 & 1 & 6 &\Big|& 6\\
+0 & 5 & 0 &\Big|& 3
+\end{pmatrix}
+\overset{\substack{F_3+2F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 2\\
+0 & 1 & 6 &\Big|& 6\\
+0 & 0 & 5 &\Big|& 1
+\end{pmatrix}
+\]
+\[
+\overset{\substack{3F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 2\\
+0 & 1 & 6 &\Big|& 6\\
+0 & 0 & 1 &\Big|& 3
+\end{pmatrix}
+\overset{\substack{F_1+6F_3\\F_2+F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 0 &\Big|& 6\\
+0 & 1 & 0 &\Big|& 2\\
+0 & 0 & 1 &\Big|& 3
+\end{pmatrix}
+\overset{\substack{F_1+6F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 &\Big|& 4\\
+0 & 1 & 0 &\Big|& 2\\
+0 & 0 & 1 &\Big|& 3
+\end{pmatrix}
+= H_f(A\,|\,B).
+\]
+
+Por tanto,
+\[
+\begin{cases}
+    a = 4 \\
+    b = 2 \\ 
+    c = 3
+\end{cases}
+\]
+
+Entonces,
+\[
+\boxed{f(x)=4x^2+2x+3 \in \mathbb{Z}_7[x]}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 39]
+Encuentre el único polinomio $f(x) \in \mathbb{Z}_7[x]$ de grado menor o igual que 3 que verifica $f(2)=1$, $f(3)=0$, $f(4)=2$, $f(5)=2$.
+
+\tcblower
+\textbf{Resolución:}
+
+Por el Ejercicio 37, sabemos que existe un único polinomio que cumple las condiciones dadas.
+
+Como $\operatorname{grado}(f(x))\le 3$, escribimos
+\[
+f(x)=ax^3+bx^2+cx+d,\qquad a,b,c,d\in\mathbb{Z}_7.
+\]
+
+Imponiendo las condiciones y trabajando en $\mathbb{Z}_7$:
+\[
+\begin{aligned}
+f(2)&=8a+4b+2c+d=1 \;\Rightarrow\; a+4b+2c+d=1,\\
+f(3)&=27a+9b+3c+d=0 \;\Rightarrow\; 6a+2b+3c+d=0,\\
+f(4)&=64a+16b+4c+d=2 \;\Rightarrow\; a+2b+4c+d=2,\\
+f(5)&=125a+25b+5c+d=2 \;\Rightarrow\; 6a+4b+5c+d=2.
+\end{aligned}
+\]
+
+Luego surge el sistema:
+\[
+\begin{cases}
+a+4b+2c+d=1,\\
+6a+2b+3c+d=0,\\
+a+2b+4c+d=2,\\
+6a+4b+5c+d=2.
+\end{cases}
+\]
+
+Aplicamos Gauss--Jordan en $\mathbb{Z}_7$ con la matriz ampliada:
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & 4 & 2 & 1 &\Big|& 1\\
+6 & 2 & 3 & 1 &\Big|& 0\\
+1 & 2 & 4 & 1 &\Big|& 2\\
+6 & 4 & 5 & 1 &\Big|& 2
+\end{pmatrix}
+\overset{\substack{F_2+F_1\\F_3+6F_1\\F_4+F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 4 & 2 & 1 &\Big|& 1\\
+0 & 6 & 5 & 2 &\Big|& 1\\
+0 & 5 & 2 & 0 &\Big|& 1\\
+0 & 1 & 0 & 2 &\Big|& 3
+\end{pmatrix}
+\overset{\substack{F_3+5F_2\\F_4+F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 4 & 2 & 1 &\Big|& 1\\
+0 & 6 & 5 & 2 &\Big|& 1\\
+0 & 0 & 6 & 3 &\Big|& 6\\
+0 & 0 & 5 & 4 &\Big|& 4
+\end{pmatrix}
+\]
+\vspace{0.4em}
+\[
+\overset{\substack{F_4+5F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 4 & 2 & 1 &\Big|& 1\\
+0 & 6 & 5 & 2 &\Big|& 1\\
+0 & 0 & 6 & 3 &\Big|& 6\\
+0 & 0 & 0 & 5 &\Big|& 6
+\end{pmatrix}
+\overset{\substack{6F_2\\6F_3\\3F_4\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 4 & 2 & 1 &\Big|& 1\\
+0 & 1 & 2 & 5 &\Big|& 6\\
+0 & 0 & 1 & 4 &\Big|& 1\\
+0 & 0 & 0 & 1 &\Big|& 4
+\end{pmatrix}
+\overset{\substack{F_3+3F_4\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 4 & 2 & 1 &\Big|& 1\\
+0 & 1 & 2 & 5 &\Big|& 6\\
+0 & 0 & 1 & 0 &\Big|& 6\\
+0 & 0 & 0 & 1 &\Big|& 4
+\end{pmatrix}
+\]
+\vspace{0.4em}
+\[
+\overset{\substack{F_2+5F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 4 & 2 & 1 &\Big|& 1\\
+0 & 1 & 0 & 5 &\Big|& 1\\
+0 & 0 & 1 & 0 &\Big|& 6\\
+0 & 0 & 0 & 1 &\Big|& 4
+\end{pmatrix}
+\overset{\substack{F_2+2F_4\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 4 & 2 & 1 &\Big|& 1\\
+0 & 1 & 0 & 0 &\Big|& 2\\
+0 & 0 & 1 & 0 &\Big|& 6\\
+0 & 0 & 0 & 1 &\Big|& 4
+\end{pmatrix}
+\overset{\substack{F_1+3F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 & 1 &\Big|& 0\\
+0 & 1 & 0 & 0 &\Big|& 2\\
+0 & 0 & 1 & 0 &\Big|& 6\\
+0 & 0 & 0 & 1 &\Big|& 4
+\end{pmatrix}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 39]
+\[
+\overset{\substack{F_1+5F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 & 1 &\Big|& 2\\
+0 & 1 & 0 & 0 &\Big|& 2\\
+0 & 0 & 1 & 0 &\Big|& 6\\
+0 & 0 & 0 & 1 &\Big|& 4
+\end{pmatrix}
+\overset{\substack{F_1+6F_4\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 & 0 &\Big|& 5\\
+0 & 1 & 0 & 0 &\Big|& 2\\
+0 & 0 & 1 & 0 &\Big|& 6\\
+0 & 0 & 0 & 1 &\Big|& 4
+\end{pmatrix}
+= H_f(A\,|\,B).
+\]
+
+Por tanto,
+\[
+\begin{cases}
+a = 5,\\
+b = 2,\\
+c = 6,\\
+d = 4.
+\end{cases}
+\]
+
+Entonces,
+\[
+\boxed{f(x)=5x^3+2x^2+6x+4 \in \mathbb{Z}_7[x]}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 41]
+Sea $S$ un sistema de ecuaciones lineales sobre un cuerpo $\mathbb{K}$ escrito en forma matricial como $A \cdot X = B$, donde $A \in \mathfrak{M}_{m\times n}(\mathbb{K})$, y sea $S'$ el sistema homogéneo $A \cdot X = (0)_{m\times 1}$.  
+Supongamos que $(\alpha_1,\ldots,\alpha_n)$ es una solución de $S$.  
+Pruebe que la aplicación $f$ definida del conjunto de soluciones de $S'$ en el conjunto de soluciones de $S$ mediante
+\[
+f(x_1,\ldots,x_n) = (x_1,\ldots,x_n) + (\alpha_1,\ldots,\alpha_n)
+\]
+es biyectiva.
+
+\tcblower
+\textbf{Resolución:}
+
+Los sistemas vienen definidos por las expresiones matriciales:
+\[
+S': A \cdot X = (0)_{m\times 1}, \qquad 
+S: A \cdot X = B.
+\]
+
+Sean $\operatorname{Sol}(S')$ y $\operatorname{Sol}(S)$ los conjuntos de soluciones de los sistemas $S'$ y $S$. Tenemos la función:
+\[
+f: \text{Sol}(S') \longrightarrow \text{Sol}(S), \quad 
+f(x_1,\dots,x_n) = (x_1,\dots,x_n) + (\alpha_1,\dots,\alpha_n)
+\]
+
+\vspace{0.5em}
+
+\textbf{Inyectividad.}
+
+Supongamos que 
+\[
+f(x_1,\ldots,x_n) = f(y_1,\ldots,y_n).
+\]
+Por definición de $f$:
+\[
+(x_1,\ldots,x_n) + (\alpha_1,\ldots,\alpha_n) = (y_1,\ldots,y_n) + (\alpha_1,\ldots,\alpha_n).
+\]
+Restando $(\alpha_1,\ldots,\alpha_n)$ en ambos lados obtenemos:
+\[
+(x_1,\ldots,x_n) = (y_1,\ldots,y_n).
+\]
+Por lo tanto, $f$ es inyectiva.
+
+\vspace{0.5em}
+
+\textbf{Sobreyectividad.}
+
+Queremos demostrar que para cualquier solución $(\beta_1,\ldots,\beta_n)$ de $S$ existe una solución $(x_1,\ldots,x_n)$ de $S'$ tal que
+\[
+f(x_1,\ldots,x_n) = (\beta_1,\ldots,\beta_n).
+\]
+
+Entonces sustituyendo la expresión de $f(x_1,\ldots,x_n)$ tenemos:
+\[
+(x_1,\ldots,x_n) + (\alpha_1,\ldots,\alpha_n) = (\beta_1,\ldots,\beta_n)
+\]
+\[
+(x_1,\ldots,x_n) = (\beta_1,\ldots,\beta_n) - (\alpha_1,\ldots,\alpha_n).
+\]
+
+Como $(\beta_1,\ldots,\beta_n)$ es solución de $S$, es decir,
+\(
+(\beta_1,\ldots,\beta_n) \in \operatorname{Sol}(S),
+\)
+tenemos
+\[
+A \cdot (\beta_1,\ldots,\beta_n) = B.
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 41]
+Como $(\alpha_1,\ldots,\alpha_n)$ también es solución de $S$, es decir, 
+\(
+(\alpha_1,\ldots,\alpha_n) \in \operatorname{Sol}(S),
+\)
+se cumple
+\[
+A \cdot (\alpha_1,\ldots,\alpha_n) = B.
+\]
+Restando estas dos ecuaciones obtenemos
+\[
+A \cdot \big((\beta_1,\ldots,\beta_n) - (\alpha_1,\ldots,\alpha_n)\big) = B - B = (0)_{m\times 1},
+\]
+lo que implica que 
+\[
+(x_1,\ldots,x_n) = (\beta_1,\ldots,\beta_n) - (\alpha_1,\ldots,\alpha_n) \in \operatorname{Sol}(S'),
+\]
+es decir, $(x_1,\ldots,x_n)$ pertenece al dominio de $f$.
+
+Entonces al aplicar la función $f$ a este elemento del dominio, obtenemos
+\[
+f(x_1,\ldots,x_n) = (x_1,\ldots,x_n) + (\alpha_1,\ldots,\alpha_n).
+\]
+
+Sustituyendo cuánto es $(x_1,\ldots,x_n)$, tenemos
+\[
+f(x_1,\ldots,x_n) = \big((\beta_1,\ldots,\beta_n) - (\alpha_1,\ldots,\alpha_n)\big) + (\alpha_1,\ldots,\alpha_n) = (\beta_1,\ldots,\beta_n).
+\]
+
+Esto significa que para cualquier solución $(\beta_1,\ldots,\beta_n) \in \operatorname{Sol}(S)$ hemos encontrado un elemento $(x_1,\ldots,x_n) \in \operatorname{Sol}(S')$ tal que $f(x_1,\ldots,x_n) = (\beta_1,\ldots,\beta_n)$.  
+En otras palabras, cada elemento del codominio pertenece a la imagen de $f$, es decir, el codominio y la imagen son lo mismo ($\operatorname{Sol}(S)$). Esto demuestra que $f$ es sobreyectiva.
+
+\medskip
+
+Como $f$ es inyectiva y sobreyectiva,
+\[
+\boxed{\text{$f$ es biyectiva.}}
+\]
+
+\end{ejercicio}
+
+\section{Matrices Regulares}
+
+\begin{ejercicio}[title=Ejercicio 13]
+Aplique operaciones elementales de filas para comprobar que la matriz 
+\[
+A =
+\begin{pmatrix}
+4 & 1 & 1\\
+5 & 5 & 3\\
+9 & 2 & 7
+\end{pmatrix}
+\]
+con coeficientes en $\mathbb{Z}_{11}$ es regular, y obtenga su inversa.
+
+\tcblower
+\textbf{Resolución:}
+
+\[
+(A \,|\, I_3) =
+\begin{pmatrix}
+4 & 1 & 1 &\Big|& 1 & 0 & 0\\
+5 & 5 & 3 &\Big|& 0 & 1 & 0\\
+9 & 2 & 7 &\Big|& 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{3F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 3 & 3 &\Big|& 3 & 0 & 0\\
+5 & 5 & 3 &\Big|& 0 & 1 & 0\\
+9 & 2 & 7 &\Big|& 0 & 0 & 1
+\end{pmatrix}
+\]
+\vspace{0.5em}
+\[
+\overset{\substack{F_2 + 6F_1 \\ F_3 + 2F_1}}{\sim_f}
+\begin{pmatrix}
+1 & 3 & 3 &\Big|& 3 & 0 & 0\\
+0 & 1 & -1 &\Big|& 7 & 1 & 0\\
+0 & 8 & 2 &\Big|& 6 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_1 + F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 5 &\Big|& 9 & 0 & 1\\
+0 & 1 & -1 &\Big|& 7 & 1 & 0\\
+0 & 8 & 2 &\Big|& 6 & 0 & 1
+\end{pmatrix}
+\]
+\[
+\overset{\substack{F_3 + 3F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 5 &\Big|& 9 & 0 & 1\\
+0 & 1 & -1 &\Big|& 7 & 1 & 0\\
+0 & 0 & -1 &\Big|& 5 & 3 & 1
+\end{pmatrix}.
+\]
+
+\noindent
+\[
+\begin{pmatrix}
+1 & 0 & 5\\
+0 & 1 & -1\\
+0 & 0 & -1
+\end{pmatrix}
+\text{ está en forma escalonada por filas.}
+\]
+
+\[\operatorname{Rg}(A) = 3 = \text{orden de } \mathfrak{M}_3(\mathbb{Z}_{11}) \implies \boxed{\text{$A$ regular}}
+\]
+
+\[
+\begin{pmatrix}
+1 & 0 & 5 &\Big|& 9 & 0 & 1\\
+0 & 1 & -1 &\Big|& 7 & 1 & 0\\
+0 & 0 & -1 &\Big|& 5 & 3 & 1
+\end{pmatrix}
+\overset{\substack{F_2 - F_3 \\ F_1 + 5F_3}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 &\Big|& 1 & 4 & 6\\
+0 & 1 & 0 &\Big|& 2 & -2 & -1\\
+0 & 0 & -1 &\Big|& 5 & 3 & 1
+\end{pmatrix}
+\]
+\vspace{0.5em}
+\[
+\overset{\substack{-F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 &\Big|& 1 & 4 & 6\\
+0 & 1 & 0 &\Big|& 2 & 9 & 10\\
+0 & 0 & 1 &\Big|& 6 & 8 & 10
+\end{pmatrix}
+= (I_3 \, | \, A^{-1})
+\quad \implies \quad
+\boxed{
+A^{-1} =
+\begin{pmatrix}
+1 & 4 & 6\\
+2 & 9 & 10\\
+6 & 8 & 10
+\end{pmatrix}
+}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 14]
+Calcule mediante operaciones elementales de filas la inversa de cada una de las matrices siguientes:
+\[
+A =
+\begin{pmatrix}
+1 & 1 & 1 & 1\\
+0 & 1 & 1 & 1\\
+0 & 0 & 1 & 1\\
+0 & 0 & 0 & 1
+\end{pmatrix}, \qquad
+B =
+\begin{pmatrix}
+1 & 2 & 3 & 4\\
+0 & 1 & 2 & 3\\
+0 & 0 & 1 & 2\\
+0 & 0 & 0 & 1
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+\[
+(A \,|\, I_4) =
+\begin{pmatrix}
+1 & 1 & 1 & 1 &\Big|& 1 & 0 & 0 & 0\\
+0 & 1 & 1 & 1 &\Big|& 0 & 1 & 0 & 0\\
+0 & 0 & 1 & 1 &\Big|& 0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_1 - F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 & 0 &\Big|& 1 & -1 & 0 & 0\\
+0 & 1 & 1 & 1 &\Big|& 0 & 1 & 0 & 0\\
+0 & 0 & 1 & 1 &\Big|& 0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_2 - F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 & 0 &\Big|& 1 & -1 & 0 & 0\\
+0 & 1 & 0 & 0 &\Big|& 0 & 1 & -1 & 0\\
+0 & 0 & 1 & 1 &\Big|& 0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_3 - F_4 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 & 0 &\Big|& 1 & -1 & 0 & 0\\
+0 & 1 & 0 & 0 &\Big|& 0 & 1 & -1 & 0\\
+0 & 0 & 1 & 0 &\Big|& 0 & 0 & 1 & -1\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+\[
+= (I_4 \,|\, A^{-1}) \quad \implies \quad
+\boxed{
+A^{-1} =
+\begin{pmatrix}
+1 & -1 & 0 & 0\\
+0 & 1 & -1 & 0\\
+0 & 0 & 1 & -1\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+}
+\]
+
+\vspace{0.5em}
+
+\[
+(B \,|\, I_4) =
+\begin{pmatrix}
+1 & 2 & 3 & 4 &\Big|& 1 & 0 & 0 & 0\\
+0 & 1 & 2 & 3 &\Big|& 0 & 1 & 0 & 0\\
+0 & 0 & 1 & 2 &\Big|& 0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_3 - 2F_4 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & 3 & 4 &\Big|& 1 & 0 & 0 & 0\\
+0 & 1 & 2 & 3 &\Big|& 0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0 &\Big|& 0 & 0 & 1 & -2\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_2 - 2F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & 3 & 4 &\Big|& 1 & 0 & 0 & 0\\
+0 & 1 & 0 & 3 &\Big|& 0 & 1 & -2 & 4\\
+0 & 0 & 1 & 0 &\Big|& 0 & 0 & 1 & -2\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_2 - 3F_4 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & 3 & 4 &\Big|& 1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 &\Big|& 0 & 1 & -2 & 1\\
+0 & 0 & 1 & 0 &\Big|& 0 & 0 & 1 & -2\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 14]
+\[
+\overset{\substack{F_1 - 2F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 3 & 4 &\Big|& 1 & -2 & 4 & -2\\
+0 & 1 & 0 & 0 &\Big|& 0 & 1 & -2 & 1\\
+0 & 0 & 1 & 0 &\Big|& 0 & 0 & 1 & -2\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_1 - 3F_3 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 & 4 &\Big|& 1 & -2 & 1 & 4\\
+0 & 1 & 0 & 0 &\Big|& 0 & 1 & -2 & 1\\
+0 & 0 & 1 & 0 &\Big|& 0 & 0 & 1 & -2\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_1 - 4F_4 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 & 0 &\Big|& 1 & -2 & 1 & 0\\
+0 & 1 & 0 & 0 &\Big|& 0 & 1 & -2 & 1\\
+0 & 0 & 1 & 0 &\Big|& 0 & 0 & 1 & -2\\
+0 & 0 & 0 & 1 &\Big|& 0 & 0 & 0 & 1
+\end{pmatrix}
+= (I_4 \,|\, B^{-1})
+\]
+\vspace{0.5em}
+\[
+\implies 
+\boxed{
+B^{-1} =
+\begin{pmatrix}
+1 & -2 & 1 & 0\\
+0 & 1 & -2 & 1\\
+0 & 0 & 1 & -2\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 18]
+En $\mathfrak{M}_2(\mathbb{R})$ obtenga todas las matrices $X$ tales que
+\[
+X \cdot B \cdot (A + A^6) - (X \cdot B - B^2) \cdot A = A^7 + B^2 \cdot A,
+\]
+donde
+\[
+A =
+\begin{pmatrix}
+1 & 3\\
+1 & 2
+\end{pmatrix}, \qquad
+B =
+\begin{pmatrix}
+1 & 2\\
+0 & 1
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Simplificamos la expresión y despejamos $X$:
+
+\[
+XB(A+A^6) - (XB-B^2)A = A^7 + B^2 A
+\implies 
+ X(BA+BA^6) - (XBA-B^2 A) = A^7 + B^2 A
+\]
+\[
+\implies 
+X(BA+BA^6) - XBA+B^2 = A^7+B^2 A
+\implies 
+ X(BA+BA^6-BA) = A^7
+\]
+\[
+\implies 
+ X(BA^6) = A^7
+\implies 
+ X(BA^6)(BA^6)^{-1} = A^7 (BA^6)^{-1}
+\implies 
+ X \cdot I = A^7 (BA^6)^{-1}
+\]
+
+\[
+\text{Comprobamos si $A$ y $B$ son regulares:}
+\]
+
+\vspace{0.5em}
+
+\[
+A =
+\begin{pmatrix}
+1 & 3\\
+1 & 2
+\end{pmatrix}
+\overset{\substack{F_2 - F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 3\\
+0 & -1
+\end{pmatrix}
+\begin{aligned}{
+\text{ está en forma escalonada por filas} \\
+$\Rightarrow \operatorname{Rg}(A) = \text{nº filas no nulas} = 2$
+\end{aligned}
+\]
+
+\vspace{0.5em}
+
+Como \(\operatorname{Rg}(A)=2=\) orden de \(A\Rightarrow A\) es regular.
+
+\vspace{0.5em}
+
+\[
+B =
+\begin{pmatrix}
+1 & 2\\
+0 & 1
+\end{pmatrix}
+\begin{aligned}{
+\text{ está en forma escalonada por filas} \\
+$\Rightarrow \operatorname{Rg}(B) = \text{nº filas no nulas} = 2$
+\end{aligned}
+\]
+
+\vspace{0.5em}
+
+Como \(\operatorname{Rg}(B)=2=\) orden de \(B\Rightarrow B\) es regular.
+
+\vspace{0.5em}
+
+\[
+\Rightarrow X = A^7 (BA^6)^{-1} = A^7 (A^6)^{-1} B^{-1} = A\cdot A^6 \cdot A^{-6} \cdot B^{-1} = A \cdot I \cdot B^{-1} = AB^{-1}
+\]
+\[
+\Rightarrow X = AB^{-1}.
+\]
+
+Hallamos \(B^{-1}\):
+
+\[
+(B \,|\, I_2) =
+\begin{pmatrix}
+1 & 2 &\Big|& 1 & 0\\
+0 & 1 &\Big|& 0 & 1
+\end{pmatrix}
+\overset{\substack{F_1 - 2F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 &\Big|& 1 & -2\\
+0 & 1 &\Big|& 0 & 1
+\end{pmatrix}
+= (I_2 \,|\, B^{-1})
+\]
+\[
+\Rightarrow B^{-1} =
+\begin{pmatrix}
+1 & -2\\
+0 & 1
+\end{pmatrix}.
+\]
+Entonces:
+\[
+X = AB^{-1} = 
+\begin{pmatrix}
+1 & 3\\
+1 & 2
+\end{pmatrix}
+\begin{pmatrix}
+1 & -2\\
+0 & 1
+\end{pmatrix}
+=
+\boxed{\,\begin{pmatrix}1 & 1\\[4pt]1 & 0\end{pmatrix}\,}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 23]
+Sea $A \in \mathfrak{M}_4(\mathbb{R})$ tal que $A^3 + 5A - I_4$ es la matriz nula.  
+Justifique que $A$ es una matriz regular y obtenga una expresión para la inversa de $A$.
+
+\tcblower
+\textbf{Resolución:}
+
+Para justificar que $A$ es regular, por definición necesitamos encontrar una matriz $B$ tal que:
+\[
+A \cdot B = I_4 = B \cdot A.
+\]
+
+Despejamos $I_4$ de la ecuación dada:
+\[
+A^3 + 5A - I_4 = 0_4 \quad \Rightarrow \quad A^3 + 5A = I_4.
+\]
+
+Factorizando tanto por la izquierda como por la derecha obtenemos:
+\begin{itemize}
+\item $A(A^2 + 5 I_4) = I_4$
+\item $(A^2 + 5 I_4)A = I_4$
+\end{itemize}
+
+Hemos encontrado que $B = A^2 + 5 I_4$ satisface la ecuación de la definición de matriz regular.  
+\[
+\boxed{\text{A es regular}}.
+\]
+
+\vspace{1em}
+
+Si pasamos $A$ al lado contrario en cualquiera de las ecuaciones obtenemos una expresión para la inversa:
+\[
+\boxed{A^{-1} = A^2 + 5 I_4}.
+\]
+
+\end{ejercicio}
+
+\section{Determinantes}
+
+\begin{ejercicio}[title=Ejercicio 16]
+En cada apartado determine los valores de $a$ para que la matriz dada sea una matriz regular en $\mathfrak{M}_3(\mathbb{Z}_7)$:
+
+\[
+\begin{aligned}
+\text{a)}\;&
+\begin{pmatrix}
+a & 1 & 1\\
+1 & a & 1\\
+1 & 1 & a
+\end{pmatrix}
+\qquad\qquad
+\text{b)}\;&
+\begin{pmatrix}
+a & 2 & 1\\
+1 & a & 4\\
+1 & 1 & a
+\end{pmatrix}
+\qquad\qquad
+\text{c)}\;&
+\begin{pmatrix}
+a & 2 & 5\\
+2 & a & 4\\
+1 & 1 & a
+\end{pmatrix}
+\end{aligned}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+$A$ regular $\Leftrightarrow |A| \neq 0$ en $\mathbb{Z}_7$.
+
+\vspace{0.5em}
+
+\textbf{a)}
+Calculamos el determinante:
+\[
+\left|
+\begin{matrix}
+a & 1 & 1\\
+1 & a & 1\\
+1 & 1 & a
+\end{matrix}
+\right|
+= a^3 + 4a + 2 \quad (\text{en } \mathbb{Z}_7)
+\]
+
+Probamos $a = 1$ usando Ruffini:
+\[
+\begin{array}{c|cccc}
+  & 1 & 0 & 4 & 2 \\
+1 &   & 1 & 1 & 5  \\
+\hline
+  & 1 & 1 & 5 & \boxed{0} \\
+1 &   & 1 & 2 \\
+\hline
+  & 1 & 2 & \boxed{0}
+\end{array}
+\]
+
+Por lo tanto, $a = 1$ es raíz doble. Factorizando:
+\[
+|A| = a^3 + 4a + 2 = (a - 1)^2 (a + 2) = (a - 1)^2 (a - 5)
+\]
+
+Para que $A$ sea regular, necesitamos $|A| \neq 0$, es decir:
+\[
+a \neq 1 \quad \text{y} \quad a \neq 5.
+\]
+\[
+\boxed{a \in \mathbb{Z}_7 \setminus \{1,5\}}
+\]
+
+\textbf{b)}
+Calculamos el determinante:
+\[
+\left|
+\begin{matrix}
+a & 2 & 1\\
+1 & a & 4\\
+1 & 1 & a
+\end{matrix}
+\right|
+= a^3 + 2 \quad (\text{en } \mathbb{Z}_7)
+\]
+Probamos las raíces en $\mathbb{Z}_7$ para ver si anulan el determinante:
+
+\[
+a = 0 \Rightarrow 0 + 2 = 2 \neq 0
+\]
+\[
+a = 1 \Rightarrow 1 + 2 = 3 \neq 0
+\]
+\[
+a = 2 \Rightarrow 8 + 2 = 10 \equiv 3 \neq 0
+\]
+\[
+a = 3 \Rightarrow 27 + 2 = 29 \equiv 1 \neq 0
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 16]
+\[
+a = 4 \Rightarrow 64 + 2 = 66 \equiv 3 \neq 0
+\]
+\[
+a = 5 \Rightarrow 125 + 2 = 127 \equiv 1 \neq 0
+\]
+\[
+a = 6 \Rightarrow 216 + 2 = 218 \equiv 1 \neq 0
+\]
+
+Como $|A| \neq 0$ para ningún $a \in \mathbb{Z}_7$, $A$ es regular para todos los $a$ en $\mathbb{Z}_7$:
+\[
+\boxed{a \in \mathbb{Z}_7}
+\]
+
+\vspace{0.5em}
+
+\textbf{c)}
+Calculamos el determinante:
+\[
+\left|
+\begin{matrix}
+a & 2 & 5\\
+2 & a & 4\\
+1 & 1 & a
+\end{matrix}
+\right|
+= a^3 + a + 4 \quad (\text{en } \mathbb{Z}_7)
+\]
+
+Vemos que $a=2$ es raíz. Aplicamos Ruffini:
+\[
+\begin{array}{c|cccc}
+  & 1 & 0 & 1 & 4 \\
+2 &   & 2 & 4 & 3 \\
+\hline
+  & 1 & 2 & 5 & \boxed{0} \\
+2 &  & 2 & 1 \\
+\hline
+  & 1 & 4 & \boxed{6} \\
+\end{array}
+\]
+De ahí:
+\[
+a^3 + a + 4 = (a - 2)(a^2 + 2a + 5) \quad (\text{en } \mathbb{Z}_7).
+\]
+
+Comprobamos si \(a^2 + 2a + 5\) tiene raíces en \(\mathbb{Z}_7\):
+
+\[
+a^2+2a+5=0 \quad\rightarrow\quad a=\frac{5\pm\sqrt{4+1}}{2} = \frac{5\pm\sqrt{5}}{2} \notin \mathbb{Z}_7
+\]
+
+Conclusión: la única raíz del polinomio es \(a=2\). Para que la matriz sea regular necesitamos \( |A| \neq 0\), luego \(a\) no puede ser \(2\). Por tanto:
+\[
+\boxed{a \in \mathbb{Z}_7 \setminus \{2\}}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 32]
+Calcule el determinante de la matriz
+\[
+A =
+\begin{pmatrix}
+4 & 2 & 3 & 5\\
+7 & -2 & 6 & -8\\
+3 & 2 & 2 & -5\\
+2 & -7 & 3 & 2
+\end{pmatrix}
+\]
+con coeficientes en $\mathbb{R}$.
+
+\tcblower
+\textbf{Resolución:}
+
+Para calcular el determinante de una matriz cuadrada de orden 4 no podemos aplicar la Regla de Sarrus. En su lugar, realizaremos operaciones por filas o columnas hasta transformarla en una matriz cuya determinante sabemos calcular (por ejemplo la identidad, cuyo determinante es 1). Antes de operar recordamos las propiedades que afectan al determinante:
+
+\begin{itemize}
+\item Si intercambiamos dos filas (o dos columnas), el determinante cambia de signo.
+\item Sacar fuera del determinante un escalar que multiplica a una fila o columna equivale a multiplicar el determinante por ese escalar. En la práctica, multiplicar una fila por $\lambda$ multiplica el determinante por $\lambda$ (y dividir una fila por $\lambda$ divide el determinante por $\lambda$).
+\item Si sumamos a una fila (o columna) una combinación lineal de otras filas (o columnas), el determinante no varía.
+\end{itemize}
+
+Teniendo esto en cuenta, procedemos con las operaciones elementales por filas:
+
+\[
+\left|
+\begin{matrix}
+4 & 2 & 3 & 5\\
+7 & -2 & 6 & -8\\
+3 & 2 & 2 & -5\\
+2 & -7 & 3 & 2
+\end{matrix}
+\right|
+\overset{\substack{F_1-F_3\\F_2-2F_3\\{}}}{=}
+\left|
+\begin{matrix}
+1 & 0 & 1 & 10\\
+1 & -6 & 2 & 2\\
+3 & 2 & 2 & -5\\
+2 & -7 & 3 & 2
+\end{matrix}
+\right|
+\overset{\substack{F_2-F_1\\F_3-3F_1\\F_4-2F_1\\{}}}{=}
+\left|
+\begin{matrix}
+1 & 0 & 1 & 10\\
+0 & -6 & 1 & -8\\
+0 & 2 & -1 & -35\\
+0 & -7 & 1 & -18
+\end{matrix}
+\right|
+\]
+
+\[
+\overset{\substack{F_2-F_4\\{}}}{=}
+\left|
+\begin{matrix}
+1 & 0 & 1 & 10\\
+0 & 1 & 0 & 10\\
+0 & 2 & -1 & -35\\
+0 & -7 & 1 & -18
+\end{matrix}
+\right|
+\overset{\substack{F_3-2F_2\\F_4+7F_2\\{}}}{=}
+\left|
+\begin{matrix}
+1 & 0 & 1 & 10\\
+0 & 1 & 0 & 10\\
+0 & 0 & -1 & -55\\
+0 & 0 & 1 & 52
+\end{matrix}
+\right|
+\overset{\substack{F_3+F_4\\{}}}{=}
+\left|
+\begin{matrix}
+1 & 0 & 1 & 10\\
+0 & 1 & 0 & 10\\
+0 & 0 & 0 & -3\\
+0 & 0 & 1 & 52
+\end{matrix}
+\right|
+\]
+
+Intercambiamos filas \(F_3\leftrightarrow F_4\) (esto cambia el signo del determinante):
+
+\[
+\overset{\substack{F_3\leftrightarrow F_4\\{}}}{=}
+-\,\left|
+\begin{matrix}
+1 & 0 & 1 & 10\\
+0 & 1 & 0 & 10\\
+0 & 0 & 1 & 52\\
+0 & 0 & 0 & -3
+\end{matrix}
+\right|
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 32]
+Multiplicar la fila 4 por $-\tfrac{1}{3}$ es lo mismo que a extraer el factor $-3$ fuera del determinante; por eso aparece el $-(-3)$ multiplicando.
+
+\[
+\overset{\substack{F_1-F_3\\-\tfrac{1}{3}F_4\\{}}}{=}
+-\,(-3)\,
+\left|
+\begin{matrix}
+1 & 0 & 0 & -42\\
+0 & 1 & 0 & 10\\
+0 & 0 & 1 & 52\\
+0 & 0 & 0 & 1
+\end{matrix}
+\right|
+\overset{\substack{F_1+42F_4\\F_2-10F_4\\F_3-52F_4\\{}}}{=}
+-(-3)\,
+\left|
+\begin{matrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{matrix}
+\right|
+= 3\,\left|I_4\right| = 3\cdot 1 = \boxed{3}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 33]
+Sin utilizar la Regla de Sarrus, justifique que cada uno de los determinantes siguientes vale cero:
+
+\[
+\begin{tabular}{clclcl}
+$a)\begin{vmatrix}
+a & d & 2a - 3d\\
+b & e & 2b - 3e\\
+c & f & 2c - 3f
+\end{vmatrix}\quad$ &
+$b)\begin{vmatrix}
+y + z & z + x & x + y\\
+x & y & z\\
+1 & 1 & 1
+\end{vmatrix}\quad$ &
+$c)\begin{vmatrix}
+a + 1 & a + 2 & a + 3\\
+a + 4 & a + 5 & a + 6\\
+a + 7 & a + 8 & a + 9
+\end{vmatrix}$
+\end{tabular}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)}
+
+\[
+\begin{vmatrix}
+a & d & 2a-3d\\
+b & e & 2b-3e\\
+c & f & 2c-3f
+\end{vmatrix}
+=
+\begin{vmatrix}
+a & d & 2a\\
+b & e & 2b\\
+c & f & 2c
+\end{vmatrix}
++
+\begin{vmatrix}
+a & d & -3d\\
+b & e & -3e\\
+c & f & -3f
+\end{vmatrix}
+=2
+\underbrace{
+\begin{vmatrix}
+a & d & a\\
+b & e & b\\
+c & f & c
+\end{vmatrix}}_{0}
+-3
+\underbrace{
+\begin{vmatrix}
+a & d & d\\
+b & e & e\\
+c & f & f
+\end{vmatrix}}_{0}
+= \boxed{0}
+\]
+porque en el primer determinante las columnas \(1\) y \(3\) son iguales y en el segundo las columnas \(2\) y \(3\) son iguales.
+
+\vspace{0.5em}
+
+\textbf{b)}
+Al igual que en el ejercicio 32, aplicamos operaciones elementales de fila o columna teniendo en cuenta las propiedades de los determinantes:
+
+\[
+\left|
+\begin{matrix}
+y+z & z+x & x+y \\
+x & y & z \\
+1 & 1 & 1
+\end{matrix}
+\right|
+\overset{\substack{F_1+F_2\\{}}}{=}
+\left|
+\begin{matrix}
+x+y+z & x+y+z & x+y+z \\
+x & y & z \\
+1 & 1 & 1
+\end{matrix}
+\right|
+\]
+\[
+\overset{\substack{\frac{1}{x+y+z}F_1\\{}}}{=}
+(x+y+z)
+\underbrace{
+\left|
+\begin{matrix}
+1 & 1 & 1 \\
+x & y & z \\
+1 & 1 & 1
+\end{matrix}
+\right|
+}_{0}
+= \boxed{0}
+\]
+
+porque las filas 1 y 3 son iguales.
+
+\vspace{0.5em}
+
+\textbf{c)}  
+\[
+\begin{vmatrix}
+a+1 & a+2 & a+3\\
+a+4 & a+5 & a+6\\
+a+7 & a+8 & a+9
+\end{vmatrix}
+=
+\begin{vmatrix}
+a & a+2 & a+3\\
+a & a+5 & a+6\\
+a & a+8 & a+9
+\end{vmatrix}
++
+\begin{vmatrix}
+1 & a+2 & a+3\\
+4 & a+5 & a+6\\
+7 & a+8 & a+9
+\end{vmatrix}
+\]
+
+\[
+=
+\left(
+\underbrace{
+\begin{vmatrix}
+a & a & a+3\\
+a & a & a+6\\
+a & a & a+9
+\end{vmatrix}
+}_{0}
++
+\begin{vmatrix}
+a & 2 & a+3\\
+a & 5 & a+6\\
+a & 8 & a+9
+\end{vmatrix}
+\right)
++
+\left(
+\begin{vmatrix}
+1 & a & a+3\\
+4 & a & a+6\\
+7 & a & a+9
+\end{vmatrix}
++
+\begin{vmatrix}
+1 & 2 & a+3\\
+4 & 5 & a+6\\
+7 & 8 & a+9
+\end{vmatrix}
+\right)
+\]
+\[
+=
+\left(
+\underbrace{
+\begin{vmatrix}
+a & 2 & a\\
+a & 5 & a\\
+a & 8 & a
+\end{vmatrix}
+}_{0}
++
+\begin{vmatrix}
+a & 2 & 3\\
+a & 5 & 6\\
+a & 8 & 9
+\end{vmatrix}
+\right)
++
+\left(
+\underbrace{
+\begin{vmatrix}
+1 & a & a\\
+4 & a & a\\
+7 & a & a
+\end{vmatrix}
+}_{0}
++
+\begin{vmatrix}
+1 & a & 3\\
+4 & a & 6\\
+7 & a & 9
+\end{vmatrix}
+\right)
++
+\left(
+\begin{vmatrix}
+1 & 2 & a\\
+4 & 5 & a\\
+7 & 8 & a
+\end{vmatrix}
++
+\begin{vmatrix}
+1 & 2 & 3\\
+4 & 5 & 6\\
+7 & 8 & 9
+\end{vmatrix}
+\right)
+\]
+
+porque todos los determinantes señalados tienen columnas repetidas.
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 33]
+Además, los determinantes restantes también son nulos, porque en todos ellos las columnas son combinaciones lineales de las otras.
+\begin{itemize}
+    \item Primera: $C_1 = aC_3 - aC_2$
+    \item Segunda: $C_1 = C_3 - \frac{2}{a}C_2$
+    \item Tercera: $C_1 = C_2 - \frac{1}{a}C_3$
+    \item Cuarta: $C_1 = 2C_2-C_3$
+\end{itemize}
+\[
+\underbrace{
+\begin{vmatrix}
+a & 2 & 3\\
+a & 5 & 6\\
+a & 8 & 9
+\end{vmatrix}
+}_{0}
++
+\underbrace{
+\begin{vmatrix}
+1 & a & 3\\
+4 & a & 6\\
+7 & a & 9
+\end{vmatrix}
+}_{0}
++
+\underbrace{
+\begin{vmatrix}
+1 & 2 & a\\
+4 & 5 & a\\
+7 & 8 & a
+\end{vmatrix}
+}_{0}
++
+\underbrace{
+\begin{vmatrix}
+1 & 2 & 3\\
+4 & 5 & 6\\
+7 & 8 & 9
+\end{vmatrix}
+}_{0}
+= \boxed{0}
+\]
+\end{ejercicio}
+
+\subsection{Matriz Adjunta}
+
+\begin{ejercicio}[title=Ejercicio 42 (⋆)]
+Las siguientes afirmaciones se refieren a matrices cuadradas de orden $n$, con $n \ge 2$, y con coeficientes en un cuerpo $\mathbb{K}$. Determine las que son ciertas, justificando su respuesta, y ponga un contraejemplo para aquellas que sean falsas:
+
+\begin{enumerate}
+\item[a)] $\forall A \in \mathfrak{M}_n(\mathbb{K})$, la matriz $A + A^T$ es simétrica.
+\item[b)] $\forall A \in \mathfrak{M}_n(\mathbb{K})$, la matriz $A \cdot A^T$ es simétrica.
+\item[c)] $\forall A \in \mathfrak{M}_n(\mathbb{K})$, la matriz $A - A^T$ es antisimétrica.
+\item[d)] Si $A$ es simétrica, entonces $A^2$ es simétrica.
+\item[e)] Si $A^2$ es simétrica, entonces $A$ es simétrica.
+\item[f)] Si $A$ y $B$ son ambas simétricas, entonces $A + B$ es simétrica.
+\item[g)] Si $A$ y $B$ son ambas simétricas, entonces $A \cdot B$ es simétrica.
+\item[h)] Si $A \cdot B = B \cdot A$, entonces $A^2 \cdot B^2 = B^2 \cdot A^2$.
+\item[i)] Si $A^2 \cdot B^2 = B^2 \cdot A^2$, entonces $A \cdot B = B \cdot A$.
+\item[j)] Si $A^2$ y $B^2$ son ambas la matriz nula, entonces $(A + B)^2$ es la matriz nula.
+\item[k)] Si $A^2 = I_n$, entonces $A = I_n$ o $A = -I_n$.
+\item[l)] Si $|A| = 1$, entonces $|2A| = 2$.
+\item[m)] Si $|A| = 0$, entonces $|A + I_n| \ne 0$.
+\item[n)] Si $A$ es antisimétrica y $n$ es impar, entonces $|A| = 0$.
+\item[ñ)] $\forall A \in \mathfrak{M}_n(\mathbb{K}),\ \operatorname{rg}(A) = \operatorname{rg}(A^2)$.
+\item[o)] Si $A$ es regular, entonces $\overline{A}$, la matriz adjunta de $A$, es regular.
+\item[p)] Si $A$ no es regular, entonces $\overline{A}$ no es regular.
+\item[q)] Si $|A| = 1$, entonces $|\overline{A}| = 1$.
+\item[r)] Si $|A| = -1$, entonces $|A| + |\overline{A}| = 0$.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Recordamos que:
+\[
+(A+B)^T = A^T + B^T,\qquad
+(AB)^T = B^T A^T.
+\]
+Una matriz $A$ es \emph{simétrica} si $A^T=A$, y es \emph{antisimétrica} si $A=-A^T$.
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 42 (⋆)]
+
+\textbf{a)} $\forall A \in \mathfrak{M}_n(\mathbb{K})$, la matriz $A + A^T$ es simétrica.
+
+\vspace{0.5em}
+
+Esto significa que $A + A^T = (A + A^T)^T$.  
+Vemos que:
+\[
+(A + A^T)^T = A^T + (A^T)^T = A^T + A = A + A^T.
+\]
+\[
+\boxed{\textbf{Verdadera. }\quad  \forall A \in \mathfrak{M}_n(\mathbb{K})\,\,\,\, A + A^T \text{ simétrica.}}
+\]
+
+\vspace{1em}
+
+\textbf{b)} $\forall A \in \mathfrak{M}_n(\mathbb{K})$, la matriz $A \cdot A^T$ es simétrica.
+
+\vspace{0.5em}
+
+Esto significa que $A \cdot A^T = (A \cdot A^T)^T$.  
+Vemos que:
+\[
+(A \cdot A^T)^T = (A^T)^T \cdot A^T = A \cdot A^T.
+\]
+\[
+\boxed{\textbf{Verdadera. }\quad  \forall A \in \mathfrak{M}_n(\mathbb{K})\,\,\,\, A \cdot A^T \text{ simétrica.}}
+\]
+
+\vspace{1em}
+
+\textbf{c)} $\forall A \in \mathfrak{M}_n(\mathbb{K})$, la matriz $A - A^T$ es antisimétrica.
+
+\vspace{0.5em}
+
+Esto significa que $A - A^T = -(A - A^T)^T$.  
+Vemos que:
+\[
+-(A - A^T)^T = -(A^T + (-A^T)^T) = -(A^T - (A^T)^T) = -(A^T - A) = A - A^T.
+\]
+\[
+\boxed{\textbf{Verdadera. }\quad  \forall A \in \mathfrak{M}_n(\mathbb{K})\,\,\,\, A - A^T \text{ antisimétrica.}}
+\]
+
+\vspace{1em}
+
+\textbf{d)} Si $A$ es simétrica, entonces $A^2$ es simétrica.
+
+\vspace{0.5em}
+
+Esto significa que $A = A^T \;\Rightarrow\; A^2 = (A^2)^T$.
+Vemos que elevando al cuadrado:
+\[
+A^2 = (A^T)^2 = A^T \cdot A^T = (A \cdot A)^T = (A^2)^T
+\]
+\[
+\boxed{\textbf{Verdadera. }\quad A \text{ simétrica } \Rightarrow A^2 \text{ simétrica.}}
+\]
+
+\vspace{1em}
+
+\textbf{e)} Si $A^2$ es simétrica, entonces $A$ es simétrica.
+
+\vspace{0.5em}
+
+Esto significa que $A^2 = (A^2)^T \;\Rightarrow\; A = A^T$.  
+Vemos que:
+\[
+A \cdot A = (A \cdot A)^T
+\]
+\[
+A \cdot A = A^T \cdot A^T
+\]
+Es imposible deducir que $A = A^T$ de esta afirmación, por lo tanto es falsa.
+
+\vspace{0.5em}
+
+\textbf{Contraejemplo:}  
+\[
+A = \begin{pmatrix}0 & 1 \\ -1 & 0\end{pmatrix} \neq A^T = \begin{pmatrix}0 & -1 \\ 1 & 0\end{pmatrix}, \quad
+A^2 = \begin{pmatrix}-1 & 0 \\ 0 & -1\end{pmatrix} = (A^2)^T
+\]
+
+\[
+\boxed{\textbf{Falsa. }\quad  A^2 \text{ simétrica } \not\Rightarrow A \text{ simétrica.}}
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 42 (⋆)]
+
+\textbf{f)} Si $A$ y $B$ son ambas simétricas, entonces $A + B$ es simétrica.
+
+\vspace{0.5em}
+
+Esto significa que $A = A^T$ y $B = B^T \;\Rightarrow\; A + B = (A + B)^T$.  
+Vemos que:
+\[
+(A + B)^T = A^T + B^T = A + B
+\]
+\[
+\boxed{\textbf{Verdadera. }\quad A \text{ y } B \text{ simétricas } \Rightarrow A + B \text{ simétrica.}}
+\]
+
+\vspace{1em}
+
+\textbf{g)} Si $A$ y $B$ son ambas simétricas, entonces $A \cdot B$ es simétrica.
+
+\vspace{0.5em}
+
+Esto significa que $A = A^T$ y $B = B^T \;\Rightarrow\; A \cdot B = (A \cdot B)^T$.  
+Vemos que:
+\[
+(A \cdot B)^T = B^T \cdot A^T = B \cdot A \neq A \cdot B
+\]
+por lo que es falsa.
+
+\textbf{Contraejemplo:}
+\[
+A = \begin{pmatrix}1 & 0 \\ 0 & 2\end{pmatrix} = A^T, \quad
+B = \begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix} = B^T
+\]
+
+\[
+A \cdot B = \begin{pmatrix}1 & 0 \\ 0 & 2\end{pmatrix} \begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix} = \begin{pmatrix}0 & 1 \\ 2 & 0\end{pmatrix} \neq (A \cdot B)^T = \begin{pmatrix}0 & 2 \\ 1 & 0\end{pmatrix}
+\]
+
+\[
+\boxed{\textbf{Falsa. }\quad A \text{ y } B \text{ simétricas } \not\Rightarrow A \cdot B \text{ simétrica.}}
+\]
+
+\vspace{1em}
+
+\textbf{h)} Si $A \cdot B = B \cdot A$, entonces $A^2 \cdot B^2 = B^2 \cdot A^2$.
+
+\vspace{0.5em}
+
+Esto significa que $A \cdot B = B \cdot A \;\Rightarrow\; A^2 \cdot B^2 = B^2 \cdot A^2$.  
+Vemos que:
+\[
+A^2 \cdot B^2 = (A A)(B B) = A(AB)B = A(BA)B = (AB)(AB)
+\]
+\[
+= (BA)(BA) = B(AB)A = B(BA)A = (BB)(AA) = B^2 \cdot A^2
+\]
+
+\[
+\boxed{\textbf{Verdadera. }\quad A \cdot B = B \cdot A \Rightarrow A^2 \cdot B^2 = B^2 \cdot A^2.}
+\]
+
+\vspace{1em}
+
+\textbf{i)} Si $A^2 \cdot B^2 = B^2 \cdot A^2$, entonces $A \cdot B = B \cdot A$.
+
+\vspace{0.5em}
+
+Esto significa que $A^2 \cdot B^2 = B^2 \cdot A^2 \;\Rightarrow\; A \cdot B = B \cdot A$.  
+Esto es falso.
+
+\vspace{0.5em}
+
+\textbf{Contraejemplo:}
+\[
+A = \begin{pmatrix}0 & 1 \\ -1 & 0\end{pmatrix}, \quad
+B = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}
+\quad \Rightarrow \quad
+A^2 = \begin{pmatrix}-1 & 0 \\ 0 & -1\end{pmatrix}, \quad
+B^2 = \begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix}
+\]
+
+\[
+A^2 \cdot B^2 = \begin{pmatrix}-1 & 0 \\ 0 & -1\end{pmatrix}
+= B^2 \cdot A^2
+\]
+
+\[
+A \cdot B = \begin{pmatrix}0 & -1 \\ -1 & 0\end{pmatrix}
+\neq
+\begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix} = B \cdot A
+\]
+
+\[
+\boxed{\textbf{Falsa. }\quad A^2 \cdot B^2 = B^2 \cdot A^2 \not\Rightarrow A \cdot B = B \cdot A.}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 42 (⋆)]
+\textbf{j)} Si $A^2$ y $B^2$ son ambas la matriz nula, entonces $(A + B)^2$ es la matriz nula.
+
+\vspace{0.5em}
+
+Esto significa que $A^2 = 0_n$ y $B^2 = 0_n \;\Rightarrow\; (A + B)^2 = 0_n$.  
+Vemos que:
+\[
+(A + B)^2 = A^2 + A \cdot B + B \cdot A + B^2 = 0_n + A \cdot B + B \cdot A + 0_n = A \cdot B + B \cdot A \neq 0_n
+\]
+Por lo tanto, es falsa.
+
+\vspace{0.5em}
+
+\textbf{Contraejemplo:}
+\[
+A = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix}, \quad
+B = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}
+\]
+
+\[
+A^2 = \begin{pmatrix}0 & 0 \\ 0 & 0\end{pmatrix}, \quad
+B^2 = \begin{pmatrix}0 & 0 \\ 0 & 0\end{pmatrix}
+\]
+
+\[
+(A + B)^2 = \begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix}^2
+= \begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix}
+\begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix}
+= \begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix}
+\neq \begin{pmatrix}0 & 0 \\ 0 & 0\end{pmatrix}
+\]
+
+\[
+\boxed{\textbf{Falsa. }\quad A^2 \text{ y } B^2 \text{ nulas} \not\Rightarrow (A + B)^2 \text{ nula.}}
+\]
+
+\vspace{1em}
+
+\textbf{k)} Si $A^2 = I_n$, entonces $A = I_n$ o $A = -I_n$.
+
+\vspace{0.5em}
+
+Esto significa que $A^2 = I_n \;\Rightarrow\; A = I_n \text{ o } A = -I_n$.  
+Esto es falso.
+
+\vspace{0.5em}
+
+\textbf{Contraejemplo:}
+\[
+A = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix} \neq I_2
+\]
+
+\[
+A^2 =
+\begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}
+\begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}
+=
+\begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix}
+= I_2
+\]
+
+\[
+\boxed{\textbf{Falsa. }\quad A^2 = I_n \not\Rightarrow A = I_n \text{ o } A = -I_n.}
+\]
+
+\vspace{1em}
+
+\textbf{l)} Si $|A| = 1$, entonces $|2A| = 2$.
+
+\vspace{0.5em}
+
+Esto significa que $|A| = 1 \;\Rightarrow\; |2A| = 2$.  
+Vemos que:
+\[
+|2A| = 2^n |A| = 2^n \neq 2
+\]
+por lo tanto, es falsa.
+
+\vspace{0.5em}
+
+\textbf{Contraejemplo:}
+\[
+|A| = \left|\begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix}\right| = 1
+\]
+
+\[
+|2A| = \left|\begin{pmatrix}2 & 0 \\ 0 & 2\end{pmatrix}\right| = 4 \neq 2
+\]
+
+\[
+\boxed{\textbf{Falsa. }\quad |A| = 1 \not\Rightarrow |2A| = 2.}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 42 (⋆)]
+\textbf{m)} Si $|A| = 0$, entonces $|A + I_n| \ne 0$.
+
+\vspace{0.5em}
+
+Esto significa que $|A| = 0 \;\Rightarrow\; |A + I_n| \ne 0$.  
+Esto es falso.
+
+\vspace{0.5em}
+
+\textbf{Contraejemplo:}
+\[
+A = \begin{pmatrix}-1 & 0 \\ 0 & 0\end{pmatrix}, \quad |A| = 0
+\]
+
+\[
+A + I_2 = \begin{pmatrix}0 & 0 \\ 0 & 1\end{pmatrix}, \quad |A + I_2| = 0
+\]
+
+\[
+\boxed{\textbf{Falsa. }\quad |A| = 0 \not\Rightarrow |A + I_n| \ne 0.}
+\]
+
+\vspace{1em}
+
+\textbf{n)} Si $A$ es antisimétrica y $n$ es impar, entonces $|A| = 0$.
+
+\vspace{0.5em}
+
+Esto significa que $A = -A^T$ y $n$ impar $\;\Rightarrow\; |A| = 0$.  
+Vemos que:
+\[
+|A| = |-A^T| = (-1)^n |A^T| = (-1)^n |A|
+\]
+Como $n$ es impar, se tiene $(-1)^n = -1$. Entonces:
+\[
+|A| = -|A| \;\Rightarrow\; 2|A| = 0 \;\Rightarrow\; |A| = 0
+\]
+\[
+\boxed{\textbf{Verdadera. }\quad A \text{ antisimétrica y } n \text{ impar } \Rightarrow |A| = 0.}
+\]
+
+\vspace{1em}
+
+\textbf{ñ)} $\forall A \in \mathfrak{M}_n(\mathbb{K}),\ \operatorname{rg}(A) = \operatorname{rg}(A^2)$.
+
+\vspace{0.5em}
+
+Esto es falso.
+
+\vspace{0.5em}
+
+\textbf{Contraejemplo:}
+\[
+A = \begin{pmatrix}
+0 & 1\\
+0 & 0
+\end{pmatrix}, \qquad
+A^2 = \begin{pmatrix}
+0 & 0\\
+0 & 0
+\end{pmatrix}
+\]
+
+\[
+\operatorname{Rg}(A) = 1 \neq \operatorname{Rg}(A^2) = 0
+\]
+\[
+\boxed{\textbf{Falsa. }\quad \exists A \in \mathfrak{M}_n(\mathbb{K}) \text{ tal que } \operatorname{Rg}(A) \neq \operatorname{Rg}(A^2).}
+\]
+
+\vspace{1em}
+
+\textbf{o)} Si $A$ es regular, entonces $\overline{A}$, la matriz adjunta de $A$, es regular.
+
+\vspace{0.5em}
+
+Esto significa que $|A| \neq 0 \;\Rightarrow\; |\overline{A}| \neq 0$.  
+Sabemos que:
+\[
+A \cdot \overline{A}^T = |A| \cdot I_n
+\]
+Tomando determinantes a ambos lados:
+\[
+|A \cdot \overline{A}^T| = \bigl||A| \cdot I_n\bigr|
+\Rightarrow
+|A| \cdot |\overline{A}^T| = |A|^n \cdot |I_n|
+\Rightarrow
+|A| \cdot |\overline{A}| = |A|^n
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 42 (⋆)]
+Como $|A| \neq 0$, podemos dividir:
+\[
+|\overline{A}| = |A|^{n-1} \neq 0
+\]
+\[
+\boxed{\textbf{Verdadera. }\quad A \text{ regular } \Rightarrow \overline{A} \text{ regular.}}
+\]
+\textbf{p)} Si $A$ no es regular, entonces $\overline{A}$ no es regular.
+
+\vspace{0.5em}
+
+Esto significa que $|A| = 0 \;\Rightarrow\; |\overline{A}| = 0$.  
+
+Sabemos que:
+\[
+A \cdot \overline{A}^T = |A| \cdot I_n.
+\]
+
+\textbf{Caso 1: $A$ es la matriz nula.}  
+Si $A = 0_n$, entonces claramente $A$ no es regular y su matriz adjunta es
+\[
+\overline{A} = 0_n,
+\]
+que tampoco es regular. Por lo tanto, la afirmación se cumple trivialmente en este caso.
+
+\vspace{0.5em}
+
+\textbf{Caso 2: $A$ no es la matriz nula.} 
+
+Supongamos que $A$ no es regular y que, por el contrario, $\overline{A}$ es regular.  
+Como $\overline{A}^T$ es invertible, multiplicamos por su inversa:
+\[
+A = \underbrace{|A|}_{0} \cdot (\overline{A}^T)^{-1} = 0_n,
+\]
+lo cual contradice la hipótesis de que $A$ no es la matriz nula.  
+
+Por lo tanto, $\overline{A}$ no puede ser regular si $A$ no lo es.
+
+\[
+\boxed{\textbf{Verdadera. }\quad A \text{ no regular } \Rightarrow \overline{A} \text{ no regular.}}
+\]
+
+\textbf{q)} Si $|A| = 1$, entonces $|\overline{A}| = 1$.
+
+\vspace{0.5em}
+
+Esto significa que $|A| = 1 \;\Rightarrow\; |\overline{A}| = 1$.  
+Sabemos que:
+\[
+A \cdot \overline{A}^T = \underbrace{|A|}_{1} \cdot I_n
+\]
+Tomando determinantes a ambos lados:
+\[
+|A \cdot \overline{A}^T| = |I_n|
+\Rightarrow
+\underbrace{|A|}_{1} \cdot |\overline{A}^T| = |I_n|
+\Rightarrow
+|\overline{A}| = 1
+\]
+\[
+\boxed{\textbf{Verdadera. }\quad |A| = 1 \Rightarrow |\overline{A}| = 1.}
+\]
+
+\vspace{1em}
+
+\textbf{r)} Si $|A| = -1$, entonces $|A| + |\overline{A}| = 0$.
+
+\vspace{0.5em}
+
+Esto significa que $|A| = -1 \;\Rightarrow\; |\overline{A}| = 1.$
+
+Sabemos que:
+\[
+A \cdot \overline{A}^T = \underbrace{|A|}_{-1} \cdot I_n
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 42 (⋆)]
+Tomando determinantes a ambos lados:
+\[
+|A \cdot \overline{A}^T| = |-I_n|
+\Rightarrow
+\underbrace{|A|}_{-1} \cdot |\overline{A}^T| = (-1)^n |I_n|
+\Rightarrow
+-|\overline{A}| = (-1)^n
+\Rightarrow
+|\overline{A}| = (-1)^{n+1} \ne 1
+\]
+Por lo tanto es falso.
+
+\vspace{0.5em}
+\textbf{Contraejemplo:}
+
+\[
+|A| = \begin{vmatrix}-1 & 0 \\ 0 & 1\end{vmatrix} = -1, \quad
+|\overline{A}| = \begin{vmatrix}1 & 0 \\ 0 & -1\end{vmatrix} = -1 \neq 1
+\]
+\[
+-1 + (-1) = -2 \ne 0
+\]
+\[
+\boxed{\textbf{Falsa. }\quad |A| = -1 \not\Rightarrow |A| + |\overline{A}| = 0.}
+\]
+\end{ejercicio}
+
+\subsection{Propiedades consecuencia}
+
+\subsubsection{Desarrollos de Laplace}
+
+\begin{ejercicio}[title=Ejercicio 34]
+Calcule los determinantes siguientes:
+\[
+\begin{vmatrix}
+1 & 1\\
+a & b
+\end{vmatrix},
+\quad
+\begin{vmatrix}
+1 & 1 & 1\\
+a & b & c\\
+a^2 & b^2 & c^2
+\end{vmatrix},
+\quad
+\begin{vmatrix}
+1 & 1 & 1 & 1\\
+a & b & c & d\\
+a^2 & b^2 & c^2 & d^2\\
+a^3 & b^3 & c^3 & d^3
+\end{vmatrix}.
+\]
+¿Cómo se pueden generalizar los resultados obtenidos?
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{Primer determinante.}
+
+Se calcula directamente:
+\[
+\boxed{\,\begin{vmatrix}
+1 & 1\\
+a & b
+\end{vmatrix} = b-a.}
+\]
+
+\bigskip
+
+\textbf{Segundo determinante.}
+
+Partimos de:
+\[
+\begin{vmatrix}
+1 & 1 & 1\\
+a & b & c\\
+a^2 & b^2 & c^2
+\end{vmatrix}.
+\]
+
+Aplicamos operaciones elementales por filas:
+\[
+\overset{F_3-aF_2}{=}
+\begin{vmatrix}
+1 & 1 & 1\\
+a & b & c\\
+0 & b^2-ab & c^2-ac
+\end{vmatrix}
+=
+\begin{vmatrix}
+1 & 1 & 1\\
+a & b & c\\
+0 & (b-a)b & (c-a)c
+\end{vmatrix}.
+\]
+
+A continuación,
+\[
+\overset{F_2-aF_1}{=}
+\begin{vmatrix}
+1 & 1 & 1\\
+0 & b-a & c-a\\
+0 & (b-a)b & (c-a)c
+\end{vmatrix}.
+\]
+
+Desarrollando por la primera columna, el determinante es igual a:
+\[
+\begin{vmatrix}
+b-a & c-a\\
+(b-a)b & (c-a)c
+\end{vmatrix}.
+\]
+
+Sacamos los escalares que multiplican a las columnas:
+\[
+\begin{vmatrix}
+b-a & c-a\\
+(b-a)b & (c-a)c
+\end{vmatrix}
+=
+(b-a)(c-a)
+\begin{vmatrix}
+1 & 1\\
+b & c
+\end{vmatrix}.
+\]
+
+Finalmente,
+\[
+\begin{vmatrix}
+1 & 1\\
+b & c
+\end{vmatrix}
+= c-b,
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 34]
+y por tanto
+\[
+\boxed{\,\begin{vmatrix}
+1 & 1 & 1\\
+a & b & c\\
+a^2 & b^2 & c^2
+\end{vmatrix}
+= (b-a)(c-a)(c-b).}
+\]
+
+\textbf{Tercer determinante.}
+
+Consideramos:
+\[
+\begin{vmatrix}
+1 & 1 & 1 & 1\\
+a & b & c & d\\
+a^2 & b^2 & c^2 & d^2\\
+a^3 & b^3 & c^3 & d^3
+\end{vmatrix}.
+\]
+
+Aplicamos operaciones elementales por filas:
+\[
+\overset{F_4-aF_3}{=}
+\begin{vmatrix}
+1 & 1 & 1 & 1\\
+a & b & c & d\\
+a^2 & b^2 & c^2 & d^2\\
+0 & b^3-ab^2 & c^3-ac^2 & d^3-ad^2
+\end{vmatrix}
+=
+\begin{vmatrix}
+1 & 1 & 1 & 1\\
+a & b & c & d\\
+a^2 & b^2 & c^2 & d^2\\
+0 & (b-a)b^2 & (c-a)c^2 & (d-a)d^2
+\end{vmatrix}.
+\]
+
+Después,
+\[
+\overset{F_3-aF_2}{=}
+\begin{vmatrix}
+1 & 1 & 1 & 1\\
+a & b & c & d\\
+0 & b^2-ab & c^2-ac & d^2-ad\\
+0 & (b-a)b^2 & (c-a)c^2 & (d-a)d^2
+\end{vmatrix}
+=
+\begin{vmatrix}
+1 & 1 & 1 & 1\\
+a & b & c & d\\
+0 & (b-a)b & (c-a)c & (d-a)d\\
+0 & (b-a)b^2 & (c-a)c^2 & (d-a)d^2
+\end{vmatrix}.
+\]
+
+A continuación,
+\[
+\overset{F_2-aF_1}{=}
+\begin{vmatrix}
+1 & 1 & 1 & 1\\
+0 & b-a & c-a & d-a\\
+0 & (b-a)b & (c-a)c & (d-a)d\\
+0 & (b-a)b^2 & (c-a)c^2 & (d-a)d^2
+\end{vmatrix}.
+\]
+
+Desarrollando por la primera columna, el determinante es igual a:
+\[
+\begin{vmatrix}
+b-a & c-a & d-a\\
+(b-a)b & (c-a)c & (d-a)d\\
+(b-a)b^2 & (c-a)c^2 & (d-a)d^2
+\end{vmatrix}.
+\]
+
+Sacamos los factores comunes de cada columna:
+\[
+= (b-a)(c-a)(d-a)
+\begin{vmatrix}
+1 & 1 & 1\\
+b & c & d\\
+b^2 & c^2 & d^2
+\end{vmatrix}.
+\]
+
+Este determinante es del mismo tipo que el segundo, sustituyendo
+\(a\to b\), \(b\to c\), \(c\to d\). Por tanto,
+\[
+\begin{vmatrix}
+1 & 1 & 1\\
+b & c & d\\
+b^2 & c^2 & d^2
+\end{vmatrix}
+= (c-b)(d-b)(d-c).
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 34]
+Finalmente,
+\[
+\boxed{\,\begin{vmatrix}
+1 & 1 & 1 & 1\\
+a & b & c & d\\
+a^2 & b^2 & c^2 & d^2\\
+a^3 & b^3 & c^3 & d^3
+\end{vmatrix}
+= (b-a)(c-a)(d-a)(c-b)(d-b)(d-c).}
+\]
+
+\textbf{Generalización.}
+
+Estos determinantes son determinantes de \emph{Vandermonde}. En general, para
+\[
+\begin{vmatrix}
+1 & \cdots & 1\\[4pt]
+x_1 & \cdots & x_n\\[4pt]
+x_1^2 & \cdots & x_n^2\\[4pt]
+\vdots & \ddots & \vdots\\[4pt]
+x_1^{n-1} & \cdots & x_n^{n-1}
+\end{vmatrix}
+\]
+se tiene:
+\[
+\boxed{
+\prod_{1\le i<j\le n}(x_j-x_i).
+}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 35]
+Resuelva la ecuación
+\[
+\begin{vmatrix}
+x & a & b & c\\
+a & x & b & c\\
+a & b & x & c\\
+a & b & c & x
+\end{vmatrix}
+= 0,
+\]
+cuya incógnita es $x$.
+
+\tcblower
+\textbf{Resolución:}
+
+Aplicamos operaciones elementales por columnas:
+\[
+\begin{vmatrix}
+x & a & b & c\\
+a & x & b & c\\
+a & b & x & c\\
+a & b & c & x
+\end{vmatrix}
+\overset{\substack{C_1+C_2\\{}}}{=}
+\begin{vmatrix}
+x+a & a & b & c\\
+x+a & x & b & c\\
+a+b & b & x & c\\
+a+b & b & c & x
+\end{vmatrix}
+\overset{\substack{C_1+C_3\\{}}}{=}
+\begin{vmatrix}
+x+a+b & a & b & c\\
+x+a+b & x & b & c\\
+x+a+b & b & x & c\\
+x+b+c & b & c & x
+\end{vmatrix}
+\]
+\[
+\overset{\substack{C_1+C_4\\{}}}{=}
+\begin{vmatrix}
+x+a+b+c & a & b & c\\
+x+a+b+c & x & b & c\\
+x+a+b+c & b & x & c\\
+x+a+b+c & b & c & x
+\end{vmatrix}
+\]
+Sacamos $x+a+b+c$ que multiplica a la primera columna:
+\[
+= (x+a+b+c)
+\begin{vmatrix}
+1 & a & b & c\\
+1 & x & b & c\\
+1 & b & x & c\\
+1 & b & c & x
+\end{vmatrix}
+\]
+Aplicamos operaciones elementales de filas:
+\[
+\overset{\substack{F_2-F_1\\F_3-F_1\\F_4-F_1\\{}}}{=}
+(x+a+b+c)
+\begin{vmatrix}
+1 & a & b & c\\
+0 & x-a & 0 & 0\\
+0 & b-a & x-b & 0\\
+0 & b-a & c-b & x-c
+\end{vmatrix}
+\]
+Como todos los elementos de la primera columna son 0 excepto el 1 al principio, es igual a: 
+\[
+=
+(x+a+b+c)
+\begin{vmatrix}
+x-a & 0 & 0\\
+b-a & x-b & 0\\
+b-a & c-b & x-c
+\end{vmatrix}
+= (x+a+b+c)(x-a)(x-b)(x-c)
+\]
+
+Por tanto, las soluciones son:
+\[
+\boxed{x=a \;\;\;\text{o}\;\;\; x=b \;\;\;\text{o}\;\;\; x=c \;\;\;\text{o}\;\;\; x=-a-b-c.}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 36]
+Compruebe que
+\[
+\begin{vmatrix}
+a & b & c & d\\
+b & a & d & c\\
+c & d & a & b\\
+d & c & b & a
+\end{vmatrix}
+=
+\big((a+b)^2 - (c+d)^2\big)\,\big((a-b)^2 - (c-d)^2\big).
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+\vspace{0.5em}
+
+Aplicamos operaciones elementales de columnas:
+
+\[
+\begin{vmatrix}
+a & b & c & d\\
+b & a & d & c\\
+c & d & a & b\\
+d & c & b & a
+\end{vmatrix}
+\overset{\substack{C_1+C_2\\{}}}{=}
+\begin{vmatrix}
+a+b & b & c & d\\
+a+b & a & d & c\\
+c+d & d & a & b\\
+c+d & c & b & a
+\end{vmatrix}
+\overset{\substack{C_1+C_3\\{}}}{=}
+\begin{vmatrix}
+a+b+c & b & c & d\\
+a+b+c & a & d & c\\
+a+c+d & d & a & b\\
+b+c+d & c & b & a
+\end{vmatrix}
+\]
+
+\[
+\overset{\substack{C_1+C_4\\{}}}{=}
+\begin{vmatrix}
+a+b+c+d & b & c & d\\
+a+b+c+d & a & d & c\\
+a+b+c+d & d & a & b\\
+a+b+c+d & c & b & a
+\end{vmatrix}
+\]
+
+Sacamos el factor $a+b+c+d$ que multiplica a la primera columna:
+
+\[
+= (a+b+c+d)
+\begin{vmatrix}
+1 & b & c & d\\
+1 & a & d & c\\
+1 & d & a & b\\
+1 & c & b & a
+\end{vmatrix}
+\]
+
+Aplicamos operaciones elementales de filas:
+
+\[
+\overset{\substack{F_2-F_1\\F_3-F_1\\F_4-F_1\\{}}}{=}
+\begin{vmatrix}
+1 & b & c & d\\
+0 & a-b & d-c & c-d\\
+0 & d-b & a-c & b-d\\
+0 & c-b & b-c & a-d
+\end{vmatrix}
+\]
+
+Como la primera columna está compuesta por ceros excepto la primera, es igual a:
+\[
+= (a+b+c+d)
+\begin{vmatrix}
+a-b & d-c & c-d\\
+d-b & a-c & b-d\\
+c-b & b-c & a-d
+\end{vmatrix}.
+\]
+
+Seguimos aplicando operaciones elementales de columnas:
+\[
+\overset{\substack{C_2+C_3\\{}}}{=}
+(a+b+c+d)
+\begin{vmatrix}
+a-b & 0 & c-d\\
+d-b & a+b-c-d & b-d\\
+c-b & a+b-c-d & a-d
+\end{vmatrix}
+\]
+
+Sacamos el factor $a+b-c-d$ que multiplica a la segunda columna:
+\[
+= (a+b+c+d)(a+b-c-d)
+\begin{vmatrix}
+a-b & 0 & c-d\\
+d-b & 1 & b-d\\
+c-b & 1 & a-d
+\end{vmatrix}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 36]
+Agrupamos cada término dentro de los paréntesis y seguimos aplicando operaciones elementales de filas:
+\[
+\overset{\substack{F_3-F_2\\{}}}{=}
+\big((a+b)+(c+d)\big)\big((a+b)-(c+d)\big)
+\begin{vmatrix}
+a-b & 0 & c-d\\
+d-b & 1 & b-d\\
+c-d & 0 & a-b
+\end{vmatrix}
+\]
+
+Agrupamos los términos como una diferencia de cuadrados. También vemos que la segunda columna son todos ceros excepto la segunda, así que es igual a:
+\[
+= \big((a+b)^2-(c+d)^2\big)
+\begin{vmatrix}
+a-b & c-d\\
+c-d & a-b
+\end{vmatrix}
+\]
+
+\[
+= \boxed{\big((a+b)^2-(c+d)^2\big)\big((a-b)^2-(c-d)^2\big)}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 40]
+Calcule los siguientes determinantes en $\mathbb{R}$:
+\[
+\Delta_1 =
+\begin{vmatrix}
+a & 1 & 1 & 1 & 1\\
+1 & a & 1 & 1 & 1\\
+1 & 1 & a & 1 & 1\\
+1 & 1 & 1 & a & 1\\
+1 & 1 & 1 & 1 & a
+\end{vmatrix}, \quad
+\Delta_2 =
+\begin{vmatrix}
+a & a & a & a & a\\
+b & a & a & a & a\\
+b & b & a & a & a\\
+b & b & b & a & a\\
+b & b & b & b & a
+\end{vmatrix}, \quad
+\Delta_3 =
+\begin{vmatrix}
+a & 1 & 0 & 0 & 0\\
+1 & a & 1 & 0 & 0\\
+0 & 1 & a & 1 & 0\\
+0 & 0 & 1 & a & 1\\
+0 & 0 & 0 & 1 & a
+\end{vmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+\vspace{0.5em}
+
+$\Delta_1$:
+
+\vspace{0.5em}
+
+Aplicamos operaciones elementales de columnas:
+\[
+\Delta_1 =
+\begin{vmatrix}
+a & 1 & 1 & 1 & 1\\
+1 & a & 1 & 1 & 1\\
+1 & 1 & a & 1 & 1\\
+1 & 1 & 1 & a & 1\\
+1 & 1 & 1 & 1 & a
+\end{vmatrix}
+\overset{\substack{C_1+C_2\\{}}}{=}
+\begin{vmatrix}
+a+1 & 1 & 1 & 1 & 1\\
+a+1 & a & 1 & 1 & 1\\
+2 & 1 & a & 1 & 1\\
+2 & 1 & 1 & a & 1\\
+2 & 1 & 1 & 1 & a
+\end{vmatrix}
+\overset{\substack{C_1+C_3\\{}}}{=}
+\begin{vmatrix}
+a+2 & 1 & 1 & 1 & 1\\
+a+2 & a & 1 & 1 & 1\\
+a+2 & 1 & a & 1 & 1\\
+3 & 1 & 1 & a & 1\\
+3 & 1 & 1 & 1 & a
+\end{vmatrix}
+\]
+\[
+\overset{\substack{C_1+C_4\\{}}}{=}
+\begin{vmatrix}
+a+3 & 1 & 1 & 1 & 1\\
+a+3 & a & 1 & 1 & 1\\
+a+3 & 1 & a & 1 & 1\\
+a+3 & 1 & 1 & a & 1\\
+4 & 1 & 1 & 1 & a
+\end{vmatrix}
+\overset{\substack{C_1+C_5\\{}}}{=}
+\begin{vmatrix}
+a+4 & 1 & 1 & 1 & 1\\
+a+4 & a & 1 & 1 & 1\\
+a+4 & 1 & a & 1 & 1\\
+a+4 & 1 & 1 & a & 1\\
+a+4 & 1 & 1 & 1 & a
+\end{vmatrix}
+\]
+
+Sacamos el factor que multiplica a la primera columna:
+\[
+= (a+4)
+\begin{vmatrix}
+1 & 1 & 1 & 1 & 1\\
+1 & a & 1 & 1 & 1\\
+1 & 1 & a & 1 & 1\\
+1 & 1 & 1 & a & 1\\
+1 & 1 & 1 & 1 & a
+\end{vmatrix}
+\]
+
+Aplicamos operaciones elementales de filas:
+\[
+\overset{\substack{F_2-F_1\\F_3-F_1\\F_4-F_1\\F_5-F_1\\{}}}{=}
+(a+4)
+\begin{vmatrix}
+1 & 1 & 1 & 1 & 1\\
+0 & a-1 & 0 & 0 & 0\\
+0 & 0 & a-1 & 0 & 0\\
+0 & 0 & 0 & a-1 & 0\\
+0 & 0 & 0 & 0 & a-1
+\end{vmatrix}
+\]
+
+Como la primera columna son todos ceros excepto el $1$, entonces es igual a:
+\[
+= (a+4)
+\begin{vmatrix}
+a-1 & 0 & 0 & 0\\
+0 & a-1 & 0 & 0\\
+0 & 0 & a-1 & 0\\
+0 & 0 & 0 & a-1
+\end{vmatrix}
+= \boxed{(a+4)(a-1)^4}.
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 40]
+$\Delta_2$:
+
+\vspace{0.5em}
+
+Aplicamos operaciones elementales de filas:
+\[
+\Delta_2 =
+\begin{vmatrix}
+a & a & a & a & a\\
+b & a & a & a & a\\
+b & b & a & a & a\\
+b & b & b & a & a\\
+b & b & b & b & a
+\end{vmatrix}
+\overset{\substack{F_5-F_4\\{}}}{=}
+\begin{vmatrix}
+a & a & a & a & a\\
+b & a & a & a & a\\
+b & b & a & a & a\\
+b & b & b & a & a\\
+0 & 0 & 0 & b-a & 0
+\end{vmatrix}
+\overset{\substack{F_4-F_3\\{}}}{=}
+\begin{vmatrix}
+a & a & a & a & a\\
+b & a & a & a & a\\
+b & b & a & a & a\\
+0 & 0 & b-a & 0 & 0\\
+0 & 0 & 0 & b-a & 0
+\end{vmatrix}
+\]
+
+\[
+\overset{\substack{F_3-F_2\\{}}}{=}
+\begin{vmatrix}
+a & a & a & a & a\\
+b & a & a & a & a\\
+0 & b-a & 0 & 0 & 0\\
+0 & 0 & b-a & 0 & 0\\
+0 & 0 & 0 & b-a & 0
+\end{vmatrix}
+\overset{\substack{F_2-F_1\\{}}}{=}
+\begin{vmatrix}
+a & a & a & a & a\\
+b-a & 0 & 0 & 0 & 0\\
+0 & b-a & 0 & 0 & 0\\
+0 & 0 & b-a & 0 & 0\\
+0 & 0 & 0 & b-a & 0
+\end{vmatrix}
+\]
+
+Sacamos el factor $a$ que multiplica a la primera fila:
+\[
+= a
+\begin{vmatrix}
+1 & 1 & 1 & 1 & 1\\
+b-a & 0 & 0 & 0 & 0\\
+0 & b-a & 0 & 0 & 0\\
+0 & 0 & b-a & 0 & 0\\
+0 & 0 & 0 & b-a & 0
+\end{vmatrix}
+\]
+
+Como la última columna son todos ceros excepto el $1$, entonces es igual a:
+\[
+= a
+\begin{vmatrix}
+b-a & 0 & 0 & 0\\
+0 & b-a & 0 & 0\\
+0 & 0 & b-a & 0\\
+0 & 0 & 0 & b-a
+\end{vmatrix}
+= \boxed{a(b-a)^4}.
+\]
+
+$\Delta_3$:
+
+\vspace{0.5em}
+
+Para hallar su valor, planteamos una relación de recurrencia con el objetivo de hallar una fórmula para $\Delta(n)$, el determinante de una matriz de la misma forma y tamaño $n \times n$. En nuestro caso, buscamos $\Delta(5)$.
+
+\vspace{0.5em}
+
+Calculamos los primeros casos base:
+\[
+\Delta(1) = |a| = a, \quad \Delta(2) = \begin{vmatrix} a & 1 \\ 1 & a \end{vmatrix} = a^2 - 1.
+\]
+
+Para $n>2$ consideramos el determinante
+\[
+\Delta(n)=
+\begin{vmatrix}
+a & 1 & 0 & 0 & \cdots & 0\\
+1 & a & 1 & 0 & \cdots & 0\\
+0 & 1 & a & 1 & \ddots & \vdots\\
+0 & 0 & 1 & a & \ddots & 0\\
+\vdots & \vdots & \ddots & \ddots & \ddots & 1\\
+0 & 0 & \cdots & 0 & 1 & a
+\end{vmatrix}.
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 40]
+Nos fijamos en la \textbf{primera columna}. En ella solo hay dos elementos distintos de cero:
+\[
+a \text{ (en la posición $(1,1)$)} \quad \text{y} \quad 1 \text{ (en la posición $(2,1)$)}.
+\]
+
+El determinante se calcula como, para una columna cualquiera, la suma de los productos:
+\[
+(\text{elemento})\cdot(\text{determinante de la submatriz resultante de eliminar su fila y columna}),
+\]
+multiplicados por su signo $(-1)^{i+j}$.  
+Como en esta columna solo hay dos elementos no nulos, \textbf{el determinante es la suma de dos términos}.
+
+\bigskip
+
+\textbf{Primer término.}  
+Tomamos el elemento $a$ de la primera fila y primera columna. Su signo es
+\[
+(-1)^{1+1}=+1.
+\]
+Al eliminar la primera fila y la primera columna queda el determinante
+\[
+\begin{vmatrix}
+\color{gray}{a} & \color{lightgray}{1} & \color{lightgray}{0} & \color{lightgray}{0} & \color{lightgray}\cdots & \color{lightgray}{0}\\
+\color{lightgray}{1} & a & 1 & 0 & \cdots & 0\\
+\color{lightgray}{0} & 1 & a & 1 & \ddots & \vdots\\
+\color{lightgray}{0} & 0 & 1 & a & \ddots & 0\\
+\color{lightgray}\vdots & \vdots & \ddots & \ddots & \ddots & 1\\
+\color{lightgray}{0} & 0 & \cdots & 0 & 1 & a
+\end{vmatrix}
+\quad\implies\quad
+\begin{vmatrix}
+a & 1 & 0 & \cdots & 0\\
+1 & a & 1 & \ddots & \vdots\\
+0 & 1 & a & \ddots & 0\\
+\vdots & \ddots & \ddots & \ddots & 1\\
+0 & \cdots & 0 & 1 & a
+\end{vmatrix},
+\]
+que es de tamaño $(n-1)\times(n-1)$ y tiene exactamente la misma forma que el determinante original.  
+Por definición, es $\Delta(n-1)$.  
+Por tanto, el primer término es
+\[
+a\,\Delta(n-1).
+\]
+
+\medskip
+
+\textbf{Segundo término.}  
+Tomamos ahora el elemento $1$ de la segunda fila y primera columna. Su signo es
+\[
+(-1)^{2+1}=-1.
+\]
+Al eliminar la segunda fila y la primera columna obtenemos
+\[
+\begin{vmatrix}
+\color{lightgray}{a} & 1 & 0 & 0 & \cdots & 0\\
+\color{gray}{1} & \color{lightgray}{a} & \color{lightgray}{1} & \color{lightgray}{0} & \color{lightgray}\cdots & \color{lightgray}{0}\\
+\color{lightgray}{0} & 1 & a & 1 & \ddots & \vdots\\
+\color{lightgray}{0} & 0 & 1 & a & \ddots & 0\\
+\color{lightgray}\vdots & \vdots & \ddots & \ddots & \ddots & 1\\
+\color{lightgray}{0} & 0 & \cdots & 0 & 1 & a
+\end{vmatrix}
+\quad\implies\quad
+\begin{vmatrix}
+1 & 0 & 0 & \cdots & 0\\
+1 & a & 1 & \cdots & 0\\
+0 & 1 & a & \ddots & \vdots\\
+\vdots & \vdots & \ddots & \ddots & 1\\
+0 & 0 & \cdots & 1 & a
+\end{vmatrix}.
+\]
+
+En esta matriz, la primera fila es $(1,0,0,\dots,0)$, por lo que su determinante coincide con el determinante de la matriz que queda al eliminar esa primera fila y esa primera columna.
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 40]
+\[
+\begin{vmatrix}
+\color{lightgray}1 & \color{lightgray}0 & \color{lightgray}0 & \color{lightgray}\cdots & \color{lightgray}0\\
+\color{lightgray}1 & a & 1 & \cdots & 0\\
+\color{lightgray}0 & 1 & a & \ddots & \vdots\\
+\color{lightgray}\vdots & \vdots & \ddots & \ddots & 1\\
+\color{lightgray}0 & 0 & \cdots & 1 & a
+\end{vmatrix}
+\quad \implies \quad
+\begin{vmatrix}
+a & 1 & \cdots & 0\\
+1 & a & \ddots & \vdots\\
+\vdots & \ddots & \ddots & 1\\
+0 & \cdots & 1 & a
+\end{vmatrix}.
+\]
+que es de tamaño $(n-2)\times(n-2)$.  
+Por definición, este determinante es $\Delta(n-2)$, y aparece restando debido al signo negativo.
+
+\bigskip
+
+\textbf{Conclusión.}  
+Sumando ambos términos obtenemos la relación de recurrencia:
+\[
+\Delta(n)=a\,\Delta(n-1)-\Delta(n-2).
+\]
+
+Aplicamos esta fórmula sucesivamente:
+
+\begin{itemize}
+    \item Para $n=3$:
+    \[ \Delta(3) = a \Delta(2) - \Delta(1) = a(a^2-1) - a = a^3 - a - a = a^3 - 2a. \]
+    
+    \item Para $n=4$:
+    \[ \Delta(4) = a \Delta(3) - \Delta(2) = a(a^3-2a) - (a^2-1) = a^4 - 2a^2 - a^2 + 1 = a^4 - 3a^2 + 1. \]
+    
+    \item Para $n=5$:
+    \[ \Delta(5) = a \Delta(4) - \Delta(3) = a(a^4 - 3a^2 + 1) - (a^3 - 2a) = a^5 - 3a^3 + a - a^3 + 2a. \]
+\end{itemize}
+
+Finalmente, agrupando términos obtenemos:
+\[
+\Delta_3 = \Delta(5) = \boxed{a^5 - 4a^3 + 3a}.
+\]
+
+\end{ejercicio}
+
+\subsubsection{Caracterización de matrices regulares y fórmula para la inversa}
+
+\begin{ejercicio}[title=Ejercicio 17]
+Sea $a \in \mathbb{C}$ tal que $a^3 = 1$ y $a \ne 1$.  
+Compruebe que la matriz siguiente es regular y calcule su inversa:
+\[
+A =
+\begin{pmatrix}
+1 & 1 & 1\\
+1 & a & a^2\\
+1 & a^2 & a
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+A es regular $\Longleftrightarrow |A| \neq 0$.  
+Calculamos:
+\[
+|A| =
+\begin{vmatrix}
+1 & 1 & 1\\
+1 & a & a^2\\
+1 & a^2 & a
+\end{vmatrix}
+=
+a^2 + a^2 + a^2 - a - a^4 - a
+= -a^4 + 3a^2 - 2a
+\]
+\[
+= -a \cdot \underbrace{a^3}_{1}
++ 3a^2 - 2a
+= -a + 3a^2 - 2a
+= 3a^2 - 3a
+= 3a(a-1).
+\]
+
+Para que $A$ sea regular necesitamos:
+\[
+3a(a-1) \neq 0 \quad\Longrightarrow\quad a\neq 0 \ \text{o}\ a\neq 1.
+\]
+
+\begin{itemize}
+    \item \(a\neq 0\): dado que el enunciado establece que \(a^3=1\), si \(a=0\) tendríamos \(0^3=0\neq 1\). Por lo tanto, \(a=0\) no forma parte de los posibles valores de la matriz y no nos afecta.
+    
+    \item \(a\neq 1\): el propio enunciado especifica que \(a\neq 1\), así que esta condición tampoco representa un problema.
+\end{itemize}
+
+Por lo tanto:
+\[
+\boxed{A \text{ es regular}.}
+\]
+
+Para calcular $A^{-1}$, usamos la fórmula de la adjunta. Calculamos $\overline{A}$ y su traspuesta:
+
+\[
+\overline{A} =
+\begin{pmatrix}
+    a^2-a^4 & -(a-a^2) & a^2-a \\
+    -(a-a^2) & a-1 & -(a^2-1) \\
+    a^2-a & -(a^2-1) & a-1
+\end{pmatrix}
+= \begin{pmatrix}
+    a^2-a & a^2-a & a^2-a \\
+    a^2-a & a-1 & -(a^2-1) \\
+    a^2-a & -(a^2-1) & a-1
+\end{pmatrix}
+\]
+\[
+= (a-1) \begin{pmatrix}
+    a & a & a \\
+    a & 1 & -(a+1) \\
+    a & -(a+1) & 1
+\end{pmatrix}
+\qquad
+\overline{A}^T =
+(a-1) \begin{pmatrix}
+    a & a & a \\
+    a & 1 & -(a+1) \\
+    a & -(a+1) & 1
+    \end{pmatrix}
+\]
+
+\vspace{0.5em}
+
+Entonces la inversa es:
+
+\[
+A^{-1} = \frac{\overline{A}^T}{|A|} = \frac{\cancel{(a-1)}}{3a\cancel{(a-1)}} \begin{pmatrix}
+    a & a & a \\
+    a & 1 & -(a+1) \\
+    a & -(a+1) & 1
+\end{pmatrix}
+= \boxed{\frac{1}{3}\begin{pmatrix}
+    1 & 1 & 1 \\
+    1 & \frac{1}{a} & -\frac{a+1}{a} \\
+    1 & -\frac{a+1}{a} & \frac{1}{a}
+\end{pmatrix}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 19]
+Calcule todas las matrices $X \in \mathfrak{M}_2(\mathbb{Z}_7)$ tales que $A \cdot X \cdot C = D$, donde
+\[
+A =
+\begin{pmatrix}
+2 & 3\\
+1 & 2
+\end{pmatrix}, \quad
+C =
+\begin{pmatrix}
+3 & 1\\
+2 & 5
+\end{pmatrix}, \quad
+D =
+\begin{pmatrix}
+2 & 3\\
+6 & 2
+\end{pmatrix}.
+\]
+Repita el mismo ejercicio considerando ahora
+\[
+C =
+\begin{pmatrix}
+3 & 6\\
+4 & 1
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+\[
+AXC = D \;\Rightarrow\; A^{-1} A X C C^{-1} = A^{-1} D C^{-1} \;\Rightarrow\; X = A^{-1} D C^{-1}
+\]
+
+\vspace{0.5em}
+
+Hallamos $A^{-1}$ con operaciones elementales de fila (1) o con fórmula de la adjunta (2):
+\[
+(1) \quad (A \,|\, I_2) =
+\begin{pmatrix}
+2 & 3 &\Big|& 1 & 0\\
+1 & 2 &\Big|& 0 & 1
+\end{pmatrix}
+\overset{\substack{F_1 - F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 &\Big|& 1 & 6\\
+1 & 2 &\Big|& 0 & 1
+\end{pmatrix}
+\overset{\substack{F_2 - F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 &\Big|& 1 & 6\\
+0 & 1 &\Big|& 6 & 2
+\end{pmatrix}
+\]
+
+\vspace{0.5em}
+
+\noindent
+\[
+\begin{pmatrix}
+1 & 1\\
+0 & 1
+\end{pmatrix}
+\text{ está en forma escalonada por filas }
+\]
+\[
+\Rightarrow \operatorname{Rg}(A) =\text{nº filas no nulas }=2 = \text{orden de }A \Rightarrow A \text{ regular.}
+\]
+
+\vspace{0.5em}
+
+\[
+\begin{pmatrix}
+1 & 1 &\Big|& 1 & 6\\
+0 & 1 &\Big|& 6 & 2
+\end{pmatrix}
+\overset{\substack{F_1 - F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 &\Big|& 2 & 4\\
+0 & 1 &\Big|& 6 & 2
+\end{pmatrix}
+= (I_2 \,|\, A^{-1})
+\]
+
+\[
+\Rightarrow A^{-1} =
+\begin{pmatrix}
+2 & 4\\
+6 & 2
+\end{pmatrix}.
+\]
+
+\[
+(2) \quad |A| =
+\left|
+\begin{matrix}
+2 & 3\\
+1 & 2
+\end{matrix}
+\right| = 1,
+\]
+
+\[
+\overline{A} =
+\begin{pmatrix}
+2 & 6\\
+4 & 2
+\end{pmatrix}
+\quad\Rightarrow\quad
+(\overline{A})^T =
+\begin{pmatrix}
+2 & 4\\
+6 & 2
+\end{pmatrix}
+\quad\Rightarrow\quad
+A^{-1} = \frac{(\overline{A})^T}{|A|} =
+\begin{pmatrix}
+2 & 4\\
+6 & 2
+\end{pmatrix}.
+\]
+
+\vspace{0.5em}
+
+De la misma forma, hallamos $C^{-1}$:
+\[
+(1)\quad (C \,|\, I_2) =
+\begin{pmatrix}
+3 & 1 &\Big|& 1 & 0\\
+2 & 5 &\Big|& 0 & 1
+\end{pmatrix}
+\overset{\substack{F_1 - F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 3 &\Big|& 1 & 6\\
+2 & 5 &\Big|& 0 & 1
+\end{pmatrix}
+\overset{\substack{F_2 - 2F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 3 &\Big|& 1 & 6\\
+0 & 6 &\Big|& 5 & 3
+\end{pmatrix}
+\]
+
+\vspace{0.5em}
+
+\noindent
+\[
+\begin{pmatrix}
+1 & 3\\
+0 & 6
+\end{pmatrix}
+\text{ está en forma escalonada por filas }
+\]
+\[\Rightarrow \operatorname{Rg}(C) =\text{nº filas no nulas }=2 = \text{orden de }C \Rightarrow C \text{ regular.}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 19]
+\[
+\begin{pmatrix}
+1 & 3 &\Big|& 1 & 6\\
+0 & 6 &\Big|& 5 & 3
+\end{pmatrix}
+\overset{\substack{-F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 3 &\Big|& 1 & 6\\
+0 & 1 &\Big|& 2 & 4
+\end{pmatrix}
+\overset{\substack{F_1 - 3F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 &\Big|& 2 & 1\\
+0 & 1 &\Big|& 2 & 4
+\end{pmatrix}
+= (I_2 \,|\, C^{-1})
+\]
+
+\[
+\Rightarrow C^{-1} =
+\begin{pmatrix}
+2 & 1\\
+2 & 4
+\end{pmatrix}.
+\]
+
+\[
+(2)\quad |C| =
+\left|
+\begin{matrix}
+3 & 1\\
+2 & 5
+\end{matrix}
+\right|
+= 6 \equiv -1,
+\]
+
+\[
+\overline{C} =
+\begin{pmatrix}
+5 & 5\\
+6 & 3
+\end{pmatrix}
+\quad\Rightarrow\quad
+(\overline{C})^T =
+\begin{pmatrix}
+5 & 6\\
+5 & 3
+\end{pmatrix}
+\quad\Rightarrow\quad
+C^{-1} = \frac{(\overline{C})^T}{|C|} =
+\begin{pmatrix}
+2 & 1\\
+2 & 4
+\end{pmatrix}.
+\]
+Entonces:
+
+\[
+X = A^{-1} D C^{-1} =
+\begin{pmatrix}
+2 & 4\\
+6 & 2
+\end{pmatrix}
+\begin{pmatrix}
+2 & 3\\
+6 & 2
+\end{pmatrix}
+\begin{pmatrix}
+2 & 1\\
+2 & 4
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 & 0\\
+3 & 1
+\end{pmatrix}
+\begin{pmatrix}
+2 & 1\\
+2 & 4
+\end{pmatrix}
+=
+\boxed{\begin{pmatrix}0 & 0\\[4pt]1 & 0\end{pmatrix}\,}
+\]
+
+\bigskip
+
+\textbf{Considerando} \(C=\begin{pmatrix}3 & 6\\4 & 1\end{pmatrix}\):
+
+\bigskip
+
+\[
+(1) \quad (C \,|\, I_2) =
+\begin{pmatrix}
+3 & 6 &\Big|& 1 & 0\\
+4 & 1 &\Big|& 0 & 1
+\end{pmatrix}
+\overset{\substack{F_1 + 3F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 &\Big|& 1 & 3\\
+4 & 1 &\Big|& 0 & 1
+\end{pmatrix}
+\overset{\substack{F_2 - 4F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 &\Big|& 1 & 3\\
+0 & 0 &\Big|& 3 & 3
+\end{pmatrix}
+\]
+
+\vspace{0.5em}
+
+\noindent
+\[
+\begin{pmatrix}
+1 & 2\\
+0 & 0
+\end{pmatrix}
+\text{ está en forma escalonada por filas }
+\]
+\[\Rightarrow \operatorname{Rg}(C)=\text{nº filas no nulas }=1 \neq \text{orden de }C=2 \Rightarrow C \text{ no regular.}
+\]
+
+\[
+(2)\quad |C| =
+\left|
+\begin{matrix}
+3 & 6\\
+4 & 1
+\end{matrix}
+\right|
+= 0
+\quad\Rightarrow\quad C \text{ no regular.}
+\]
+
+\[
+\text{La única forma de averiguar }X\text{ es con un sistema de ecuaciones sin involucrar a $C^{-1}$:}
+\]
+\[
+X \, C = A^{-1} D:
+\]
+
+\[
+\begin{pmatrix} a & b \\ c & d \end{pmatrix}
+\begin{pmatrix} 3 & 6 \\ 4 & 1 \end{pmatrix}
+=
+\begin{pmatrix} 2 & 4 \\ 6 & 2 \end{pmatrix}
+\begin{pmatrix} 2 & 3 \\ 6 & 2 \end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+3a+4b & 6a+b\\
+3c+4d & 6c+d
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 & 0\\
+3 & 1
+\end{pmatrix}
+\]
+
+\[
+\Rightarrow
+\begin{cases}
+3a+4b = 0,\\[2pt]
+6a+b = 0,\\[2pt]
+3c+4d = 3,\\[2pt]
+6c+d = 1.
+\end{cases}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 19]
+\[
+\begin{aligned}
+&3a-3b = 0\\
+&-a+b = 0\\
+&3c-3d = 3\\
+&-c+d = 1
+\end{aligned}
+\]
+
+\[
+\Rightarrow
+\begin{aligned}
+& a-b = 0 \Rightarrow a = b,\\
+& -a+a = 0 \Rightarrow 0 = 0,\\
+& c-d = 1 \Rightarrow c = d+1 \Rightarrow (-d+1)+d = 1 \Rightarrow -1 = 1 \Rightarrow 6 = 1.
+\end{aligned}
+\]
+
+\[
+\Rightarrow \boxed{\text{$X$ no tiene solución}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 20]
+Encuentre todas las matrices $X \in \mathfrak{M}_2(\mathbb{Z}_{17})$ que verifican
+\[
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} \cdot X + X \cdot
+\begin{pmatrix}
+0 & 1\\
+2 & 15
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
++ 2X \cdot
+\begin{pmatrix}
+8 & 9\\
+1 & 7
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Desarrollando paso a paso, despejamos $X$:
+
+\[
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} X
++
+X
+\begin{pmatrix}
+0 & 1\\
+2 & 15
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
++
+2 X
+\begin{pmatrix}
+8 & 9\\
+1 & 7
+\end{pmatrix}
+\]
+
+\[
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} X
++
+X
+\begin{pmatrix}
+0 & 1\\
+2 & 15
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
++
+X
+\begin{pmatrix}
+16 & 1\\
+2 & 14
+\end{pmatrix}
+\]
+
+\[
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} X
++
+X
+\begin{pmatrix}
+0 & 1\\
+2 & 15
+\end{pmatrix}
+-
+X
+\begin{pmatrix}
+16 & 1\\
+2 & 14
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+\]
+
+\[
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} X
++
+X
+\begin{pmatrix}
+0 & 1\\
+2 & 15
+\end{pmatrix}
++
+X
+\begin{pmatrix}
+1 & 16\\
+15 & 3
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+\]
+
+\[
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} X
++
+X
+\begin{pmatrix}
+1 & 0\\
+0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} X
++
+X \cdot I_2
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+\]
+\[
+\Rightarrow
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} X
++
+I_2 \cdot X
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+2 & 8\\
+1 & 14
+\end{pmatrix} X
++
+\begin{pmatrix}
+1 & 0\\
+0 & 1
+\end{pmatrix}
+X
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+\]
+\[
+\Rightarrow
+\begin{pmatrix}
+3 & 8\\
+1 & 15
+\end{pmatrix} X
+=
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+\;\Rightarrow\;
+X = 
+\begin{pmatrix}
+3 & 8\\
+1 & 15
+\end{pmatrix}^{-1}
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+\]
+
+\vspace{0.5em}
+
+Calculamos el inverso:
+
+\[
+\left|
+\begin{matrix}
+3 & 8\\
+1 & 15
+\end{matrix}
+\right| = 3 \ne 0 \quad \implies
+\begin{pmatrix}
+    3 & 8\\
+1 & 15
+\end{pmatrix}
+\text{ regular}
+\]
+
+\[
+{\overline{
+\begin{pmatrix}
+3 & 8\\
+1 & 15
+\end{pmatrix}
+}}^T
+=
+\begin{pmatrix}
+15 & 16\\
+9 & 3
+\end{pmatrix}^T
+=
+\begin{pmatrix}
+15 & 9\\
+16 & 3
+\end{pmatrix}
+\]
+
+\[
+X = 3^{-1} 
+\begin{pmatrix}
+15 & 9\\
+16 & 3
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2\\
+3 & 16
+\end{pmatrix}
+= 6 \cdot
+\begin{pmatrix}
+-2 & 9\\
+-1 & 3
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2\\
+3 & -1
+\end{pmatrix}
+=
+\begin{pmatrix}
+5 & 3\\
+11 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2\\
+3 & -1
+\end{pmatrix}
+=
+\boxed{
+\begin{pmatrix}
+14 & 7\\
+14 & 4
+\end{pmatrix}}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 21]
+En $\mathfrak{M}_2(\mathbb{R})$ encuentre las matrices $X$ que verifican
+\[
+(A \cdot X^{-1})^{-1} + B = X,
+\]
+donde
+\[
+A =
+\begin{pmatrix}
+3 & 1\\
+2 & -1
+\end{pmatrix}, \qquad
+B =
+\begin{pmatrix}
+-2 & 1\\
+1 & 1
+\end{pmatrix}.
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Despejamos $X$:
+
+\[
+(A X^{-1})^{-1} + B = X
+\]
+\[
+X A^{-1} + B = X
+\]
+\[
+X A^{-1} - X = -B
+\]
+\[
+X (A^{-1} - I_2) = -B
+\]
+\[
+X = -B (A^{-1} - I_2)^{-1}
+\]
+
+Calculamos $A^{-1}$:
+
+\[
+|A| = \left|\begin{matrix}
+    3 & 1 \\ 2 & -1
+\end{matrix}\right| = -5 \ne 0 
+\implies
+A
+\text{ regular}
+\]
+
+\[
+\overline{A} = 
+\begin{pmatrix}
+-1 & -2\\
+-1 & 3
+\end{pmatrix}, \quad
+\overline{A}^{\,T} = 
+\begin{pmatrix}
+-1 & -1\\
+-2 & 3
+\end{pmatrix} \quad \Rightarrow \quad
+A^{-1} = \frac{1}{5} 
+\begin{pmatrix}
+1 & 1\\
+2 & -3
+\end{pmatrix}
+\]
+
+Calculamos $A^{-1}-I_2$ y su inversa:
+
+\[
+|A^{-1} - I_2| = \frac{32}{25} - \frac{2}{25} = \frac{6}{5} \ne 0 \implies
+A^{-1} - I_2
+\text{ regular}
+\]
+
+\[
+A^{-1} - I_2 = 
+\begin{pmatrix}
+-4/5 & 1/5\\
+2/5 & -8/5
+\end{pmatrix}, \quad
+\overline{A^{-1} - I_2} = 
+\begin{pmatrix}
+-8/5 & -2/5\\
+-1/5 & -4/5
+\end{pmatrix}, 
+\]
+
+\[
+\overline{A^{-1} - I_2}^{\,T} = 
+\begin{pmatrix}
+-8/5 & -1/5\\
+-2/5 & -4/5
+\end{pmatrix} 
+\quad\implies\quad
+(A^{-1} - I_2)^{-1} = 
+\begin{pmatrix}
+-4/3 & -1/6\\
+-1/3 & -2/3
+\end{pmatrix}
+\]
+
+\[
+X = - 
+\begin{pmatrix}-2 & 1\\ 1 & 1\end{pmatrix}
+\begin{pmatrix}-4/3 & -1/6\\ -1/3 & -2/3\end{pmatrix}
+=
+\begin{pmatrix}-2 & 1\\ 1 & 1\end{pmatrix}
+\begin{pmatrix}4/3 & 1/6\\ 1/3 & 2/3\end{pmatrix}
+=
+\boxed{
+\begin{pmatrix}
+-7/3 & 1/3\\
+5/3 & 5/6
+\end{pmatrix}
+}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 22]
+En cada apartado obtenga todas las matrices $A \in \mathfrak{M}_2(\mathbb{Z}_{11})$ que verifican las condiciones indicadas:
+
+\begin{enumerate}
+\item[a)] 
+$A^3 =
+\begin{pmatrix}
+1 & 8\\
+10 & 9
+\end{pmatrix}, \quad
+A^4 =
+\begin{pmatrix}
+3 & 3\\
+1 & 6
+\end{pmatrix}.$
+
+\item[b)] 
+$A^4 =
+\begin{pmatrix}
+8 & 1\\
+2 & 0
+\end{pmatrix}, \quad
+A^9 =
+\begin{pmatrix}
+5 & 4\\
+8 & 6
+\end{pmatrix}.$
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\vspace{0.5em}
+
+\textbf{a)}
+
+Sabemos que $A^3 \cdot A = A^4$, entonces
+\[
+\begin{pmatrix}1 & 8\\ 10 & 9\end{pmatrix} A = \begin{pmatrix}3 & 3\\ 1 & 6\end{pmatrix} 
+\quad \Rightarrow \quad 
+A = \begin{pmatrix}1 & 8\\ 10 & 9\end{pmatrix}^{-1} \begin{pmatrix}3 & 3\\ 1 & 6\end{pmatrix}.
+\qquad
+\left|\begin{matrix}1 & 8\\ 10 & 9\end{matrix}\right| = 6 \ne 0
+\]
+
+\[
+\Rightarrow
+\begin{pmatrix}
+    1 & 8\\ 10 & 9
+\end{pmatrix}
+\text{ regular.}
+\qquad
+\overline{\begin{pmatrix}1 & 8\\ 10 & 9\end{pmatrix}}^{\,T} =
+\begin{pmatrix}9 & 1\\ 3 & 1\end{pmatrix}^{\,T} =
+\begin{pmatrix}9 & 3\\ 1 & 1\end{pmatrix}
+\]
+
+\[\Rightarrow
+\begin{pmatrix}1 & 8\\ 10 & 9\end{pmatrix}^{-1} = 6^{-1} 
+\begin{pmatrix}9 & 3\\ 1 & 1\end{pmatrix}.
+\qquad
+A = 2 
+\begin{pmatrix}9 & 3\\ 1 & 1\end{pmatrix}
+\begin{pmatrix}3 & 3\\ 1 & 6\end{pmatrix}
+=
+\begin{pmatrix}7 & 6\\ 2 & 2\end{pmatrix}
+\begin{pmatrix}3 & 3\\ 1 & 6\end{pmatrix}
+=
+\boxed{ 
+\begin{pmatrix}5 & 2\\ 8 & 7\end{pmatrix}}.
+\]
+
+\vspace{0.5em}
+
+\textbf{b)}
+
+Sabemos que $(A^4)^2 \cdot A = A^9$, entonces
+\[
+\begin{pmatrix}8 & 1\\ 2 & 0\end{pmatrix}^2 A = \begin{pmatrix}5 & 4\\ 8 & 6\end{pmatrix}.
+\]
+
+Calculamos primero el cuadrado:
+\[
+\begin{pmatrix}8 & 1\\ 2 & 0\end{pmatrix}^2 = 
+\begin{pmatrix}8 & 1\\ 2 & 0\end{pmatrix} 
+\begin{pmatrix}8 & 1\\ 2 & 0\end{pmatrix} =
+\begin{pmatrix}0 & 8\\ 5 & 2\end{pmatrix}.
+\]
+
+Por tanto,
+\[
+\begin{pmatrix}0 & 8\\ 5 & 2\end{pmatrix} A = \begin{pmatrix}5 & 4\\ 8 & 6\end{pmatrix}
+\quad \Rightarrow \quad 
+A = \begin{pmatrix}0 & 8\\ 5 & 2\end{pmatrix}^{-1} \begin{pmatrix}5 & 4\\ 8 & 6\end{pmatrix}. \qquad
+\left|\begin{matrix}0 & 8\\ 5 & 2\end{matrix}\right| = 4 \ne 0
+\]
+
+\[
+\Rightarrow \quad
+\begin{pmatrix}
+    0 & 8\\ 5 & 2
+\end{pmatrix}
+\text{ regular.} \qquad
+\overline{\begin{pmatrix}0 & 8\\ 5 & 2\end{pmatrix}}^{\,T} = 
+\begin{pmatrix}2 & 6\\ 3 & 0\end{pmatrix}^{\,T} = 
+\begin{pmatrix}2 & 3\\ 6 & 0\end{pmatrix}
+\]
+
+\[
+\Rightarrow \quad 
+\begin{pmatrix}0 & 8\\ 5 & 2\end{pmatrix}^{-1} = 4^{-1} 
+\begin{pmatrix}2 & 3\\ 6 & 0\end{pmatrix}.
+\quad
+A = 3 
+\begin{pmatrix}2 & 3\\ 6 & 0\end{pmatrix} 
+\begin{pmatrix}5 & 4\\ 8 & 6\end{pmatrix} =
+\begin{pmatrix}6 & 9\\ 7 & 0\end{pmatrix} 
+\begin{pmatrix}5 & 4\\ 8 & 6\end{pmatrix} =
+\boxed{
+\begin{pmatrix}3 & 1\\ 2 & 6\end{pmatrix}}.
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 24]
+Calcule todas las soluciones del sistema siguiente, donde $X$ e $Y$ son matrices cuadradas de orden 2 con coeficientes en $\mathbb{R}$:
+\[
+\begin{cases}
+\phantom{
+\begin{pmatrix}
+-1 & 1\\
+1 & 2
+\end{pmatrix}
+}\,
+X +
+\,\,\,\,\,
+\begin{pmatrix}
+1 & 0\\
+-1 & 1
+\end{pmatrix}
+Y =
+\begin{pmatrix}
+0 & -2\\
+0 & 4
+\end{pmatrix},\\[1em]
+\begin{pmatrix}
+-1 & 1\\
+1 & 2
+\end{pmatrix}
+X +
+\begin{pmatrix}
+0 & -1\\
+-1 & 0
+\end{pmatrix}
+Y =
+\begin{pmatrix}
+-2 & 2\\
+0 & 4
+\end{pmatrix}.
+\end{cases}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+Usamos sustitución.
+
+Despejamos \(X\) en la primera ecuación:
+\[
+X =
+\begin{pmatrix}
+0 & -2\\
+0 & 4
+\end{pmatrix}
+-
+\begin{pmatrix}
+1 & 0\\
+-1 & 1
+\end{pmatrix} Y.
+\]
+
+Sustituimos \(X\) en la segunda ecuación:
+\[
+\begin{pmatrix}
+-1 & 1\\
+1 & 2
+\end{pmatrix}
+\Bigg[
+\begin{pmatrix}
+0 & -2\\
+0 & 4
+\end{pmatrix}
+-
+\begin{pmatrix}
+1 & 0\\
+-1 & 1
+\end{pmatrix} Y
+\Bigg]
++
+\begin{pmatrix}
+0 & -1\\
+-1 & 0
+\end{pmatrix} Y
+=
+\begin{pmatrix}
+-2 & 2\\
+0 & 4
+\end{pmatrix}
+\]
+
+\[
+\Rightarrow
+\begin{pmatrix}
+0 & 6\\
+0 & 6
+\end{pmatrix}
+-
+\begin{pmatrix}
+-2 & 1\\
+-1 & 2
+\end{pmatrix} Y
++
+\begin{pmatrix}
+0 & -1\\
+-1 & 0
+\end{pmatrix} Y
+=
+\begin{pmatrix}
+-2 & 2\\
+0 & 4
+\end{pmatrix}
+\]
+
+\[
+\Rightarrow
+\begin{pmatrix}
+2 & -1\\
+1 & -2
+\end{pmatrix} Y
++
+\begin{pmatrix}
+0 & -1\\
+-1 & 0
+\end{pmatrix} Y
+=
+\begin{pmatrix}
+-2 & -4\\
+0 & -2
+\end{pmatrix}
+\]
+
+\[
+\Rightarrow
+\begin{pmatrix}
+2 & -2\\
+0 & -2
+\end{pmatrix} Y
+=
+\begin{pmatrix}
+-2 & -4\\
+0 & -2
+\end{pmatrix}
+\quad
+\Rightarrow
+Y = 
+\begin{pmatrix}
+2 & -2\\
+0 & -2
+\end{pmatrix}^{-1}
+\begin{pmatrix}
+-2 & -4\\
+0 & -2
+\end{pmatrix}.
+\]
+Calculamos la inversa:
+\[
+\left|
+\begin{matrix}
+2 & -2\\
+0 & -2
+\end{matrix}
+\right|
+= -4 \neq 0
+\qquad \Rightarrow
+\begin{pmatrix}
+    2 & -2\\
+0 & -2
+\end{pmatrix}
+\text{ regular.}
+\]
+Entonces:
+\[
+\overline{\begin{pmatrix}2 & -2\\ 0 & -2\end{pmatrix}}^T
+=
+\begin{pmatrix}-2 & 0\\ 2 & 2\end{pmatrix}^T
+=
+\begin{pmatrix}
+-2 & 2\\
+0 & 2
+\end{pmatrix}
+\quad
+\Rightarrow
+\begin{pmatrix}
+2 & -2\\
+0 & -2
+\end{pmatrix}^{-1}
+= -\frac{1}{4}
+\begin{pmatrix}
+-2 & 2\\
+0 & 2
+\end{pmatrix}.
+\]
+Ahora multiplicamos y obtenemos $Y$:
+\[
+Y = -\frac{1}{4}
+\begin{pmatrix}
+-2 & 2\\
+0 & 2
+\end{pmatrix}
+\begin{pmatrix}
+-2 & -4\\
+0 & -2
+\end{pmatrix}
+= -\frac{1}{4}
+\begin{pmatrix}
+4 & 4\\
+0 & -4
+\end{pmatrix}
+=
+\boxed{
+\begin{pmatrix}
+-1 & -1\\[4pt]
+0 & 1
+\end{pmatrix}
+}
+\]
+Sustituimos en la primera ecuación para obtener \(X\):
+\[
+X =
+\begin{pmatrix}
+0 & -2\\
+0 & 4
+\end{pmatrix}
+-
+\begin{pmatrix}
+1 & 0\\
+-1 & 1
+\end{pmatrix}
+\begin{pmatrix}
+-1 & -1\\
+0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 & -2\\
+0 & 4
+\end{pmatrix}
+-
+\begin{pmatrix}
+-1 & -1\\
+1 & 2
+\end{pmatrix}
+=
+\boxed{
+\begin{pmatrix}
+1 & -1\\
+-1 & 2
+\end{pmatrix}
+}
+\]
+\end{ejercicio}
+
+\subsubsection{La fórmula de Cramer}
+
+\begin{ejercicio}[title=Ejercicio 25]
+Compruebe que cada uno de los sistemas siguientes sobre $\mathbb{R}$ es de Cramer y calcule sus soluciones aplicando la fórmula de Cramer:
+
+\[
+\begin{aligned}
+\text{a)}\;
+\begin{cases}
+x + y + z = 1\\
+x - y + z = 0\\
+x + y - z = 2
+\end{cases}
+\qquad\qquad
+\text{b)}\;
+\begin{cases}
+x + y - z = -1\\
+2x + y - 3z = 1\\
+x - 2y - 2z = 1
+\end{cases}
+\end{aligned}
+\]
+
+A continuación, obtenga la representación matricial de cada uno de los sistemas y resuélvalo usando dicha representación.
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{Comprobación de Sistemas de Cramer}
+
+En ambos sistemas hay 3 ecuaciones y 3 incógnitas.
+
+\bigskip
+
+Para \textbf{a)}:
+
+\[
+(A \,|\, B) =
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 1\\
+1 & -1 & 1 &\Big|& 0\\
+1 & 1 & -1 &\Big|& 2
+\end{pmatrix}
+\]
+
+Entonces
+\[
+|A| = 1+1+1+1-1+1 = 4 \neq 0 \quad\Rightarrow\quad A \text{ regular.}
+\]
+
+\bigskip
+
+Para \textbf{b)}:
+
+\[
+(A \,|\, B) =
+\begin{pmatrix}
+1 & 1 & -1 &\Big|& -1\\
+2 & 1 & -3 &\Big|& 1\\
+1 & -2 & -2 &\Big|& 1
+\end{pmatrix}
+\]
+
+Entonces
+\[
+|A| = -2+4-3+1-6+4 = -2 \neq 0 \quad\Rightarrow\quad A \text{ regular.}
+\]
+
+\[
+\boxed{\text{Ambos sistemas a) y b) son de Cramer.}}
+\]
+
+\bigskip
+
+\textbf{Soluciones aplicando la fórmula de Cramer}
+
+\medskip
+
+\textbf{a)}
+
+\[
+x = \frac{|M_x|}{|A|} = \frac{1}{4}
+\left|
+\begin{matrix}
+1 & 1 & 1\\
+0 & -1 & 1\\
+2 & 1 & -1
+\end{matrix}
+\right|
+= \frac{1}{4}(1+2+2-1) = 1,
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 25]
+\[
+y = \frac{|M_y|}{|A|}
+= \frac{1}{4}
+\left|
+\begin{matrix}
+1 & 1 & 1\\
+1 & 0 & 1\\
+1 & 2 & -1
+\end{matrix}
+\right|
+= \frac{1}{4}(2+1-2+1) = \frac{1}{2},
+\]
+\[
+z = \frac{|M_z|}{|A|}
+= \frac{1}{4}
+\left|
+\begin{matrix}
+1 & 1 & 1\\
+1 & -1 & 0\\
+1 & 1 & 2
+\end{matrix}
+\right|
+= \frac{1}{4}(-2+1+1-2) = -\frac{1}{2}.
+\]
+
+\[
+\boxed{\,x = 1,\quad y = \frac{1}{2},\quad z = -\frac{1}{2}\,}
+\]
+
+\bigskip
+
+\textbf{b)}
+
+\[
+x = \frac{|M_x|}{|A|} = -\frac{1}{2}
+\left|
+\begin{matrix}
+-1 & 1 & -1\\
+1 & 1 & -3\\
+1 & -2 & -2
+\end{matrix}
+\right|
+= -\frac{1}{2}(2+2-3+1+6+2) = -5,
+\]
+
+\[
+y = \frac{|M_y|}{|A|} = -\frac{1}{2}
+\left|
+\begin{matrix}
+1 & -1 & -1\\
+2 & 1 & -3\\
+1 & 1 & -2
+\end{matrix}
+\right|
+= -\frac{1}{2}(-2-2+3+1+3-4) = \frac{1}{2},
+\]
+
+\[
+z = \frac{|M_z|}{|A|} = -\frac{1}{2}
+\left|
+\begin{matrix}
+1 & 1 & -1\\
+2 & 1 & 1\\
+1 & -2 & 1
+\end{matrix}
+\right|
+= -\frac{1}{2}(1+4+1+1+2-2) = -\frac{7}{2}.
+\]
+
+\[
+\boxed{\,x = -5,\quad y = \frac{1}{2},\quad z = -\frac{7}{2}\,}
+\]
+
+\bigskip
+
+\textbf{Resolución matricial}
+
+La solución viene dada por la ecuación $X = A^{-1}B$. Es un SCD.
+
+\textbf{a)}
+
+\[
+A =
+\begin{pmatrix}
+1 & 1 & 1\\
+1 & -1 & 1\\
+1 & 1 & -1
+\end{pmatrix},
+\qquad
+\overline{A} =
+\begin{pmatrix}
+0 & 2 & 2\\
+2 & -2 & 0\\
+2 & 0 & -2
+\end{pmatrix},
+\qquad
+\overline{A}^{\,T} =
+\begin{pmatrix}
+0 & 2 & 2\\
+2 & -2 & 0\\
+2 & 0 & -2
+\end{pmatrix}.
+\]
+
+\[
+A^{-1}
+= \frac{1}{4}
+\begin{pmatrix}
+0 & 2 & 2\\
+2 & -2 & 0\\
+2 & 0 & -2
+\end{pmatrix}
+= \frac{1}{2}
+\begin{pmatrix}
+0 & 1 & 1\\
+1 & -1 & 0\\
+1 & 0 & -1
+\end{pmatrix}.
+\]
+
+Entonces,
+
+\[
+X
+= \frac{1}{2}
+\begin{pmatrix}
+0 & 1 & 1\\
+1 & -1 & 0\\
+1 & 0 & -1
+\end{pmatrix}
+\begin{pmatrix}
+1\\ 0\\ 2
+\end{pmatrix}
+= \frac{1}{2}
+\begin{pmatrix}
+2\\ 1\\ -1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1\\[2pt]
+\tfrac12\\[2pt]
+-\tfrac12
+\end{pmatrix}
+\]
+
+\[
+\boxed{\,x = 1,\quad y = \frac{1}{2},\quad z = -\frac{1}{2}\,}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 25]
+\textbf{b)}
+
+\[
+A =
+\begin{pmatrix}
+1 & 1 & -1\\
+2 & 1 & -3\\
+1 & -2 & -2
+\end{pmatrix},
+\qquad
+\overline{A} =
+\begin{pmatrix}
+-8 & 1 & -5\\
+4 & -1 & 3\\
+-2 & 1 & -1
+\end{pmatrix},
+\qquad
+\overline{A}^{\,T} =
+\begin{pmatrix}
+-8 & 4 & -2\\
+1 & -1 & 1\\
+-5 & 3 & -1
+\end{pmatrix}.
+\]
+\[
+A^{-1}
+= -\frac{1}{2}
+\begin{pmatrix}
+-8 & 4 & -2\\
+1 & -1 & 1\\
+-5 & 3 & -1
+\end{pmatrix}.
+\]
+
+Entonces,
+
+\[
+X
+=
+-\frac{1}{2}
+\begin{pmatrix}
+-8 & 4 & -2\\
+1 & -1 & 1\\
+-5 & 3 & -1
+\end{pmatrix}
+\begin{pmatrix}
+-1\\ 1\\ 1
+\end{pmatrix}
+=
+-\frac{1}{2}
+\begin{pmatrix}
+10\\ -1\\ 7
+\end{pmatrix} =
+\begin{pmatrix}
+-5\\[2pt]
+\tfrac12\\[2pt]
+-\tfrac72
+\end{pmatrix}
+\]
+
+\[
+\boxed{\,x = -5,\quad y = \frac{1}{2},\quad z = -\frac{7}{2}\,}
+\]
+
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 26]
+Resuelva cada uno de los sistemas siguientes sobre $\mathbb{Z}_7$:
+
+\[
+\begin{aligned}
+\text{a)}&
+\begin{cases}
+x + y + 3z = 1\\
+2x + 6y + 3z = 6\\
+x + 4y + 6z = 4
+\end{cases}
+\qquad&
+\text{b)}
+\begin{cases}
+3x + 4y = 2\\
+2x + 5y = 4
+\end{cases}
+\\[1em]
+\text{c)}&
+\begin{cases}
+4x + 5y = 2\\
+3x + y = 6\\
+6x + 4y = 3\\
+4x + 3y = 4\\
+4x + 2y = 5
+\end{cases}
+\qquad&\qquad
+\text{d)}
+\begin{cases}
+x + 2y + 3z + t = 2\\
+x + 6y + z + 2t = 1\\
+x + 3y + 6z + 3t = 0\\
+2x + 2y + 5t = 1
+\end{cases}
+\end{aligned}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)}  
+
+Vemos que nº ecuaciones = nº incógnitas = 3, así que comprobamos si es sistema de Cramer:
+
+\[
+\left|
+\begin{matrix}
+1 & 1 & 3\\
+2 & 6 & 3\\
+1 & 4 & 6
+\end{matrix}
+\right| = 0 \quad(\text{en } \mathbb{Z}_7),
+\]
+por tanto $A$ no es regular $\Rightarrow$ no es sistema de Cramer.
+
+Aplicamos Gauss–Jordan:
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & 1 & 3 &\Big|& 1\\
+2 & 6 & 3 &\Big|& 6\\
+1 & 4 & 6 &\Big|& 4
+\end{pmatrix}
+\overset{\substack{F_2-2F_1\\F_3-F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 3 &\Big|& 1\\
+0 & 4 & 4 &\Big|& 4\\
+0 & 3 & 3 &\Big|& 3
+\end{pmatrix}
+\overset{\substack{F_3+F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 3 &\Big|& 1\\
+0 & 4 & 4 &\Big|& 4\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_1-2F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 &\Big|& 0\\
+0 & 4 & 4 &\Big|& 4\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\overset{\substack{2F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 &\Big|& 0\\
+0 & 1 & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+= H_f(A\,|\,B)
+\Rightarrow
+\begin{cases}
+x + 2z = 0\\[4pt]
+y + z = 1
+\end{cases}
+\]
+
+\vspace{0.5em}
+
+$\operatorname{Rg}(A) = \operatorname{Rg}(A\,|\,B) \ne $ nº incógnitas $ \Rightarrow$ SCI. Tomando $z=\lambda\in\mathbb{Z}_7$ obtenemos:
+\[
+x = -2\lambda \equiv 5\lambda,\qquad y = 1-\lambda \equiv 1+6\lambda,\qquad z=\lambda.
+\]
+\[
+\boxed{\,x = 5\lambda,\quad y = 1+6\lambda,\quad z = \lambda,\qquad \lambda\in\mathbb{Z}_7\,}
+\]
+
+\textbf{b)}
+
+Vemos que nº ecuaciones = nº incógnitas = 2, así que vemos si es sistema de Cramer:
+
+\[
+\left|
+\begin{matrix}
+3 & 4\\
+2 & 5
+\end{matrix}
+\right| = 0 \quad(\text{en } \mathbb{Z}_7),
+\]
+por tanto $A$ no es regular $\Rightarrow$ no es sistema de Cramer.
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 26]
+Aplicamos Gauss–Jordan:
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+3 & 4 &\Big|& 2\\
+2 & 5 &\Big|& 4
+\end{pmatrix}
+\overset{\substack{5F_1\\4F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 6 &\Big|& 3\\
+1 & 6 &\Big|& 2
+\end{pmatrix}
+\overset{\substack{F_2 - F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 6 &\Big|& 3\\
+0 & 0 &\Big|& 6
+\end{pmatrix}
+\]
+
+\[
+\Rightarrow
+\begin{cases}
+x + 6y = 3,\\[4pt]
+0 = 6.
+\end{cases}
+\Rightarrow
+\text{SI}
+\]
+
+\[
+\boxed{\text{El sistema no tiene solución.}}
+\]
+
+\bigskip
+
+\textbf{c)}
+
+Como nº ecuaciones = 5 $\ne$ nº incógnitas = 2, así que no podemos aplicar la fórmula de Cramer. Aplicamos Gauss-Jordan:
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+4 & 5 &\Big|& 2\\
+3 & 1 &\Big|& 6\\
+6 & 4 &\Big|& 3\\
+4 & 3 &\Big|& 4\\
+4 & 2 &\Big|& 5
+\end{pmatrix}
+\overset{\substack{F_1+F_2\\F_3-2F_2\\F_4+F_2\\F_5+F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+0 & 6 &\Big|& 1\\
+3 & 1 &\Big|& 6\\
+0 & 2 &\Big|& 5\\
+0 & 4 &\Big|& 3\\
+0 & 3 &\Big|& 4
+\end{pmatrix}
+\overset{\substack{5F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+0 & 6 &\Big|& 1\\
+1 & 5 &\Big|& 2\\
+0 & 2 &\Big|& 5\\
+0 & 4 &\Big|& 3\\
+0 & 3 &\Big|& 4
+\end{pmatrix}
+\overset{\substack{F_1 \leftrightarrow F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 &\Big|& 2\\
+0 & 6 &\Big|& 1\\
+0 & 2 &\Big|& 5\\
+0 & 4 &\Big|& 3\\
+0 & 3 &\Big|& 4
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{6F_2\\4F_3\\2F_4\\5F_5\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 5 &\Big|& 2\\
+0 & 1 &\Big|& 6\\
+0 & 1 &\Big|& 6\\
+0 & 1 &\Big|& 6\\
+0 & 1 &\Big|& 6
+\end{pmatrix}
+\overset{\substack{F_1 - 5F_2\\F_3 - F_2\\F_4 - F_2\\F_5 - F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 &\Big|& 0\\
+0 & 1 &\Big|& 6\\
+0 & 0 &\Big|& 0\\
+0 & 0 &\Big|& 0\\
+0 & 0 &\Big|& 0
+\end{pmatrix}
+= H_f(A\,|\,B)
+\Rightarrow
+\begin{cases}
+x = 0\\[4pt]
+y = 6
+\end{cases}
+\quad \text{(SCD)}
+\]
+
+\vspace{0.5em}
+
+\[
+\boxed{\,x = 0,\quad y = 6\,}
+\]
+
+\vspace{0.5em}
+
+\textbf{d)}
+
+Vemos que nº ecuaciones = nº incógnitas = 4, pero aplicar la regla de Sarrus para órdenes $\ge 4$ no es buen método. Aplicamos Gauss–Jordan directamente:
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & 2 & 3 & 1 &\Big|& 2\\
+1 & 6 & 1 & 2 &\Big|& 1\\
+1 & 3 & 6 & 3 &\Big|& 0\\
+2 & 2 & 0 & 5 &\Big|& 1
+\end{pmatrix}
+\overset{\substack{F_2 - F_1 \\ F_3 - F_1 \\ F_4 - 2F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & 3 & 1 &\Big|& 2\\
+0 & 4 & 5 & 1 &\Big|& 6\\
+0 & 1 & 3 & 2 &\Big|& 5\\
+0 & 5 & 1 & 3 &\Big|& 4
+\end{pmatrix}
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 26]
+\[
+\overset{\substack{2F_2 \\ 3F_4 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & 3 & 1 &\Big|& 2\\
+0 & 1 & 3 & 2 &\Big|& 5\\
+0 & 1 & 3 & 2 &\Big|& 5\\
+0 & 1 & 3 & 2 &\Big|& 5
+\end{pmatrix}
+\overset{\substack{F_1 - 2F_2 \\ F_3 - F_2 \\ F_4 - F_2 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 4 & 4 &\Big|& 6\\
+0 & 1 & 3 & 2 &\Big|& 5\\
+0 & 0 & 0 & 0 &\Big|& 0\\
+0 & 0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+= H_f(A\,|\,B)
+\Rightarrow
+\begin{cases}
+x + 4z + 4t = 6\\[4pt]
+y + 3z + 2t = 5
+\end{cases}
+\]
+
+$\operatorname{Rg}(A) = \operatorname{Rg}(A\,|\,B) \ne $ nº incógnitas $ \Rightarrow$ SCI.
+
+\vspace{0.5em}
+
+Tomando parámetros libres \(z=\lambda_1,\ t=\lambda_2\in\mathbb{Z}_7\) se tiene
+\[
+x = 6 - 4z - 4t \equiv 6 + 3z + 3t,
+\qquad
+y = 5 - 3z - 2t \equiv 5 + 4z + 5t.
+\]
+\[
+\boxed{\,x = 6+3\lambda_1+3\lambda_2,\quad y = 5+4\lambda_1+5\lambda_2,\quad z=\lambda_1,\quad t=\lambda_2,\quad
+\lambda_1,\lambda_2\in\mathbb{Z}_7\,}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 30]
+Discuta y resuelva los sistemas siguientes sobre $\mathbb{Z}_7$ según los valores del parámetro $a$:
+
+\begin{enumerate}
+\item[a)] 
+$\begin{cases}
+x + 3y + (a + 1)z = 2\\
+x + 4y + (2a + 2)z = 5\\
+x + 2y + 2z = a^2
+\end{cases}$
+
+\item[b)] 
+$\begin{cases}
+x + 2y + 3z = 2\\
+2x + y + a z = 3\\
+4x + y + a z = 6
+\end{cases}$
+
+\item[c)] 
+$\begin{cases}
+5x + 2y + 6z = 1\\
+2x + y + a z = 4\\
+3x + 4y + 5z = a
+\end{cases}$
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+Usamos el teorema de Rouché–Frobenius para averiguar la compatibilidad del sistema. Esto consiste en analizar los valores de los rangos de $A$ y $(A\,|\,B)$. Calculamos una matriz en forma escalonada por filas en cada apartado.
+
+\textbf{a)}
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & 3 & a+1 &\Big|& 2\\
+1 & 4 & 2a+2 &\Big|& 5\\
+1 & 2 & 2 &\Big|& a^2
+\end{pmatrix}
+\overset{\substack{F_2 - F_1 \\ F_3 - F_1}}{\sim_f}
+\begin{pmatrix}
+1 & 3 & a+1 &\Big|& 2\\
+0 & 1 & a+1 &\Big|& 3\\
+0 & 6 & 6a+1 &\Big|& a^2-2
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_3 + F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 3 & a+1 &\Big|& 2\\
+0 & 1 & a+1 &\Big|& 3\\
+0 & 0 & 2 &\Big|& a^2+1
+\end{pmatrix}
+\text{ está en forma escalonada por filas.}
+\]
+
+De aquí:
+\[
+\operatorname{Rg}(A)=\text{nº filas no nulas }=3,\qquad
+\operatorname{Rg}(A\,|\,B)=\text{nº filas no nulas }=3,
+\]
+porque en ambos casos hay elementos no nulos en cada una de las filas.
+
+\vspace{0.5em}
+
+Como \(\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=3=\text{nº incógnitas}\), por el teorema de Rouché–Frobenius:
+
+\[\boxed{\text{El sistema es un SCD.}}\]
+
+\vspace{0.5em}
+
+Para resolver el sistema, comprobamos que \(A\) es regular:
+\[
+\left|
+\begin{matrix}
+1 & 3 & a+1\\
+1 & 4 & 2a+2\\
+1 & 2 & 2
+\end{matrix}
+\right| = 2 \neq 0 \quad(\text{en }\mathbb{Z}_7),
+\]
+por tanto \(A\) es regular y es un sistema de Cramer.  
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 30]
+Como \(2^{-1}=4\) en \(\mathbb{Z}_7\), aplicamos la fórmula de Cramer.
+
+\[
+x = 4\,
+\left|
+\begin{matrix}
+2 & 3 & a+1\\
+5 & 4 & 2a+2\\
+a^2 & 2 & 2
+\end{matrix}
+\right|
+= a^3 + a^2 + a + 1,
+\]
+
+\[
+y = 4\,
+\left|
+\begin{matrix}
+1 & 2 & a+1\\
+1 & 5 & 2a+2\\
+1 & a^2 & 2
+\end{matrix}
+\right|
+= 3a^3 + 3a^2 + 3a + 6,
+\]
+
+\[
+z = 4\,
+\left|
+\begin{matrix}
+1 & 3 & 2\\
+1 & 4 & 5\\
+1 & 2 & a^2
+\end{matrix}
+\right|
+= 4(a^2+1)
+= 4a^2 + 4.
+\]
+
+Por tanto las soluciones son
+
+\[
+\boxed{\,x = a^3 + a^2 + a + 1,\qquad
+y = 3a^3 + 3a^2 + 3a + 6,\qquad
+z = 4a^2 + 4\,}
+\]
+
+\vspace{1em}
+
+\textbf{b)}
+
+La matriz ampliada es
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & 2 & 3 &\Big|& 2\\
+2 & 1 & a &\Big|& 3\\
+4 & 1 & a &\Big|& 6
+\end{pmatrix}
+\overset{\substack{F_2+5F_1\\ F_3+3F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 2 & 3 &\Big|& 2\\
+0 & 4 & a+1 &\Big|& 6\\
+0 & 0 & a+2 &\Big|& 5
+\end{pmatrix}
+\text{\shortstack{ está en forma\\ escalonada por filas.}}
+\]
+
+De aquí,
+\[
+\operatorname{Rg}(A\,|\,B)=\text{nº filas no nulas}=3.
+\]
+
+Para la matriz de coeficientes \(A\), la tercera fila es nula si y sólo si
+\(a+2=0\), es decir, \(a=5\) (en \(\mathbb{Z}_7\)). Por tanto,
+\[
+\operatorname{Rg}(A)=
+\begin{cases}
+2 & \text{si } a=5,\\
+3 & \text{si } a\neq 5.
+\end{cases}
+\]
+
+\begin{itemize}
+\item \textbf{Caso 1. \(a=5\).}
+
+\[
+(A\,|\,B)\sim_f
+\begin{pmatrix}
+1 & 2 & 3 &\Big|& 2\\
+0 & 4 & 6 &\Big|& 6\\
+0 & 0 & 0 &\Big|& 5
+\end{pmatrix}.
+\]
+
+Se tiene \(\operatorname{Rg}(A)=2 \neq \operatorname{Rg}(A\,|\,B)=3\).  
+\[
+\boxed{\text{El sistema es un SI si } a=5.}
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 30]
+\begin{itemize}
+\item \textbf{Caso 2. \(a\neq 5\).}
+
+\[
+(A\,|\,B)\sim_f
+\begin{pmatrix}
+1 & 2 & 3 &\Big|& 2\\
+0 & 4 & a+1 &\Big|& 6\\
+0 & 0 & a+2 &\Big|& 5
+\end{pmatrix}.
+\]
+
+En este caso,
+\[
+\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=\text{nº incógnitas}=3,
+\]
+luego
+\[
+\boxed{\text{El sistema es un SCD si } a\neq 5.}
+\]
+
+Como el sistema tiene el mismo número de ecuaciones que de incógnitas, es un
+sistema de Cramer. El sistema equivalente tiene las mismas soluciones que el original.
+\[
+|A|=
+\begin{vmatrix}
+1 & 2 & 3\\
+0 & 4 & a+1\\
+0 & 0 & a+2
+\end{vmatrix}
+=4a+1
+\]
+
+Aplicamos la fórmula de Cramer.
+
+\[
+x=(4a+1)^{-1}
+\begin{vmatrix}
+2 & 2 & 3\\
+6 & 4 & a+1\\
+5 & 0 & a+2
+\end{vmatrix}
+=(4a+1)^{-1}(6a+5)
+=\boxed{(6a+5)(4a+1)^{-1}}.
+\]
+
+\[
+y=(4a+1)^{-1}
+\begin{vmatrix}
+1 & 2 & 3\\
+0 & 6 & a+1\\
+0 & 5 & a+2
+\end{vmatrix}
+=(4a+1)^{-1}\,a
+=\boxed{a(4a+1)^{-1}}.
+\]
+
+\[
+z=(4a+1)^{-1}
+\begin{vmatrix}
+1 & 2 & 2\\
+0 & 4 & 6\\
+0 & 0 & 5
+\end{vmatrix}
+=\boxed{6(4a+1)^{-1}}.
+\]
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{c)}
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+5 & 2 & 6 &\Big|& 1\\
+2 & 1 & a &\Big|& 4\\
+3 & 4 & 5 &\Big|& a
+\end{pmatrix}
+\overset{\substack{F_2+F_1\\F_3+5F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+5 & 2 & 6 &\Big|& 1\\
+0 & 3 & a+6 &\Big|& 5\\
+0 & 0 & 0 &\Big|& a+5
+\end{pmatrix}
+\text{\shortstack{ está en forma\\ escalonada por filas.}}
+\]
+
+\[
+\operatorname{Rg}(A)=\text{nº filas no nulas }=2.
+\]
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 30]
+Para la matriz ampliada \((A\,|\,B)\), la tercera fila se anula si y sólo si \(a+5 = 0\), es decir \(a=2\). Entonces
+\[
+\operatorname{Rg}(A\,|\,B)=
+\begin{cases}
+2 & \text{si } a=2,\\[4pt]
+3 & \text{si } a\neq 2.
+\end{cases}
+\]
+
+\vspace{0.5em}
+
+Teniendo en cuenta que nº incógnitas = 3, por el teorema de Rouché–Frobenius se obtiene:
+\[
+\boxed{\;
+\text{El sistema es }\begin{cases}
+\text{SCI} & \text{si } a=2,\\[4pt]
+\text{SI} & \text{si } a\neq 2.
+\end{cases}
+}
+\]
+
+\bigskip
+
+\noindent Para resolver el caso \(a=2\) aplicamos Gauss–Jordan sobre \((A\,|\,B)\) con \(a=2\):
+
+\[
+\begin{pmatrix}
+5 & 2 & 6 &\Big|& 1\\
+0 & 3 & 1 &\Big|& 5\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\overset{\substack{3F_1\\5F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 6 & 4 &\Big|& 3\\
+0 & 1 & 5 &\Big|& 4\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\overset{\substack{F_1+F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 2 &\Big|& 0\\
+0 & 1 & 5 &\Big|& 4\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+= H_f(A\,|\,B).
+\]
+
+\[
+\begin{cases}
+x + 2z = 0,\\[4pt]
+y + 5z = 4.
+\end{cases}
+\]
+
+Tomando \(z=\lambda\in\mathbb{Z}_7\) (parámetro libre) se obtiene
+\[
+x = -2\lambda \equiv 5\lambda,\qquad
+y = 4 - 5\lambda \equiv 4 + 2\lambda,\qquad
+z = \lambda.
+\]
+\[
+\boxed{\,x = 5\lambda,\quad y = 4+2\lambda,\quad z=\lambda,\qquad \lambda\in\mathbb{Z}_7\,}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 31]
+Discuta y resuelva los sistemas siguientes sobre $\mathbb{R}$ según los valores de $a$ y $b$:
+
+\[
+\begin{tabular}{c @{\hspace{2cm}} c}
+$a)\begin{cases}
+a x + y + z = 1\\
+x + a y + z = 1\\
+x + y + a z = b
+\end{cases}$ &
+$b)\begin{cases}
+x + b y + a z = 1\\
+a x + b y + z = a\\
+x + a b y + z = b
+\end{cases}$
+\end{tabular}
+\]
+
+\tcblower
+\textbf{Resolución:}
+
+La discusión de la compatibilidad de los sistemas en este ejercicio se estudia constantemente mediante el \textbf{Teorema de Rouché-Frobenius}, el cual determina la compatiblidad del sistema a partir del rango de la matriz de coeficientes y de la matriz ampliada.
+
+\vspace{0.5em}
+
+\textbf{a)}
+En primer lugar, calculamos el determinante de la matriz de coeficientes, $|{A}|$, y vemos cuándo se anula para determinar cuándo podemos o no resolverlo por la fórmula de Cramer.
+La matriz ampliada es:
+$$({A}\,|\,{B}) =
+\begin{pmatrix}
+a & 1 & 1 &\Big|& 1\\
+1 & a & 1 &\Big|& 1\\
+1 & 1 & a &\Big|& b
+\end{pmatrix}$$
+Entonces, el determinante de ${A}$ es:
+$$|{A}| =
+\begin{vmatrix}
+a & 1 & 1\\
+1 & a & 1\\
+1 & 1 & a
+\end{vmatrix}
+= a^3 - 3a + 2$$
+
+Vemos que el número de ecuaciones es igual al número de incógnitas, que es 3.
+
+El sistema es de Cramer si ${A}$ es regular, es decir, si $|{A}| \neq 0$.
+
+Vemos qué valores anulan el determinante. Probamos con $a=1$ en el polinomio con Ruffini:
+$$
+\begin{array}{c|cccc}
+  & 1 & 0 & -3 & 2 \\
+1 &   & 1 & 1 & -2 \\
+\hline
+  & 1 & 1 & -2 & \boxed{0} \\
+1 &   & 1 & 2 \\
+\hline
+  & 1 & 2 & \boxed{0}
+\end{array}
+$$
+
+$$a^3 - 3a + 2 = (a-1)^2(a+2)$$
+
+El determinante se anula si $a=1$ o $a=-2$.
+
+\begin{itemize}
+    \item \textbf{Caso 1. $a \neq 1$ y $a \neq -2$.}
+    
+Al no anularse el determinante $|{A}|$, la matriz ${A}$ es regular y el sistema es de Cramer. Además:
+\[
+\text{Rg}({A}) = \text{Rg}({A}|{B}) = \text{nº incógnitas} = 3
+\]
+\[
+\boxed{\text{El sistema es un SCD si } a \ne 1 \text{ y } a \ne -2.}
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\begin{itemize}
+Para resolver el sistema, es más sencillo en este caso aplicar la fórmula ${X} = {A}^{-1} {B}$ que la fórmula de Cramer. Así que calculamos $A^{-1}$.
+$$\overline{A} =
+\begin{pmatrix}
+a^2-1 & -a+1 & -a+1\\
+-a+1 & a^2-1 & -a+1\\
+-a+1 & -a+1 & a^2-1
+\end{pmatrix}$$
+$$\overline{{A}}^T =
+\begin{pmatrix}
+a^2-1 & -a+1 & -a+1\\
+-a+1 & a^2-1 & -a+1\\
+-a+1 & -a+1 & a^2-1
+\end{pmatrix} = (a-1)
+\begin{pmatrix}
+a+1 & -1 & -1\\
+-1 & a+1 & -1\\
+-1 & -1 & a+1
+\end{pmatrix}$$
+\[\]
+
+La inversa $A^{-1}$ es:
+
+\[
+A^{-1}
+= \frac{1}{|A|}\,\overline{A}^{\,T}
+= \frac{a-1}{(a-1)^2(a+2)}
+\begin{pmatrix}
+a+1 & -1 & -1\\
+-1 & a+1 & -1\\
+-1 & -1 & a+1
+\end{pmatrix}
+\]
+
+\[
+= \frac{1}{(a-1)(a+2)}
+\begin{pmatrix}
+a+1 & -1 & -1\\
+-1 & a+1 & -1\\
+-1 & -1 & a+1
+\end{pmatrix}
+= \frac{1}{a^2 + a - 2}
+\begin{pmatrix}
+a+1 & -1 & -1\\
+-1 & a+1 & -1\\
+-1 & -1 & a+1
+\end{pmatrix}.
+\]
+\[\]
+
+Entonces, la solución ${X} = {A}^{-1} {B}$ es:
+
+\[
+\begin{pmatrix}
+x\\
+y\\
+z
+\end{pmatrix}
+= \frac{1}{a^2+a-2}
+\begin{pmatrix}
+a+1 & -1 & -1\\
+-1 & a+1 & -1\\
+-1 & -1 & a+1
+\end{pmatrix}
+\begin{pmatrix}
+1\\
+1\\
+b
+\end{pmatrix}
+\]
+
+\[
+= \frac{1}{a^2+a-2}
+\begin{pmatrix}
+(a+1) - 1 - b\\
+-1 + (a+1) - b\\
+-1 - 1 + b(a+1)
+\end{pmatrix}
+= \frac{1}{a^2+a-2}
+\begin{pmatrix}
+a-b\\
+a-b\\
+ab+b-2
+\end{pmatrix}
+=
+\boxed{
+\begin{pmatrix}
+\dfrac{a-b}{a^2+a-2}\\[12pt]
+\dfrac{a-b}{a^2+a-2}\\[12pt]
+\dfrac{ab+b-2}{a^2+a-2}
+\end{pmatrix}}
+\]
+
+\item \textbf{Caso 2. $a=1$.}
+
+La matriz ampliada es
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 1\\
+1 & 1 & 1 &\Big|& 1\\
+1 & 1 & 1 &\Big|& b
+\end{pmatrix}
+\overset{\substack{F_2-F_1\\ F_3-F_1 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& 0\\
+0 & 0 & 0 &\Big|& b-1
+\end{pmatrix}
+\overset{F_2 \leftrightarrow F_3 \\{}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& b-1\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix},
+\]
+\[
+\text{que está en forma escalonada por filas.}
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\begin{itemize}
+\[
+\operatorname{Rg}(A)=\text{nº filas no nulas}=1,
+\qquad
+\operatorname{Rg}(A\,|\,B)=
+\begin{cases}
+1 & \text{si } b=1,\\[2mm]
+2 & \text{si } b\neq 1.
+\end{cases}
+\]
+
+\begin{itemize}
+\item \textbf{Subcaso 2.1. $a=1$ y $b=1$.}
+\[
+(A\,|\,B)\sim_f
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& 0\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\text{ está en forma escalonada por filas.}
+\]
+
+Se tiene:
+\[
+\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=1 \neq \text{nº incógnitas}=3.
+\]
+\[
+\boxed{\text{El sistema es un SCI si } a=1 \text{ y } b=1.}
+\]
+
+Resolvemos:
+\[
+\begin{cases}
+    x+y+z=1
+\end{cases}
+\]
+
+Tomamos \(y=\lambda_1\), \(z=\lambda_2\) parámetros libres. Entonces:
+\[
+x=1-\lambda_1-\lambda_2.
+\]
+\[
+\boxed{
+x = 1-\lambda_1-\lambda_2,\qquad
+y=\lambda_1,\qquad
+z=\lambda_2,\qquad
+\lambda_1,\lambda_2\in\mathbb{R}.
+}
+\]
+
+\vspace{0.5em}
+
+\item \textbf{Subcaso 2.2. $a=1$ y $b\neq 1$.}
+
+En este caso:
+\[
+\operatorname{Rg}(A)=1 \neq \operatorname{Rg}(A\,|\,B)=2.
+\]
+\[
+\boxed{\text{El sistema es un SI si } a=1 \text{ y } b\neq 1.}
+\]
+
+\end{itemize}
+
+\item \textbf{Caso 3. \(a=-2\).}
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+-2 & 1 & 1 &\Big|& 1\\
+1 & -2 & 1 &\Big|& 1\\
+1 & 1 & -2 &\Big|& b
+\end{pmatrix}
+\overset{\substack{F_1 \leftrightarrow F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & -2 &\Big|& b\\
+1 & -2 & 1 &\Big|& 1\\
+-2 & 1 & 1 &\Big|& 1
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_2 - F_1 \\ F_3 + 2F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & -2 &\Big|& b\\
+0 & -3 & 3 &\Big|& 1-b\\
+0 & 3 & -3 &\Big|& 2b+1
+\end{pmatrix}
+\overset{\substack{F_3 + F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & -2 &\Big|& b\\
+0 & -3 & 3 &\Big|& -b+1\\
+0 & 0 & 0 &\Big|& b+2
+\end{pmatrix},
+\]
+
+que está en forma escalonada por filas.
+\[
+\operatorname{Rg}(A)=\text{nº filas no nulas}=2.
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\begin{itemize}
+Para la matriz aumentada \((A\,|\,B)\) la tercera fila se anula si y sólo si \(b+2=0\), es decir \(b=-2\). Por tanto
+\[
+\operatorname{Rg}(A\,|\,B)=
+\begin{cases}
+2 & \text{si } b=-2,\\[4pt]
+3 & \text{si } b\neq -2.
+\end{cases}
+\]
+
+\begin{itemize}
+\item \textbf{Subcaso 3.1. \(a=-2\) y \(b=-2\).}
+
+En este caso \(\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=2 \neq\) nº incógnitas \(=3\).  
+\[
+\boxed{\text{El sistema es un SCI si } a=-2 \text{ y } b=-2.}
+\]
+
+Resolvemos aplicando Gauss–Jordan sobre la ampliada con \(b=-2\):
+\[
+(A\,|\,B)
+\sim_f
+\begin{pmatrix}
+1 & 1 & -2 &\Big|& -2\\
+0 & -3 & 3 &\Big|& 3\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\overset{\substack{-\tfrac{1}{3}F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & -2 &\Big|& -2\\
+0 & 1 & -1 &\Big|& -1\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\]
+\[
+\overset{\substack{F_1 - F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & -1 &\Big|& -1\\
+0 & 1 & -1 &\Big|& -1\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix} = H_f(A\,|\,B) \Rightarrow
+\begin{cases}
+x - z = -1,\\[4pt]
+y - z = -1.
+\end{cases}
+\]
+
+Tomando \(z=\lambda\in\mathbb{R}\) (parámetro libre) obtenemos
+\[
+\boxed{\,x = -1+\lambda,\quad y = -1+\lambda,\quad z=\lambda,\qquad \lambda\in\mathbb{R}\,}
+\]
+
+\bigskip
+
+\item \textbf{Subcaso 3.2. \(a=-2\) y \(b\neq -2\).}
+
+Aquí \(\operatorname{Rg}(A)=2 \neq \operatorname{Rg}(A\,|\,B)=3\), por lo que el sistema es incompatible.
+
+\[
+\boxed{\text{El sistema es un SI si } a=-2 \text{ y } b\neq -2.}
+\]
+\end{itemize}
+\end{itemize}
+
+\textbf{b)}
+En primer lugar, calculamos el determinante de la matriz de coeficientes, $|{A}|$, y vemos cuándo se anula para determinar cuándo podemos o no resolverlo por la fórmula de Cramer.
+La matriz ampliada es:
+$$({A}\,|\,{B}) =
+\begin{pmatrix}
+1 & b & a &\Big|& 1\\
+a & b & 1 &\Big|& a\\
+1 & ab & 1 &\Big|& b
+\end{pmatrix}$$
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+Entonces, el determinante de ${A}$ es:
+$$|{A}| =
+\begin{vmatrix}
+1 & b & a\\
+a & b & 1\\
+1 & ab & 1
+\end{vmatrix}
+\begin{aligned}
+& = b+a^3b+b-ab-ab-ab \\
+&= (a^3 - 3a + 2)b
+\end{aligned}
+$$
+
+Vemos que el número de ecuaciones es igual al número de incógnitas, que es 3.
+
+El sistema es de Cramer si ${A}$ es regular, es decir, si $|{A}| \neq 0$.
+
+$b=0$ anula el determinante. Vemos qué valores de $a$ anulan el determinante. Probamos con $a=1$ en el polinomio con Ruffini:
+$$
+\begin{array}{c|cccc}
+  & 1 & 0 & -3 & 2 \\
+1 &   & 1 & 1 & -2 \\
+\hline
+  & 1 & 1 & -2 & \boxed{0} \\
+1 &   & 1 & 2 \\
+\hline
+  & 1 & 2 & \boxed{0}
+\end{array}
+$$
+
+$$|A| = (a^3 - 3a + 2)b = (a-1)^2(a+2)b$$
+
+El determinante se anula si $a=1$, $a=-2$ o $b=0$.
+
+\begin{itemize}
+    \item \textbf{Caso 1. $a \neq 1$, $a \neq -2$ y $b \neq 0$}
+    
+Al no anularse el determinante $|{A}|$, la matriz ${A}$ es regular y el sistema es de Cramer. Además:
+\[
+\text{Rg}({A}) = \text{Rg}({A}|{B}) = \text{nº incógnitas} = 3
+\]
+\[
+\boxed{\text{El sistema es un SCD si } a \ne 1 \text{, } a \ne -2 \text{ y } b \ne 0.}
+\]
+
+Para resolver el sistema, es más sencillo en este caso aplicar la fórmula ${X} = {A}^{-1} {B}$ que la fórmula de Cramer. Así que calculamos $A^{-1}$.
+$$\overline{A} =
+\begin{pmatrix}
+-ab+b & -a+1 & a^2b-b\\
+a^2b-b & -a+1 & -ab+b\\
+-ab+b & a-1 & -ab+b
+\end{pmatrix}$$
+$$\overline{{A}}^T =
+\begin{pmatrix}
+-ab+b & a^2b-b & -ab+b\\
+-a+1 & -a+1 & a-1\\
+a^2b-b & -ab+b & -ab+b
+\end{pmatrix} = (a-1)
+\begin{pmatrix}
+-b & (a+1)b & -b\\
+-1 & -1 & 1\\
+(a+1)b & -b & -b
+\end{pmatrix}$$
+\[\]
+
+La inversa $A^{-1}$ es:
+
+\[
+A^{-1}
+= \frac{1}{|A|}\,\overline{A}^{\,T}
+= \frac{a-1}{(a-1)^2(a+2)b}
+\begin{pmatrix}
+-b & (a+1)b & -b\\
+-1 & -1 & 1\\
+(a+1)b & -b & -b
+\end{pmatrix}
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\begin{itemize}
+
+\[
+= \frac{1}{(a-1)(a+2)b}
+\begin{pmatrix}
+-b & (a+1)b & -b\\
+-1 & -1 & 1\\
+(a+1)b & -b & -b
+\end{pmatrix}
+\]
+\[
+= \frac{1}{(a^2 + a - 2)b}
+\begin{pmatrix}
+-b & (a+1)b & -b\\
+-1 & -1 & 1\\
+(a+1)b & -b & -b
+\end{pmatrix}.
+\]
+\[\]
+
+Entonces, la solución ${X} = {A}^{-1} {B}$ es:
+
+\[
+\begin{pmatrix}
+x\\
+y\\
+z
+\end{pmatrix}
+= \frac{1}{(a^2+a-2)b}
+\begin{pmatrix}
+-b & (a+1)b & -b\\
+-1 & -1 & 1\\
+(a+1)b & -b & -b
+\end{pmatrix}
+\begin{pmatrix}
+1\\
+a\\
+b
+\end{pmatrix}
+\]
+
+\[
+= \frac{1}{(a^2+a-2)b}
+\begin{pmatrix}
+-b + (a+1)ab -b^2\\
+-1 -a +b\\
+(a+1)b -ab -b^2
+\end{pmatrix}
+= \frac{1}{(a^2+a-2)b}
+\begin{pmatrix}
+a^2b+ab-b^2-b\\
+-a +b + 1\\
+-b^2 +b
+\end{pmatrix}
+\]
+\[
+\begin{pmatrix}
+x\\
+y\\
+z
+\end{pmatrix}
+=
+\begin{pmatrix}
+\dfrac{a^2+a-b-1}{(a^2+a-2)b}\\[12pt]
+\dfrac{-a+b-1}{(a^2+a-2)b}\\[12pt]
+\dfrac{-b+1}{a^2+a-2}
+\end{pmatrix}
+=
+\boxed{
+\begin{pmatrix}
+\dfrac{a^2+a-b-1}{a^2b+ab-2b}\\[12pt]
+\dfrac{-a+b-1}{a^2b+ab-2b}\\[12pt]
+\dfrac{-b+1}{a^2+a-2}
+\end{pmatrix}}
+\]
+
+\item \textbf{Caso 2. $a=1$.}
+
+La matriz ampliada es
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & b & 1 &\Big|& 1\\
+1 & b & 1 &\Big|& 1\\
+1 & b & 1 &\Big|& b
+\end{pmatrix}
+\overset{\substack{F_2-F_1\\ F_3-F_1 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & b & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& 0\\
+0 & 0 & 0 &\Big|& b-1
+\end{pmatrix}
+\overset{\substack{F_2 \leftrightarrow F_3 \\{}}}{\sim_f}
+\begin{pmatrix}
+1 & b & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& b-1\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix},
+\]
+\[
+\text{que está en forma escalonada por filas.}
+\]
+\[
+\operatorname{Rg}(A)=\text{nº filas no nulas}=1,
+\qquad
+\operatorname{Rg}(A\,|\,B)=
+\begin{cases}
+1 & \text{si } b=1,\\[2mm]
+2 & \text{si } b\neq 1.
+\end{cases}
+\]
+
+\begin{itemize}
+\item \textbf{Subcaso 2.1. $a=1$ y $b=1$.}
+\[
+(A\,|\,B)\sim_f
+\begin{pmatrix}
+1 & 1 & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& 0\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\text{ está en forma escalonada por filas.}
+\]
+\end{itemize}
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\begin{itemize}
+\begin{itemize}
+Se tiene:
+\[
+\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=1 \neq \text{nº incógnitas}=3.
+\]
+\[
+\boxed{\text{El sistema es un SCI si } a=1 \text{ y } b=1.}
+\]
+
+Resolvemos:
+\[
+\begin{cases}
+    x+y+z=1
+\end{cases}
+\]
+
+Tomamos \(y=\lambda_1\), \(z=\lambda_2\) parámetros libres. Entonces:
+\[
+x=1-\lambda_1-\lambda_2.
+\]
+\[
+\boxed{
+x = 1-\lambda_1-\lambda_2,\qquad
+y=\lambda_1,\qquad
+z=\lambda_2,\qquad
+\lambda_1,\lambda_2\in\mathbb{R}.
+}
+\]
+
+\item \textbf{Subcaso 2.2. $a=1$ y $b\neq 1$.}
+
+En este caso:
+\[
+\operatorname{Rg}(A)=1 \neq \operatorname{Rg}(A\,|\,B)=2.
+\]
+\[
+\boxed{\text{El sistema es un SI si } a=1 \text{ y } b\neq 1.}
+\]
+
+\end{itemize}
+
+\item \textbf{Caso 3. \(a=-2\).}
+
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & b & -2 &\Big|& 1\\
+-2 & b & 1 &\Big|& -2\\
+1 & -2b & 1 &\Big|& b
+\end{pmatrix}
+\overset{\substack{F_2+2F_1\\F_3-F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & b & -2 &\Big|& 1\\
+0 & 3b & -3 &\Big|& 0\\
+0 & -3b & 3 &\Big|& b-1
+\end{pmatrix}
+\]
+\[
+\overset{\substack{F_3 + F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & b & -2 &\Big|& 1\\
+0 & 3b & -3 &\Big|& 0\\
+0 & 0 & 0 &\Big|& b-1
+\end{pmatrix}
+\text{ está en forma escalonada por filas.}
+\]
+\[
+\operatorname{Rg}(A)=\text{nº filas no nulas}=2.
+\]
+Para la matriz aumentada \((A\,|\,B)\) la tercera fila se anula si y sólo si \(b-1=0\), es decir \(b=1\). Por tanto
+\[
+\operatorname{Rg}(A\,|\,B)=
+\begin{cases}
+2 & \text{si } b=1,\\[4pt]
+3 & \text{si } b\neq 1.
+\end{cases}
+\]
+
+\begin{itemize}
+\item \textbf{Subcaso 3.1. \(a=-2\) y \(b=1\).}
+
+En este caso \(\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=2 \neq\) nº incógnitas \(=3\).  
+\[
+\boxed{\text{El sistema es un SCI si } a=-2 \text{ y } b=1.}
+\]
+\end{itemize}
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\begin{itemize}
+\begin{itemize}
+Resolvemos aplicando Gauss–Jordan sobre la ampliada con \(b=1\):
+\[
+(A\,|\,B)
+\sim_f
+\begin{pmatrix}
+1 & 1 & -2 &\Big|& 1\\
+0 & 3 & -3 &\Big|& 0\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\overset{\substack{\tfrac{1}{3}F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & -2 &\Big|& 1\\
+0 & 1 & -1 &\Big|& 0\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\]
+\[
+\overset{\substack{F_1 - F_2\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & -1 &\Big|& 1\\
+0 & 1 & -1 &\Big|& 0\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix} = H_f(A\,|\,B) \Rightarrow
+\begin{cases}
+x - z = 1,\\[4pt]
+y - z = 0.
+\end{cases}
+\]
+
+Tomando \(z=\lambda\in\mathbb{R}\) (parámetro libre) obtenemos
+\[
+\boxed{\,x = 1+\lambda,\quad y = \lambda,\quad z=\lambda,\qquad \lambda\in\mathbb{R}\,}
+\]
+
+\item \textbf{Subcaso 3.2. \(a=-2\) y \(b\neq 1\).}
+
+Aquí \(\operatorname{Rg}(A)=2 \neq \operatorname{Rg}(A\,|\,B)=3\), por lo que el sistema es incompatible.
+
+\[
+\boxed{\text{El sistema es un SI si } a=-2 \text{ y } b\neq 1.}
+\]
+\end{itemize}
+
+\item \textbf{Caso 4. \(b=0\).}
+
+La matriz ampliada es
+\[
+(A\,|\,B)=
+\begin{pmatrix}
+1 & 0 & a &\Big|& 1\\
+a & 0 & 1 &\Big|& a\\
+1 & 0 & 1 &\Big|& 0
+\end{pmatrix}
+\overset{\substack{F_2-aF_1\\ F_3-F_1\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & a &\Big|& 1\\
+0 & 0 & 1-a^2 &\Big|& 0\\
+0 & 0 & 1-a &\Big|& -1
+\end{pmatrix}.
+\]
+
+La segunda fila es nula si y sólo si \(1-a^2=0\), es decir, \(a=\pm1\).
+
+Para la matriz de coeficientes \(A\):
+\begin{itemize}
+\item La tercera fila es nula si y sólo si \(1-a=0\), es decir, \(a=1\).
+\end{itemize}
+
+Por tanto,
+\[
+\operatorname{Rg}(A)=
+\begin{cases}
+1, & a=1\\
+2, & a=-1 \text{ o } (a\neq 1 \text{ y } a\neq -1)
+\end{cases}
+\]
+\[
+\operatorname{Rg}(A\,|\,B)=
+\begin{cases}
+2, & a=1 \text{ o } a=-1\\
+3, & a\neq 1 \text{ y } a\neq -1
+\end{cases}
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\begin{itemize}
+\begin{itemize}
+\item \textbf{Subcaso 4.1. \(b=0\) y \(a=1\).}
+\[
+(A\,|\,B)\sim_f
+\begin{pmatrix}
+1 & 0 & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& 0\\
+0 & 0 & 0 &\Big|& -1
+\end{pmatrix}
+\overset{\substack{F_2\leftrightarrow F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& -1\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix},
+\]
+que está en forma escalonada por filas.
+
+Entonces \(\operatorname{Rg}(A)=1 \neq \operatorname{Rg}(A\,|\,B)=2\).  
+\[
+\boxed{\text{El sistema es un SI si } b=0 \text{ y } a=1.}
+\]
+
+\item \textbf{Subcaso 4.2. \(b=0\) y \(a=-1\).}
+\[
+(A\,|\,B)\sim_f
+\begin{pmatrix}
+1 & 0 & -1 &\Big|& 1\\
+0 & 0 & 0 &\Big|& 0\\
+0 & 0 & 2 &\Big|& -1
+\end{pmatrix}
+\overset{\substack{F_2\leftrightarrow F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & -1 &\Big|& 1\\
+0 & 0 & 2 &\Big|& -1\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}.
+\]
+que está en forma escalonada por filas.
+
+Aquí \(\operatorname{Rg}(A)=\operatorname{Rg}(A\,|\,B)=2 \neq\) nº incógnitas \(=3\).  
+\[
+\boxed{\text{El sistema es un SCI si } b=0 \text{ y } a=-1.}
+\]
+
+Aplicando Gauss–Jordan:
+\[
+\overset{\tfrac12 F_2}{\sim_f}
+\begin{pmatrix}
+1 & 0 & -1 &\Big|& 1\\
+0 & 0 & 1 &\Big|& -\tfrac12\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}
+\overset{F_1+F_2}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 &\Big|& \tfrac12\\
+0 & 0 & 1 &\Big|& -\tfrac12\\
+0 & 0 & 0 &\Big|& 0
+\end{pmatrix}=H_f(A\,|\,B).
+\]
+Por tanto,
+\[
+\boxed{\,x=\frac12,\quad y=\lambda,\quad z=-\frac12,\qquad \lambda\in\mathbb{R}\,}
+\]
+
+\item \textbf{Subcaso 4.3. \(b=0\), \(a\neq 1\) y \(a\neq -1\).}
+\[
+(A\,|\,B)\sim_f
+\begin{pmatrix}
+1 & 0 & a &\Big|& 1\\
+0 & 0 & 1-a^2 &\Big|& 0\\
+0 & 0 & 1-a &\Big|& -1
+\end{pmatrix}
+\overset{\substack{F_2-(1+a)F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & a &\Big|& 1\\
+0 & 0 & 0 &\Big|& 0\\
+0 & 0 & 1-a &\Big|& -1
+\end{pmatrix}
+\]
+\end{itemize}
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 31]
+\begin{itemize}
+\begin{itemize}
+\[
+\overset{\substack{F_2\leftrightarrow F_3\\{}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & a &\Big|& 1\\
+0 & 0 & 1-a &\Big|& -1\\
+0 & 0 & 0 &\Big|& 1+a
+\end{pmatrix}
+\text{ está en forma escalonada por filas.}
+\]
+Se cumple \(\operatorname{Rg}(A)=2 \neq \operatorname{Rg}(A\,|\,B)=3\).  
+\[
+\boxed{\text{El sistema es un SI si } b=0,\ a\neq 1 \text{ y } a\neq -1.}
+\]
+\end{itemize}
+\end{itemize}
+\end{ejercicio}
+
+\section{Conceptos Adicionales}
+
+\subsection{Traza}
+
+\begin{ejercicio}[title=Ejercicio 7]
+La traza de una matriz cuadrada $A$, denotada por $\operatorname{tr}(A)$, es la suma de los elementos que aparecen en la diagonal principal de $A$.  
+Por tanto, si $A = (a_{ij}) \in \mathfrak{M}_n(\mathbb{K})$, entonces $\operatorname{tr}(A) = a_{1,1} + \cdots + a_{n,n}$.  
+Si $A,B \in \mathfrak{M}_n(\mathbb{K})$ y $\lambda \in \mathbb{K}$, justifique las siguientes propiedades:
+
+\begin{enumerate}
+\item[a)] $\operatorname{tr}(A+B) = \operatorname{tr}(A) + \operatorname{tr}(B)$,
+\item[b)] $\operatorname{tr}(\lambda A) = \lambda \operatorname{tr}(A)$,
+\item[c)] $\operatorname{tr}(A \cdot B) = \operatorname{tr}(B \cdot A)$.
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\textbf{a)} $\operatorname{tr}(A+B) = \operatorname{tr}(A) + \operatorname{tr}(B)$
+
+\[
+A =
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{pmatrix},
+\qquad
+\operatorname{tr}(A)=a_{11}+a_{22}+\cdots+a_{nn}.
+\]
+
+\[
+B =
+\begin{pmatrix}
+b_{11} & b_{12} & \cdots & b_{1n} \\
+b_{21} & b_{22} & \cdots & b_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+b_{n1} & b_{n2} & \cdots & b_{nn}
+\end{pmatrix},
+\qquad
+\operatorname{tr}(B)=b_{11}+b_{22}+\cdots+b_{nn}.
+\]
+
+Entonces
+\[
+A+B =
+\begin{pmatrix}
+a_{11}+b_{11} & a_{12}+b_{12} & \cdots & a_{1n}+b_{1n} \\
+a_{21}+b_{21} & a_{22}+b_{22} & \cdots & a_{2n}+b_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1}+b_{n1} & a_{n2}+b_{n2} & \cdots & a_{nn}+b_{nn}
+\end{pmatrix}.
+\]
+
+Por definición de la traza,
+\[
+\operatorname{tr}(A+B)
+= (a_{11}+b_{11}) + (a_{22}+b_{22}) + \cdots + (a_{nn}+b_{nn})
+\]
+\[
+= (a_{11}+a_{22}+\cdots+a_{nn}) + (b_{11}+b_{22}+\cdots+b_{nn})
+= \boxed{\operatorname{tr}(A)+\operatorname{tr}(B)}.
+\]
+
+\textbf{b)} $\operatorname{tr}(\lambda A) = \lambda \operatorname{tr}(A)$
+
+\[
+A =
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{pmatrix}.
+\]
+
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 7]
+
+Entonces
+\[
+\lambda A
+=
+\lambda
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\lambda a_{11} & \lambda a_{12} & \cdots & \lambda a_{1n} \\
+\lambda a_{21} & \lambda a_{22} & \cdots & \lambda a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\lambda a_{n1} & \lambda a_{n2} & \cdots & \lambda a_{nn}
+\end{pmatrix}.
+\]
+
+Por tanto,
+\(
+\operatorname{tr}(\lambda A)
+= \lambda a_{11} + \lambda a_{22} + \cdots + \lambda a_{nn}
+= \lambda (a_{11} + a_{22} + \cdots + a_{nn})
+= \boxed{\lambda\,\operatorname{tr}(A)}.
+\)
+
+\textbf{c)} $\operatorname{tr}(A \cdot B) = \operatorname{tr}(B \cdot A)$
+
+\[
+A =
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{pmatrix},
+\qquad
+B =
+\begin{pmatrix}
+b_{11} & b_{12} & \cdots & b_{1n} \\
+b_{21} & b_{22} & \cdots & b_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+b_{n1} & b_{n2} & \cdots & b_{nn}
+\end{pmatrix}.
+\]
+
+% necesita \usepackage{graphicx} en el preámbulo
+\[
+\scalebox{0.75}{$
+A\cdot B =
+\begin{pmatrix}
+a_{11}b_{11} + a_{12}b_{21} + \cdots + a_{1n}b_{n1} & 
+a_{11}b_{12} + a_{12}b_{22} + \cdots + a_{1n}b_{n2} & 
+\cdots & 
+a_{11}b_{1n} + a_{12}b_{2n} + \cdots + a_{1n}b_{nn} \\[6pt]
+a_{21}b_{11} + a_{22}b_{21} + \cdots + a_{2n}b_{n1} & 
+a_{21}b_{12} + a_{22}b_{22} + \cdots + a_{2n}b_{n2} & 
+\cdots & 
+a_{21}b_{1n} + a_{22}b_{2n} + \cdots + a_{2n}b_{nn} \\[6pt]
+\vdots & \vdots & \ddots & \vdots \\[6pt]
+a_{n1}b_{11} + a_{n2}b_{21} + \cdots + a_{nn}b_{n1} & 
+a_{n1}b_{12} + a_{n2}b_{22} + \cdots + a_{nn}b_{n2} & 
+\cdots & 
+a_{n1}b_{1n} + a_{n2}b_{2n} + \cdots + a_{nn}b_{nn}
+\end{pmatrix}
+$}
+\]
+
+\[
+\scalebox{0.75}{$
+B\cdot A =
+\begin{pmatrix}
+b_{11}a_{11} + b_{12}a_{21} + \cdots + b_{1n}a_{n1} & 
+b_{11}a_{12} + b_{12}a_{22} + \cdots + b_{1n}a_{n2} & 
+\cdots & 
+b_{11}a_{1n} + b_{12}a_{2n} + \cdots + b_{1n}a_{nn} \\[6pt]
+b_{21}a_{11} + b_{22}a_{21} + \cdots + b_{2n}a_{n1} & 
+b_{21}a_{12} + b_{22}a_{22} + \cdots + b_{2n}a_{n2} & 
+\cdots & 
+b_{21}a_{1n} + b_{22}a_{2n} + \cdots + b_{2n}a_{nn} \\[6pt]
+\vdots & \vdots & \ddots & \vdots \\[6pt]
+b_{n1}a_{11} + b_{n2}a_{21} + \cdots + b_{nn}a_{n1} & 
+b_{n1}a_{12} + b_{n2}a_{22} + \cdots + b_{nn}a_{n2} & 
+\cdots & 
+b_{n1}a_{1n} + b_{n2}a_{2n} + \cdots + b_{nn}a_{nn}
+\end{pmatrix}
+$}
+\]
+
+La traza es la suma de la diagonal:
+\[
+\operatorname{tr}(A\cdot B)
+=
+\bigl(a_{11}b_{11} + a_{12}b_{21} + \cdots + a_{1n}b_{n1}\bigr)
++ \bigl(a_{21}b_{12} + a_{22}b_{22} + \cdots + a_{2n}b_{n2}\bigr)
+\]
+\[
++ \cdots +
+\bigl(a_{n1}b_{1n} + a_{n2}b_{2n} + \cdots + a_{nn}b_{nn}\bigr).
+\]
+
+Para $B\cdot A$:
+\[
+\operatorname{tr}(B\cdot A)
+=
+\bigl(b_{11}a_{11} + b_{12}a_{21} + \cdots + b_{1n}a_{n1}\bigr)
++ \bigl(b_{21}a_{12} + b_{22}a_{22} + \cdots + b_{2n}a_{n2}\bigr)
+\]
+\[
++ \cdots +
+\bigl(b_{n1}a_{1n} + b_{n2}a_{2n} + \cdots + b_{nn}a_{nn}\bigr)
+\]
+\vspace{0.2em}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 7]
+Reescribimos cada término ($b_{ji}a_{ij} \rightarrow a_{ij}b_{ji}$):
+\[
+\qquad\qquad=
+\Bigl(
+\colorbox{Red!30}{$a_{11}b_{11}$} +
+\colorbox{Orange!30}{$a_{21}b_{12}$} +
+\cdots +
+\colorbox{Yellow!30}{$a_{n1}b_{1n}$}
+\Bigr)
++
+\Bigl(
+\colorbox{LightGreen!30}{$a_{12}b_{21}$} +
+\colorbox{Green!30}{$a_{22}b_{22}$} +
+\cdots +
+\colorbox{LightBlue!30}{$a_{n2}b_{2n}$}
+\Bigr)
+\]
+\[
+\qquad\qquad
++ \cdots +
+\Bigl(
+\colorbox{Blue!30}{$a_{1n}b_{n1}$} +
+\colorbox{Purple!30}{$a_{2n}b_{n2}$} +
+\cdots +
+\colorbox{Violet!30}{$a_{nn}b_{nn}$}
+\Bigr).
+\]
+
+\vspace{0.2em}
+
+\[
+\qquad\qquad=
+\Bigl(
+\colorbox{Red!30}{$a_{11}b_{11}$} +
+\colorbox{LightGreen!30}{$a_{12}b_{21}$} +
+\cdots +
+\colorbox{Blue!30}{$a_{1n}b_{n1}$}
+\Bigr)
++
+\Bigl(
+\colorbox{Orange!30}{$a_{21}b_{12}$} +
+\colorbox{Green!30}{$a_{22}b_{22}$} +
+\cdots +
+\colorbox{Purple!30}{$a_{2n}b_{n2}$}
+\Bigr)
+\]
+\[
++ \cdots +
+\Bigl(
+\colorbox{Yellow!30}{$a_{n1}b_{1n}$} +
+\colorbox{LightBlue!30}{$a_{n2}b_{2n}$} +
+\cdots +
+\colorbox{Violet!30}{$a_{nn}b_{nn}$}
+\Bigr).
+\]
+\[
+= \boxed{\operatorname{tr}(A \cdot B)}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}[title=Ejercicio 15]
+Dada la matriz regular 
+\[
+A =
+\begin{pmatrix}
+1 & 1 & 2\\
+0 & 1 & 8\\
+1 & 2 & 4
+\end{pmatrix} \in \mathfrak{M}_3(\mathbb{Z}_{11}),
+\]
+la traza de $A^{-1}$ es igual a:
+\begin{enumerate}
+\item[(a)] 2 \quad (b) 7 \quad (c) 8 \quad (d) 9
+\end{enumerate}
+
+\tcblower
+\textbf{Resolución:}
+
+\[
+(A \,|\, I_3) =
+\begin{pmatrix}
+1 & 1 & 2 &\Big|& 1 & 0 & 0\\
+0 & 1 & 8 &\Big|& 0 & 1 & 0\\
+1 & 2 & 4 &\Big|& 0 & 0 & 1
+\end{pmatrix}
+\overset{\substack{F_3 - F_1 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 2 &\Big|& 1 & 0 & 0\\
+0 & 1 & 8 &\Big|& 0 & 1 & 0\\
+0 & 1 & 2 &\Big|& -1 & 0 & 1
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_3 - F_2 \\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 1 & 2 &\Big|& 1 & 0 & 0\\
+0 & 1 & 8 &\Big|& 0 & 1 & 0\\
+0 & 0 & 5 &\Big|& -1 & -1 & 1
+\end{pmatrix}
+\overset{\substack{F_1 - F_2 \\ -2F_3\\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 5 &\Big|& 1 & -1 & 0\\
+0 & 1 & -3 &\Big|& 0 & 1 & 0\\
+0 & 0 & 1 &\Big|& 2 & 2 & -2
+\end{pmatrix}
+\]
+
+\[
+\overset{\substack{F_1 - 5F_3 \\ F_2 + 3F_3\\ {}}}{\sim_f}
+\begin{pmatrix}
+1 & 0 & 0 &\Big|& 2 & 0 & -1\\
+0 & 1 & 0 &\Big|& 6 & 7 & 5\\
+0 & 0 & 1 &\Big|& 2 & 2 & -2
+\end{pmatrix}
+= (I_3 \,|\, A^{-1})
+\]
+
+\noindent
+La traza de $A^{-1}$ es
+\[
+\operatorname{tr}(A^{-1}) = 2 + 7 + (-2) = 7.
+\]
+
+\[
+\boxed{(b) \, 7}
+\]
+\end{ejercicio}
+
+\subsection{Matrices estocásticas o de probabilidad}
+
+\begin{ejercicio}[title=Ejercicio 43 (⋆)]
+Una matriz cuadrada $A = (a_{i,j}) \in \mathfrak{M}_n(\mathbb{R})$ se dice que es una \textit{matriz estocástica o matriz de probabilidad}, si verifica las condiciones siguientes:
+\begin{itemize}
+\item $a_{i,j} \ge 0$ para todo $i,j \in \{1,2,\ldots,n\}$.
+\item $\displaystyle \sum_{j=1}^n a_{i,j} = 1$ para todo $i \in \{1,2,\ldots,n\}$.
+\end{itemize}
+Una matriz estocástica $A$ se denomina \emph{doblemente estocástica} si además
+\[
+\displaystyle \sum_{i=1}^n a_{i,j} = 1 \quad \text{para todo } j \in \{1,2,\ldots,n\}.
+\]
+Justifique las siguientes afirmaciones:
+
+\begin{enumerate}
+\item[a)] Si $A$ y $B$ son matrices estocásticas del mismo orden, entonces $A \cdot B$ es una matriz estocástica. Como consecuencia, deduzca que si $A$ y $B$ son matrices doblemente estocásticas del mismo orden, entonces $A \cdot B$ también es doblemente estocástica.
+\item[b)] $A$ es doblemente estocástica si y sólo si $A$ y $A^T$ son estocásticas.
+\item[c)] Si $A$ es simétrica y estocástica, entonces $A$ es doblemente estocástica.
+\end{enumerate}
+
+Por último, ponga un ejemplo de una matriz estocástica e invertible cuya inversa no sea estocástica.
+
+\tcblower
+\textbf{Resolución:}
+
+\vspace{0.5em}
+
+\textbf{a)}
+
+Sean $A=(a_{i,k})$ y $B=(b_{k,j})$ matrices estocásticas por columnas del mismo orden.  
+El elemento $c_{i,j}$ del producto $A\cdot B$ es
+\[
+c_{i,j}=\sum_{k=1}^n a_{i,k} b_{k,j}.
+\]
+
+Comprobamos que $A\cdot B$ es estocástica (la suma de cada columna $j$ debe ser 1):
+
+\begin{itemize}
+\item \textbf{No negatividad:} Como $a_{i,k}\ge 0$ y $b_{k,j}\ge 0$ para todo $i,k,j$, entonces $c_{i,j} = \sum a_{i,k} b_{k,j} \ge 0$.
+\item \textbf{Suma por columnas:} Se tiene que cumplir que para cada columna $j$ lo siguiente. Desarrollamos usando la definición del producto de matrices:
+\[
+\sum_{i=1}^n c_{i,j} = 1
+\]
+\[
+\sum_{i=1}^n \left( \sum_{k=1}^n a_{i,k} b_{k,j} \right) = 1
+\]
+\end{itemize}
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 43 (⋆)]
+\begin{itemize}
+Intercambiamos el orden de las sumatorias, sacando fuera $b_{k,j}$ ya que no depende del índice de suma $i$:
+\[
+\sum_{k=1}^n \left( b_{k,j} \underbrace{\sum_{i=1}^n a_{i,k}}_{=1} \right) = 1
+\]
+Como $A$ es estocástica, la suma de su columna $k$ es 1. Nos queda:
+\[
+\underbrace{\sum_{k=1}^n b_{k,j}}_{1} \cdot 1 = 1
+\]
+Como $B$ es estocástica, la suma de su columna $j$ es 1, por lo que:
+\[
+1 = 1
+\]
+\end{itemize}
+
+Por tanto,
+
+\[
+\boxed{\text{$A\cdot B$ es estocástica.}}
+\]
+
+Si además $A$ y $B$ son doblemente estocásticas, entonces también se verifica la suma por filas. Para cada fila $i$ de $A \cdot B$:
+\[
+\sum_{j=1}^n c_{i,j} = \sum_{j=1}^n \left( \sum_{k=1}^n a_{i,k} b_{k,j} \right)
+\]
+Intercambiamos el orden de las sumatorias, sacando $a_{i,k}$ fuera de la suma en $j$:
+\[
+\sum_{k=1}^n a_{i,k} \left( \underbrace{\sum_{j=1}^n b_{k,j}}_{=1} \right) = \sum_{k=1}^n a_{i,k} \cdot 1
+\]
+Como $B$ es estocástica por filas, la suma interior es 1. Finalmente, como $A$ también es estocástica por filas:
+\[
+\underbrace{\sum_{k=1}^n a_{i,k}}_{1} = 1 \quad \Rightarrow \quad 1 = 1
+\]
+Al cumplirse ambas condiciones (suma de columnas y suma de filas igual a 1), concluimos que:
+\[
+\boxed{\text{$A \cdot B$ es doblemente estocástica.}}
+\]
+
+\textbf{b)} $A$ es doblemente estocástica si y sólo si $A$ y $A^T$ son estocásticas.
+
+\vspace{0.5em}
+
+Una matriz es estocástica si sus elementos son no negativos y la suma de sus columnas es 1.
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 43 (⋆)]
+\begin{itemize}
+    \item[$\boxed{\Rightarrow}$] Si $A$ es doblemente estocástica, por definición sus columnas suman 1 (luego $A$ es estocástica) y sus filas también suman 1. Como las filas de $A$ son las columnas de $A^T$, entonces las columnas de $A^T$ suman 1. Por tanto, $A^T$ es estocástica.
+    
+    \item[$\boxed{\Leftarrow}$] Si $A$ es estocástica, sus columnas suman 1. Si $A^T$ también es estocástica, sus columnas suman 1; pero las columnas de $A^T$ son las filas de $A$. Por tanto, las filas de $A$ suman 1. Al sumar 1 tanto columnas como filas, $A$ es doblemente estocástica.
+\end{itemize}
+\[
+\boxed{\text{$A$ doblemente estocástica $\iff A$ y $A^T$ estocásticas.}}
+\]
+
+\vspace{1em}
+
+\textbf{c)} Si $A$ es simétrica y estocástica, entonces $A$ es doblemente estocástica.
+
+\vspace{0.5em}
+
+Sea $A$ una matriz simétrica ($A = A^T$) y estocástica (sus columnas suman 1). 
+\begin{itemize}
+    \item Por ser estocástica, sabemos que la suma de cualquier columna $j$ es 1: $\displaystyle\sum_{i=1}^n a_{i,j} = 1$.
+    \item Para comprobar si es doblemente estocástica, debemos ver si sus filas suman 1. Sumamos los elementos de una fila $i$ cualquiera:
+    \[
+    \sum_{j=1}^n a_{i,j} \overset{\substack{\text{$A$ simétrica}\\{}}}{=} \sum_{j=1}^n a_{j,i}
+    \]
+    \item Esta última expresión es, precisamente, la suma de los elementos de la columna $i$ de $A$. Como $A$ es estocástica, esta suma es igual a 1.
+\end{itemize}
+Como sus columnas y sus filas suman 1, $A$ es doblemente estocástica.
+
+\[
+\boxed{\text{$A$ simétrica y estocástica $\Rightarrow$ $A$ doblemente estocástica.}}
+\]
+
+\vspace{1em}
+
+\textbf{Ejemplo de matriz estocástica e invertible cuya inversa no es estocástica:}
+
+Sea la matriz
+\[
+A = \begin{pmatrix}
+0.8 & 0.1 \\
+0.2 & 0.9
+\end{pmatrix}.
+\]
+
+\vspace{0.5em}
+
+\textbf{Comprobación de que $A$ es estocástica:}  
+\begin{itemize}
+\item Suma de la primera columna: $0.8 + 0.2 = 1$  
+\item Suma de la segunda columna: $0.1 + 0.9 = 1$  
+\end{itemize}
+
+Todas los elementos son no negativos y las columnas suman 1, por lo tanto $A$ es estocástica por columnas.
+
+\vspace{0.5em}
+
+\textbf{Comprobación de que $A$ es invertible:}  
+
+\[
+|A| = (0.8)(0.9) - (0.1)(0.2) = 0.72 - 0.02 = 0.7 \neq 0
+\]
+Por lo tanto, $A$ es invertible.
+\end{ejercicio}
+\begin{ejercicio}[title=Ejercicio 43 (⋆)]
+\textbf{Cálculo de la inversa de $A$:}
+\[
+A^{-1} = \frac{1}{|A|} \overline{\begin{pmatrix} 0.8 & 0.1 \\ 0.2 & 0.9 \end{pmatrix}}^T = \frac{1}{0.7} \begin{pmatrix} 0.9 & -0.1 \\ -0.2 & 0.8 \end{pmatrix}
+= \begin{pmatrix} 9/7 & -1/7 \\ -2/7 & 8/7 \end{pmatrix}.
+\]
+
+\vspace{0.5em}
+
+\textbf{Comprobación de que $A^{-1}$ no es estocástica por columnas:}  
+\begin{itemize}
+\item Primera columna: $9/7 + (-2/7) = 7/7 = 1$ 
+\item Segunda columna: $-1/7 + 8/7 = 7/7 = 1$  
+\end{itemize}
+
+Las columnas suman 1, pero hay elementos negativos ($-1/7$ y $-2/7$), por lo tanto $A^{-1}$ no es estocástica.
+
+\vspace{0.5em}
+
+\textbf{Conclusión:}  
+\[
+\boxed{A = \begin{pmatrix}
+0.8 & 0.1 \\
+0.2 & 0.9
+\end{pmatrix}} \text{ es estocástica e invertible, pero } A^{-1} \text{ no es estocástica.}
+\]
+
+\end{ejercicio}
+
+\end{document}

@@ -1,0 +1,2747 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Para insertar imágenes
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{hyperref} % Enlaces y referencias clicables
+\usepackage{lmodern} % Fuente moderna
+\usepackage{geometry} % Márgenes
+\usepackage[most]{tcolorbox} % Cajitas para ejemplos y procedimientos
+\geometry{margin=2.5cm}
+
+% ==== Definición de estilos de caja ====
+\tcbset{
+  colback=white,
+  colframe=black!60,
+  sharp corners,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{procedimiento}[1][]{
+  colback=green!5!white,
+  colframe=green!60!black,
+  title=\textbf{Procedimiento},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{ejemplo}[1][]{
+  colback=blue!5!white,
+  colframe=blue!60!black,
+  title=\textbf{Ejemplo},
+  fonttitle=\bfseries,
+  #1
+}
+
+% ==== Documento principal ====
+\title{Álgebra Lineal y Estructuras Matemáticas (ALEM) Resumen Tema 1}
+\author{Alonso Hernández Robles (Grupo E)}
+\date{20/10/2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+% =============================
+% SECCIÓN: CAMBIO DE BASE
+% =============================
+
+\section{Cambio de Base}
+
+\subsection{Pasar un número de base decimal a base \(b \geq 2\)}
+
+\begin{procedimiento}
+Dado un número decimal \( N \) y una base \( b \geq 2 \), para expresar \( N \) en base \( b \), se siguen los siguientes pasos:
+
+\begin{enumerate}
+    \item Dividir \( N \) entre \( b \) y anotar el \textbf{resto}.
+    \item Tomar el \textbf{cociente} y volver a dividirlo entre \( b \), anotando el nuevo resto.
+    \item Repetir el proceso hasta que el cociente sea \( 0 \).
+    \item El número en base \( b \) se obtiene escribiendo los restos en orden \textbf{inverso} (del último al primero).
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title={Pasar \(46_{10}\) a base \(5\)}]
+\[
+\begin{array}{rcl}
+46 \div 5 &=& 9 \text{ con resto } 1\\
+9 \div 5 &=& 1 \text{ con resto } 4\\
+1 \div 5 &=& 0 \text{ con resto } 1
+\end{array}
+\]
+
+Por tanto:
+\[
+46_{10} = (141)_5
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title={Pasar \(46_{10}\) a base \(2\)}]
+\[
+\begin{array}{rcl}
+46 \div 2 &=& 23 \text{ con resto } 0\\
+23 \div 2 &=& 11 \text{ con resto } 1\\
+11 \div 2 &=& 5 \text{ con resto } 1\\
+5 \div 2 &=& 2 \text{ con resto } 1\\
+2 \div 2 &=& 1 \text{ con resto } 0\\
+1 \div 2 &=& 0 \text{ con resto } 1
+\end{array}
+\]
+
+Por tanto:
+\[
+46_{10} = (101110)_2
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title={Pasar \(46_{10}\) a base \(16\)}]
+\[
+46 \div 16 = 2 \text{ con resto } 14 = E
+\]
+
+Por tanto:
+\[
+46_{10} = (2E)_{16}
+\]
+\end{ejemplo}
+
+\subsection{Pasar un número de base \(b\ge2\) a base decimal}
+
+\begin{procedimiento}
+Dado un número \( (a_n a_{n-1} \ldots a_1 a_0)_b \), su valor en base decimal es:
+
+\[
+N_{10} = a_n b^n + a_{n-1} b^{n-1} + \cdots + a_1 b^1 + a_0 b^0
+\]
+
+\begin{enumerate}
+    \item Identificar los dígitos y su posición (empezando desde la derecha con exponente 0).
+    \item Multiplicar cada dígito por la potencia de la base que le corresponde.
+    \item Sumar todos los resultados.
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title={Pasar \((101110)_2\) a base decimal}]
+\[
+(101110)_2 = 1\cdot 2^5 + 0\cdot 2^4 + 1\cdot 2^3 + 1\cdot 2^2 + 1\cdot 2^1 + 0\cdot 2^0
+\]
+\[
+= 32 + 0 + 8 + 4 + 2 + 0 = 46
+\]
+\[
+(101110)_2 = 46_{10}
+\]
+\end{ejemplo}
+
+\subsection{Ecuaciones con Bases}
+
+\begin{procedimiento}[title=Encontrar la base]
+En una ecuación con base desconocida, el objetivo es determinar el valor de la base \( b \) que hace cierta la igualdad.
+
+\begin{enumerate}
+    \item Identificar el \textbf{mayor dígito} que aparece en la ecuación.  
+    Entonces, debe cumplirse que:
+    \[
+    b \geq (\text{mayor dígito}) + 1
+    \]
+    ya que ningún dígito puede ser igual o mayor que la base.
+
+    \item Expresar todos los números en \textbf{base decimal} usando potencias de \( b \).  
+    Por ejemplo:
+    \[
+    (231)_b = 2b^2 + 3b + 1
+    \]
+
+    \item Sustituir en la ecuación original y simplificar para obtener una ecuación polinómica en \( b \).
+
+    \item Resolver la ecuación y comprobar que el valor obtenido cumple el criterio del paso 1.
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title={Ejemplo 1: Encontrar la base}]
+Resolver en qué base \( b \) se cumple la ecuación:
+\[
+(3)_b \cdot (4)_b = (22)_b
+\]
+
+El mayor dígito que aparece es 4, por tanto:
+\[
+b \geq 4 + 1 = 5
+\]
+
+Pasamos todo a base decimal:
+\[
+3 \cdot 4 = 2b + 2
+\]
+\[
+12 = 2b + 2 \Rightarrow 2b = 10 \Rightarrow b = 5 \ge 5
+\]
+
+\[
+\boxed{b = 5}
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title={Ejemplo 2: Encontrar la base}]
+Determinar la base \( b \) para la que:
+\[
+(231)_b = (170)_{b+1}
+\]
+
+El mayor dígito en la ecuación es 7, por tanto:
+\[
+b + 1 \geq 8 \Rightarrow b \geq 7
+\]
+
+Expresamos ambos lados en base decimal:
+\[
+2b^2 + 3b + 1 = (b+1)^2 + 7(b+1)
+\]
+
+Desarrollamos el lado derecho:
+\[
+2b^2 + 3b + 1 = (b^2 + 2b + 1) + (7b + 7)
+\]
+\[
+2b^2 + 3b + 1 = b^2 + 9b + 8
+\]
+
+Simplificamos:
+\[
+b^2 - 6b - 7 = 0
+\]
+
+Resolvemos la ecuación cuadrática:
+\[
+b = \frac{6 \pm \sqrt{(-6)^2 - 4(1)(-7)}}{2} = \frac{6 \pm \sqrt{36 + 28}}{2} = \frac{6 \pm 8}{2}
+\]
+
+\[
+b_1 = 7, \quad b_2 = -1
+\]
+
+Descartamos \( b = -1 \) porque:
+\[
+b \geq 2 \text{ (por definición de base) y además } b \geq 7
+\]
+
+Por tanto, la única solución válida es:
+\[
+\boxed{b = 7}
+\]
+\end{ejemplo}
+
+
+\begin{procedimiento}[title=Encontrar los números o dígitos]
+Cuando la base es conocida y los \textbf{dígitos} son las incógnitas, el procedimiento es el siguiente:
+
+\begin{enumerate}
+    \item Expresar los números en base decimal como suma de potencias de la base.  
+    Por ejemplo, si la base es 5:
+    \[
+    (abc)_5 = a\cdot5^2 + b\cdot5 + c
+    \]
+    \item Sustituir en la ecuación y simplificar para obtener una ecuación con incógnitas \( a, b, c, \ldots \)
+    \item Tener en cuenta que los dígitos siempre deben cumplir:
+    \[
+    a, b, c, \ldots \in \{0,1,2,\ldots,b-1\}
+    \]
+    \item Probar los valores posibles hasta encontrar los que satisfacen la ecuación.
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title={Ejemplo: Encontrar número con cifras intercambiadas en base 16}]
+Encuentre todos los números naturales de dos cifras en base 10 que, en base 16, se escriben con las mismas cifras pero en orden invertido.
+
+\[
+t = (ab)_{10} = (ba)_{16}, \quad a,b \in \{0,\dots,9\}
+\]
+
+Pasamos a base decimal para plantear la ecuación:
+\[
+10a + b = 16b + a
+\]
+
+\[
+10a + b = 16b + a \Rightarrow 9a - 15b = 0 \Rightarrow 3a = 5b
+\]
+
+Como \(3a = 5b\), analizamos divisibilidad:
+
+\begin{itemize}
+    \item \(5 \mid 3a \Rightarrow 5 \mid a \Rightarrow a = 0,5\)
+    \item \(3 \mid 5b \Rightarrow 3 \mid b \Rightarrow b = 0,3,6,9\)
+\end{itemize}
+
+Comprobamos los casos:
+
+1. \(a = 0 \Rightarrow 3a = 0 \Rightarrow 5b = 0 \Rightarrow b = 0\)  
+   \(\Rightarrow t_1 = 0\)
+
+2. \(a = 5 \Rightarrow 3a = 15 \Rightarrow 5b = 15 \Rightarrow b = 3\)  
+   \(\Rightarrow t_2 = 53\)
+
+\medskip
+\textbf{Conclusión:} Los números que cumplen la condición son:
+\[
+\boxed{t = 0 \text{ y } t = 53}
+\]
+\end{ejemplo}
+
+
+% =============================
+% RESTO DE SECCIONES
+% =============================
+
+\section{Propiedades de la Divisibilidad}
+
+La divisibilidad es una relación fundamental entre números enteros.  
+Decimos que un número entero \( a \) \textbf{divide} a otro número entero \( b \) si existe un entero \( k \) tal que \( b = ak \).  
+En tal caso se escribe \( a \mid b \).
+
+A continuación, se presentan algunas propiedades básicas de la divisibilidad en \( \mathbb{Z} \).
+
+\begin{procedimiento}[title={Propiedad 1}]
+Para todo \( a \in \mathbb{Z} \), se cumple que:
+\[
+1 \mid a \quad \text{y} \quad a \mid 0
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 2}]
+Si \( a \mid b \) y \( b \mid a \), entonces:
+\[
+a = \pm b
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 3}]
+Si \( a \mid b \), entonces para todo \( c \in \mathbb{Z} \):
+\[
+a \mid (b \cdot c)
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 4}]
+Si \( a \mid b \) y \( b \mid c \), entonces:
+\[
+a \mid c
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 5}]
+Si \( a \mid b \) y \( a \mid b' \), entonces:
+\[
+a \mid (b + b')
+\]
+\end{procedimiento}
+
+
+% =============================
+% SECCIÓN: MCD Y MCM
+% =============================
+
+\section{Propiedades del MCD y MCM}
+
+El \textbf{máximo común divisor (MCD)} y el \textbf{mínimo común múltiplo (MCM)} son dos funciones aritméticas fundamentales que relacionan números enteros mediante la divisibilidad.
+
+A continuación, se presentan algunas propiedades importantes de ambos.
+
+% ====================================
+% SUBSECCIÓN: MÁXIMO COMÚN DIVISOR
+% ====================================
+
+\subsection{Propiedades del MCD}
+
+\begin{procedimiento}[title={Propiedad 1}]
+\[
+\text{mcd}(0,0,\ldots,0) = 0
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 2}]
+El MCD de varios números puede calcularse de forma recursiva:
+\[
+\text{mcd}(a_1,a_2,\ldots,a_{n-1},a_n) = \text{mcd}(\text{mcd}(a_1,a_2,\ldots,a_{n-1}),a_n)
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 3}]
+\[
+\text{mcd}(a,b) = \text{mcd}(-a,b) = \text{mcd}(a,-b) = \text{mcd}(-a,-b)
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 4}]
+\[
+\text{mcd}(a,0) = |a|
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 5}]
+Si \( a = bq + d \), entonces:
+\[
+\text{mcd}(a,b) = \text{mcd}(b,d)
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title={Ejemplo de uso: Valores de $\text{mcd}(n^2-n+1,n+2)$ en $\mathbb{Z}$}]
+Dividimos \(n^2 - n + 1\) entre \(n+2\):
+
+\[
+n^2-n+1 / n+2 = n-3 \text{ resto } 7
+\]
+
+\[
+n^2 - n + 1 = (n+2)(n-3) + 7
+\]
+
+Por la Propiedad 5:
+\[
+\text{mcd}(n^2 - n + 1, n+2) = \text{mcd}(n+2,7) \le 7
+\]
+
+Como 7 es primo, los posibles valores son:
+\[
+\boxed{1 \text{ o } 7}
+\]
+\end{ejemplo}
+
+
+% ====================================
+% SUBSECCIÓN: MÍNIMO COMÚN MÚLTIPLO
+% ====================================
+
+\subsection{Propiedades del MCM}
+
+\begin{procedimiento}[title={Propiedad 1}]
+\[
+\text{mcm}(0,a_2,a_3,\ldots,a_n) = 0
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 2}]
+El MCM de varios números también puede calcularse de forma recursiva:
+\[
+\text{mcm}(a_1,a_2,\ldots,a_{n-1},a_n) = \text{mcm}(\text{mcm}(a_1,a_2,\ldots,a_{n-1}),a_n)
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad 3}]
+\[
+\text{mcm}(a,b) = \text{mcm}(-a,b) = \text{mcm}(a,-b) = \text{mcm}(-a,-b)
+\]
+\end{procedimiento}
+
+% =============================
+% SECCIÓN: NÚMEROS PRIMOS
+% =============================
+
+\section{Números Primos}
+
+Los \textbf{números primos} son la base de la aritmética entera.  
+Su estudio es esencial para comprender la factorización, la divisibilidad y el cálculo del MCD y MCM.
+
+% ====================================
+% DEFINICIÓN
+% ====================================
+
+\begin{procedimiento}[title={Definición de número primo}]
+Un número entero \( p \) es \textbf{primo} si cumple que:
+\[
+p \geq 2 \quad \text{y sus únicos divisores son } \pm 1 \text{ y } \pm p
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad fundamental de los números primos}]
+Si \( p \) es primo y \( p \mid a \cdot b \), entonces:
+\[
+p \mid a \quad \text{o} \quad p \mid b
+\]
+\end{procedimiento}
+
+% ====================================
+% CRITERIO DE PRIMALIDAD
+% ====================================
+
+\begin{procedimiento}[title={Cómo comprobar si un número es primo}]
+Un número \( n \geq 2 \) es \textbf{primo} si no existe ningún número primo \( p \) tal que:
+\[
+p \leq \sqrt{n} \quad \text{y} \quad p \mid n
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title={Ejemplo: comprobar si \(47\) es primo}]
+Calculamos:
+\[
+\sqrt{47} \approx 6.85
+\]
+Primos menores o iguales que \(6\): \(2, 3, 5\)
+\[
+47 \div 2 = 23.5 \quad (\text{no entero})
+\]
+\[
+47 \div 3 = 15.66 \quad (\text{no entero})
+\]
+\[
+47 \div 5 = 9.4 \quad (\text{no entero})
+\]
+Ningún primo menor o igual que \(\sqrt{47}\) divide a \(47\), por tanto:
+\[
+\boxed{47 \text{ es primo.}}
+\]
+\end{ejemplo}
+
+% ====================================
+% FACTORIZACIÓN Y RELACIÓN ENTRE MCD Y MCM (fusionado)
+% ====================================
+
+\begin{procedimiento}[title={Factorización prima y fórmulas de MCD y MCM}]
+Todo número entero distinto de cero puede escribirse (de forma única salvo el signo) como:
+\[
+a = \pm \displaystyle\prod_{i=1}^{n} P_i^{c_i}, \qquad 
+b = \pm \displaystyle\prod_{i=1}^{n} P_i^{d_i}
+\]
+donde \( P_i \) son primos distintos y \( c_i, d_i \geq 0 \).
+
+A partir de esta factorización, se cumplen simultáneamente las siguientes fórmulas:
+\[
+\text{mcd}(a,b) = \displaystyle\prod_{i=1}^{n} P_i^{\min(c_i, d_i)}
+\]
+\[
+\text{mcm}(a,b) = \displaystyle\prod_{i=1}^{n} P_i^{\max(c_i, d_i)}
+\]
+\[
+\text{mcd}(a,b) \cdot \text{mcm}(a,b) = |a \cdot b|
+\]
+
+\end{procedimiento}
+
+\section{Algoritmo Extendido de Euclides y Coeficientes de Bézout}
+
+\begin{procedimiento}[title={Pasos del Algoritmo Extendido de Euclides}]
+Para calcular el \(\text{mcd}(a,b)\) y sus coeficientes de Bézout:
+
+\begin{enumerate}
+    \item Realizar divisiones sucesivas:
+    \[
+    a = b \cdot q_1 + r_1, \quad
+    b = r_1 \cdot q_2 + r_2, \quad \ldots
+    \]
+    hasta que el resto sea \(0\). El último resto no nulo ($r_n$) es el \(\text{mcd}(a,b)\).
+
+    \item Construir la tabla iterativa con columnas:
+    \[
+    i,\quad r_i,\quad q_i,\quad u_i,\quad v_i
+    \]
+    donde \(u_i, v_i\) se definen por la recurrencia:
+    \[
+    u_i = u_{i-2} - u_{i-1}\,q_i, \qquad
+    v_i = v_{i-2} - v_{i-1}\,q_i,
+    \]
+    con condiciones iniciales:
+    \[
+    u_0 = 0, \quad u_1 = 1, \quad v_0 = 1, \quad v_1 = -q_1.
+    \]
+
+    \item La tabla queda entonces:
+    \[
+    \begin{array}{c|c|c|c|c}
+    i & r_i & q_i & u_i & v_i \\
+    \hline
+    0 & b & - & 0 & 1 \\
+    1 & r_1 & q_1 & 1 & -q_1 \\
+    2 & r_2 & q_2 & u_2 & v_2 \\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    n & \boxed{r_n} & q_n & u_n & v_n \\
+    \end{array}
+    \]
+
+    \item \(u_n\) y \(v_n\) verifican la identidad de Bézout:
+    \[
+    \text{mcd}(a,b) = a \cdot u_n + b \cdot v_n = \boxed{r_n}
+    \]
+\end{enumerate}
+\end{procedimiento}
+
+
+% =========================================================
+% EJEMPLO 1: MCD(114,51)
+% =========================================================
+
+\begin{ejemplo}[title={Cálculo de \(\text{mcd}(114,51)\) y coeficientes de Bézout}]
+\textbf{Divisiones:}
+
+\[
+114 / 51 = 2 \;\text{resto}\; 12
+\]
+\[
+51 / 12 = 4 \;\text{resto}\; \boxed{3}
+\]
+\[
+12 / 3 = 4 \;\text{resto}\; 0
+\]
+
+El último resto no nulo es \(\boxed{3}\).
+
+\bigskip
+
+\textbf{Tabla del Algoritmo Extendido:}
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 51 & \text{-} & 0 & 1 \\
+1 & 12 & 2 & 1 & -2 \\
+2 & \boxed{3} & 4 & -4 & 9 \\
+\end{array}
+\]
+
+\bigskip
+
+\textbf{Coeficientes de Bézout:}
+
+\[
+\boxed{3} = 114 \cdot (-4) + 51 \cdot (9).
+\]
+
+Por tanto, \(-4\) y \(9\) son coeficientes de Bézout para \(114\) y \(51\).
+\end{ejemplo}
+
+% =========================================================
+% EJEMPLO 2: MCD(6,10,15)
+% =========================================================
+
+\begin{ejemplo}[title={Cálculo de \(\text{mcd}(6,10,15)\)}]
+Usamos la propiedad:
+\[
+\text{mcd}(6,10,15) = \text{mcd}(\text{mcd}(6,10),15).
+\]
+
+\subsubsection*{Paso 1: \(\text{mcd}(6,10)\)}
+
+\textbf{Divisiones:}
+
+\[
+10 / 6 = 1 \;\text{resto}\; 4
+\]
+\[
+6 / 4 = 1 \;\text{resto}\; \boxed{2}
+\]
+\[
+4 / 2 = 2 \;\text{resto}\; 0
+\]
+
+El último resto no nulo es \(\boxed{2}\).
+
+\bigskip
+
+\textbf{Tabla del Algoritmo Extendido:}
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 6 & \text{-} & 0 & 1 \\
+1 & 4 & 1 & 1 & -1 \\
+2 & \boxed{2} & 1 & -1 & 2 \\
+\end{array}
+\]
+
+\[
+\boxed{2} = 10 \cdot (-1) + 6 \cdot (2).
+\]
+
+\vspace{1em}
+
+\subsubsection*{Paso 2: \(\text{mcd}(2,15)\)}
+
+\textbf{Divisiones:}
+
+\[
+15 / 2 = 7 \;\text{resto}\; \boxed{1}
+\]
+\[
+2 / 1 = 2 \;\text{resto}\; 0
+\]
+
+El último resto no nulo es \(\boxed{1}\).
+
+\bigskip
+
+\textbf{Tabla del Algoritmo Extendido:}
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 2 & \text{-} & 0 & 1 \\
+1 & \boxed{1} & 7 & 1 & -7 \\
+\end{array}
+\]
+
+\[
+\boxed{1} = 15 \cdot (1) + 2 \cdot (-7).
+\]
+\end{ejemplo}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black, title=\textbf{Cálculo de \(\text{mcd}(6,10,15)\)}]
+\textbf{Combinación de resultados:}
+\[
+\text{mcd}(6,10) = \boxed{2} = 10 \cdot (-1) + 6 \cdot (2),
+\]
+\[
+\text{mcd}(2,15) = \boxed{1} = 15 \cdot (1) + 2 \cdot (-7).
+\]
+
+Sustituyendo \(2 = 10\cdot(-1) + 6\cdot(2)\) en la ecuación anterior:
+
+\[
+1 = 15 \cdot (1) + \big(10\cdot(-1) + 6\cdot(2)\big)\cdot(-7)
+\]
+\[
+1 = 15\cdot(1) + 10\cdot(7) + 6\cdot(-14).
+\]
+
+Por tanto:
+\[
+1,\; 7,\; -14
+\]
+son unos coeficientes de Bézout para \(15,\;10,\;6\).
+\end{tcolorbox}
+
+\section{Ecuaciones Diofánticas}
+
+\subsection{Con 2 incógnitas}
+
+\begin{procedimiento}
+Consideremos la ecuación diofántica:
+\[
+a x + b y = c, \quad a,b \neq 0.
+\]
+
+\begin{enumerate}
+    \item Calcular \(g = \text{mcd}(a,b)\). Si \(g \nmid c\), la ecuación no tiene solución.
+    \item Si \(g \mid c\), dividir la ecuación entre \(g\) para simplificar:
+    \[
+    \frac{a}{g} x + \frac{b}{g} y = \frac{c}{g}.
+    \]
+    \item Hallar una solución particular \((x_0,y_0)\) usando los coeficientes de Bézout de \(a\) y \(b\):
+    \[
+    x_0 \cdot a + y_0 \cdot b = g.
+    \]
+    \item Las soluciones generales son:
+    \[
+    x = x_0 + \frac{b}{g} k, \quad y = y_0 - \frac{a}{g} k, \quad k \in \mathbb{Z}.
+    \]
+\end{enumerate}
+\end{procedimiento}
+
+
+\begin{ejemplo}[title={Ecuación sin solución}]
+\[
+6x + 15y = 7
+\]
+
+\textbf{Divisiones para el mcd:}
+
+\[
+15 / 6 = 2 \;\text{resto}\; \boxed{3}
+\]
+\[
+6 / 3 = 2 \;\text{resto}\; 0
+\]
+
+\[
+\text{mcd}(6,15) = \boxed{3}
+\]
+
+Como \(3 \nmid 7\), \textbf{no tiene solución.}
+\end{ejemplo}
+
+\begin{ejemplo}[title={Ecuación con solución}]
+\[
+21x + 15y = 33
+\]
+
+\textbf{Divisiones para el mcd:}
+
+\[
+21 / 15 = 1 \;\text{resto}\; 6
+\]
+\[
+15 / 6 = 2 \;\text{resto}\; \boxed{3}
+\]
+\[
+6 / 3 = 2 \;\text{resto}\; 0
+\]
+
+\[
+\text{mcd}(21,15) = \boxed{3} \quad \text{y } 3 \mid 33 \Rightarrow \text{tiene solución.}
+\]
+
+\textbf{Tabla del Algoritmo Extendido de Euclides:}
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 15 & - & 0 & 1 \\
+1 & 6 & 1 & 1 & -1 \\
+2 & \boxed{3} & 2 & -2 & 3 \\
+\end{array}
+\]
+
+\[
+\boxed{3} = 21 \cdot (-2) + 15 \cdot (3)
+\]
+
+\textbf{Solución particular:}  
+Multiplicamos la combinación de Bézout por \(33/3 = 11\):
+
+\[
+x_0 = -2 \cdot 11 = -22, \quad y_0 = 3 \cdot 11 = 33
+\]
+
+\textbf{Solución general:}
+
+\[
+x = -22 + \frac{15}{3} k = -22 + 5 k
+\]
+\[
+y = 33 - \frac{21}{3} k = 33 - 7 k
+\]
+
+\[
+k \in \mathbb{Z}
+\]
+
+\textbf{Observación:} la ecuación es equivalente a
+\[
+7x + 5y = 11
+\]
+dividida entre el mcd \(3\).
+\end{ejemplo}
+
+\subsection{Con 3 incógnitas}
+
+\begin{procedimiento}
+Consideremos la ecuación diofántica:
+\[
+a x + b y + c z = d, \quad a,b,c \neq 0.
+\]
+
+\begin{enumerate}
+    \item Comprobar si tiene solución calculando
+    \[
+    g = \text{mcd}(a,b,c) = \text{mcd}(\text{mcd}(a,b),c).
+    \]
+    Si \(g \nmid d\), la ecuación no tiene solución.
+    
+    \item Si \(g \mid d\), dividimos toda la ecuación entre \(g\) para simplificar.
+    
+    \item Hallar los mcd particulares de los pares de coeficientes:
+    \[
+    \text{mcd}(a,b), \quad \text{mcd}(a,c), \quad \text{mcd}(b,c).
+    \]
+    
+    \item Dependiendo de estos valores, distinguimos dos casos:
+    
+    \subsubsection*{Primer caso: al menos un par tiene mcd = 1}
+    \begin{itemize}
+        \item Identificar un par de coeficientes cuyo mcd sea 1.
+        \item Dejar los términos de ese par en la izquierda y pasar el resto de términos junto con el término independiente a la derecha.
+        \item Establecer la variable de la derecha como \(k \in \mathbb{Z}\) (por ejemplo, \(x = k\)) y resolver la ecuación de 2 incógnitas resultante.
+        \item La solución general quedará expresada en función de dos parámetros enteros \(k\) y \(k' \in \mathbb{Z}\).
+    \end{itemize}
+
+    \subsubsection*{Segundo caso: todos los pares tienen mcd \(\neq 1\)}
+    \begin{itemize}
+        \item Elegir un par de coeficientes, por ejemplo \(a\) y \(b\), y factorizar su mcd:
+        \[
+        a x + b y = g \cdot t.
+        \]
+        \item Sustituir esta descomposición en la ecuación original, obteniendo una ecuación de dos incógnitas: \(g \cdot t + c z = d\).
+        \item Resolver esta ecuación de dos incógnitas como se hizo previamente.
+        \item Luego sustituir el valor solución de \(t\) en la identidad \(t = 2x + 5y\) (según el ejemplo, se ve mucho más fácil) y resolver la ecuación resultante de dos incógnitas.
+        \item La solución final se expresará en función de dos parámetros enteros \(k\) y \(k' \in \mathbb{Z}\).
+    \end{itemize}
+\end{enumerate}
+\end{procedimiento}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ejemplo}[title={Ecuación diofántica con 3 incógnitas (Primer caso)}]
+Consideremos la ecuación:
+\[
+10x + 15y - 14z = 8
+\]
+
+\textbf{Paso 1: Comprobación de existencia de soluciones}
+
+\[
+\text{mcd}(10,15,-14) = \text{mcd}(\text{mcd}(10,15),14)
+\]
+
+\[
+15 / 10 = 1 \;\text{resto}\; \boxed{5}
+\]
+\[
+10 / 5 = 2 \;\text{resto}\; 0
+\]
+\[
+\Rightarrow \text{mcd}(10,15) = 5
+\]
+
+\[
+\text{mcd}(5,14): \quad 14 / 5 = 2 \;\text{resto}\; 4
+\]
+\[
+5 / 4 = 1 \;\text{resto}\; \boxed{1}
+\Rightarrow \text{mcd}(5,14) = 1
+\]
+
+Por tanto, 
+\[
+\text{mcd}(10,15,-14) = 1.
+\]
+Como \(1 \mid 8\), la ecuación \textbf{tiene solución}.
+
+\bigskip
+
+\textbf{Paso 2: Determinar el tipo de caso}
+
+\[
+\begin{aligned}
+\text{mcd}(10,15) &= 5 \neq 1, \\
+\text{mcd}(10,-14) &= \text{mcd}(10,14) = 2 \neq 1, \\
+\text{mcd}(15,-14) &= \text{mcd}(15,14) = 1.
+\end{aligned}
+\]
+
+Como \(\text{mcd}(15,-14)=1\), estamos ante el \textbf{primer caso}.
+
+\bigskip
+
+\textbf{Paso 3: Reducción a dos incógnitas}
+
+Dejamos a la izquierda los términos cuyo mcd es 1:
+\[
+15y - 14z = 8 - 10x.
+\]
+
+Sea \(x = k, \; k \in \mathbb{Z}\). Sustituyendo:
+\[
+15y - 14z = 8 - 10k.
+\]
+
+\bigskip
+
+\textbf{Paso 4: Resolución de la ecuación de dos incógnitas}
+
+\textit{Divisiones para hallar el mcd(15,14):}
+\[
+15 / 14 = 1 \;\text{resto}\; \boxed{1}
+\]
+\[
+\Rightarrow \text{mcd}(15,14) = 1.
+\]
+
+\end{ejemplo}
+
+\begin{ejemplo}[title={Ecuación diofántica con 3 incógnitas (Primer caso)}]
+
+\textbf{Tabla del Algoritmo Extendido:}
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 14 & \text{-} & 0 & 1 \\
+1 & \boxed{1} & 1 & 1 & -1 \\
+\end{array}
+\]
+
+\[
+\boxed{1} = 15 \cdot (1) + 14 \cdot (-1).
+\]
+
+\bigskip
+
+Reorganizamos y multiplicamos por \((8 - 10k)\):
+\[
+15 \cdot (8 - 10k) - 14 \cdot (8 - 10k) = 8 - 10k.
+\]
+
+Por tanto, una \textbf{solución particular} es:
+\[
+y_0 = 8 - 10k, \quad z_0 = 8 - 10k.
+\]
+
+\bigskip
+
+\textbf{Paso 5: Solución general}
+
+\[
+\begin{aligned}
+y &= y_0 + \frac{-14}{1} \, k' = 8 - 10k - 14k', \\
+z &= z_0 - \frac{15}{1} \, k' = 8 - 10k - 15k',
+\end{aligned}
+\quad k' \in \mathbb{Z}.
+\]
+
+\bigskip
+
+\textbf{Por tanto, las soluciones generales son:}
+\[
+\boxed{
+\begin{aligned}
+x &= k,\\
+y &= 8 - 10k - 14k',\\
+z &= 8 - 10k - 15k',
+\end{aligned}
+\quad k, k' \in \mathbb{Z}.
+}
+\]
+\end{ejemplo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ejemplo}[title={Ecuación diofántica con 3 incógnitas (Segundo caso)}]
+Consideremos la ecuación:
+\[
+6x + 15y + 10z = 7
+\]
+
+\textbf{Paso 1: Comprobación de existencia de soluciones}
+
+\[
+\text{mcd}(6,15,10) = \text{mcd}(\text{mcd}(6,15),10)
+\]
+
+\[
+15 / 6 = 2 \;\text{resto}\; \boxed{3}
+\]
+\[
+6 / 3 = 2 \;\text{resto}\; 0
+\]
+\[
+\Rightarrow \text{mcd}(6,15) = 3
+\]
+
+\[
+10 / 3 = 3 \;\text{resto}\; \boxed{1} \Rightarrow \text{mcd}(3,10) = 1
+\]
+Por tanto:
+\[
+\text{mcd}(6,15,10) = 1
+\]
+Como \(1 \mid 7\), la ecuación \textbf{tiene solución}.
+
+\bigskip
+
+\textbf{Paso 2: Determinar el tipo de caso}
+
+\[
+\begin{aligned}
+\text{mcd}(6,15) &= 3 \neq 1,\\
+\text{mcd}(6,10) &= 2 \neq 1,\\
+\text{mcd}(15,10) &= 5 \neq 1.
+\end{aligned}
+\]
+Por tanto, estamos ante el \textbf{segundo caso}.
+
+\bigskip
+
+\textbf{Paso 3: Sustitución con parámetro auxiliar \(t\)}
+
+Tomamos el par \((6,15)\):
+\[
+6x + 15y = 3(2x + 5y) = 3t, \quad \text{donde } t = 2x + 5y.
+\]
+
+Reemplazamos en la ecuación original:
+\[
+3t + 10z = 7.
+\]
+
+\bigskip
+
+\textbf{Paso 4: Resolución de la ecuación diofántica en \(t\) y \(z\)}
+
+\textit{Divisiones:}
+\[
+10 / 3 = 3 \;\text{resto}\; \boxed{1}
+\Rightarrow \text{mcd}(3,10) = \boxed{1}.
+\]
+
+\textbf{Tabla del Algoritmo Extendido:}
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 3 & \text{-} & 0 & 1 \\
+1 & \boxed{1} & 3 & 1 & -3 \\
+\end{array}
+\]
+
+\[
+\boxed{1} = 10 \cdot (1) + 3 \cdot (-3).
+\]
+
+\end{ejemplo}
+\begin{ejemplo}[title={Ecuación diofántica con 3 incógnitas (Segundo caso)}]
+
+Multiplicamos por \(7\):
+\[
+10 \cdot (7) + 3 \cdot (-21) = 7.
+\]
+
+Por tanto, una \textbf{solución particular} es:
+\[
+t_0 = -21, \quad z_0 = 7.
+\]
+
+\textbf{Solución general:}
+\[
+t = -21 + 10k, \quad z = 7 - 3k, \quad k \in \mathbb{Z}.
+\]
+
+\bigskip
+
+\textbf{Paso 5: Sustitución en la ecuación definida en el Paso 3 para \(x\) e \(y\)}
+
+Sabemos que:
+\[
+2x + 5y = t = -21 + 10k.
+\]
+
+\textit{Divisiones:}
+\[
+5 / 2 = 2 \;\text{resto}\; \boxed{1}
+\Rightarrow \text{mcd}(2,5) = \boxed{1}.
+\]
+
+\textbf{Tabla del Algoritmo Extendido:}
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 2 & \text{-} & 0 & 1 \\
+1 & \boxed{1} & 2 & 1 & -2 \\
+\end{array}
+\]
+
+\[
+\boxed{1} = 2 \cdot (-2) + 5 \cdot (1).
+\]
+
+Multiplicamos por \((-21 + 10k)\):
+\[
+2 \cdot (-2)(-21 + 10k) + 5 \cdot (1)(-21 + 10k) = -21 + 10k.
+\]
+
+Por tanto, una \textbf{solución particular} es:
+\[
+x_0 = 42 - 20k, \quad y_0 = -21 + 10k.
+\]
+
+\bigskip
+
+\textbf{Paso 6: Solución general de \(x, y, z\)}
+
+\[
+\begin{aligned}
+x &= x_0 + 5k' = 42 - 20k + 5k',\\
+y &= y_0 - 2k' = -21 + 10k - 2k',\\
+z &= 7 - 3k,
+\end{aligned}
+\quad k, k' \in \mathbb{Z}.
+\]
+
+\bigskip
+
+\textbf{Por tanto, las soluciones generales son:}
+\[
+\boxed{
+\begin{aligned}
+x &= 42 - 20k + 5k',\\
+y &= -21 + 10k - 2k',\\
+z &= 7 - 3k,
+\end{aligned}
+\quad k, k' \in \mathbb{Z}.
+}
+\]
+\end{ejemplo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% =========================================================
+% SECCIÓN: PROPIEDADES DE LA RELACIÓN DE CONGRUENCIA
+% =========================================================
+
+\section{La Relación de Congruencia en \(\mathbb{Z}\)}
+
+\subsection{Propiedades}
+
+\begin{procedimiento}[title={Definición de congruencia módulo \(m\)}]
+Dados \(a,b \in \mathbb{Z}\) y \(m \in \mathbb{Z}\) con \(m \neq 0\), se dice que \(a\) es \textbf{congruente con} \(b\) \textbf{módulo \(m\)} si:
+\[
+a \equiv b \pmod{m} \;\;\Longleftrightarrow\;\; m \mid (a - b).
+\]
+
+De forma análoga, se dice que \(a\) y \(b\) \textbf{no son congruentes módulo \(m\)} si:
+\[
+a \not\equiv b \pmod{m} \;\;\Longleftrightarrow\;\; m \nmid (a - b).
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Relación de equivalencia}]
+La relación de congruencia módulo \(m\) es una \textbf{relación de equivalencia} en \(\mathbb{Z}\), ya que cumple:
+
+\begin{enumerate}
+    \item \textbf{Propiedad reflexiva:}  
+    Para todo \(a \in \mathbb{Z}\),
+    \[
+    a \equiv a \pmod{m}.
+    \]
+
+    \item \textbf{Propiedad simétrica:}  
+    Para cualesquiera \(a,b \in \mathbb{Z}\),
+    \[
+    a \equiv b \pmod{m} \;\;\Longleftrightarrow\;\; b \equiv a \pmod{m}.
+    \]
+
+    \item \textbf{Propiedad transitiva:}  
+    Para cualesquiera \(a,b,c \in \mathbb{Z}\),
+    \[
+    a \equiv b \pmod{m} \text{ y } b \equiv c \pmod{m} \;\;\Longrightarrow\;\; a \equiv c \pmod{m}.
+    \]
+\end{enumerate}
+\end{procedimiento}
+
+\subsection{Clases de Equivalencia}
+
+\begin{procedimiento}[title={Definición de clase de equivalencia módulo \(m\)}]
+Sea \(a \in \mathbb{Z}\) y \(m \in \mathbb{Z}\setminus\{0\}\).  
+La \textbf{clase de equivalencia de \(a\) módulo \(m\)} se define como:
+\[
+[a] = \{\, x \in \mathbb{Z} \mid x \equiv a \pmod{m} \,\}.
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Propiedad de pertenencia}]
+Todo entero pertenece a su clase:
+\[
+a \in [a].
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Clases equivalentes}]
+Para cualesquiera \(a,b \in \mathbb{Z}\):
+\[
+a \equiv b \pmod{m} \;\;\Longleftrightarrow\;\; [a] = [b].
+\]
+\[
+a \not\equiv b \pmod{m} \;\;\Longleftrightarrow\;\; [a] \cap [b] = \varnothing.
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title={Compatibilidad con suma y producto}]
+Sean \(a,b,c,d \in \mathbb{Z}\) y \(m \in \mathbb{Z}\setminus\{0\}\).  
+Si \(a \equiv c \pmod{m}\) y \(b \equiv d \pmod{m}\), entonces:
+\[
+a + b \equiv c + d \pmod{m}, \quad a \cdot b \equiv c \cdot d \pmod{m}.
+\]
+
+Esto significa que los elementos de una clase son intercambiables en operaciones módulo \(m\) sin alterar el resultado.
+\end{procedimiento}
+
+\begin{procedimiento}[title={Conjunto cociente \(\mathbb{Z}_m\)}]
+
+El conjunto de todas las clases residuales módulo \(m\) se llama \textbf{conjunto cociente}:
+\[
+\mathbb{Z}_m = \{\, [0], [1], [2], \dots, [m-1] \,\}.
+\]
+
+En \(\mathbb{Z}_m\), las operaciones de suma y producto se definen mediante las clases:
+\[
+[a] + [b] = [a+b], \quad [a] \cdot [b] = [a \cdot b].
+\]
+\end{procedimiento}
+
+\section{Inverso en Anillos Conmutativos}
+
+\begin{procedimiento}[title={Inverso en \(\mathbb{Z}_m\)}]
+Un elemento \([a] \in \mathbb{Z}_m\) es \textbf{invertible} (o \textbf{unidad}) si y solo si
+\[
+\text{mcd}(a,m) = 1.
+\]
+
+En tal caso, su inverso se obtiene mediante el Algoritmo Extendido de Euclides:
+\[
+[a]^{-1} = [u],
+\]
+donde \(u\) es el coeficiente de Bézout correspondiente a \(a\) en la combinación lineal
+\[
+a u + m v = 1.
+\]
+
+Cuidado, en la práctica \([u]\) estará en la columna de \(v_i\) porque corresponde a \(a\), que siempre será más pequeño que \(m\).
+\end{procedimiento}
+
+\begin{ejemplo}[title={Inverso de \([7]\) en \(\mathbb{Z}_{44}\)}]
+\[
+44 / 7 = 6 \;\text{resto } 2
+\]
+\[
+7 / 2 = 3 \;\text{resto } \boxed{1}
+\]
+
+\[
+\Rightarrow \text{mcd}(7,44) = 1 \;\;\text{y por tanto } [7] \text{ es unidad en } \mathbb{Z}_{44}.
+\]
+
+\textbf{Tabla del Algoritmo Extendido:}
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 7 & - & 0 & 1 \\
+1 & 2 & 6 & 1 & -6 \\
+2 & \boxed{1} & 3 & -3 & 19 \\
+\end{array}
+\]
+
+Por tanto:
+\[
+[7]^{-1} = [19] \in \mathbb{Z}_{44}.
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title={\([15]\) en \(\mathbb{Z}_{171}\) no tiene inverso}]
+\[
+171 / 15 = 11 \;\text{resto } 6
+\]
+\[
+15 / 6 = 2 \;\text{resto } 3
+\]
+\[
+6 / 3 = 2 \;\text{resto } \boxed{0}
+\]
+
+\[
+\text{mcd}(15,171) = 3 \neq 1 \;\;\Rightarrow [15] \text{ no es unidad en } \mathbb{Z}_{171}.
+\]
+\end{ejemplo}
+
+\subsection{Función \(\varphi\) de Euler en \(\mathbb{Z}_m\)}
+
+\begin{procedimiento}[title={Número de unidades en \(\mathbb{Z}_m\) y función \(\varphi(m)\)}]
+Sea \(m \ge 2\). La función de Euler \(\varphi(m)\) representa el \textbf{número de unidades} en \(\mathbb{Z}_m\).
+
+\bigskip
+\textbf{Cálculo de \(\varphi(m)\):}
+\begin{enumerate}
+    \item Si \(p\) es primo y \(n \ge 1\):
+    \[
+    \varphi(p^n) = p^n - p^{\,n-1} = p^{n-1}(p-1).
+    \]
+    \item Si $a$ y $b$ son primos:
+    \[
+    \varphi(a \cdot b) = \varphi(a) \cdot \varphi(b).
+    \]
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title={Cálculo de \(\varphi(9000)\)}]
+Factorizamos:
+\[
+9000 = 2^3 \cdot 3^2 \cdot 5^3
+\]
+\[
+\varphi(9000) = \varphi(2^3) \cdot \varphi(3^2) \cdot \varphi(5^3)
+\]
+
+Calculamos \(\varphi\) de cada potencia de primo:
+
+\[
+\begin{aligned}
+\varphi(2^3) &= 2^{3-1} (2-1) = 4\\
+\varphi(3^2) &= 3^{2-1} (3-1) = 6\\
+\varphi(5^3) &= 5^{3-1} (5-1) = 100
+\end{aligned}
+\]
+
+\[
+\varphi(9000) = 4 \cdot 6 \cdot 100 = 2400
+\]
+
+\textbf{Conclusión:} hay \(2400\) unidades en \(\mathbb{Z}_{9000}\).
+\end{ejemplo}
+
+
+\begin{procedimiento}[title={Cuándo \(\mathbb{Z}_m\) es un cuerpo}]
+\(\mathbb{Z}_m\) es un \textbf{cuerpo} si y solo si \(m\) es primo.  
+En ese caso, todos los elementos \([a] \neq [0]\) son unidades, y \(\varphi(m) = m-1\).
+\end{procedimiento}
+
+% =========================================================
+% SECCIÓN: SISTEMAS DE ECUACIONES EN CONGRUENCIAS
+% =========================================================
+\section{Sistemas de Ecuaciones en Congruencias}
+
+
+% =========================================================
+% SUBSECCIÓN: CASO GENERAL
+% =========================================================
+\subsection{Ecuación de una congruencia lineal}
+
+\begin{procedimiento}[title={Ecuación general}]
+La ecuación
+\[
+a x \equiv b \pmod{m}
+\]
+tiene solución si y solo si
+\[
+\text{mcd}(a,m) \mid b.
+\]
+
+\begin{itemize}
+    \item Si \(a = 1\), la solución general es:
+    \[
+    x = b + m k, \quad k \in \mathbb{Z}.
+    \]
+    \item En el caso general \(a \neq 1\):
+    \[
+    a x \equiv b \pmod{m},
+    \]
+    sea \(g = \text{mcd}(a,m)\), entonces existen coeficientes de Bézout \(u, v\) tales que:
+    \[
+    a u + m v = g.
+    \]
+    La solución general viene dada por:
+    \[
+    x = \frac{b}{g} \cdot u + \frac{m}{g} \cdot k, \quad k \in \mathbb{Z}.
+    \]
+\end{itemize}
+\end{procedimiento}
+
+% =========================================================
+% EJEMPLO 1: ECUACIÓN INDIVIDUAL SIN MÚLTIPLES
+% =========================================================
+\begin{ejemplo}[title={Ejemplo 1: Ecuación \(102x \equiv 24 \pmod{318}\)}]
+
+\textbf{Cálculo del MCD:}
+
+\[
+318 / 102 = 3 \;\text{resto}\; 12
+\]
+\[
+102 / 12 = 8 \;\text{resto}\; \boxed{6}
+\]
+\[
+12 / 6 = 2 \;\text{resto}\; 0
+\]
+
+\[
+\text{mcd}(102, 318) = \boxed{6}
+\]
+
+Como \(6 \mid 24\), la ecuación tiene solución.
+
+Dividimos toda la ecuación entre 6:
+\[
+17x \equiv 4 \pmod{53}
+\]
+
+\textbf{Cálculo del inverso de 17 módulo 53:}
+
+\[
+53 / 17 = 3 \;\text{resto}\; 2
+\]
+\[
+17 / 2 = 8 \;\text{resto}\; \boxed{1}
+\]
+
+\[
+\text{mcd}(17,53) = \boxed{1}
+\]
+
+\textbf{Tabla del Algoritmo Extendido de Euclides:}
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 17 & - & 0 & 1 \\
+1 & 2 & 3 & 1 & -3 \\
+2 & \boxed{1} & 8 & -8 & 25 \\
+\end{array}
+\]
+
+\[
+\boxed{1} = 53 \cdot (-8) + 17 \cdot (25)
+\]
+
+Por tanto, el inverso de \([17]\) es \([25]\).
+
+\[
+x = \frac{4}{1} \cdot 25 + \frac{53}{1} \cdot k = 100 + 53k \equiv 47 + 53k, \quad k \in \mathbb{Z}.
+\]
+\end{ejemplo}
+
+% =========================================================
+% SUBSECCIÓN: SISTEMA DE CONGRUENCIAS
+% =========================================================
+\subsection{Resolución de un sistema de ecuaciones en congruencias}
+
+\begin{procedimiento}[title={Método general}]
+Para resolver un \textbf{sistema de ecuaciones en congruencias}:
+\[
+\begin{cases}
+a_1 x \equiv b_1 \pmod{m_1} \\
+a_2 x \equiv b_2 \pmod{m_2} \\
+\vdots \\
+a_n x \equiv b_n \pmod{m_n}
+\end{cases}
+\]
+
+se sigue el siguiente procedimiento general:
+
+\begin{enumerate}
+    \item Se resuelve la primera congruencia individualmente, obteniendo una solución del tipo \(x = \text{(expresión con un parámetro entero)}\).
+    \item Esa expresión se \textbf{sustituye} en la segunda congruencia, obteniendo una nueva ecuación que se resuelve del mismo modo.
+    \item El proceso se \textbf{repite iterativamente}, sustituyendo el resultado anterior en la siguiente congruencia hasta llegar al final del sistema.
+    \item Si en algún paso una de las ecuaciones no tiene solución, el sistema completo tampoco la tiene.
+    \item Si todas las ecuaciones son compatibles, el resultado final será una única congruencia equivalente del tipo:
+    \[
+    x \equiv r \pmod{M},
+    \]
+    donde \(M\) es el módulo común que unifica todo el sistema.
+\end{enumerate}
+
+\end{procedimiento}
+
+% =========================================================
+% EJEMPLO 2: SISTEMA SIN SOLUCIÓN
+% =========================================================
+\begin{ejemplo}[title={Ejemplo 2: Sistema sin solución}]
+\[
+\begin{cases}
+x \equiv 9 \pmod{12} \\
+x \equiv 7 \pmod{20}
+\end{cases}
+\]
+
+De la segunda ecuación:
+\[
+x = 7 + 20k, \quad k \in \mathbb{Z}.
+\]
+
+Sustituyendo en la primera:
+\[
+7 + 20k \equiv 9 \pmod{12}
+\]
+\[
+20k \equiv 2 \pmod{12} \Rightarrow 8k \equiv 2 \pmod{12}
+\]
+
+\[
+12 / 8 = 1 \;\text{resto}\; \boxed{4}, \quad 8 / 4 = 2 \;\text{resto}\; 0
+\]
+
+\[
+\text{mcd}(8,12) = \boxed{4}
+\]
+
+Como \(4 \nmid 2\), el sistema \textbf{no tiene solución}.
+\end{ejemplo}
+
+% =========================================================
+% EJEMPLO 3: SISTEMA CON SOLUCIÓN
+% =========================================================
+\begin{ejemplo}[title={Ejemplo 3: Sistema con solución}]
+\[
+\begin{cases}
+x \equiv 9 \pmod{12} \\
+x \equiv 5 \pmod{20}
+\end{cases}
+\]
+
+De la segunda:
+\[
+x = 5 + 20k, \quad k \in \mathbb{Z}.
+\]
+Sustituyendo en la primera:
+\[
+5 + 20k \equiv 9 \pmod{12} \Rightarrow 20k \equiv 4 \pmod{12}
+\]
+\[
+8k \equiv 4 \pmod{12}
+\]
+
+\[
+12 / 8 = 1 \;\text{resto}\; \boxed{4}, \quad 8 / 4 = 2 \;\text{resto}\; 0
+\]
+\[
+\text{mcd}(8,12) = \boxed{4}
+\]
+Como \(4 \mid 4\), la ecuación tiene solución.
+
+Dividimos por 4:
+\[
+2k \equiv 1 \pmod{3}
+\]
+
+\textbf{Cálculo del inverso de 2 módulo 3:}
+
+\[
+3 / 2 = 1 \;\text{resto}\; \boxed{1}
+\]
+\[
+\text{mcd}(2,3) = \boxed{1}
+\]
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 2 & - & 0 & 1 \\
+1 & \boxed{1} & 1 & 1 & -1 \\
+\end{array}
+\]
+
+\[
+\boxed{1} = 3 \cdot (1) + 2 \cdot (-1)
+\]
+
+Por tanto, el inverso de \([2]\) es \([2]\) mismo (pues \(-1 \equiv 2 \pmod{3}\)).
+
+\[
+k = -1 + 3k', \quad k' \in \mathbb{Z}.
+\]
+
+Sustituyendo en \(x = 5 + 20k\):
+\[
+x = 5 + 20(-1 + 3k') = -15 + 60k' = 45 + 60k', \quad k' \in \mathbb{Z}.
+\]
+
+Por tanto, el sistema es equivalente a la ecuación:
+\[
+x \equiv 45 \pmod{60}.
+\]
+\end{ejemplo}
+
+\section{Reducción de Potencias}
+
+\begin{procedimiento}[title=Reducción de potencias]
+Queremos calcular \(r_m(a^b)\), es decir, el resto de dividir \(a^b\) entre \(m\).
+
+\begin{enumerate}
+  \item \textbf{Reducir la base.}  
+  Dividimos \(a\) entre \(m\) y el resto será la nueva base \(a'\).  
+  Así obtenemos un nuevo \(r_m(a'^b)\).
+
+  \item \textbf{Reducir el exponente.}  
+  Calculamos \(\text{mcd}(a',m)\) y distinguimos dos casos:
+
+  \begin{itemize}
+    \item \textbf{Caso 1:} \(\text{mcd}(a',m)=1\)
+    \begin{enumerate}
+      \item[1.1)] Hallar \(l\) tal que \(a'^l \equiv 1 \pmod{m}\) calculando:
+      \[
+      a'^1 = a' \bmod m, \quad a'^2 = a'\cdot a' \bmod m, \quad a'^3 = a'^2 \cdot a' \bmod m, \ldots
+      \]
+      hasta que se cumpla \(a'^n \equiv 1 \pmod{m}\). Entonces \(l = n\). \\
+      Para darnos pistas de cuánto vale $l$, podemos reducir el conjunto de valores que puede tomar $l$ si tenemos en cuenta que para este caso se cumple que $l|\varphi(m)$.
+      \item[1.2)] Dividir \(b\) entre \(l\) y tomar el resto como nuevo exponente \(b'\).  
+      Así obtenemos \(r_m(a'^{\,b'})\), que es mucho más sencillo de calcular.
+    \end{enumerate}
+
+    \item \textbf{Caso 2:} \(\text{mcd}(a',m)\neq1\)
+    \begin{enumerate}
+      \item[2.1)] Descomponer el módulo \(m\) en dos números: uno que tenga factores primos en común con la base (llamado \emph{primer número}) y otro que no (\emph{segundo número}).
+      \item[2.2)] Llamamos \(a\) a la potencia actual.  
+      Calculamos \(r_{\text{primer}}(a) = 0\), porque la base será múltiplo del primer número. Esto nos da la primera ecuación:
+      \[
+      x \equiv 0 \pmod{\text{primer número}}
+      \]
+      \item[2.3)] Calculamos \(r_{\text{segundo}}(a)\).  
+      Como la base y el segundo número no comparten factores primos, su mcd es 1.  
+      Reducimos la base y, si es necesario, el exponente usando el método de la \(l\), obteniendo así:
+      \[
+      x \equiv \text{resto} \pmod{\text{segundo número}}
+      \]
+      \item[2.4)] Formamos el sistema de congruencias:
+      \[
+      \begin{cases}
+      x \equiv 0 \pmod{\text{primer número}}\\
+      x \equiv \text{resto} \pmod{\text{segundo número}}
+      \end{cases}
+      \]
+      y resolvemos. La solución menor que el módulo total se toma como el resto final (equivalente a escoger \(k'=0\)).
+    \end{enumerate}
+  \end{itemize}
+
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 1: mcd es 1]
+Cálculo de $r_{19}(45^{200})$
+
+Reducimos la base:
+
+\[
+45/19 = 2\ \text{resto}\ 7
+\]
+\[
+a' = 7 \quad\Rightarrow\quad r_{19}(45^{200}) = r_{19}(7^{200})
+\]
+
+Como \(\text{mcd}(7,19)=1\), buscamos un \(l\) tal que \(7^l = 1 \pmod{19}\):
+\[
+l \mid \varphi(19) \implies l \mid 18 \implies l \in \{1,2,3,6,9,18\}
+\]
+
+\begin{itemize}
+  \item $7^1 = 7 \mod 19$
+  \item $7^2 = 11 \mod 19$
+  \item $7^3 = 77 \mod 19 \;\Rightarrow\; 7^3 = 1 \mod 19$
+\end{itemize}
+
+Por tanto, \(l = 3\).
+
+Reducimos el exponente:
+
+\[
+200/3 = 66\ \text{resto}\ 2
+\]
+\[
+b' = 2 \quad\Rightarrow\quad r_{19}(7^{200}) = r_{19}(7^2)
+\]
+
+\[
+7^2 = 11 \pmod{19}
+\]
+
+\[
+\boxed{r_{19}(45^{200}) = 11}
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo 2: mcd no es 1]
+Calcular \(r_{36}(22^{12345})\).
+
+La base ya está reducida. Comprobamos el mcd:
+
+\[
+\text{mcd}(22,36) = 2 \neq 1
+\]
+
+No existe \(l\) tal que \(22^l \equiv 1 \pmod{36}\).  
+Descomponemos el módulo:
+
+\[
+36 = 4 \cdot 9
+\]
+donde 4 tiene primos en común con la base (22) y 9 no. Llamamos \(a = 22^{12345}\).
+
+\begin{itemize}
+    \item Es claro que $a$ es múltiplo de 4. Como \(r_4(a) = 0\).  
+  Entonces $a$ satisface la primera ecuación del sistema:
+  \[
+  x \equiv 0 \pmod{4}
+  \]
+    \item Calculamos \(r_9(a) = r_9(4^{12345})\) porque \(22 \equiv 4 \pmod{9}\) y \(\text{mcd}(4,9) = 1\).  
+  Hallamos \(l\) módulo 9:
+  \[
+    l \mid \varphi(9) \implies l \mid 6 \implies l \in \{1,2,3,6\}
+    \]
+  \begin{itemize}
+    \item $4^1 = 4 \mod 9$
+    \item $4^2 = 7 \mod 9$
+    \item $4^3 = 28 \mod 9 \;\Rightarrow\; 4^3 = 1 \mod 9$
+  \end{itemize}
+  Por tanto \(l=3\).
+
+- Reducimos el exponente:
+\[
+12345/3 = 4115 \text{ resto } 0
+\]
+\[
+r_9(a) = r_9(4^{12345}) = r_9(4^0) = r_9(1) = 1
+\]
+
+Esto nos da la segunda ecuación:
+\[
+x \equiv 1 \pmod{9}
+\]
+\end{itemize}
+
+Ahora resolvemos el sistema de congruencias:
+\[
+\begin{cases}
+x \equiv 0 \pmod{4}\\
+x \equiv 1 \pmod{9}
+\end{cases}
+\]
+
+Escribimos \(x = 4k\), entonces:
+\[
+4k \equiv 1 \pmod{9}
+\]
+
+- Como \(\text{mcd}(4,9)=1\), la congruencia tiene solución.
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i & q_i & u_i & v_i \\
+\hline
+0 & 4 & - & 0 & 1 \\
+1 & \boxed{1} & 2 & 1 & -2
+\end{array}
+\]
+
+\[[1] = 4 \cdot (-2) + 9 \cdot 1\]
+
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo 2: mcd no es 1]
+
+Por tanto, el inverso de 4 módulo 9 es \(-2 \equiv 7 \pmod{9}\).
+
+- Entonces \(k \equiv -2 \equiv 7 \pmod{9}\)  
+\[
+k = 7 + 9k',\quad k' \in \mathbb{Z}
+\]
+
+- y:
+\[
+x = 4k = 4(7 + 9k') = 28 + 36k',\quad k' \in \mathbb{Z}
+\]
+
+Finalmente, tomando \(k' = 0\):
+\[
+r_{36}(22^{12345}) = 28
+\]
+\end{ejemplo}
+
+\section{Polinomios con Coeficientes en un Cuerpo}
+
+\subsection{Divisibilidad de Polinomios}
+
+\begin{procedimiento}[title=Divisibilidad de polinomios]
+Sea \(\mathbb{K}\) un cuerpo y consideremos los polinomios \(f_1(x), f_2(x) \in \mathbb{K}[x]\).
+
+Decimos que \(f_1(x)\) \textbf{divide} a \(f_2(x)\), y escribimos
+\[
+f_1(x) \mid f_2(x),
+\]
+si existe un polinomio \(g(x) \in \mathbb{K}[x]\) tal que
+\[
+f_2(x) = f_1(x) \cdot g(x).
+\]
+\end{procedimiento}
+
+\subsection{Polinomios Asociados}
+
+\begin{procedimiento}[title=Polinomios asociados]
+Sea \(\mathbb{K}\) un cuerpo y consideremos los polinomios \(f(x), g(x) \in \mathbb{K}[x]\).
+
+- Decimos que \(f(x)\) y \(g(x)\) están \textbf{asociados}, y escribimos
+\[
+f(x) \sim g(x),
+\]
+si uno \textbf{divide} al otro, es decir,
+\[
+f(x) \mid g(x) \quad \text{y} \quad g(x) \mid f(x).
+\]
+
+- Propiedad importante: Todo polinomio \(f(x) \neq 0\) tiene un \textbf{polinomio mónico asociado}.
+\end{procedimiento}
+
+\section{MCD y Coeficientes de Bézout de Polinomios}
+
+\begin{procedimiento}[title=Cálculo del MCD y Coeficientes de Bézout]
+Sea \(\mathbb{K}\) un cuerpo y consideremos dos polinomios \(f_1(x), f_2(x) \in \mathbb{K}[x]\).
+
+El procedimiento para calcular el máximo común divisor (MCD) y los coeficientes de Bézout es el siguiente:
+
+\begin{enumerate}
+  \item Aplicamos el \textbf{Algoritmo Extendido de Euclides} para polinomios:
+  \begin{itemize}
+    \item Escogemos como \textbf{dividendo} el polinomio de mayor grado y como \textbf{divisor} el otro.
+    \item Realizamos divisiones sucesivas hasta que el resto sea 0.
+  \end{itemize}
+
+  \item Durante el proceso, generamos una tabla con los siguientes datos:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\
+\hline
+0 & f_2(x) & - & 0 & 1 \\
+1 & r_1(x) & q_1(x) & 1 & -q_1(x) \\
+2 & r_2(x) & q_2(x) & u_2(x) & v_2(x) \\
+\vdots & \vdots & \vdots & \vdots & \vdots \\
+n & 0 & q_n(x) & u_n(x) & v_n(x)
+\end{array}
+\]
+
+  \item El \textbf{último resto no nulo} \(r_{n-1}(x)\) es un \textbf{máximo común divisor} de \(f_1(x)\) y \(f_2(x)\).  
+  Para obtener el \textbf{mcd mónico}, multiplicamos por el inverso del coeficiente líder de \(r_{n-1}(x)\).
+
+  \item Los polinomios \(u(x)\) y \(v(x)\) de Bézout se obtienen directamente de la columna correspondiente en la tabla, de manera que
+  \[
+  \text{mcd}(f_1,f_2) = u(x) \cdot f_1(x) + v(x) \cdot f_2(x).
+  \]
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo de MCD y Coeficientes de Bézout en $\mathbb{Z}_{11}$]
+Sea 
+\[
+f_1(x) = x^3 + 4x^2 + 4x + 5, \quad f_2(x) = 5x^2 + 2x + 5 \in \mathbb{Z}_{11}[x].
+\]
+
+Queremos calcular \(\text{mcd}(f_1(x),f_2(x))\).
+
+Dividimos en \(\mathbb{Z}_{11}\):
+
+\[
+f_1(x)  / f_2(x) = -2x-5 \quad \text{resto } \boxed{2x-3}
+\]
+
+\[
+f_2(x) / (2x-3) = 8x-2 \quad \text{resto } 0
+\]
+
+La tabla de Euclides extendido queda:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\
+\hline
+0 & 5x^2+2x+5 & - & 0 & 1 \\
+1 & \boxed{2x-3} & -2x-5 & 1 & 2x+5
+\end{array}
+\]
+
+De la tabla, los coeficientes de Bézout son:
+
+\[
+f_1(x) \cdot (1) + f_2(x) \cdot (2x+5) = \boxed{2x-3}
+\]
+
+Para obtener el \textbf{MCD mónico}, multiplicamos por el inverso de 2 en \(\mathbb{Z}_{11}\), que es 6:
+
+\[
+f_1(x) \cdot (6) + f_2(x) \cdot (x+8) = x+4
+\]
+
+Por tanto:
+\[
+\text{mcd}(f_1(x), f_2(x)) = x+4
+\]
+
+Y 6 y \(x+8\) son unos \textbf{coeficientes de Bézout} para \(f_1(x)\) y \(f_2(x)\).
+\end{ejemplo}
+
+
+\section{Ecuaciones Diofánticas en \(\mathbb{K}[x]\)}
+
+\begin{procedimiento}[title=Resolución de ecuaciones diofánticas en \(\mathbb{K}\)]
+Sea \(\mathbb{K}\) un cuerpo y consideremos los polinomios \(a(x), b(x), c(x) \in \mathbb{K}[x]\).
+
+Queremos resolver la ecuación diofántica:
+\[
+a(x) \cdot \alpha(x) + b(x) \cdot \beta(x) = c(x).
+\]
+
+El procedimiento es el siguiente:
+
+\begin{enumerate}
+  \item \textbf{Comprobar existencia de soluciones:}  
+  La ecuación tiene solución si y solo si 
+  \[
+  \text{mcd}(a(x),b(x)) \mid c(x).
+  \]
+
+  \item \textbf{Calcular una solución particular:}  
+  Se aplica el \textbf{Algoritmo Extendido de Euclides} para \(a(x)\) y \(b(x)\) y se obtiene una solución particular
+  \((\alpha_0(x), \beta_0(x))\) que ya satisface
+  \[
+  a(x)\cdot\alpha_0(x) + b(x)\cdot\beta_0(x) = c(x).
+  \]
+
+  \item \textbf{Obtener la solución general:}  
+  La solución general se expresa como
+  \[
+  \alpha(x) = \alpha_0(x) + \frac{b(x)}{g(x)} \cdot k(x), \quad
+  \beta(x) = \beta_0(x) - \frac{a(x)}{g(x)} \cdot k(x),
+  \]
+  donde \(k(x) \in \mathbb{K}[x]\) es un polinomio arbitrario y \(g(x)\) es el mcd mónico de \(a(x)\) y \(b(x)\).
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title=Resolución de una ecuación diofántica en $\mathbb{Z}_5$]
+Sea
+\[
+a(x) = x^2+4x+3, \quad b(x) = x^2+2x+1, \quad c(x) = x^2+4 \in \mathbb{Z}_5[x].
+\]
+
+\textbf{Paso 1: Calcular el MCD de \(a(x)\) y \(b(x)\)}
+
+\[
+x^2+4x+3 / x^2+2x+1 = 1 \quad \text{resto } \boxed{2x+2}
+\]
+
+\[
+x^2+2x+1 / 2x+2 = -2x-2 \quad \text{resto } 0
+\]
+
+\[
+\text{mcd}(a(x),b(x)) = 2^{-1} \cdot \boxed{(2x+2)} = x+1
+\]
+
+\textbf{Paso 2: Comprobar divisibilidad por \(c(x)\)}
+
+\[
+x^2+4 / x+1 = x-1 \quad \text{resto } 0
+\]
+
+Por tanto \(x+1 \mid c(x)\), la ecuación tiene solución.
+
+\textbf{Paso 3: Simplificar la ecuación}
+
+\[
+\frac{a(x)}{x+1} = x+3, \quad \frac{b(x)}{x+1} = x+1, \quad \frac{c(x)}{x+1} = x+4
+\]
+
+Ecuación simplificada:
+\[
+(x+3)\cdot\alpha(x) + (x+1)\cdot\beta(x) = x+4
+\]
+
+\textbf{Paso 4: Aplicar Algoritmo Extendido de Euclides}
+
+\[
+x+3 / x+1 = 1 \quad \text{resto } \boxed{2}
+\]
+
+Tabla de Euclides extendido:
+
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\
+\hline
+0 & x+1 & - & 0 & 1 \\
+1 & \boxed{2} & 1 & 1 & -1
+\end{array}
+\]
+
+\[
+(x+3)\cdot (1) + (x+1)\cdot(-1) = \boxed{2}
+\]
+
+\[
+\text{mcd}(x+3,x+1) = 2^{-1} \cdot \boxed{2} = 1
+\]
+
+Multiplicamos toda la ecuación por \(2^{-1} = 3\) en \(\mathbb{Z}_5\):
+
+\[
+(x+3)\cdot (3) + (x+1)\cdot(-3) = 1
+\]
+
+Multiplicamos por \(x+4\) para ajustar a la ecuación original:
+
+\[
+(x+3)\cdot (3x-3) + (x+1)\cdot (-3x+3) = x+4
+\]
+
+\textbf{Paso 5: Solución particular}
+
+\[
+\alpha_0(x) = 3x-3 = 3x+2, \quad \beta_0(x) = -3x+3 = 2x+3
+\]
+
+\end{ejemplo}
+
+\begin{ejemplo}[title=Resolución de una ecuación diofántica en $\mathbb{Z}_5$]
+
+\textbf{Paso 6: Solución general}
+
+\[
+\alpha(x) = (3x+2) + (x+1) k(x), \quad
+\beta(x) = (2x+3) - (x+3) k(x), \quad k(x) \in \mathbb{Z}_5[x]
+\]
+
+Así, todas las soluciones de la ecuación diofántica están dadas por:
+
+\[
+\alpha(x) = 3x+2+(x+1)k(x), \quad
+\beta(x) = 2x+3+4(x+3)k(x), \quad k(x) \in \mathbb{Z}_5[x].
+\]
+\end{ejemplo}
+
+\section{MCM de Polinomios}
+
+\begin{procedimiento}[title=Mínimo común múltiplo de polinomios]
+Sea \(\mathbb{K}\) un cuerpo y consideremos polinomios \(f_1(x), f_2(x), \dots, f_n(x) \in \mathbb{K}[x]\).
+
+- El \textbf{mínimo común múltiplo} (MCM) de \(f_1(x), f_2(x), \dots, f_n(x)\) es el polinomio mónico de \(\mathbb{K}[x]\) de menor grado que es divisible por todos los polinomios \(f_i(x)\).
+
+\bigskip
+
+- Propiedad importante (para dos polinomios):
+\[
+f_1(x) \cdot f_2(x) \sim \text{mcd}(f_1(x),f_2(x)) \cdot \text{mcm}(f_1(x),f_2(x))
+\]
+\end{procedimiento}
+
+\section{Raíces y Multiplicidad de Polinomios}
+
+\begin{procedimiento}[title=Raíces y multiplicidad]
+Sea \(f(x) \in \mathbb{K}[x]\), donde \(\mathbb{K}\) es un cuerpo.
+
+\begin{enumerate}
+  \item \textbf{Teorema del resto:}  
+  Para dividir \(f(x)\) entre \((x-\alpha)\):
+  \[
+  f(x) = q(x)(x-\alpha) + f(\alpha)
+  \]
+  y podemos usar \textbf{Ruffini} para realizar la división.
+
+  \item \textbf{Raíz:}  
+  Un elemento \(\alpha \in \mathbb{K}' \subseteq \mathbb{K}\) es raíz de \(f(x)\) si
+  \[
+  f(\alpha) = 0 \quad \Longleftrightarrow \quad (x-\alpha) \mid f(x).
+  \]
+
+  \item \textbf{Multiplicidad:}  
+  La multiplicidad de una raíz \(\alpha\) es el mayor entero \(m \ge 1\) tal que
+  \[
+  (x-\alpha)^m \mid f(x).
+  \]
+
+  \item \textbf{Cálculo práctico:}  
+  \begin{enumerate}
+    \item Evaluamos \(f(\alpha)\) para encontrar una raíz \(\alpha\).
+    \item Aplicamos Ruffini sucesivas veces con \(x-\alpha\) hasta que el resto deje de ser cero.  
+          El número de veces que podemos dividir \(f(x)\) entre \(x-\alpha\) sin resto es la multiplicidad \(m\).
+    \item El polinomio resultante \(g(x)\) (ya sin la raíz \(\alpha\) repetida) se vuelve a evaluar para encontrar nuevas raíces y sus multiplicidades.
+    \item Repetimos el proceso hasta encontrar todas las raíces en \(\mathbb{K}[x]\).
+  \end{enumerate}
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title=Raíces y multiplicidades en $\mathbb{Z}_3$]
+Sea
+\[
+f(x) = x^4 + x^3 + 2x^2 + x + 1 \in \mathbb{Z}_3[x].
+\]
+
+\textbf{Paso 1: Evaluar posibles raíces}
+
+\[
+f(0) = 1 \neq 0 \quad\Rightarrow\quad 0 \text{ no es raíz}
+\]
+
+\[
+f(1) = 1+1+2+1+1 = 6 \equiv 0 \pmod{3} \quad\Rightarrow\quad \alpha=1 \text{ es raíz}
+\]
+
+\textbf{Paso 2: Comprobar multiplicidad con Ruffini}
+
+\[
+\begin{array}{r|rrrrr}
+  & 1 & 1 & 2 & 1 & 1 \\
+1 &   & 1 & 2 & 1 & 2 \\
+\hline
+  & 1 & 2 & 1 & 2 & \boxed{0} \\
+1 &   & 1 & 0 & 1 \\
+\hline
+  & 1 & 0 & 1  & \boxed{0} \\
+1 &   & 1 & 1 \\
+\hline
+  & 1 & 1 & 2
+\end{array}
+\]
+
+No se puede seguir dividiendo sin resto. Por tanto, la multiplicidad de \(\alpha=1\) es \(\boxed{2}\).
+
+\textbf{Paso 3: Polinomio resultante}
+
+\[
+f(x) = (x-1)^{\boxed{2}} \cdot (x^2 + 1)
+\]
+
+\textbf{Paso 4: Comprobar raíces de \(g(x) = x^2+1\) en $\mathbb{Z}_3$}
+
+\[
+g(0) = 1 \neq 0, \quad g(1) = 2 \neq 0, \quad g(2) = 2 \neq 0
+\]
+
+No hay más raíces en \(\mathbb{Z}_3\).
+
+\textbf{Conclusión:}  
+El polinomio \(f(x)\) tiene una raíz \(\alpha = 1\) con multiplicidad \(2\).
+\end{ejemplo}
+
+\section{Polinomios Irreducibles}
+
+\begin{procedimiento}[title=Polinomios irreducibles]
+Sea \(\mathbb{K}\) un cuerpo y \(f(x) \in \mathbb{K}[x]\).  
+
+- Un polinomio \(f(x)\) es \textbf{irreducible} si no puede factorizarse como producto de polinomios de grado menor en \(\mathbb{K}[x]\).  
+
+\medskip
+\textbf{Criterio según el grado:}
+\begin{itemize}
+  \item \textbf{Grado 1:} Todos los polinomios son irreducibles.
+  \item \textbf{Grado 2 o 3:} Irreducible si no tiene raíces en \(\mathbb{K}\).
+  \item \textbf{Grado 4 o más:} No siempre irreducible si no tiene raíces en \(\mathbb{K}\).
+\end{itemize}
+
+\medskip
+\textbf{Ejemplos de polinomios mónicos irreducibles:}
+
+\vspace{2mm}
+\begin{tabular}{c|l}
+\textbf{Grado} & \textbf{Polinomios mónicos irreducibles en \(\mathbb{Z}_2[x]\)} \\
+\hline
+1 & $x$, $x+1$ \\
+2 & $x^2+x+1$ \\
+3 & $x^3+x+1$, $x^3+x^2+1$
+\end{tabular}
+
+\vspace{2mm}
+
+\begin{tabular}{c|l}
+\textbf{Grado} & \textbf{Polinomios mónicos irreducibles en \(\mathbb{Z}_3[x]\)} \\
+\hline
+1 & $x$, $x+1$, $x+2$ \\
+2 & $x^2+1$, $x^2+x+2$, $x^2+2x+2$ \\
+\end{tabular}
+\end{procedimiento}
+
+\begin{procedimiento}[title=Procedimiento para factorizar un polinomio en \(\mathbb{K}\)]
+Sea \(f(x) \in \mathbb{K}[x]\). Para factorizarlo en producto de polinomios irreducibles:
+
+\begin{enumerate}
+  \item \textbf{Según el grado:}
+  \begin{itemize}
+    \item Si \(\deg(f) = 1\): es irreducible.
+    \item Si \(\deg(f) = 2\) o \(3\): es irreducible si no tiene raíces en \(\mathbb{K}\).
+    \item Si \(\deg(f) \ge 4\): continuar con el siguiente paso.
+  \end{itemize}
+
+  \item \textbf{Comprobación de raíces:}  
+  Evaluar \(f(a)\) para todos los \(a \in \mathbb{K}\).  
+  Cada raíz \(a\) encontrada da lugar a un factor \((x - a)\).  
+  Si no tiene raíces, no tiene factores de grado 1 ni de grado \(n-1\).
+
+  \item \textbf{Comprobación de factores de mayor grado:}  
+  Si no hay raíces, probar divisiones de \(f(x)\) entre los \textbf{polinomios mónicos irreducibles conocidos} (de las tablas) de grado 2, luego 3, etc.  
+  Si alguno divide exactamente, obtener el cociente y repetir el proceso con él.
+
+  \item \textbf{Finalización:}  
+  Continuar dividiendo hasta que todos los factores obtenidos sean irreducibles en \(\mathbb{K}[x]\).  
+  El resultado final será la factorización completa:
+  \[
+  f(x) = p_1(x) \, p_2(x) \, \cdots \, p_k(x)
+  \]
+  donde cada \(p_i(x)\) es irreducible.
+\end{enumerate}
+\end{procedimiento}
+
+
+\begin{ejemplo}[title=Ejemplo: Polinomio Irreducible]
+
+Comprobar si \( f(x) = x^6 + x^3 + 1 \) es irreducible en \(\mathbb{Z}_2[x]\).
+
+\medskip
+\textbf{1. Raíces (factores de grado 1):}
+
+Probamos si \(f(x)\) tiene raíces en \(\mathbb{Z}_2\):
+
+\[
+\begin{array}{lcl}
+f(0) &=& 1 \neq 0 \\
+f(1) &=& 1 + 1 + 1 = 3 \equiv 1 \neq 0
+\end{array}
+\]
+
+Por tanto, \(f(x)\) no tiene raíces en \(\mathbb{Z}_2\)  
+\(\Rightarrow\) \(f(x)\) no tiene factores de grado 1 ni de grado 5.
+
+\medskip
+\textbf{2. Factores de grado 2:}
+
+De la tabla de polinomios mónicos irreducibles en \(\mathbb{Z}_2[x]\), sólo tenemos:
+\[
+x^2 + x + 1
+\]
+
+Dividimos:
+\[
+x^6 + x^3 + 1 \; / \; (x^2 + x + 1) = x^4 + x^3 \quad \text{resto } \boxed{1}
+\]
+
+\(\Rightarrow\) No divide, luego \(f(x)\) no tiene factores de grado 2 ni de grado 4.
+
+\medskip
+\textbf{3. Factores de grado 3:}
+
+Polinomios mónicos irreducibles de grado 3 en \(\mathbb{Z}_2[x]\):
+\[
+x^3 + x + 1, \quad x^3 + x^2 + 1
+\]
+
+\[
+\begin{array}{lcl}
+x^6 + x^3 + 1 \; / \; (x^3 + x + 1) &=& x^3 + x \quad \text{resto } x^2 + x + 1 \\
+x^6 + x^3 + 1 \; / \; (x^3 + x^2 + 1) &=& x^3 + x^2 + x + 1 \quad \text{resto } x
+\end{array}
+\]
+
+En ambos casos el resto es distinto de 0, por tanto ninguno divide.
+
+\medskip
+\textbf{Conclusión:}
+\[
+f(x) \text{ no tiene factores de grado } 1, 2 \text{ ni } 3 \Rightarrow \boxed{f(x) \text{ es irreducible en } \mathbb{Z}_2[x].}
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo: Polinomio Reducible]
+
+Factorizar \( f(x) = x^5 + x^3 + x^2 + x + 1 \) en \(\mathbb{Z}_3[x]\) como producto de polinomios irreducibles.
+
+\medskip
+\textbf{1. Raíces (factores de grado 1):}
+
+Comprobamos si \(f(x)\) tiene raíces en \(\mathbb{Z}_3\):
+
+\[
+\begin{array}{lcl}
+f(0) &=& 1 \neq 0 \\
+f(1) &=& 1 + 1 + 1 + 1 + 1 = 5 \equiv 2 \neq 0 \\
+f(2) &=& 2^5 + 2^3 + 2^2 + 2 + 1 = 32 + 8 + 4 + 2 + 1 = 47 \equiv 2 \neq 0
+\end{array}
+\]
+
+Por tanto, \(f(x)\) no tiene raíces en \(\mathbb{Z}_3\)  
+\(\Rightarrow\) no tiene factores de grado 1 ni de grado 4.
+
+\medskip
+\textbf{2. Factores de grado 2:}
+
+Polinomios mónicos irreducibles de grado 2 en \(\mathbb{Z}_3[x]\):
+\[
+x^2 + 1,\quad x^2 + x + 2,\quad x^2 + 2x + 2
+\]
+
+Probamos dividir \(f(x)\) entre cada uno:
+
+\[
+\begin{array}{lcl}
+f(x) / (x^2 + 1) &=& x^3 + 1 \quad \text{resto } \boxed{x} \quad \Rightarrow \text{no divide} \\[4pt]
+f(x) / (x^2 + x + 2) &=& x^3 + 2x^2 \quad \text{resto } \boxed{x + 1} \quad \Rightarrow \text{no divide} \\[4pt]
+f(x) / (x^2 + 2x + 2) &=& x^3 + x^2 + 2 \quad \text{resto } \boxed{0} \quad \Rightarrow \text{sí divide}
+\end{array}
+\]
+
+Por tanto:
+\[
+f(x) = (x^2 + 2x + 2)(x^3 + x^2 + 2)
+\]
+
+\medskip
+\textbf{3. Comprobamos si $g(x) = x^3 + x^2 + 2$ es irreducible:}
+
+\[
+\begin{array}{lcl}
+g(0) &=& 2 \neq 0 \\
+g(1) &=& 1 + 1 + 2 = 4 \equiv 1 \neq 0 \\
+g(2) &=& 8 + 4 + 2 = 14 \equiv 2 \neq 0
+\end{array}
+\]
+
+\(\Rightarrow g(x)\) no tiene raíces en \(\mathbb{Z}_3\), por tanto es \textbf{irreducible}.
+
+\medskip
+\textbf{Conclusión:}
+\[
+\boxed{f(x) = (x^2 + 2x + 2)(x^3 + x^2 + 2)}
+\]
+donde ambos factores son irreducibles en \(\mathbb{Z}_3[x]\).
+\end{ejemplo}
+
+\begin{procedimiento}[title=Caso particular de factorización con exponente común en $\mathbb{Z}_p\text{[$x$]}$]
+Sea
+\[
+f(x)=a_n\,x^{n\cdot p}+a_{n-1}\,x^{(n-1)\cdot p}+\cdots + a_1\,x^{p}+a_0 \in \mathbb{Z}_p[x].
+\]
+\[
+\text{Entonces }
+f(x) = 
+(a_n\,x^{n}+a_{n-1}\,x^{n-1}+\cdots+a_1\,x+a_0)^p.
+\]
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo de reducción de exponentes]
+Sea
+\[
+f(x)=x^{42}+2x^{28}+3x^{21}+x^{14}+3x^{7}+2 \in \mathbb{Z}_7[x].
+\]
+\[
+\text{Entonces }
+f(x) = (
+x^{6}+2x^{4}+3x^{3}+x^{2}+3x+2)^7.
+\]
+\end{ejemplo}
+
+\section{Relación de Congruencia en \(\mathbb{K}[x]\)}
+
+\subsection{Propiedades}
+
+\begin{procedimiento}[title=Definición de congruencia módulo \(m(x)\)]
+Dados \(f(x), g(x) \in \mathbb{K}[x]\), se dice que \(f(x)\) es \textbf{congruente} con \(g(x)\) módulo \(m(x)\) si:
+\[
+f(x) \equiv g(x) \pmod{m(x)} \;\;\Longleftrightarrow\;\; m(x) \mid \big(f(x) - g(x)\big)
+\]
+
+De forma análoga, se dice que \(f(x)\) y \(g(x)\) \textbf{no son congruentes} módulo \(m(x)\) si:
+\[
+f(x) \not\equiv g(x) \pmod{m(x)} \;\;\Longleftrightarrow\;\; m(x) \nmid \big(f(x) - g(x)\big)
+\]
+
+Si \(r(x)\) es el resto de dividir \(f(x)\) entre \(m(x)\), entonces:
+\[
+f(x) \equiv r(x) \pmod{m(x)}
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title=Relación de equivalencia]
+La relación de congruencia módulo \(m(x)\) es una \textbf{relación de equivalencia} en \(\mathbb{K}[x]\), ya que cumple las siguientes propiedades:
+
+\begin{itemize}
+    \item \textbf{Reflexiva:} \(f(x) \equiv f(x) \pmod{m(x)}\)
+    \item \textbf{Simétrica:} si \(f(x) \equiv g(x) \pmod{m(x)}\), entonces \(g(x) \equiv f(x) \pmod{m(x)}\)
+    \item \textbf{Transitiva:} si \(f(x) \equiv g(x) \pmod{m(x)}\) y \(g(x) \equiv h(x) \pmod{m(x)}\), entonces \(f(x) \equiv h(x) \pmod{m(x)}\)
+\end{itemize}
+\end{procedimiento}
+
+\subsection{Clases de Equivalencia}
+
+\begin{procedimiento}[title=Definición de clase de equivalencia módulo \(m(x)\)]
+La \textbf{clase de equivalencia} de un polinomio \(f(x)\) módulo \(m(x)\) es el conjunto:
+\[
+[f(x)] = \{\, g(x) \in \mathbb{K}[x] \;|\; f(x) \equiv g(x) \pmod{m(x)} \,\}
+\]
+\end{procedimiento}
+
+\begin{procedimiento}[title=Conjunto cociente ]
+El \textbf{conjunto cociente} es el conjunto formado por todas las clases de equivalencia módulo \(m(x)\), y se denota por:
+\[
+\mathbb{K}[x]_{m(x)} = \{\, [f(x)] \;|\; f(x) \in \mathbb{K}[x] \,\}
+\]
+
+En \(\mathbb{K}[x]_{m(x)}\), las operaciones de suma y producto se definen mediante las clases:
+\[
+[f(x)] + [g(x)] = [\,f(x) + g(x)\,], \qquad [f(x)] \cdot [g(x)] = [\,f(x) \cdot g(x)\,].
+\]
+\end{procedimiento}
+
+
+\begin{ejemplo}
+\[
+\mathbb{Z}_2[x]_{x^3+x+1} = \{[0],[1],[x],[x+1],[x^2],[x^2+1],[x^2+x],[x^2+x+1]\}
+\]
+\end{ejemplo}
+
+\begin{procedimiento}[title=Cardinal del conjunto cociente]
+El número de elementos del conjunto cociente \(\mathbb{Z}_p[x]_{m(x)}\) viene dado por:
+\[
+\bigl|\mathbb{Z}_p[x]_{m(x)}\bigr| = p^{\operatorname{grado}(m(x))}.
+\]
+\end{procedimiento}
+
+\begin{ejemplo}
+Sea \(A = \mathbb{Z}_5[x]_{x^3+2x+1}\).  
+El número de elementos de \(A\) es:
+\[
+|A| = 5^3 = 125.
+\]
+Como \(x^3+2x+1\) es irreducible en \(\mathbb{Z}_5[x]\), \(A\) es un \textbf{cuerpo} de 125 elementos.
+\end{ejemplo}
+
+\subsubsection{Inverso de un polinomio en \(\mathbb{K}[x]_{m(x)}\)}
+
+\begin{procedimiento}[title=Inverso en \(\mathbb{K}\)]
+Un elemento \([f(x)] \in \mathbb{K}[x]_{m(x)}\) es \textbf{invertible} (o \textbf{unidad}) si y sólo si
+\[
+\operatorname{mcd}(f(x), m(x)) = 1.
+\]
+
+En tal caso, su inverso se obtiene mediante el \textbf{Algoritmo Extendido de Euclides}:
+\[
+[f(x)]^{-1} = [u(x)],
+\]
+donde \(u(x)\) es el coeficiente de Bézout correspondiente a \(f(x)\) en la combinación lineal
+\[
+f(x)\cdot u(x) + m(x)\cdot v(x) = 1.
+\]
+
+\textbf{Cuidado:} en la práctica, \([u(x)]\) se encuentra en la columna de \(v_i(x)\), ya que corresponde al polinomio \(f(x)\), que siempre será de menor grado que \(m(x)\).
+\end{procedimiento}
+
+
+\begin{ejemplo}
+Sea \(A = \mathbb{Z}_5[x]_{x^3+2x+1}\) y \(f(x) = 3x^2 + x + 4\).  
+¿Tiene \(f(x)\) inverso en \(A\)?
+
+\[
+x^3 + 2x + 1 \;/\; (3x^2 + x + 4) = 2x + 1 \quad \text{resto } 3x + 2
+\]
+\[
+3x^2 + x + 4 \;/\; (3x + 2) = x + 3 \quad \text{resto } \boxed{3}
+\]
+
+En polinomios, basta parar de dividir cuando el resto es 0 o una constante.  
+Por lo tanto, \(3\) es un mcd de \(f(x)\) y \(m(x)\).
+
+Para obtener el mcd mónico, multiplicamos dicho mcd por el inverso del coeficiente líder de \(f(x)\).  
+Como \(3^{-1} = 2\) en \(\mathbb{Z}_5\):
+\[
+3 \cdot 3^{-1} = 3 \cdot 2 = 1 = \operatorname{mcd}(f(x), m(x))
+\]
+Por lo tanto, \(f(x)\) tiene inverso en \(A\).
+
+\vspace{0.5em}
+\noindent\textbf{Algoritmo de Euclides Extendido:}
+\[
+\begin{array}{c|c|c|c|c}
+i & r_i(x) & q_i(x) & u_i(x) & v_i(x) \\ \hline
+0 & 3x^2 + x + 4 & - & 1 & 0 \\[4pt]
+1 & 3x + 2 & 2x + 1 & 1 & -2x-1 \\[4pt]
+2 & \boxed{3} & x + 3 & -x - 3 & 2x^2 + 2x + 4
+\end{array}
+\]
+
+De la última fila se obtiene:
+\[
+f(x)\,(2x^2 + 2x + 4) + m(x)\,(-x + 3) = \boxed{3}.
+\]
+
+Multiplicamos por \(3^{-1} = 2\) en \(\mathbb{Z}_5\):
+\[
+f(x)\,(4x^2 + 4x + 3) + m(x)\,(-2x - 1) = 1 = \operatorname{mcd}(f(x), m(x)).
+\]
+
+Por tanto:
+\[
+[f(x)]^{-1} = [4x^2 + 4x + 3].
+\]
+\end{ejemplo}
+
+\subsubsection{Cuerpos finitos mediante conjuntos cociente}
+
+\begin{procedimiento}[title=Determinación de cuándo \(\mathbb{K}\) es un cuerpo]
+El conjunto cociente \(\mathbb{K}[x]_{m(x)}\) es un \textbf{cuerpo} si y sólo si el polinomio \(m(x)\) es \textbf{irreducible} en \(\mathbb{K}[x]\).
+
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Comprobación de que \(A\) es un cuerpo]
+Sea \(A = \mathbb{Z}_5[x]_{x^3+2x+1}\). ¿Es un cuerpo?
+
+\vspace{0.5em}
+
+Comprobamos si \(m(x) = x^3 + 2x + 1\) es irreducible en \(\mathbb{Z}_5[x]\) verificando raíces en \(\mathbb{Z}_5\):
+
+\[
+\begin{aligned}
+m(0) &= 1 \neq 0, \\
+m(1) &= 1 + 2 + 1 = 4 \neq 0, \\
+m(2) &= 8 + 4 + 1 = 3 \neq 0, \\
+m(3) &= 27 + 6 + 1 = 4 \neq 0, \\
+m(4) &= 64 + 8 + 1 = 3 \neq 0.
+\end{aligned}
+\]
+
+Como \(m(x)\) no tiene raíces en \(\mathbb{Z}_5\), no tiene factores de grado 1, ni de grado 2.  
+Por lo tanto, \(m(x)\) es irreducible y \(A\) es un \textbf{cuerpo}.
+\end{ejemplo}
+
+\begin{procedimiento}[title=Cómo construir un cuerpo con \(m\) elementos]
+
+Para construir un cuerpo finito con \(m\) elementos, es necesario que \(m\) sea una \textbf{potencia de un primo}, ya que si no, no existe cuerpo con \(m\) elementos:
+
+\begin{enumerate}
+    \item Factorizamos \(m\) como potencia de un primo: \(m = p^n\).  
+    \item Buscamos un polinomio \(m(x)\) irreducible de grado \(n\) en \(\mathbb{Z}_p[x]\).  
+\end{enumerate}
+
+El conjunto cociente
+\[
+\mathbb{Z}_p[x]_{m(x)}
+\]
+resultante será un \textbf{cuerpo} de \(m = p^n\) elementos.
+
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Construcción de un cuerpo finito]
+Se pide construir un cuerpo con \(16\) elementos.
+
+\begin{enumerate}
+    \item Factorizamos \(16 = 2^4\). Tomamos \(p = 2\) y \(n = 4\).  
+    \item Buscamos un polinomio irreducible de grado \(4\) en \(\mathbb{Z}_2[x]\). Un ejemplo es:
+    \[
+    m(x) = x^4 + x + 1.
+    \]
+    Comprobamos que no tiene raíces en \(\mathbb{Z}_2\):
+    \[
+    m(0) = 1 \neq 0, \quad m(1) = 1 + 1 + 1 = 1 \neq 0.
+    \]
+    Como no tiene raíces (no tiene factores de grado \(1\)), tampoco tiene factores de grado \(3\).
+    
+    Entonces comprobamos que no es divisible entre ningún polinomio mónico irreducible de grado \(2\) en \(\mathbb{Z}_2\) y, efectivamente, \(m(x)\) es irreducible.
+\end{enumerate}
+
+Por lo tanto, el conjunto cociente
+\(
+\mathbb{Z}_2[x]_{x^4+x+1}
+\)
+es un \textbf{cuerpo} de \(16\) elementos.
+\end{ejemplo}
+
+\section{Ecuaciones en congruencia en \(\mathbb{K}[x]\)}
+
+\begin{procedimiento}[title=Resolución de ecuaciones en congruencia]
+Las ecuaciones en congruencia en \(\mathbb{K}[x]\) se resuelven de manera análoga a \(\mathbb{Z}\).  
+Dada una ecuación
+\[
+a(x) f(x) \equiv b(x) \pmod{m(x)},
+\]
+primero calculamos \(\operatorname{mcd}(a(x), m(x))\):
+\begin{itemize}
+    \item Si \(\operatorname{mcd}(a(x), m(x)) \nmid b(x)\), la ecuación no tiene solución.
+    \item Si \(\operatorname{mcd}(a(x), m(x)) \mid b(x)\), podemos simplificar dividiendo entre el mcd y resolver la ecuación reducida.
+\end{itemize}
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo 1: Sin solución]
+En \(\mathbb{Z}_2[x]\) resolvemos:
+\[
+x f(x) \equiv x+1 \pmod{x^2+x}.
+\]
+
+Calculamos el mcd:
+\[
+\operatorname{mcd}(x, x^2+x) = x.
+\]
+
+Comprobamos si divide al término independiente:
+\[
+x \nmid (x+1) \quad \Rightarrow \quad \text{no tiene solución.}
+\]
+\end{ejemplo}
+
+\begin{ejemplo}[title=Ejemplo 2: Con solución]
+En \(\mathbb{Z}_2[x]\) resolvemos:
+\[
+(x+1) f(x) \equiv x^2+1 \pmod{x^2+x}.
+\]
+
+Calculamos el mcd:
+\[
+\operatorname{mcd}(x+1, x^2+x) = x+1.
+\]
+
+Comprobamos divisibilidad:
+\[
+x+1 \mid x^2+1 \quad \Rightarrow \quad \text{sí tiene solución.}
+\]
+
+Dividimos la ecuación entre \(x+1\):
+\[
+f(x) \equiv \frac{x^2+1}{x+1} \equiv x+1 \pmod{x} \quad \Rightarrow \quad f(x) \equiv 1 \pmod{x}.
+\]
+
+Por tanto, la solución general es:
+\[
+f(x) = 1 + x k(x), \quad k(x) \in \mathbb{Z}_2[x].
+\]
+\end{ejemplo}
+
+\section{Ecuaciones de grado 1 en \(\mathbb{K}[x]_{m(x)}\)}
+
+\begin{procedimiento}[title=Resolución de ecuaciones de grado 1]
+Si tenemos una ecuación de la forma
+\[
+a(x)f(x) = b(x),
+\]
+el procedimiento es el siguiente:
+
+\begin{enumerate}
+    \item Comprobar si \(a(x)\) tiene inverso en \(\mathbb{K}[x]_{m(x)}\).  
+    \begin{itemize}
+        \item Si \(\operatorname{mcd}(a(x), m(x)) = 1\), multiplicamos por el inverso de \(a(x)\) y resolvemos normalmente.
+        \item Si \(\operatorname{mcd}(a(x), m(x)) \neq 1\), transformamos la ecuación a congruencia
+        \[
+        a(x) f(x) \equiv b(x) \pmod{m(x)}
+        \]
+        y verificamos si \(\operatorname{mcd}(a(x), m(x))\) divide a \(b(x)\). Si no, no hay solución; si sí, dividimos entre el mcd y continuamos.
+    \end{itemize}
+    \item Hallar la solución general \(f(x)\) como congruencia.  
+    \item Ajustar obligatoriamente la solución para que \(\deg(f(x)) < \deg(m(x))\).
+    
+    Obtenemos todos los valores de \(k(x)\) que hagan que la expresión en la que aparece tenga el mismo grado que \(f(x)\) y obtenemos cada solución de \(f(x)\) para cada valor de \(k(x)\).
+\end{enumerate}
+\end{procedimiento}
+
+\begin{ejemplo}[title=Ejemplo: Resolución de ecuación de grado 1]
+En \(\mathbb{Z}_2[x]_{x^3+x^2}\) resolver:
+\[
+x^2 f(x) \equiv x^2.
+\]
+
+\textbf{Paso 1:} Comprobamos si \(x^2\) tiene inverso:
+\[
+\operatorname{mcd}(x^2, x^3+x^2) = x^2 \neq 1 \quad \Rightarrow \text{no tiene inverso.}
+\]
+
+\textbf{Paso 2:} Transformamos a congruencia:
+\[
+x^2 f(x) \equiv x^2 \pmod{x^3+x^2}.
+\]
+
+\(\operatorname{mcd}(x^2, x^3+x^2) = x^2\) y \(x^2 \mid x^2 \) → tiene solución. Dividimos entre \(x^2\):
+\[
+f(x) \equiv 1 \pmod{x+1} \quad \Rightarrow \quad f(x) = 1 + (x+1) k(x), \quad k(x) \in \mathbb{Z}_2[x].
+\]
+
+\textbf{Paso 3:} Buscamos los \(f(x)\) cuyo grado es menor que el grado de \(m(x) = x^3+x^2\), es decir, \(\deg(f(x)) \le 2\).  
+Esto implica que \(\deg(k(x)) \le 1\), entonces los posibles valores son:
+\[
+k(x) = 0, 1, x, x+1.
+\]
+
+\textbf{Soluciones:}
+\[
+\begin{aligned}
+k(x) = 0 &\implies f(x) = 1, \\
+k(x) = 1 &\implies f(x) = x, \\
+k(x) = x &\implies f(x) = x^2 + x + 1, \\
+k(x) = x+1 &\implies f(x) = x^2.
+\end{aligned}
+\]
+\end{ejemplo}
+
+
+\end{document}
